@@ -1,0 +1,169 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const values = [
+  {
+    title: "Sisu",
+    description:
+      "Resilience, perseverance, and courage in the face of challenges—instilled in every learner.",
+  },
+  {
+    title: "Inclusivity",
+    description:
+      "A welcoming community where every child and family feels seen, supported, and empowered.",
+  },
+  {
+    title: "Social Responsibility",
+    description:
+      "Learners who care for their communities and contribute thoughtfully to the world around them.",
+  },
+];
+---
+
+<BaseLayout pageTitle={null}>
+  <article class="mission-page">
+    <section class="vision section" aria-labelledby="vision-heading">
+      <h1 id="vision-heading">Vision</h1>
+      <p>
+        To create an ecosystem that redefines expansion and growth in education
+        by prioritising horizontal growth through supporting units and placing a
+        holistic educational experience at the centre for students, teachers,
+        and parents.
+      </p>
+      <p>
+        By spearheading change within Pakistan’s educational landscape, EWPL
+        reimagines expansion as the sustainable utilisation of its spaces to
+        launch educational and community enrichment programmes, ensuring a
+        holistic experience for all stakeholders.
+      </p>
+    </section>
+
+    <section class="mission section" aria-labelledby="mission-heading">
+      <h2 id="mission-heading">Mission</h2>
+      <p>
+        EWPL pursues improved educational standards while advancing
+        community-wide change through action research. With a commitment to
+        continuous improvement, every programme is designed to promote genuine
+        learning and create a meaningful, lasting impact for everyone involved.
+      </p>
+    </section>
+
+    <section class="values section" aria-labelledby="values-heading">
+      <h2 id="values-heading">Values</h2>
+      <div class="values-grid">
+        {
+          values.map((value) => (
+            <article class="value-card" aria-label={`${value.title} value`}>
+              <div
+                class="value-media"
+                role="img"
+                aria-label={`${value.title} illustration placeholder`}
+              />
+              <h3>{value.title}</h3>
+              <p>{value.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  :root {
+    --heading-color: #0db29b;
+    --body-text: #214244;
+    --muted-text: #5f7576;
+    --yellow: #f6c65b;
+  }
+
+  .mission-page {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding: 0 0 3rem;
+  }
+
+  .section {
+    text-align: center;
+    color: var(--body-text);
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fef7e2;
+    border-radius: 24px;
+    padding: 2.5rem 2rem;
+    /* box-shadow: 0 14px 28px rgba(0, 0, 0, 0.08); */
+  }
+
+  .section h1,
+  .section h2 {
+    color: var(--heading-color);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .section h1 {
+    font-size: clamp(2.1rem, 3vw, 2.8rem);
+  }
+  .section h2 {
+    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+  }
+
+  .section p {
+    margin: 0 0 1rem;
+    line-height: 1.7;
+    color: var(--muted-text);
+    font-size: 1.05rem;
+  }
+
+  .values-grid {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 2rem;
+    justify-content: center;
+  }
+
+  .values {
+    max-width: 1000px;
+    width: 100%;
+  }
+
+  .value-card {
+    flex: 0 0 280px;
+  }
+
+  .value-media {
+    width: 100%;
+    height: 160px;
+    background: var(--yellow);
+    border-radius: 16px;
+  }
+
+  .value-card h3 {
+    margin: 0;
+    color: var(--heading-color);
+    font-size: 1.2rem;
+  }
+
+  .value-card p {
+    margin: 0;
+    text-align: center;
+    color: var(--muted-text);
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 720px) {
+    .section {
+      padding: 2rem 1.5rem;
+    }
+    .values-grid {
+      flex-direction: column;
+      align-items: center;
+    }
+    .value-card {
+      width: 100%;
+      max-width: 320px;
+    }
+  }
+</style>
