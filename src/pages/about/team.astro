@@ -1,0 +1,87 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import TeamSection from "../../components/TeamSection.astro";
+
+const directors = [
+  {
+    name: "Nasira Faiz",
+    bio: "Founder of Beginner's Montessori and co-creator of EWPL, Nasira brings four decades of Montessori leadership to the Kiva community. She pairs Montessori best practices with a focus on kindness, curiosity, and personalised pathways for young learners.",
+  },
+  {
+    name: "Rabeea Minai",
+    bio: "Rabeea heads the Seniors Involve Program (SIP) and leads community engagement efforts. Her work connects generations through active, intergenerational projects that celebrate lifelong learning.",
+  },
+  {
+    name: "Saba Qadir",
+    bio: "With more than twenty years in early years education, Saba has mentored educators across Pakistan. She guides curriculum design and educator development, ensuring every classroom is warm, inclusive, and intentional.",
+  },
+  {
+    name: "Muzaffar Bukhari",
+    bio: "Muzaffar partners with EWPL to grow Kiva School’s play-based learning approach. His experience founding Veritas Learning Circle helps bridge holistic academics with meaningful community partnerships.",
+  },
+];
+
+const teamMembers = [
+  {
+    name: "Samreen Jawaid",
+    bio: "Samreen is a specialist in early childhood education with 20+ years of experience. She mentors teachers on observation-led lesson design and supports families as children transition into primary grades.",
+  },
+  {
+    name: "Bushra Umair",
+    bio: "Bushra leads community enrichment programmes, collaborating with local partners to design joyful, hands-on learning experiences that extend beyond the classroom.",
+  },
+  {
+    name: "Hiba Abdul Razzaq",
+    bio: "Hiba focuses on programme operations and family partnerships. She keeps our learning environments running smoothly and ensures each Kiva family stays connected to the school’s mission.",
+  },
+];
+---
+
+<BaseLayout pageTitle="Meet the Team">
+  <article class="team-page">
+    <header class="team-header" aria-labelledby="team-heading">
+      <h1 id="team-heading">Meet the People of Kiva</h1>
+      <p>
+        A collective of educators, programme leads, and community builders who nurture curiosity,
+        celebrate individuality, and keep our values alive every day.
+      </p>
+    </header>
+
+    <TeamSection title="Meet the Directors" members={directors} />
+    <TeamSection title="Meet the Team" members={teamMembers} />
+  </article>
+</BaseLayout>
+
+<style>
+  .team-page {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .team-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+    color: #214244;
+  }
+
+  .team-header h1 {
+    margin-bottom: 0.75rem;
+    font-size: clamp(2.1rem, 3vw, 2.8rem);
+    letter-spacing: 1.5px;
+  }
+
+  .team-header p {
+    margin: 0;
+    color: #5f7576;
+    line-height: 1.6;
+  }
+
+  @media (max-width: 720px) {
+    .team-page {
+      gap: 2.5rem;
+    }
+  }
+</style>
