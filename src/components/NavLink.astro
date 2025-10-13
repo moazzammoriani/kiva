@@ -1,0 +1,41 @@
+---
+const { link, text } = Astro.props as { link: string; text: string };
+const path = Astro.url.pathname;
+const active = link === "/" ? path === "/" : path.startsWith(link);
+---
+
+<a
+  href={link}
+  class={`navlink${active ? " active" : ""}`}
+  aria-current={active ? "page" : undefined}
+>
+  {text}
+</a>
+
+<style>
+  :root {
+    --teal: #0db29b;
+    --text: #214244;
+  }
+
+  .navlink {
+    display: inline-block;
+    padding: 0.2rem 0.5rem;
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--text);
+    line-height: 1;
+    font-size: 0.95rem;
+    white-space: nowrap;
+    transition:
+      background-color 120ms ease,
+      color 120ms ease;
+  }
+  .navlink:hover {
+    background: var(--teal);
+  }
+  .navlink.active {
+    background: var(--teal);
+    color: black;
+  }
+</style>

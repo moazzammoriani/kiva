@@ -1,26 +1,23 @@
+---
+import NavLink from "./NavLink.astro";
+---
+
 <style>
-nav {
-  display: flex;
-  margin: 0 auto;
-  width: 700px;
-  justify-content: space-evenly;
-}
-
-nav a {
-  display: block;
-}
-
-nav a {
-  background-color: violet;
-}
+  nav {
+    display: flex;
+    margin: 0 auto;
+    width: 700px;
+    justify-content: space-evenly;
+    padding: 10px;
+  }
 </style>
 
 <nav>
-  <a href="/">Home</a>
-  <a href="/about/">About</a>
-  <a href="/programmes/">Programmes</a>
-  <a href="/admission/">Admission</a>
-  <a href="/careers/">Kiva Square</a>
-  <a href="/contact/">Contact Us</a>
-  <a href="/community/">Community<br> Enrichment</a>
+  <NavLink link="/" text="Home" />
+  <NavLink link="/about/" text="About" />
+  <NavLink link="/programmes/" text="Programmes" />
+  <NavLink link="/admission/" text="Admission" />
+  <NavLink link="/careers/" text="Kiva Square" />
+  <NavLink link="/contact/" text="Contact Us" />
+  <NavLink link="/community/" text="Community Enrichment" />
 </nav>
