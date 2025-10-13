@@ -1,0 +1,175 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import StoryTimelineItem from "../../components/StoryTimelineItem.astro";
+
+const timeline = [
+  {
+    year: "1983",
+    text: `Began with three Montessori-trained friends who came together as founders of the Beginner's Montessori, a visionary institution registered with the Pakistan Montessori Association. The space defied convention and centred every child's potential as its core value, serving as a place where learning flowed naturally and each child was cherished and nurtured to grow at their own rhythm.`,
+  },
+  {
+    year: "1989-1990",
+    text: `Taking over the management of a prestigious Montessori centre by Mrs Gool K. Minwalla, the school merged with Beginner's Montessori to form the AMI School.`,
+  },
+  {
+    year: "2001",
+    text: `AMI gradually expands into becoming an IGCSE institution, levelling up year by year.`,
+  },
+  {
+    year: "2006-2007",
+    text: `The first cohort of students sat for their O-level examinations.`,
+  },
+  {
+    year: "2011",
+    text: `Establishment of Education Works Pvt. Ltd., which soon became the driving force behind the school's growth with the launch of AMI Daycare and Learning Centre (ADLC), marking a turn towards prioritising early childhood development.`,
+  },
+  {
+    year: "2018",
+    text: `Committed to fostering community connections, the Seniors' Involvement Program (SIP) launched, focusing on active engagement and ageing for senior citizens in a supportive, empowering environment.`,
+  },
+  {
+    year: "2021",
+    text: `Muzaffar Bukhari of Veritas Learning Circle joins EWPL as a partner, bringing a fresh perspective and vision to the organisation. That same year, Kiva School came into being with a new spin on AMI's preschool, embracing Finnish play-based learning to encourage curiosity and a lifelong love of learning.`,
+  },
+  {
+    year: "2023",
+    text: `Dedicated to early childhood development and intervention, Paar—a transformative life-readiness program for children with special educational needs—became EWPL's most recent endeavour.`,
+  },
+];
+
+const highlights = [
+  { title: "Research Paper" },
+  { title: "Partnership with Kiran Foundation" },
+  { title: "Community Outreach" },
+];
+---
+
+<BaseLayout pageTitle="Our Story">
+  <article class="story-page">
+    <header class="story-header" aria-labelledby="story-heading">
+      <h1 id="story-heading">Our Story</h1>
+      <p>
+        A journey rooted in Montessori values, community partnerships, and a play-based approach that
+        keeps curiosity at the heart of every classroom.
+      </p>
+    </header>
+
+    <section class="timeline" aria-label="Kiva School timeline">
+      <div class="timeline-inner">
+        {timeline.map((entry) => (
+          <StoryTimelineItem year={entry.year}>
+            <p>{entry.text}</p>
+          </StoryTimelineItem>
+        ))}
+      </div>
+    </section>
+
+    <section class="highlights" aria-labelledby="highlights-heading">
+      <h2 id="highlights-heading">Highlights</h2>
+      <p class="highlights-copy">
+        Peek into milestone moments. Detailed features and media will appear here soon.
+      </p>
+      <div class="highlight-placeholders">
+        {highlights.map((item) => (
+          <div
+            class="highlight-card"
+            role="img"
+            aria-label={`${item.title} highlight placeholder`}
+          >
+            <span>{item.title}</span>
+          </div>
+        ))}
+      </div>
+    </section>
+  </article>
+</BaseLayout>
+
+<style>
+  :root {
+    --warm-yellow: #f6c65b;
+    --accent-orange: #f2793d;
+    --deep-teal: #0db29b;
+    --body-text: #214244;
+    --muted-text: #5f7576;
+  }
+
+  .story-page {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .story-header {
+    text-align: center;
+    max-width: 720px;
+    margin: 0 auto;
+    color: var(--body-text);
+  }
+  .story-header h1 {
+    font-size: clamp(2.2rem, 3.5vw, 3rem);
+    margin-bottom: 0.75rem;
+    letter-spacing: 1.5px;
+  }
+  .story-header p {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--muted-text);
+    line-height: 1.6;
+  }
+
+  .timeline {
+    background: var(--warm-yellow);
+    padding: 3rem 1.5rem;
+    border-radius: 24px;
+  }
+
+  .timeline-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 2.25rem;
+  }
+
+  .highlights {
+    text-align: center;
+  }
+  .highlights h2 {
+    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+    color: var(--deep-teal);
+    letter-spacing: 1.5px;
+    margin-bottom: 0.75rem;
+    text-transform: uppercase;
+  }
+  .highlights-copy {
+    max-width: 560px;
+    margin: 0 auto 2rem;
+    color: var(--muted-text);
+  }
+
+  .highlight-placeholders {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .highlight-card {
+    background: var(--warm-yellow);
+    border-radius: 20px;
+    padding: 3rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    color: var(--body-text);
+    min-height: 220px;
+  }
+
+  @media (max-width: 720px) {
+    .timeline {
+      padding: 2.5rem 1.25rem;
+    }
+    .story-page {
+      gap: 2.5rem;
+    }
+  }
+</style>

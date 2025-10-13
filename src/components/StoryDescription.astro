@@ -1,0 +1,24 @@
+---
+const { children } = Astro.slots;
+---
+
+<div class="story-description">
+  <slot />
+</div>
+
+<style>
+  .story-description {
+    background: #f2793d;
+    color: #ffffff;
+    padding: 1.25rem 1.5rem;
+    border-radius: 18px;
+    text-align: left;
+    line-height: 1.6;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  }
+
+  .story-description :global(p) {
+    margin: 0;
+  }
+</style>
