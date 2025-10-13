@@ -46,39 +46,46 @@ const highlights = [
 
 <BaseLayout pageTitle="Our Story">
   <article class="story-page">
-    <header class="story-header" aria-labelledby="story-heading">
-      <h1 id="story-heading">Our Story</h1>
-      <p>
-        A journey rooted in Montessori values, community partnerships, and a play-based approach that
-        keeps curiosity at the heart of every classroom.
-      </p>
-    </header>
+    <header class="story-header" aria-labelledby="story-heading"></header>
 
     <section class="timeline" aria-label="Kiva School timeline">
+      <div>
+        <h1 id="story-heading">Our Story</h1>
+        <p>
+          A journey rooted in Montessori values, community partnerships, and a
+          play-based approach that keeps curiosity at the heart of every
+          classroom.
+        </p>
+      </div>
       <div class="timeline-inner">
-        {timeline.map((entry) => (
-          <StoryTimelineItem year={entry.year}>
-            <p>{entry.text}</p>
-          </StoryTimelineItem>
-        ))}
+        {
+          timeline.map((entry) => (
+            <StoryTimelineItem year={entry.year}>
+              <p>{entry.text}</p>
+            </StoryTimelineItem>
+          ))
+        }
       </div>
     </section>
 
     <section class="highlights" aria-labelledby="highlights-heading">
       <h2 id="highlights-heading">Highlights</h2>
       <p class="highlights-copy">
-        Peek into milestone moments. Detailed features and media will appear here soon.
+        Peek into milestone moments. Detailed features and media will appear
+        here soon.
       </p>
       <div class="highlight-placeholders">
-        {highlights.map((item) => (
-          <div
-            class="highlight-card"
-            role="img"
-            aria-label={`${item.title} highlight placeholder`}
-          >
-            <span>{item.title}</span>
-          </div>
-        ))}
+        {
+          highlights.map((item) => (
+            <div
+              class="highlight-card"
+              role="img"
+              aria-label={`${item.title} highlight placeholder`}
+            >
+              <span>{item.title}</span>
+            </div>
+          ))
+        }
       </div>
     </section>
   </article>
@@ -96,7 +103,7 @@ const highlights = [
   .story-page {
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    /* gap: 3rem; */
     padding-bottom: 3rem;
   }
 
@@ -121,7 +128,7 @@ const highlights = [
   .timeline {
     background: var(--warm-yellow);
     padding: 3rem 1.5rem;
-    border-radius: 24px;
+    /* border-radius: 24px; */
   }
 
   .timeline-inner {

@@ -27,12 +27,12 @@ main {
 
 .banner {
   margin: 0;
-  padding: 1.5rem 0;
+  /* padding: 1.5rem 0; */
 }
 
 .banner img {
   width: 100%;
-  height: clamp(200px, 18vw, 420px);
+  height: clamp(200px, 20vw, 420px);
   object-fit: cover;
   display: block;
 }
