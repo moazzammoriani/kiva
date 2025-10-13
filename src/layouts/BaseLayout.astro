@@ -1,6 +1,7 @@
 ---
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
+import heroImage from "../assets/high-angle-child-woman-painting.jpg";
 const { pageTitle } = Astro.props;
 import "../styles/global.css";
 ---
@@ -15,8 +16,16 @@ import "../styles/global.css";
   <body>
     <div class="wrapper">
       <Navigation />
+      <div class="banner" role="presentation">
+        <img
+          src={heroImage.src}
+          width={heroImage.width}
+          height={heroImage.height}
+          alt="Children exploring paint materials at Kiva School"
+          loading="eager"
+        />
+      </div>
       <main>
-        <h1>{pageTitle}</h1>
         <slot />
       </main>
       <Footer />
