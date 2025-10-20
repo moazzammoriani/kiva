@@ -1,12 +1,14 @@
 ---
 const { link, text } = Astro.props as { link: string; text: string };
-const base = import.meta.env.BASE_URL;
+
+const rawBase = import.meta.env.BASE_URL || "/";
+const trimmedBase = rawBase.replace(/\/$/, "");
 
 const resolveHref = (href: string) => {
-  if (href === "/") return base;
-  const origin = base === "/" ? "http://example.com/" : `http://example.com${base}`;
-  const sanitized = href.replace(/^\//, "");
-  return new URL(sanitized, origin).pathname;
+  const clean = href.startsWith("/") ? href : `/${href}`;
+  if (trimmedBase === "") return clean;
+  if (clean === "/") return `${trimmedBase}/`;
+  return `${trimmedBase}${clean}`;
 };
 
 const resolvedLink = resolveHref(link);
@@ -14,7 +16,7 @@ const resolvedLink = resolveHref(link);
 const normalize = (value: string) => (value.endsWith("/") ? value : `${value}/`);
 const currentPath = normalize(Astro.url.pathname);
 const activeLink = normalize(resolvedLink);
-const baseNormalized = normalize(base);
+const baseNormalized = normalize(trimmedBase || "/");
 
 const active =
   currentPath === activeLink ||
