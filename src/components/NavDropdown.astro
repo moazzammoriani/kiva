@@ -7,6 +7,14 @@ const { baseLink, label, items } = Astro.props as {
   label: string;
   items: Item[];
 };
+const base = import.meta.env.BASE_URL;
+
+const resolveHref = (href: string) => {
+  if (href === "/") return base;
+  const origin = base === "/" ? "http://example.com/" : `http://example.com${base}`;
+  const sanitized = href.replace(/^\//, "");
+  return new URL(sanitized, origin).pathname;
+};
 ---
 
 <div class="nav-dropdown">
@@ -15,7 +23,7 @@ const { baseLink, label, items } = Astro.props as {
     {
       items.map((i) => (
         <li role="none">
-          <a class="menu-link" role="menuitem" href={i.href}>
+          <a class="menu-link" role="menuitem" href={resolveHref(i.href)}>
             {i.text}
           </a>
         </li>
@@ -86,7 +94,7 @@ const { baseLink, label, items } = Astro.props as {
     .menu-link:hover,
     .menu-link:focus {
       background: var(--teal);
-      color: white,
+      color: white;
       outline: none;
     }
   </style>

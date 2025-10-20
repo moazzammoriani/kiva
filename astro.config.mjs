@@ -6,6 +6,6 @@ export default defineConfig({
   devToolbar: {
     enabled: false,
   },
-  site: "https://moazzammoriani.github.io",
-  base: '/kiva'
+  site: "https://moazzammoriani.github.io/kiva/",
+  base: "/kiva/",
 });

@@ -1,11 +1,28 @@
 ---
 const { link, text } = Astro.props as { link: string; text: string };
-const path = Astro.url.pathname;
-const active = link === "/" ? path === "/" : path.startsWith(link);
+const base = import.meta.env.BASE_URL;
+
+const resolveHref = (href: string) => {
+  if (href === "/") return base;
+  const origin = base === "/" ? "http://example.com/" : `http://example.com${base}`;
+  const sanitized = href.replace(/^\//, "");
+  return new URL(sanitized, origin).pathname;
+};
+
+const resolvedLink = resolveHref(link);
+
+const normalize = (value: string) => (value.endsWith("/") ? value : `${value}/`);
+const currentPath = normalize(Astro.url.pathname);
+const activeLink = normalize(resolvedLink);
+const baseNormalized = normalize(base);
+
+const active =
+  currentPath === activeLink ||
+  (activeLink !== baseNormalized && currentPath.startsWith(activeLink));
 ---
 
 <a
-  href={link}
+  href={resolvedLink}
   class={`navlink${active ? " active" : ""}`}
   aria-current={active ? "page" : undefined}
 >
