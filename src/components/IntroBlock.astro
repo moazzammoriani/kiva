@@ -1,0 +1,42 @@
+---
+const {
+  icon,
+  heading,
+  tagline,
+  headingLevel = 1,
+  align = "center",
+} = Astro.props as {
+  icon?: string;
+  heading?: string;
+  tagline?: string;
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+  align?: "center" | "left";
+};
+
+const tag = `h${headingLevel}`;
+const alignClass = align === "left" ? "intro-block--left" : "";
+---
+
+<div class={`intro-block ${alignClass}`.trim()}>
+  {icon && <div class="intro-block__icon" aria-hidden="true">{icon}</div>}
+  {heading && (
+    <component is={tag} class="intro-block__heading">
+      {heading}
+    </component>
+  )}
+  {tagline && <p class="intro-block__tagline">{tagline}</p>}
+  <div class="intro-block__copy">
+    <slot />
+  </div>
+</div>
+
+<style>
+  .intro-block--left {
+    align-items: flex-start;
+    text-align: left;
+  }
+
+  .intro-block__copy > :where(:first-child) {
+    margin-top: 0;
+  }
+</style>

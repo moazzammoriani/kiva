@@ -1,12 +1,11 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import heroImage from "../../assets/Banner_preschool.png";
+import heroImage from "../../assets/Banner_KivaKamp.png";
 import PageSection from "../../components/PageSection.astro";
-import Accordion from "../../components/Accordion.astro";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-  <PageSection title="Pre-School" headingLevel={1}>
+  <PageSection title="Middle & Senior School" headingLevel={1}>
     <div class="stack-lg">
       <p>
         Launched in 2021, Kiva School came into being after Muzaffar Bukhari of Veritas Learning
@@ -19,16 +18,6 @@ import Accordion from "../../components/Accordion.astro";
         educational philosophy, Kiva embodies values of kindness and social responsibility that
         encourage personal growth at each child’s own pace.
       </p>
-    </div>
-  </PageSection>
-
-  <PageSection title="FAQs">
-    <div class="stack-lg">
-      <Accordion title="What is the Early Years Foundation Stage (EYFS)?" content="stuffasdfffffffffffffffffffffffff" />
-      <Accordion title="Question 2" content="stuff" />
-      <Accordion title="Question 3" content="stuff" />
-      <Accordion title="Question 4" content="stuff" />
-      <Accordion title="Question 5" content="stuff" />
     </div>
   </PageSection>
 </BaseLayout>

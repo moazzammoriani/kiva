@@ -1,0 +1,71 @@
+---
+const {
+  id,
+  title,
+  description,
+  eyebrow,
+  align = "center",
+  variant = "plain",
+  headingLevel = 2,
+  className = "",
+} = Astro.props as {
+  id?: string;
+  title?: string;
+  description?: string;
+  eyebrow?: string;
+  align?: "center" | "left";
+  variant?: "plain" | "panel" | "accent";
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
+  className?: string;
+};
+
+const tag = `h${headingLevel}`;
+const variantClass =
+  variant === "panel"
+    ? "page-section--panel"
+    : variant === "accent"
+      ? "page-section--accent"
+      : "";
+
+const classes = [
+  "page-section",
+  `page-section--align-${align}`,
+  variantClass,
+  className,
+]
+  .filter(Boolean)
+  .join(" ");
+---
+
+<section id={id} class={classes}>
+  {
+    (eyebrow || title || description) && (
+      <div class="page-section__header">
+        {eyebrow && <p class="page-section__eyebrow">{eyebrow}</p>}
+        {title && (
+          <component is={tag} class="page-section__title">
+            {title}
+          </component>
+        )}
+        {description && <p class="page-section__description">{description}</p>}
+      </div>
+    )
+  }
+  <div class="page-section__body">
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-section__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: inherit;
+    text-align: inherit;
+  }
+
+  .page-section__body > :where(:first-child) {
+    margin-top: 0;
+  }
+</style>

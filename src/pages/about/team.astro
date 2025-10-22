@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TeamSection from "../../components/TeamSection.astro";
+import PageSection from "../../components/PageSection.astro";
 import heroImage from "../../assets/high-angle-child-woman-painting.jpg";
 
 const directors = [
@@ -39,50 +40,8 @@ const teamMembers = [
 ---
 
 <BaseLayout pageTitle="Meet the Team" heroSrc={heroImage.src}>
-  <article class="team-page">
-    <header class="team-header" aria-labelledby="team-heading">
-      <h1 id="team-heading">Meet the People of Kiva</h1>
-      <p>
-        A collective of educators, programme leads, and community builders who nurture curiosity,
-        celebrate individuality, and keep our values alive every day.
-      </p>
-    </header>
+  <PageSection title="Meet the People of Kiva" headingLevel={1} description="A collective of educators, programme leads, and community builders who nurture curiosity, celebrate individuality, and keep our values alive every day." />
 
-    <TeamSection title="Meet the Directors" members={directors} />
-    <TeamSection title="Meet the Team" members={teamMembers} />
-  </article>
+  <TeamSection title="Meet the Directors" members={directors} />
+  <TeamSection title="Meet the Team" members={teamMembers} />
 </BaseLayout>
-
-<style>
-  .team-page {
-    display: flex;
-    flex-direction: column;
-    gap: 3rem;
-    padding-bottom: 3rem;
-  }
-
-  .team-header {
-    text-align: center;
-    max-width: 720px;
-    margin: 0 auto;
-    color: #214244;
-  }
-
-  .team-header h1 {
-    margin-bottom: 0.75rem;
-    font-size: clamp(2.1rem, 3vw, 2.8rem);
-    letter-spacing: 1.5px;
-  }
-
-  .team-header p {
-    margin: 0;
-    color: #5f7576;
-    line-height: 1.6;
-  }
-
-  @media (max-width: 720px) {
-    .team-page {
-      gap: 2.5rem;
-    }
-  }
-</style>

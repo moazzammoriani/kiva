@@ -1,5 +1,6 @@
 ---
 import TeamMemberCard from "./TeamMemberCard.astro";
+import PageSection from "./PageSection.astro";
 
 type Member = {
   name: string;
@@ -11,42 +12,12 @@ const { title, members } = Astro.props as {
   title: string;
   members: Member[];
 };
-
-const sectionId = title
-  .toLowerCase()
-  .replace(/[^a-z0-9\s-]/g, "")
-  .trim()
-  .replace(/\s+/g, "-");
 ---
 
-<section class="team-section" aria-labelledby={sectionId}>
-  <h2 id={sectionId}>{title}</h2>
-  <div class="team-list">
+<PageSection title={title}>
+  <div class="stack-lg">
     {members.map((member) => (
       <TeamMemberCard {...member} />
     ))}
   </div>
-</section>
-
-<style>
-  .team-section {
-    display: flex;
-    flex-direction: column;
-    gap: 1.75rem;
-  }
-
-  .team-section h2 {
-    margin: 0;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
-    color: #0db29b;
-    text-align: center;
-  }
-
-  .team-list {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-</style>
+</PageSection>

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StoryTimelineItem from "../../components/StoryTimelineItem.astro";
+import PageSection from "../../components/PageSection.astro";
 import heroImage from "../../assets/high-angle-child-woman-painting.jpg";
 
 const timeline = [
@@ -46,138 +47,32 @@ const highlights = [
 ---
 
 <BaseLayout pageTitle="Our Story" heroSrc={heroImage.src}>
-  <article class="story-page">
-    <header class="story-header" aria-labelledby="story-heading"></header>
+  <PageSection
+    title="Our Story"
+    description="A journey rooted in Montessori values, community partnerships, and a play-based approach that keeps curiosity at the heart of every classroom."
+    headingLevel={1}
+    align="left"
+    variant="accent"
+  >
+    <div class="stack-lg">
+      {timeline.map((entry) => (
+        <StoryTimelineItem year={entry.year}>
+          <p>{entry.text}</p>
+        </StoryTimelineItem>
+      ))}
+    </div>
+  </PageSection>
 
-    <section class="timeline" aria-label="Kiva School timeline">
-      <div>
-        <h1 id="story-heading">Our Story</h1>
-        <p>
-          A journey rooted in Montessori values, community partnerships, and a
-          play-based approach that keeps curiosity at the heart of every
-          classroom.
-        </p>
-      </div>
-      <div class="timeline-inner">
-        {
-          timeline.map((entry) => (
-            <StoryTimelineItem year={entry.year}>
-              <p>{entry.text}</p>
-            </StoryTimelineItem>
-          ))
-        }
-      </div>
-    </section>
-
-    <section class="highlights" aria-labelledby="highlights-heading">
-      <h2 id="highlights-heading">Highlights</h2>
-      <p class="highlights-copy">
-        Peek into milestone moments. Detailed features and media will appear
-        here soon.
-      </p>
-      <div class="highlight-placeholders">
-        {
-          highlights.map((item) => (
-            <div
-              class="highlight-card"
-              role="img"
-              aria-label={`${item.title} highlight placeholder`}
-            >
-              <span>{item.title}</span>
-            </div>
-          ))
-        }
-      </div>
-    </section>
-  </article>
+  <PageSection
+    title="Highlights"
+    description="Peek into milestone moments. Detailed features and media will appear here soon."
+  >
+    <div class="grid-responsive">
+      {highlights.map((item) => (
+        <div class="placeholder-card" role="img" aria-label={`${item.title} highlight placeholder`}>
+          <span>{item.title}</span>
+        </div>
+      ))}
+    </div>
+  </PageSection>
 </BaseLayout>
-
-<style>
-  :root {
-    --warm-yellow: #f6c65b;
-    --accent-orange: #f2793d;
-    --deep-teal: #0db29b;
-    --body-text: #214244;
-    --muted-text: #5f7576;
-  }
-
-  .story-page {
-    display: flex;
-    flex-direction: column;
-    /* gap: 3rem; */
-    padding-bottom: 3rem;
-  }
-
-  .story-header {
-    text-align: center;
-    max-width: 720px;
-    margin: 0 auto;
-    color: var(--body-text);
-  }
-  .story-header h1 {
-    font-size: clamp(2.2rem, 3.5vw, 3rem);
-    margin-bottom: 0.75rem;
-    letter-spacing: 1.5px;
-  }
-  .story-header p {
-    margin: 0;
-    font-size: 1.05rem;
-    color: var(--muted-text);
-    line-height: 1.6;
-  }
-
-  .timeline {
-    background: var(--warm-yellow);
-    padding: 3rem 1.5rem;
-    /* border-radius: 24px; */
-  }
-
-  .timeline-inner {
-    display: flex;
-    flex-direction: column;
-    gap: 2.25rem;
-  }
-
-  .highlights {
-    text-align: center;
-  }
-  .highlights h2 {
-    font-size: clamp(1.8rem, 2.5vw, 2.4rem);
-    color: var(--deep-teal);
-    letter-spacing: 1.5px;
-    margin-bottom: 0.75rem;
-    text-transform: uppercase;
-  }
-  .highlights-copy {
-    max-width: 560px;
-    margin: 0 auto 2rem;
-    color: var(--muted-text);
-  }
-
-  .highlight-placeholders {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 1.5rem;
-  }
-
-  .highlight-card {
-    background: var(--warm-yellow);
-    border-radius: 20px;
-    padding: 3rem 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    color: var(--body-text);
-    min-height: 220px;
-  }
-
-  @media (max-width: 720px) {
-    .timeline {
-      padding: 2.5rem 1.25rem;
-    }
-    .story-page {
-      gap: 2.5rem;
-    }
-  }
-</style>
