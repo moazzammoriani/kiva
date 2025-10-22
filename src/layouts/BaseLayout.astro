@@ -1,8 +1,19 @@
 ---
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
-import heroImage from "../assets/high-angle-child-woman-painting.jpg";
-const { pageTitle } = Astro.props;
+import defaultHero from "../assets/high-angle-child-woman-painting.jpg";
+
+const {
+  pageTitle = null,
+  heroSrc = defaultHero.src,
+  heroAlt = "Children exploring paint materials at Kiva School",
+} = Astro.props as {
+  pageTitle?: string | null;
+  heroSrc?: string | null;
+  heroAlt?: string;
+};
+
+const documentTitle = pageTitle ? `${pageTitle} · Kiva School` : "Kiva School";
 import "../styles/global.css";
 ---
 
@@ -11,20 +22,16 @@ import "../styles/global.css";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="generator" content={Astro.generator} />
-    <title>Home</title>
+    <title>{documentTitle}</title>
   </head>
   <body>
     <div class="wrapper">
       <Navigation />
-      <div class="banner" role="presentation">
-        <img
-          src={heroImage.src}
-          width={heroImage.width}
-          height={heroImage.height}
-          alt="Children exploring paint materials at Kiva School"
-          loading="eager"
-        />
-      </div>
+      {heroSrc && (
+        <div class="banner" role="presentation">
+          <img src={heroSrc} alt={heroAlt} loading="eager" />
+        </div>
+      )}
       <main>
         <slot />
       </main>

@@ -1,50 +1,39 @@
 ---
-import BaseLayout from "../layouts/BaseLayout.astro";
-import heroImage from "../assets/high-angle-child-woman-painting.jpg";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import heroImage from "../../assets/Banner_preschool.png";
+import Accordion from "../../components/Accordion.astro";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
   <section class="intro section" aria-labelledby="welcome-heading">
-    <div class="intro-icon" aria-hidden="true">🏡</div>
-    <h1 id="welcome-heading" class="intro-heading">WELCOME TO KIVA</h1>
-    <p class="intro-tagline">A place we call home</p>
+    <h1 id="welcome-heading" class="intro-heading">PRE-SCHOOL</h1>
     <div class="intro-copy">
       <p>
-        Launched in 2021, Kiva School came into being after Muzaffar Bukhari of Veritas
-        Learning Circle joined EWPL as a new partner. Bringing a fresh perspective and vision to the
-        organisation, Kiva School was established as a new chapter of the AMI pre-school focusing on
-        early developmental years from a place of curiosity and exploration.
+        Launched in 2021, Kiva School came into being after Muzaffar Bukhari of
+        Veritas Learning Circle joined EWPL as a new partner. Bringing a fresh
+        perspective and vision to the organisation, Kiva School was established
+        as a new chapter of the AMI pre-school focusing on early developmental
+        years from a place of curiosity and exploration.
       </p>
       <p>
-        Breaking away from conventional teaching methods and adopting the Finnish play-based
-        educational philosophy, Kiva embodies values of kindness and social responsibility that
-        encourage personal growth at each child’s own pace.
+        Breaking away from conventional teaching methods and adopting the
+        Finnish play-based educational philosophy, Kiva embodies values of
+        kindness and social responsibility that encourage personal growth at
+        each child’s own pace.
       </p>
     </div>
   </section>
 
-  <section class="spaces section" aria-labelledby="spaces-heading">
-    <h2 id="spaces-heading" class="section-heading">OUR SPACES</h2>
-    <div class="space-placeholder" role="img" aria-label="Library space placeholder"></div>
-    <p class="space-caption">Library</p>
-  </section>
-
-  <section class="partners section" aria-labelledby="partners-heading">
-    <h2 id="partners-heading" class="section-heading">PARTNERS &amp; COLLABORATORS</h2>
-    <div class="partners-logos">
-      {[
-        "The AMI School",
-        "AMI Daycare",
-        "Paary",
-        "Kiran Foundation",
-        "Teddy Tennis",
-        "CCS",
-        "AHC STEM Club",
-      ].map((name) => (
-        <div class="logo-placeholder" role="img" aria-label={`${name} logo placeholder`}>
-          {name}
-        </div>
-      ))}
+  <section class="faq section" aria-labelledby="partners-heading">
+    <h1 id="partners-heading" class="section-heading">
+      FAQ
+    </h1>
+    <div class="questions">
+      <Accordion title={"Question1"} content={"stuffasdfffffffffffffffffffffffff"} />
+      <Accordion title={"Question2"} content={"stuff"} />
+      <Accordion title={"Question3"} content={"stuff"} />
+      <Accordion title={"Question4"} content={"stuff"} />
+      <Accordion title={"Question5"} content={"stuff"} />
     </div>
   </section>
 </BaseLayout>
@@ -115,11 +104,12 @@ import heroImage from "../assets/high-angle-child-woman-painting.jpg";
     color: var(--text-primary);
   }
 
-  .partners-logos {
+  .questions {
     margin-top: 2rem;
     display: flex;
     flex-wrap: wrap;
     gap: 1rem;
+    flex-direction: column;
     justify-content: center;
   }
   .logo-placeholder {

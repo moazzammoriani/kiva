@@ -1,0 +1,113 @@
+---
+const {
+  title,
+  content,
+  defaultOpen = false,
+} = Astro.props as {
+  title: string;
+  content: string;
+  defaultOpen?: boolean;
+};
+---
+
+<details class="accordion" open={defaultOpen}>
+  <summary>
+    <span>{title}</span>
+  </summary>
+  <div class="accordion-panel">
+    <p>{content}</p>
+  </div>
+</details>
+
+<script type="module">
+  const accordion = document.currentScript?.previousElementSibling;
+  if (accordion instanceof HTMLDetailsElement) {
+    // Ensure only a single click target when using keyboard
+    const summary = accordion.querySelector("summary");
+    summary?.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        accordion.open = !accordion.open;
+      }
+    });
+  }
+</script>
+
+<style>
+  .accordion {
+    border: none;
+    padding: 0;
+    background: transparent;
+    display: block;
+  }
+
+  .accordion[open] .accordion-panel {
+    animation: fade-in 160ms ease;
+  }
+
+  summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #8f46d9;
+    color: #ffffff;
+    padding: 1rem 1.5rem;
+    border-radius: 18px;
+    font-weight: 700;
+    font-size: 1rem;
+    position: relative;
+  }
+
+  summary::-webkit-details-marker {
+    display: none;
+  }
+
+  summary::after {
+    content: "+";
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .accordion[open] summary::after {
+    content: "−";
+  }
+
+  .accordion-panel {
+    background: #f6c65b;
+    border-radius: 18px;
+    margin-top: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    color: #214244;
+    line-height: 1.6;
+    font-size: 0.95rem;
+  }
+
+  .accordion-panel p {
+    margin: 0;
+  }
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 640px) {
+    summary {
+      font-size: 0.95rem;
+      padding: 0.9rem 1.25rem;
+    }
+
+    .accordion-panel {
+      font-size: 0.9rem;
+      padding: 1rem 1.25rem;
+    }
+  }
+</style>

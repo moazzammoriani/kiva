@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import StoryTimelineItem from "../../components/StoryTimelineItem.astro";
+import heroImage from "../../assets/high-angle-child-woman-painting.jpg";
 
 const timeline = [
   {
@@ -44,7 +45,7 @@ const highlights = [
 ];
 ---
 
-<BaseLayout pageTitle="Our Story">
+<BaseLayout pageTitle="Our Story" heroSrc={heroImage.src}>
   <article class="story-page">
     <header class="story-header" aria-labelledby="story-heading"></header>
 

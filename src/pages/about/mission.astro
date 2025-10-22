@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import heroImage from "../../assets/high-angle-child-woman-painting.jpg";
 
 const values = [
   {
@@ -20,7 +21,7 @@ const values = [
 ];
 ---
 
-<BaseLayout pageTitle={null}>
+<BaseLayout pageTitle={null} heroSrc={heroImage.src}>
   <article class="mission-page">
     <section class="vision section" aria-labelledby="vision-heading">
       <h1 id="vision-heading">Vision</h1>

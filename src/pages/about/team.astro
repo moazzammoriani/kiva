@@ -1,6 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TeamSection from "../../components/TeamSection.astro";
+import heroImage from "../../assets/high-angle-child-woman-painting.jpg";
 
 const directors = [
   {
@@ -37,7 +38,7 @@ const teamMembers = [
 ];
 ---
 
-<BaseLayout pageTitle="Meet the Team">
+<BaseLayout pageTitle="Meet the Team" heroSrc={heroImage.src}>
   <article class="team-page">
     <header class="team-header" aria-labelledby="team-heading">
       <h1 id="team-heading">Meet the People of Kiva</h1>
