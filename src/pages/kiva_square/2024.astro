@@ -1,25 +1,63 @@
+
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import heroImage from "../../assets/Banner_KivaSquare2024.png";
+import heroImage from "../../assets/Banner_KivaSquare2026.png";
 import PageSection from "../../components/PageSection.astro";
+import callForProposalsImage from "../../assets/kiva_square2026_call_for_proposals.png";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-  <PageSection title="Middle & Senior School" headingLevel={1}>
-    <div class="stack-lg">
-      <p>
-        Launched in 2021, Kiva School came into being after Muzaffar Bukhari of
-        Veritas Learning Circle joined EWPL as a new partner. Bringing a fresh
-        perspective and vision to the organisation, Kiva School was established
-        as a new chapter of the AMI pre-school focusing on early developmental
-        years from a place of curiosity and exploration.
-      </p>
-      <p>
-        Breaking away from conventional teaching methods and adopting the
-        Finnish play-based educational philosophy, Kiva embodies values of
-        kindness and social responsibility that encourage personal growth at
-        each child’s own pace.
-      </p>
+  <PageSection title="Kiva Square 2026" headingLevel={1}>
+    <!-- removed 'stack-lg' class -->
+    <div class="call-for-proposals-container">
+      <img class="call-for-proposals" src={callForProposalsImage.src} alt="" />
+    </div>
+  </PageSection>
+
+  <PageSection title="" headingLevel={1}>
+    <!-- TODO: rewrite PageSection or create a new component to make this less awkward -->
+    <div>
+      <div class="submit-container">
+        <a id="submit" href="">Submit</a>
+      </div>
     </div>
   </PageSection>
 </BaseLayout>
+
+<style>
+  /* TODO: add color variables */
+  /* TODO: add border-radius variables */
+  /* TODO: create button component */
+  .submit-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  #submit {
+    text-decoration: none;
+    display: block;
+    background-color: #ff8941;
+    width: 500px;
+    height: 50px;
+    line-height: 50px;
+    border-radius: 50px;
+    color: #092c4b;
+    font-size: 30px;
+    font-weight: 800;
+  }
+
+  #submit-container:visited {
+    color: black;
+    text-decoration: none;
+  }
+
+  .call-for-proposals {
+    width: 700px;
+    display: block;
+  }
+  .call-for-proposals-container {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+/BaseLayout>
