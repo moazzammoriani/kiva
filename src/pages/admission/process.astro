@@ -1,0 +1,32 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import heroImage from "../../assets/Banner_AdmissionProcess.png";
+import PageSection from "../../components/PageSection.astro";
+import Accordion from "../../components/Accordion.astro";
+---
+
+<BaseLayout pageTitle={null} heroSrc={heroImage.src}>
+  <PageSection title="Admission Process" headingLevel={1}>
+    <div class="stack-lg">
+      <p>
+        Launched in 2021, Kiva School came into being after Muzaffar Bukhari of
+        Veritas Learning Circle joined EWPL as a new partner. Bringing a fresh
+        perspective and vision to the organisation, Kiva School was established
+        as a new chapter of the AMI pre-school focusing on early developmental
+        years from a place of curiosity and exploration.
+      </p>
+    </div>
+  </PageSection>
+  <PageSection title="F.A.Q.S" headingLevel={1}>
+    <div class="stack-lg">
+      <Accordion
+        title="What is the Early Years Foundation Stage (EYFS)?"
+        content="stuffasdfffffffffffffffffffffffff"
+      />
+      <Accordion title="Question 2" content="stuff" />
+      <Accordion title="Question 3" content="stuff" />
+      <Accordion title="Question 4" content="stuff" />
+      <Accordion title="Question 5" content="stuff" />
+    </div>
+  </PageSection>
+</BaseLayout>

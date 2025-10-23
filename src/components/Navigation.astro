@@ -41,7 +41,14 @@ import NavDropdown from "./NavDropdown.astro";
       },
     ]}
   />
-  <NavLink link="/admission/" text="Admission" />
+  <NavDropdown
+    baseLink="/admission/"
+    label="Admissions"
+    items={[
+      { href: "/admission/process/", text: "Admission Process" },
+      { href: "/admission/form/", text: "Admission Form" },
+    ]}
+  />
   <NavLink link="/careers/" text="Kiva Square" />
   <NavLink link="/contact/" text="Contact Us" />
   <NavLink link="/community/" text="Community Enrichment" />
