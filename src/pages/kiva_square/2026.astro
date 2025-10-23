@@ -1,0 +1,14 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import heroImage from "../../assets/Banner_KivaSquare2026.png";
+import PageSection from "../../components/PageSection.astro";
+import callForProposalsImage from "../../assets/kiva_square2026_call_for_proposals.png";
+---
+
+<BaseLayout pageTitle={null} heroSrc={heroImage.src}>
+  <PageSection title="Kiva Square 2026" headingLevel={1}>
+    <div class="stack-lg">
+      <img src={callForProposalsImage.src} alt="" />
+    </div>
+  </PageSection>
+</BaseLayout>
