@@ -8,11 +8,332 @@ import PageSection from "../../components/PageSection.astro";
   <PageSection title="Admission Form" headingLevel={1}>
     <div class="stack-lg">
       <p>
-        At the Kiva School we aim to provide an admission process that is smooth
-        and stress-free for parents. To initiate the admission process, please
-        fill out the form below. A member from our Admissions Office will be in
-        touch with you soon to communicate next steps.
+        At the Kiva School we aim to provide an admission process that is smooth and stress-free
+        for parents. To initiate the admission process, please fill out the form below. A member
+        from our Admissions Office will be in touch with you soon to communicate next steps.
       </p>
     </div>
   </PageSection>
+
+  <form class="admission-form stack-lg">
+    <section class="form-panel">
+      <h2 class="form-heading">Session interested in</h2>
+      <label class="form-field">
+        <span>Session</span>
+        <select name="session" required>
+          <option value="">Select…</option>
+          <option>2024–2025</option>
+          <option>2025–2026</option>
+        </select>
+      </label>
+    </section>
+
+    <section class="form-panel">
+      <h2 class="form-heading">Child’s information</h2>
+      <div class="form-grid">
+        <label class="form-field">
+          <span>Child’s name</span>
+          <input type="text" name="childName" required />
+        </label>
+        <label class="form-field">
+          <span>Date of birth</span>
+          <input type="date" name="dob" required />
+        </label>
+      </div>
+      <label class="form-field">
+        <span>Address</span>
+        <textarea name="address" rows={2} required></textarea>
+      </label>
+
+      <fieldset class="form-fieldset">
+        <legend>Have you applied before?</legend>
+        <label><input type="radio" name="appliedBefore" value="yes" required /> Yes</label>
+        <label><input type="radio" name="appliedBefore" value="no" /> No</label>
+      </fieldset>
+
+      <div class="form-grid">
+        <label class="form-field">
+          <span>Previous school / daycare (if applicable)</span>
+          <input type="text" name="previousSchool" />
+        </label>
+        <label class="form-field">
+          <span>Previous class</span>
+          <input type="text" name="previousClass" />
+        </label>
+      </div>
+
+      <fieldset class="form-fieldset">
+        <legend>Progress report</legend>
+        <label><input type="radio" name="hasReport" value="yes" /> Yes, I have a progress report to share.</label>
+        <label><input type="radio" name="hasReport" value="no" /> No, a progress report is not applicable at this time.</label>
+        <label class="form-field form-field--file">
+          <span>Upload progress report</span>
+          <input type="file" name="progressReport" accept=".pdf,.doc,.docx,.jpg,.png" />
+        </label>
+      </fieldset>
+
+      <label class="form-field">
+        <span>Reason for changing school</span>
+        <textarea name="reason" rows={3}></textarea>
+      </label>
+
+      <label class="form-field">
+        <span>Medical information (allergies, treatments, diagnoses, etc.)</span>
+        <textarea name="medicalInfo" rows={3}></textarea>
+      </label>
+
+      <fieldset class="form-fieldset">
+        <legend>Does your child have any special educational needs?</legend>
+        <label><input type="radio" name="specialNeeds" value="yes" required /> Yes</label>
+        <label><input type="radio" name="specialNeeds" value="no" /> No</label>
+        <p class="helper-text">
+          Due to an overwhelming response to Kiva, seats for children with SEN requirements are
+          limited. For further information and guidance, please reach out to administration@kivaschool.com
+          or 0333 0320805.
+        </p>
+      </fieldset>
+    </section>
+
+    <section class="form-panel">
+      <h2 class="form-heading">Parents’ information</h2>
+      <div class="parents-grid">
+        <div class="stack-sm">
+          <h3 class="sub-heading">Mother’s details</h3>
+          <label class="form-field"><span>Name</span><input type="text" name="motherName" required /></label>
+          <label class="form-field"><span>Profession</span><input type="text" name="motherProfession" /></label>
+          <label class="form-field"><span>Educational qualification</span><input type="text" name="motherEducation" /></label>
+          <label class="form-field"><span>Organization</span><input type="text" name="motherOrganization" /></label>
+          <label class="form-field"><span>Email</span><input type="email" name="motherEmail" /></label>
+          <label class="form-field"><span>Cellphone number</span><input type="tel" name="motherPhone" /></label>
+          <label class="form-field"><span>CNIC number</span><input type="text" name="motherCnic" /></label>
+        </div>
+        <div class="stack-sm">
+          <h3 class="sub-heading">Father’s details</h3>
+          <label class="form-field"><span>Name</span><input type="text" name="fatherName" required /></label>
+          <label class="form-field"><span>Profession</span><input type="text" name="fatherProfession" /></label>
+          <label class="form-field"><span>Educational qualification</span><input type="text" name="fatherEducation" /></label>
+          <label class="form-field"><span>Organization</span><input type="text" name="fatherOrganization" /></label>
+          <label class="form-field"><span>Email</span><input type="email" name="fatherEmail" /></label>
+          <label class="form-field"><span>Cellphone number</span><input type="tel" name="fatherPhone" /></label>
+          <label class="form-field"><span>CNIC number</span><input type="text" name="fatherCnic" /></label>
+        </div>
+      </div>
+    </section>
+
+    <section class="form-panel">
+      <h2 class="form-heading">Sibling(s) information</h2>
+      <div class="form-grid">
+        <label class="form-field"><span>Name</span><input type="text" name="siblingName" /></label>
+        <label class="form-field"><span>Grade</span><input type="text" name="siblingGrade" /></label>
+      </div>
+      <label class="form-field"><span>School</span><input type="text" name="siblingSchool" /></label>
+    </section>
+
+    <section class="form-panel">
+      <h2 class="form-heading">Emergency contact</h2>
+      <div class="form-grid">
+        <label class="form-field"><span>Name</span><input type="text" name="emergencyName" required /></label>
+        <label class="form-field"><span>Cellphone number</span><input type="tel" name="emergencyPhone" required /></label>
+      </div>
+    </section>
+
+    <section class="form-panel">
+      <h2 class="form-heading">How did you hear about us?</h2>
+      <fieldset class="form-fieldset form-fieldset--vertical">
+        <label><input type="checkbox" name="hearAbout" value="website" /> Website</label>
+        <label><input type="checkbox" name="hearAbout" value="word-of-mouth" /> Word of mouth</label>
+        <label><input type="checkbox" name="hearAbout" value="social-media" /> Social media</label>
+        <label><input type="checkbox" name="hearAbout" value="friends-family" /> Friends / family</label>
+        <label><input type="checkbox" name="hearAbout" value="other" /> Other</label>
+      </fieldset>
+    </section>
+
+    <section class="form-panel">
+      <h2 class="form-heading">Why do you feel Kiva is a good fit for you and your family?</h2>
+      <label class="form-field">
+        <span>Your response</span>
+        <textarea name="fitResponse" rows={4}></textarea>
+      </label>
+    </section>
+
+    <section class="form-panel">
+      <fieldset class="form-fieldset form-fieldset--vertical">
+        <legend>Declaration</legend>
+        <label class="form-fieldset__statement">
+          <input type="checkbox" name="declaration" required />
+          <span>
+            I hereby declare that the information given in this application is true and correct to the
+            best of my knowledge and belief. I understand that inaccurate information may impact the
+            application.
+          </span>
+        </label>
+      </fieldset>
+      <label class="form-field">
+        <span>Signature (type your name)</span>
+        <input type="text" name="signature" required />
+      </label>
+    </section>
+
+    <div class="form-actions">
+      <button type="submit" class="primary-button">Submit</button>
+    </div>
+  </form>
 </BaseLayout>
+
+<style>
+  .admission-form {
+    width: 100%;
+  }
+
+  .form-panel {
+    background: #fef7e2;
+    border-radius: var(--radius-lg);
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    box-shadow: var(--shadow-soft);
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .form-heading {
+    margin: 0;
+    color: var(--color-teal);
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+  }
+
+  .form-grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  }
+
+  .parents-grid {
+    display: grid;
+    gap: clamp(1.5rem, 4vw, 2.5rem);
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+
+  .stack-sm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .sub-heading {
+    margin: 0;
+    font-size: 1.1rem;
+    color: var(--color-text-primary);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .form-field span {
+    font-weight: 600;
+    color: var(--color-text-primary);
+  }
+
+  .form-field input,
+  .form-field textarea,
+  .form-field select {
+    border: none;
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    background: var(--color-warm-yellow);
+    color: var(--color-text-primary);
+  }
+
+  .form-field textarea {
+    resize: vertical;
+  }
+
+  .form-field--file input[type="file"] {
+    padding: 0.5rem;
+    background: #fff6d7;
+  }
+
+  .form-fieldset {
+    border: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1.5rem;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .form-fieldset legend {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: var(--color-text-primary);
+  }
+
+  .form-fieldset label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .form-fieldset--vertical {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .form-fieldset__statement {
+    align-items: flex-start;
+  }
+
+  .form-fieldset__statement span {
+    max-width: 60ch;
+  }
+
+  .helper-text {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
+
+  .form-actions {
+    display: flex;
+    justify-content: center;
+  }
+
+  .primary-button {
+    background: var(--color-teal);
+    color: var(--color-text-inverse);
+    border: none;
+    border-radius: 999px;
+    padding: 0.85rem 2.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+
+  .primary-button:hover {
+    background: var(--color-deep-teal);
+  }
+
+  @media (max-width: 720px) {
+    .form-panel {
+      padding: 1.5rem;
+    }
+
+    .form-fieldset {
+      gap: 0.5rem 1rem;
+    }
+
+    .form-fieldset__statement span {
+      max-width: 100%;
+    }
+  }
+</style>
