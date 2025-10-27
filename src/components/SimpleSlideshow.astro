@@ -1,0 +1,175 @@
+---
+type Slide = {
+  src: string;
+  alt?: string;
+  label?: string;
+};
+
+const { images = [] } = Astro.props as { images: Slide[] };
+const initial = images[0] ?? { src: "", alt: "", label: "" };
+import sunflower from "../assets/sunflower.png";
+import frame from "../assets/slideshow-frame.png";
+---
+
+<figure class="slideshow" data-length={images.length}>
+  <div class="slideshow__controls">
+    <div class="slideshow__sunflower_container">
+      <img class="sunflower" src={sunflower.src} alt="" />
+      <div class="slideshow__button_container">
+        <button
+          type="button"
+          class="slideshow__button"
+          data-action="prev"
+          aria-label="Previous slide">‹</button
+        >
+      </div>
+    </div>
+  </div>
+
+  <div class="slideshow__viewport">
+    <img src={initial.src} alt={initial.alt ?? ""} class="slideshow__image" />
+    <img src={frame.src} alt="" class="slideshow__frame" />
+  </div>
+  <div class="slideshow__controls">
+    <div class="slideshow__sunflower_container">
+      <img class="sunflower" src={sunflower.src} alt="" />
+      <div class="slideshow__button_container">
+        <button
+          type="button"
+          class="slideshow__button"
+          data-action="next"
+          aria-label="Next slide">›</button
+        >
+      </div>
+    </div>
+  </div>
+</figure>
+<figcaption class="slideshow__caption">{initial.label}</figcaption>
+
+<script type="module" define:vars={{ clientImages: images }}>
+  const script = document.currentScript;
+  const images = clientImages;
+  const container = document.querySelector(".slideshow");
+  if (!container || !images.length) {
+    script.remove();
+  }
+
+  let index = 0;
+  const imageEl = container.querySelector(".slideshow__image");
+  const captionEl = document.querySelector(".slideshow__caption");
+  const buttons = container.querySelectorAll(".slideshow__button");
+
+  const update = () => {
+    const slide = images[index];
+    if (!slide) return;
+    if (imageEl) {
+      imageEl.src = slide.src;
+      imageEl.alt = slide.alt ?? "";
+    }
+    console.log(slide.label)
+    if (captionEl) captionEl.textContent = slide.label;
+  };
+
+  buttons.forEach((button) => {
+    button.addEventListener("click", () => {
+      if (button.dataset.action === "prev") {
+        index = (index - 1 + images.length) % images.length;
+      } else {
+        index = (index + 1) % images.length;
+      }
+      update();
+    });
+  });
+  update();
+</script>
+
+<style>
+  .slideshow {
+    width: 100%;
+    max-width: 720px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 12.5% 75% 12.5%;
+    gap: 0.75rem;
+  }
+
+  .slideshow__viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    background: #f5d07c;
+  }
+
+  .slideshow__image {
+    position: absolute;
+    inset: 0;
+    /* top: 0; */
+    /* left: 0; */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .slideshow__frame {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  .slideshow__caption {
+    text-align: center;
+    font-weight: 600;
+    color: var(--color-text-primary, #214244);
+  }
+
+  .slideshow__controls {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .slideshow__sunflower_container {
+    position: relative;
+  }
+
+  .slideshoe__button_container {
+    position: absolute;
+    top: 10%;
+  }
+
+  .sunflower {
+    width: 100px;
+  }
+
+  .slideshow__button_container {
+    position: absolute;
+    top: 24%;
+    right: 20%;
+  }
+  .slideshow__button {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: none;
+    background: var(--color-teal, #0db29b);
+    color: #fff;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+  }
+
+  .slideshow__button:hover {
+    background: var(--color-deep-teal, #05897a);
+  }
+
+  @media (max-width: 600px) {
+    .slideshow__viewport {
+      padding-top: 75%;
+    }
+  }
+</style>
