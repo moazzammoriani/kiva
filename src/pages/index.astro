@@ -1,13 +1,15 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import heroImage from "../assets/high-angle-child-woman-painting.jpg";
+import birdhouse from "../assets/home_birdhouse.png";
 import PageSection from "../components/PageSection.astro";
 import IntroBlock from "../components/IntroBlock.astro";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
   <PageSection>
-    <IntroBlock icon="🏡" heading="Welcome to Kiva" tagline="A place we call home">
+    <img src={birdhouse.src} alt="">
+    <IntroBlock icon="" heading="WELCOME TO KIVA" tagline="A place we call home">
       <p>
         Launched in 2021, Kiva School came into being after Muzaffar Bukhari of Veritas Learning
         Circle joined EWPL as a new partner. Bringing a fresh perspective and vision to the

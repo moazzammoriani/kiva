@@ -18,12 +18,22 @@ const alignClass = align === "left" ? "intro-block--left" : "";
 ---
 
 <div class={`intro-block ${alignClass}`.trim()}>
-  {icon && <div class="intro-block__icon" aria-hidden="true">{icon}</div>}
-  {heading && (
-    <component is={tag} class="intro-block__heading">
-      {heading}
-    </component>
-  )}
+  {
+    icon && (
+      <div class="intro-block__icon" aria-hidden="true">
+        {icon}
+      </div>
+    )
+  }
+  <div class="heading">
+    {
+      heading && (
+        <component is={tag} class="intro-block__heading">
+          {heading}
+        </component>
+      )
+    }
+  </div>
   {tagline && <p class="intro-block__tagline">{tagline}</p>}
   <div class="intro-block__copy">
     <slot />
@@ -31,6 +41,9 @@ const alignClass = align === "left" ? "intro-block--left" : "";
 </div>
 
 <style>
+.heading {
+  font-weight: 800;
+}
   .intro-block--left {
     align-items: flex-start;
     text-align: left;
