@@ -1,0 +1,92 @@
+---
+import bird from "../assets/sisu_bird.png";
+import sun from "../assets/inclusivity_sun.png";
+import tree from "../assets/responsibility_tree.png";
+
+import "../styles/tokens.css";
+---
+
+<style>
+  .values {
+    width: 800px;
+    height: 650px;
+    margin: 0 auto;
+  }
+  .value-card {
+    display: flex;
+    border-width: 6px;
+    border-style: solid;
+    border-radius: 42px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .value-card--text {
+    padding: 10px;
+  }
+
+  .value-card img {
+    display: block;
+    width: 180px;
+  }
+
+  .values {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+
+    /* Define 3 equal-height rows */
+    grid-template-rows: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .sisu {
+    border-color: #c470e0;
+  }
+
+  .inclusivity {
+    border-color: #fcc27b;
+  }
+
+  .responsibility {
+    border-color: #0db89e;
+  }
+</style>
+
+<div class="values">
+  <div class="sisu value-card">
+    <img src={bird.src} alt="" />
+  </div>
+  <div class="inclusivity value-card">
+    <img src={sun.src} alt="" />
+  </div>
+  <div class="responsibility value-card">
+    <img src={tree.src} alt="" />
+  </div>
+  <div class="sisu value-card value-card--text">
+    <p>
+      <strong>Sisu</strong> is a Finnish concept, encompassing the qualities of perseverance
+      and determination. Reflective of SISU, our swallow is a representation of an
+      extraordinarily agile bird that embodies grit, resilience and strength qualities
+      Kiva aims to foster in all its stakeholders.
+    </p>
+  </div>
+  <div class="inclusivity value-card value-card--text">
+    <p>
+      Much like the sun, and how it shines over everyone without prejudice,
+      <strong>Inclusivity</strong> is at Kiva's core. Fostering a welcoming and equitable
+      space where everyone's differences are celebrated through a community rooted
+      in kindness, making parts of a whole.
+    </p>
+  </div>
+  <div class="responsibility value-card value-card--text">
+    <p>
+      Learning to care for the environment and forming a deep connection with
+      nature is considered paramount at Kiva. Respecting the life around us,
+      understanding that we don't exist in a vacuum and that all Life is
+      interconnected, is the key to cultivating empathy and <strong>
+        Social Responsibility</strong
+      > in all our interactions.
+    </p>
+  </div>
+</div>

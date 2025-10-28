@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import heroImage from "../../assets/high-angle-child-woman-painting.jpg";
+import heroImage from "../../assets/Banner_mission.png";
 import PageSection from "../../components/PageSection.astro";
 
 const values = [
@@ -20,41 +20,41 @@ const values = [
       "Learners who care for their communities and contribute thoughtfully to the world around them.",
   },
 ];
+import IntroBlock from "../../components/IntroBlock.astro";
+import ValuesSection from "../../components/ValuesSection.astro";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-  <PageSection title="Vision" variant="panel" headingLevel={1} align="left">
-    <div class="stack-lg">
+  <PageSection title="Vision" headingLevel={1}>
+    <IntroBlock>
       <p>
-        To create an ecosystem that redefines expansion and growth in education by prioritising
-        horizontal growth through supporting units and placing a holistic educational experience at
-        the centre for students, teachers, and parents.
+        Launched in 2021, Kiva School came into being after Muzaffar Bukhari of
+        Veritas Learning Circle joined EWPL as a new partner. Bringing a fresh
+        perspective and vision to the organisation, Kiva School was established
+        as a new chapter of the AMI pre-school focusing on early developmental
+        years from a place of curiosity and exploration.
       </p>
       <p>
-        By spearheading change within Pakistan’s educational landscape, EWPL reimagines expansion as
-        the sustainable utilisation of its spaces to launch educational and community enrichment
-        programmes, ensuring a holistic experience for all stakeholders.
+        Breaking away from conventional teaching methods and adopting the
+        Finnish play-based educational philosophy, Kiva embodies values of
+        kindness and social responsibility that encourage personal growth at
+        each child’s own pace.
       </p>
-    </div>
+    </IntroBlock>
   </PageSection>
 
-  <PageSection title="Mission" variant="panel" align="left">
-    <p>
-      EWPL pursues improved educational standards while advancing community-wide change through
-      action research. With a commitment to continuous improvement, every programme is designed to
-      promote genuine learning and create a meaningful, lasting impact for everyone involved.
-    </p>
+  <PageSection title="Mission">
+    <IntroBlock>
+      <p>
+        EWPL pursues improved educational standards while advancing
+        community-wide change through action research. With a commitment to
+        continuous improvement, every programme is designed to promote genuine
+        learning and create a meaningful, lasting impact for everyone involved.
+      </p>
+    </IntroBlock>
   </PageSection>
 
-  <PageSection title="Values" variant="panel">
-    <div class="grid-responsive">
-      {values.map((value) => (
-        <article class="card-panel" aria-label={`${value.title} value`}>
-          <div class="card-panel__media" role="img" aria-label={`${value.title} illustration placeholder`}></div>
-          <h3 class="card-panel__title">{value.title}</h3>
-          <p class="card-panel__body">{value.description}</p>
-        </article>
-      ))}
-    </div>
+  <PageSection title="Values">
+    <ValuesSection />
   </PageSection>
 </BaseLayout>
