@@ -5,19 +5,23 @@ import PageSection from "./PageSection.astro";
 type Member = {
   name: string;
   bio: string;
-  photoLabel?: string;
+  imgSrc: string;
 };
 
 const { title, members } = Astro.props as {
   title: string;
   members: Member[];
 };
+
+const getCardColor = (n: number): string => (n % 2 === 0 ? "yellow" : "blue");
 ---
 
 <PageSection title={title}>
   <div class="stack-lg">
-    {members.map((member) => (
-      <TeamMemberCard {...member} />
-    ))}
+    {
+      members.map((member, index) => (
+        <TeamMemberCard {...member} color={getCardColor(index)} />
+      ))
+    }
   </div>
 </PageSection>
