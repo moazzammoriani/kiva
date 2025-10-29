@@ -2,22 +2,108 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import heroImage from "../../assets/Banner_KivaKamp.png";
 import PageSection from "../../components/PageSection.astro";
+import IntroBlock from "../../components/IntroBlock.astro";
+import SectionBreakLeaf from "../../components/SectionBreakLeaf.astro";
+
+import kivakamp1 from "../../assets/kivakamp1.png";
+import kivakamp2 from "../../assets/kivakamp2.png";
+import kivakamp3 from "../../assets/kivakamp3.png";
+
+import FramedImage from "../../components/FramedImage.astro";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-  <PageSection title="Middle & Senior School" headingLevel={1}>
-    <div class="stack-lg">
-      <p>
-        Launched in 2021, Kiva School came into being after Muzaffar Bukhari of Veritas Learning
-        Circle joined EWPL as a new partner. Bringing a fresh perspective and vision to the
-        organisation, Kiva School was established as a new chapter of the AMI pre-school focusing on
-        early developmental years from a place of curiosity and exploration.
-      </p>
-      <p>
-        Breaking away from conventional teaching methods and adopting the Finnish play-based
-        educational philosophy, Kiva embodies values of kindness and social responsibility that
-        encourage personal growth at each child’s own pace.
-      </p>
-    </div>
-  </PageSection>
+  <IntroBlock>
+    <PageSection title="" headingLevel={1}>
+      <div class="stack-lg">
+        <p>
+          Kiva Kamps was launched as a celebration of Kiva's values, philosophy
+          and pedagogy: blending elements of learning through play with
+          activities of daily living. Stepping away from the academic year, Kiva
+          Kamps is an extension of Kiva's teaching and learning experience in
+          which both internal and external facilitators curate a dedicated
+          program to encourage exploration and discovery in different fields,
+          giving students the opportunity to find their pathway, while picking
+          up some new skills.
+        </p>
+      </div>
+    </PageSection>
+  </IntroBlock>
+  <IntroBlock>
+    <PageSection title="Winter Kamps" headingLevel={1}>
+      <div class="stack-lg">
+        <FramedImage imgSrc={kivakamp1.src} frameColor="yellow" />
+        <p>
+          The first iteration of Kiva Kamp happened in <strong
+            >Winter 2024</strong
+          > with an exclusive focus on <strong>Gymnastics</strong>, aiming to
+          push students towards building strength, flexibility and confidence
+          while 'playing'. Under the supervision of a trained facilitator, each
+          child was supported well and en-couraged to go beyond their fears and
+          reservations.
+        </p>
+      </div>
+    </PageSection>
+  </IntroBlock>
+
+  <SectionBreakLeaf />
+
+  <IntroBlock>
+    <PageSection title="Welcoming Ramazan" headingLevel={1}>
+      <div class="stack-lg">
+        <FramedImage imgSrc={kivakamp2.src} frameColor="purple" />
+        <p>
+          To honour Ramzan, Kiva Kamp hosted a <strong
+            >3-day Kamp weekend</strong
+          > welcoming the holy month with curated activities and sessions around
+          kindness, gratitude and reflection. When children explore meaningful traditions
+          through play, creativity and connection, their curiosity deepens and so
+          does their understanding of the world around them.
+        </p>
+
+        <p>
+          The spirit of Ramzan isn't just taught, it's felt, shared and
+          experienced together as a community. In this Kamp weekend, we had
+          activities such as '<strong>Chef it Up</strong>' in which our students
+          made snacks for iftar, '<strong>Story time</strong>' centered around
+          stories of different prophets in Islam, '<strong
+            >Screen Printing</strong
+          >' in which our students created Eid Mubarak prints, and '<strong
+            >Paper Crafts</strong
+          >' consisted of creating lanterns.
+        </p>
+      </div>
+    </PageSection>
+  </IntroBlock>
+
+  <SectionBreakLeaf />
+
+  <IntroBlock>
+    <PageSection title="Summers at Kiva" headingLevel={1}>
+      <div class="stack-lg">
+        <FramedImage imgSrc={kivakamp3.src} frameColor="purple" />
+        <p>
+          In 2025, Kiva Kamps hosted 'Summers at Kiva' - a month-long summer
+          camp featuring 8 curated modules between the two different age groups.
+          Open to external students, Summers at Kiva had a turnout of 62
+          students who participated in activities like <strong
+            >Chef it Up, Storyweavers, Art & Craft, STEM and Robotics,
+            Woodworks, Digital Art, Gymnastics, Teddy Tennis, and Futsal</strong
+          >.
+        </p>
+
+        <p>
+          With a holistic and varied summer program, there was plenty of
+          opportunity to dabble in different activities and create things out of
+          play. From learning to make sweet little treats to building a sturdy
+          beach chair and robot, our Kampers took part in new activities with
+          full gusto. They challenged themselves with each hurdle whether it be
+          in sports or art, and learned to step out of their comfort zone with
+          every little step forward.
+        </p>
+      </div>
+    </PageSection>
+  </IntroBlock>
+
+  <SectionBreakLeaf />
 </BaseLayout>
