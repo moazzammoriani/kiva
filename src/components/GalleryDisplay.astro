@@ -1,0 +1,26 @@
+---
+const { images } = Astro.props as {
+  images: string[];
+};
+---
+
+<div class="gallery">
+  {
+    images.map((imgSrc) => (
+      <div>
+        <img class="gallery--img" src={imgSrc} alt="" />{" "}
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  .gallery {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .gallery--img {
+    width: 350px;
+  }
+</style>

@@ -1,0 +1,22 @@
+---
+import PageSection from "./PageSection.astro";
+import leafImg from "../assets/section-break-leaf.png";
+---
+
+<PageSection>
+  <div class="leaf-container">
+    <img class="section-break-leaf" src={leafImg.src} alt="" />
+  </div>
+</PageSection>
+
+<style>
+  .leaf-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .section-break-leaf {
+    display: block;
+    width: 100px;
+  }
+</style>

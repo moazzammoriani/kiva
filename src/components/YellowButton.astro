@@ -1,0 +1,25 @@
+---
+const { text } = Astro.props;
+import "../styles/tokens.css";
+import "../styles/global.css";
+---
+
+<div class="yellow-btn-container">
+  <button class="yellow-btn">{text}</button>
+</div>
+
+<style>
+  .yellow-btn-container {
+    text-align: center;
+  }
+  .yellow-btn {
+    font-family: "Nunito", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    background-color: var(--color-warm-yellow);
+    border: none;
+    width: 150px;
+    height: 40px;
+    border-radius: 12px;
+  }
+</style>
