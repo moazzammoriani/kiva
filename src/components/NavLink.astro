@@ -5,56 +5,56 @@ const rawBase = import.meta.env.BASE_URL || "/";
 const trimmedBase = rawBase.replace(/\/$/, "");
 
 const resolveHref = (href: string) => {
-  const clean = href.startsWith("/") ? href : `/${href}`;
-  if (trimmedBase === "") return clean;
-  if (clean === "/") return `${trimmedBase}/`;
-  return `${trimmedBase}${clean}`;
+    const clean = href.startsWith("/") ? href : `/${href}`;
+    if (trimmedBase === "") return clean;
+    if (clean === "/") return `${trimmedBase}/`;
+    return `${trimmedBase}${clean}`;
 };
 
 const resolvedLink = resolveHref(link);
 
-const normalize = (value: string) => (value.endsWith("/") ? value : `${value}/`);
+const normalize = (value: string) =>
+    value.endsWith("/") ? value : `${value}/`;
 const currentPath = normalize(Astro.url.pathname);
 const activeLink = normalize(resolvedLink);
 const baseNormalized = normalize(trimmedBase || "/");
 
 const active =
-  currentPath === activeLink ||
-  (activeLink !== baseNormalized && currentPath.startsWith(activeLink));
+    currentPath === activeLink ||
+    (activeLink !== baseNormalized && currentPath.startsWith(activeLink));
 ---
 
 <a
-  href={resolvedLink}
-  class={`navlink${active ? " active" : ""}`}
-  aria-current={active ? "page" : undefined}
+    href={resolvedLink}
+    class={`navlink${active ? " active" : ""}`}
+    aria-current={active ? "page" : undefined}
 >
-  {text}
+    {text}
 </a>
 
 <style>
-  :root {
-    --teal: #0db29b;
-    --text: #214244;
-  }
+    :root {
+        --teal: #0db29b;
+        --text: #214244;
+    }
 
-  .navlink {
-    display: inline-block;
-    padding: 0.2rem 0.5rem;
-    border-radius: 20px;
-    text-decoration: none;
-    color: var(--text);
-    line-height: 1;
-    font-size: 0.95rem;
-    white-space: nowrap;
-    transition:
-      background-color 120ms ease,
-      color 120ms ease;
-  }
-  .navlink:hover {
-    background: var(--teal);
-  }
-  .navlink.active {
-    background: var(--teal);
-    color: black;
-  }
+    .navlink {
+        display: inline-block;
+        padding: 0.2rem 0.5rem;
+        border-radius: 20px;
+        text-decoration: none;
+        color: var(--text);
+        line-height: 1;
+        font-size: 0.95rem;
+        white-space: nowrap;
+        transition:
+            background-color 120ms ease,
+            color 120ms ease;
+    }
+    .navlink:hover {
+        background: var(--teal);
+    }
+    .navlink.active {
+        background: var(--teal);
+    }
 </style>
