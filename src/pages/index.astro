@@ -22,86 +22,93 @@ import alignLogo from "../assets/align-logo.png";
 import kdspLogo from "../assets/kdsp-logo.png";
 
 const slideshowImages = [
-  {
-    src: slideOne.src,
-    alt: "Reading zone with colourful books",
-    label: "Library",
-  },
-  { src: slideTwo.src, alt: "Outdoor play area", label: "Garden" },
-  {
-    src: slideThree.src,
-    alt: "Creative corner with art supplies",
-    label: "Ground",
-  },
+    {
+        src: slideOne.src,
+        alt: "Reading zone with colourful books",
+        label: "Library",
+    },
+    { src: slideTwo.src, alt: "Outdoor play area", label: "Garden" },
+    {
+        src: slideThree.src,
+        alt: "Creative corner with art supplies",
+        label: "Ground",
+    },
 ];
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-  <PageSection>
-    <img src={birdhouse.src} alt="" />
-    <IntroBlock
-      icon=""
-      heading="WELCOME TO KIVA"
-      tagline="A place we call home"
-    >
-      <p>
-        Launched in 2021, Kiva School came into being after Muzaffar Bukhari of
-        Veritas Learning Circle joined EWPL as a new partner. Bringing a fresh
-        perspective and vision to the organisation, Kiva School was established
-        as a new chapter of the AMI pre-school focusing on early developmental
-        years from a place of curiosity and exploration.
-      </p>
-      <p>
-        Breaking away from conventional teaching methods and adopting the
-        Finnish play-based educational philosophy, Kiva embodies values of
-        kindness and social responsibility that encourage personal growth at
-        each child’s own pace.
-      </p>
-    </IntroBlock>
-  </PageSection>
+    <!-- TODO: decrease the spacing between the letters -->
+    <!-- TODO: make the font weight 1000-->
+    <PageSection>
+        <img id="birdhouse" src={birdhouse.src} alt="" />
+        <IntroBlock
+            icon=""
+            heading="WELCOME TO KIVA"
+            tagline="A place we call home"
+        >
+            <p>
+                Launched in 2021, Kiva School came into being after Muzaffar
+                Bukhari of Veritas Learning Circle joined EWPL as a new partner.
+                Bringing a fresh perspective and vision to the organisation,
+                Kiva School was established as a new chapter of the AMI
+                pre-school focusing on early developmental years from a place of
+                curiosity and exploration.
+            </p>
+            <p>
+                Breaking away from conventional teaching methods and adopting
+                the Finnish play-based educational philosophy, Kiva embodies
+                values of kindness and social responsibility that encourage
+                personal growth at each child’s own pace.
+            </p>
+        </IntroBlock>
+    </PageSection>
 
-  <PageSection title="Our Spaces">
-    <SimpleSlideshow images={slideshowImages} />
-  </PageSection>
+    <PageSection title="Our Spaces">
+        <SimpleSlideshow images={slideshowImages} />
+    </PageSection>
 
-  <PageSection title="Education Work Pvt. Ltd.">
-    <div class="logos">
-      {
-        [kivaLogo, amiLogo, amiLogo2, paaryLogo].map((img) => (
-          <div class="logo" role="img">
-            <img src={img.src} alt="" />
-          </div>
-        ))
-      }
-    </div>
-  </PageSection>
-  <PageSection title="Partners and Collaborators">
-    <div class="logos">
-      {
-        [
-          veritasLogo,
-          kiranLogo,
-          teddyTennisLogo,
-          tfsLogo,
-          alignLogo,
-          kdspLogo,
-        ].map((img) => (
-          <div class="logo" role="img">
-            <img src={img.src} alt="" />
-          </div>
-        ))
-      }
-    </div>
-  </PageSection>
+    <PageSection title="Education Work Pvt. Ltd.">
+        <div class="logos">
+            {
+                [kivaLogo, amiLogo, amiLogo2, paaryLogo].map((img) => (
+                    <div class="logo" role="img">
+                        <img src={img.src} alt="" />
+                    </div>
+                ))
+            }
+        </div>
+    </PageSection>
+    <PageSection title="Partners and Collaborators">
+        <div class="logos">
+            {
+                [
+                    veritasLogo,
+                    kiranLogo,
+                    teddyTennisLogo,
+                    tfsLogo,
+                    alignLogo,
+                    kdspLogo,
+                ].map((img) => (
+                    <div class="logo" role="img">
+                        <img src={img.src} alt="" />
+                    </div>
+                ))
+            }
+        </div>
+    </PageSection>
 </BaseLayout>
 
 <style>
-  .logo img {
-    height: 80px;
-  }
+    /* TODO: make this 300px */
+    #birdhouse {
+        width: 300px
+    }
+    .logo img {
+        height: 80px;
+    }
 
-  .logos {
-    display: flex;
-    justify-content: space-evenly;
-  }
+    .logos {
+        display: flex;
+        justify-content: space-evenly;
+    }
 </style>

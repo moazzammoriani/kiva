@@ -1,19 +1,33 @@
 :root {
-  --color-teal: #0db29b;
-  --color-deep-teal: #05897a;
-  --color-warm-yellow: #f6c65b;
-  --color-accent-orange: #f2793d;
-  --color-violet: #8f46d9;
-  --color-text-primary: #214244;
-  --color-text-muted: #5f7576;
-  --color-text-inverse: #ffffff;
+    --color-teal: #0db29b;
+    --color-deep-teal: #05897a;
+    --color-warm-yellow: #f6c65b;
+    --color-accent-orange: #f2793d;
+    --color-violet: #8f46d9;
+    --color-text-primary: #214244;
+    --color-text-muted: #5f7576;
+    --color-text-inverse: #ffffff;
 
-  --layout-max-width: 1200px;
-  --layout-padding-inline: clamp(1rem, 4vw, 3rem);
-  --section-gap: clamp(2rem, 5vw, 3.5rem);
-  --section-padding-block: clamp(2.5rem, 6vw, 4rem);
+    /* ones that I got from Sana */
+    --color-dark-blue: #082c4b;
+    --color-teal2: #08b89e;
+    --color-yellow: #fac217;
+    --color-orange: #f68845;
+    --color-purple: #ab75b2;
+    --color-grey: #a4a4a5;
+    --color-black: #000000;
 
-  --radius-lg: 24px;
-  --radius-md: 18px;
-  --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.1);
+
+    --font-weight--black: 800;
+
+
+
+    --layout-max-width: 1200px;
+    --layout-padding-inline: clamp(1rem, 4vw, 3rem);
+    --section-gap: clamp(2rem, 5vw, 3.5rem);
+    --section-padding-block: clamp(2.5rem, 6vw, 4rem);
+
+    --radius-lg: 24px;
+    --radius-md: 18px;
+    --shadow-soft: 0 10px 24px rgba(0, 0, 0, 0.1);
 }

@@ -15,58 +15,58 @@ import hiba from "../../assets/hiba-abdul-razzaq.png";
 import IntroBlock from "../../components/IntroBlock.astro";
 
 const directors = [
-  {
-    name: "Nasira Faiz",
-    bio: "Founder of Beginner's Montessori and co-creator of EWPL, Nasira brings four decades of Montessori leadership to the Kiva community. She pairs Montessori best practices with a focus on kindness, curiosity, and personalised pathways for young learners.",
-    imgSrc: nasira.src,
-  },
-  {
-    name: "Rabeea Minai",
-    bio: "Rabeea heads the Seniors Involve Program (SIP) and leads community engagement efforts. Her work connects generations through active, intergenerational projects that celebrate lifelong learning.",
-    imgSrc: rabea.src,
-  },
-  {
-    name: "Saba Qadir",
-    bio: "With more than twenty years in early years education, Saba has mentored educators across Pakistan. She guides curriculum design and educator development, ensuring every classroom is warm, inclusive, and intentional.",
-    imgSrc: saba.src,
-  },
-  {
-    name: "Muzaffar Bukhari",
-    bio: "Muzaffar partners with EWPL to grow Kiva School’s play-based learning approach. His experience founding Veritas Learning Circle helps bridge holistic academics with meaningful community partnerships.",
-    imgSrc: muzaffar.src,
-  },
+    {
+        name: "Nasira Faiz",
+        bio: "Nasira Faiz heads the Kiva School, AMI Daycare and Learning Centre, Paar and the Seniors’ Involvement Program as a Director and Partner at Education Works Private Limited (EWPL). As a strong advocate of inclusion, with a background in Psychology, Nasira has worked on projects such as research around occupational therapy, with context to inclusive education in Pakistan. With a focus on early childhood education and development, she further received training from the Forest School, the learnings of which were applied to creating an outdoor learning space model for incarcerated children in Karachi’s Central Prison. She is also associated with the Education and Skills Committee at the Karachi Down Syndrome Program. Stepping away from Education, Nasira’s passion for travelling has led her to be the Vice President of TravelinPk, a venture to promote responsible and sustainable tourism in Pakistan.",
+        imgSrc: nasira.src,
+    },
+    {
+        name: "Rabeea Minai",
+        bio: "Rabeea heads the Seniors Involve Program (SIP) and leads community engagement efforts. Her work connects generations through active, intergenerational projects that celebrate lifelong learning.",
+        imgSrc: rabea.src,
+    },
+    {
+        name: "Saba Qadir",
+        bio: "With more than twenty years in early years education, Saba has mentored educators across Pakistan. She guides curriculum design and educator development, ensuring every classroom is warm, inclusive, and intentional.",
+        imgSrc: saba.src,
+    },
+    {
+        name: "Muzaffar Bukhari",
+        bio: "Muzaffar partners with EWPL to grow Kiva School’s play-based learning approach. His experience founding Veritas Learning Circle helps bridge holistic academics with meaningful community partnerships.",
+        imgSrc: muzaffar.src,
+    },
 ];
 
 const teamMembers = [
-  {
-    name: "Samreen Jawaid",
-    bio: "Samreen is a specialist in early childhood education with 20+ years of experience. She mentors teachers on observation-led lesson design and supports families as children transition into primary grades.",
-    imgSrc: samreen.src,
-  },
-  {
-    name: "Bushra Umair",
-    bio: "Bushra leads community enrichment programmes, collaborating with local partners to design joyful, hands-on learning experiences that extend beyond the classroom.",
-    imgSrc: bushra.src,
-  },
-  {
-    name: "Hiba Abdul Razzaq",
-    bio: "Hiba focuses on programme operations and family partnerships. She keeps our learning environments running smoothly and ensures each Kiva family stays connected to the school’s mission.",
-    imgSrc: hiba.src,
-  },
+    {
+        name: "Samreen Jawaid",
+        bio: "Samreen is a specialist in early childhood education with 20+ years of experience. She mentors teachers on observation-led lesson design and supports families as children transition into primary grades.",
+        imgSrc: samreen.src,
+    },
+    {
+        name: "Bushra Umair",
+        bio: "Bushra leads community enrichment programmes, collaborating with local partners to design joyful, hands-on learning experiences that extend beyond the classroom.",
+        imgSrc: bushra.src,
+    },
+    {
+        name: "Hiba Abdul Razzaq",
+        bio: "Hiba focuses on programme operations and family partnerships. She keeps our learning environments running smoothly and ensures each Kiva family stays connected to the school’s mission.",
+        imgSrc: hiba.src,
+    },
 ];
 ---
 
 <BaseLayout pageTitle="Meet the Team" heroSrc={heroImage.src}>
-  <IntroBlock>
-    <PageSection
-      title="Meet the People of Kiva"
-      headingLevel={1}
-      description="A collective of educators, programme leads, and community builders who nurture curiosity, celebrate individuality, and keep our values alive every day."
-    />
-  </IntroBlock>
+    <IntroBlock>
+        <PageSection
+            title="Meet the People of Kiva"
+            headingLevel={1}
+            description="A collective of educators, programme leads, and community builders who nurture curiosity, celebrate individuality, and keep our values alive every day."
+        />
+    </IntroBlock>
 
-  <IntroBlock>
-    <TeamSection title="Meet the Directors" members={directors} />
-    <TeamSection title="Meet the Team" members={teamMembers} />
-  </IntroBlock>
+    <IntroBlock>
+        <TeamSection title="Meet the Directors" members={directors} />
+        <TeamSection title="Meet the Team" members={teamMembers} />
+    </IntroBlock>
 </BaseLayout>

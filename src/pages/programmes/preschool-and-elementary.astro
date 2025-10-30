@@ -20,120 +20,130 @@ import elementaryImg2 from "../../assets/elementary2.png";
 import elementaryImg3 from "../../assets/elementary3.png";
 
 const elementaryImgs = [
-  elementaryImg1.src,
-  elementaryImg2.src,
-  elementaryImg3.src,
+    elementaryImg1.src,
+    elementaryImg2.src,
+    elementaryImg3.src,
 ];
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-  <IntroBlock>
-    <PageSection title="Pre-School" headingLevel={1}>
-      <div class="stack-lg">
-        <p>
-          Through a purpose-built and immersive learning environment, children
-          at Kiva are encouraged to feed their curiosity, by learning more about
-          the world around them. Our resource-equipped classrooms and
-          intentional outdoor spaces, beckon students to engage with their
-          surroundings daily. Be it a cozy reading corner, a stroll through the
-          vegetable garden, free play in the morning or an activity station
-          within the classroom, students are encouraged to explore, create
-          meaning. resolve conflicts and exercise all creative faculties at
-          their disposal.
-        </p>
-      </div>
+    <IntroBlock>
+        <PageSection title="Pre-School" headingLevel={1}>
+            <div class="stack-lg">
+                <p>
+                    Through a purpose-built and immersive learning environment,
+                    children at Kiva are encouraged to feed their curiosity, by
+                    learning more about the world around them. Our
+                    resource-equipped classrooms and intentional outdoor spaces,
+                    beckon students to engage with their surroundings daily. Be
+                    it a cozy reading corner, a stroll through the vegetable
+                    garden, free play in the morning or an activity station
+                    within the classroom, students are encouraged to explore,
+                    create meaning. resolve conflicts and exercise all creative
+                    faculties at their disposal.
+                </p>
+            </div>
+        </PageSection>
+    </IntroBlock>
+
+    <PageSection>
+        <GalleryDisplay images={preschoolImgs} />
     </PageSection>
-  </IntroBlock>
 
-  <PageSection>
-    <GalleryDisplay images={preschoolImgs} />
-  </PageSection>
+    <IntroBlock>
+        <PageSection title="" headingLevel={1}>
+            <div class="stack-lg">
+                <p>
+                    Kiva prides itself on its <strong>Curiosity Approach</strong
+                    > a blend of globally renowned teaching pedagogies; <strong
+                        >Finnish, Waldorf, Reggio Emilia, Montessori</strong
+                    > and The Forest School. This approach ensures an ever-evolving
+                    and adaptable approach to learning, which is developmentally
+                    appropriate for each child and at par with international learning
+                    standards. The curriculum adheres to the <strong
+                        >Early Years Foundation Stage (EYFS)</strong
+                    > framework, encouraging students to reach their developmental
+                    milestones through holistic integrated learning. By combining
+                    academics with experiential, project-based and activity-based
+                    learning our curiosity approach ensures students develop the
+                    appropriate social-emotional, cognitive, physical and critical
+                    thinking skills, imperative for activities of daily living
+                </p>
+            </div>
 
-  <IntroBlock>
-    <PageSection title="" headingLevel={1}>
-      <div class="stack-lg">
-        <p>
-          Kiva prides itself on its <strong>Curiosity Approach</strong> a blend of
-          globally renowned teaching pedagogies; <strong
-            >Finnish, Waldorf, Reggio Emilia, Montessori</strong
-          > and The Forest School. This approach ensures an ever-evolving and adaptable
-          approach to learning, which is developmentally appropriate for each child
-          and at par with international learning standards. The curriculum adheres
-          to the <strong>Early Years Foundation Stage (EYFS)</strong> framework,
-          encouraging students to reach their developmental milestones through holistic
-          integrated learning. By combining academics with experiential, project-based
-          and activity-based learning our curiosity approach ensures students develop
-          the appropriate social-emotional, cognitive, physical and critical thinking
-          skills, imperative for activities of daily living
-        </p>
-      </div>
+            <PreschoolAgeTable />
+        </PageSection>
+    </IntroBlock>
 
-      <PreschoolAgeTable />
+    <SectionBreakLeaf />
+
+    <IntroBlock>
+        <PageSection title="Elementary School" headingLevel={1}>
+            <div class="stack-lg">
+                <p>
+                    To ensure a smooth transition from Pre-school to Elementary
+                    School, the tenets of our teaching philosophy remain
+                    similar, with a gradual advancement in subject matter. With
+                    a foundation rooted in the
+                    <strong>Curiosity Approach</strong>, the elementary school
+                    curriculum integrates components of the <strong
+                        >Finnish National Curriculum, UK Primary National
+                        Curriculum, and the Early Years Foundation Stage (EYFS)
+                        framework</strong
+                    >. This blended approach encourages our students to develop
+                    their capacity to understand new concepts, improvise, and
+                    move toward self-guided holistic learning. With
+                    experiential, project-based and activity-based learning at
+                    the core - our curiosity approach ensures students develop
+                    the appropriate social-emotional, cognitive, physical and
+                    critical thinking skills, imperative for tackling the <strong
+                        >Cambridge International Assessment and Examinations
+                        (CAIE)</strong
+                    >, in their academic journey.
+                </p>
+            </div>
+        </PageSection>
+    </IntroBlock>
+
+    <PageSection>
+        <GalleryDisplay images={elementaryImgs} />
     </PageSection>
-  </IntroBlock>
 
-  <SectionBreakLeaf />
+    <IntroBlock>
+        <PageSection title="" headingLevel={1}>
+            <div class="stack-lg">
+                <p>
+                    With a strong emphasis on personalized learning trajectories
+                    of each child, our focus remains on the individual progress
+                    and potential of our students. With the advancement of
+                    grades and in line with the CAIE curriculum, students are
+                    eased into standardized testing, ensuring they are equipped
+                    with the knowledge and experience to tackle IGCSE
+                    examinations with confidence. During this process, Kiva
+                    encourages transparency, active collaboration, and
+                    conversations with its parents and students, to ensure each
+                    child receives ample guidance and support, on and off
+                    campus.
+                </p>
+            </div>
+        </PageSection>
+    </IntroBlock>
 
-  <IntroBlock>
-    <PageSection title="Elementary School" headingLevel={1}>
-      <div class="stack-lg">
-        <p>
-          To ensure a smooth transition from Pre-school to Elementary School,
-          the tenets of our teaching philosophy remain similar, with a gradual
-          advancement in subject matter. With a foundation rooted in the
-          <strong>Curiosity Approach</strong>, the elementary school curriculum
-          integrates components of the <strong
-            >Finnish National Curriculum, UK Primary National Curriculum, and
-            the Early Years Foundation Stage (EYFS) framework</strong
-          >. This blended approach encourages our students to develop their
-          capacity to understand new concepts, improvise, and move toward
-          self-guided holistic learning. With experiential, project-based and
-          activity-based learning at the core - our curiosity approach ensures
-          students develop the appropriate social-emotional, cognitive, physical
-          and critical thinking skills, imperative for tackling the <strong
-            >Cambridge International Assessment and Examinations (CAIE)</strong
-          >, in their academic journey.
-        </p>
-      </div>
+    <PageSection>
+        <YellowButton text={"Apply Now"} />
     </PageSection>
-  </IntroBlock>
 
-  <PageSection>
-    <GalleryDisplay images={elementaryImgs} />
-  </PageSection>
-
-  <IntroBlock>
-    <PageSection title="" headingLevel={1}>
-      <div class="stack-lg">
-        <p>
-          With a strong emphasis on personalized learning trajectories of each
-          child, our focus remains on the individual progress and potential of
-          our students. With the advancement of grades and in line with the CAIE
-          curriculum, students are eased into standardized testing, ensuring
-          they are equipped with the knowledge and experience to tackle IGCSE
-          examinations with confidence. During this process, Kiva encourages
-          transparency, active collaboration, and conversations with its parents
-          and students, to ensure each child receives ample guidance and
-          support, on and off campus.
-        </p>
-      </div>
+    <!-- TODO: decrease space -->
+    <PageSection title="F.A.Q.S">
+        <div class="stack-lg">
+            <Accordion
+                title="What is the Early Years Foundation Stage (EYFS)?"
+                content="stuffasdfffffffffffffffffffffffff"
+            />
+            <Accordion title="Question 2" content="stuff" />
+            <Accordion title="Question 3" content="stuff" />
+            <Accordion title="Question 4" content="stuff" />
+            <Accordion title="Question 5" content="stuff" />
+        </div>
     </PageSection>
-  </IntroBlock>
-
-  <PageSection>
-    <YellowButton text={"Apply Now"} />
-  </PageSection>
-
-  <PageSection title="F.A.Q.S">
-    <div class="stack-lg">
-      <Accordion
-        title="What is the Early Years Foundation Stage (EYFS)?"
-        content="stuffasdfffffffffffffffffffffffff"
-      />
-      <Accordion title="Question 2" content="stuff" />
-      <Accordion title="Question 3" content="stuff" />
-      <Accordion title="Question 4" content="stuff" />
-      <Accordion title="Question 5" content="stuff" />
-    </div>
-  </PageSection>
 </BaseLayout>
