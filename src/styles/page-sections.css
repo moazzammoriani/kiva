@@ -36,13 +36,12 @@
 }
 
 .page-section--accent .page-section__title {
-    color: var(--color-text-primary);
+    color: var(--color-c9text-primary);
 }
 
 .page-section__eyebrow {
     font-size: 0.85rem;
     letter-spacing: 0.25em;
-    text-transform: uppercase;
     color: var(--color-deep-teal);
 }
 
@@ -51,7 +50,7 @@
     font-size: 52px;
     letter-spacing: 1.5px;
     color: var(--color-teal);
-    text-transform: uppercase;
+    line-height: 1.4;
 }
 
 .page-section__description {
@@ -82,7 +81,7 @@
     margin: 0;
     font-size: 52px;
     color: var(--color-teal);
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 .intro-block__tagline {

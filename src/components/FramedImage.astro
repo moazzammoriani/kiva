@@ -1,8 +1,8 @@
 ---
 interface Props {
-  imgSrc: string; // base image (photo)
-  alt?: string; // alt text
-  frameColor?: string; // optional frame overlay PNG
+    imgSrc: string; // base image (photo)
+    alt?: string; // alt text
+    frameColor?: string; // optional frame overlay PNG
 }
 
 import yellowFrame from "../assets/frame-yellow.png";
@@ -13,47 +13,48 @@ const { imgSrc, frameColor } = Astro.props;
 
 let frame;
 if (frameColor === "orange") {
-  frame = orangeFrame.src;
+    frame = orangeFrame.src;
 } else if (frameColor === "purple") {
-  frame = purpleFrame.src;
+    frame = purpleFrame.src;
 } else {
-  frame = yellowFrame.src;
+    frame = yellowFrame.src;
 }
 ---
 
 <div class="frame-container">
-  <img src={imgSrc} class="base-image" />
-  <img src={frame} alt="" class="frame-overlay" />
+    <img src={imgSrc} class="base-image" />
+    <img src={frame} alt="" class="frame-overlay" />
 </div>
 
 <style>
-  .frame-container {
-    position: relative;
-    display: flex;
-    width: 100%;
-    /* aspect-ratio: 16 / 9; /* or adjust to your images */
-    /* overflow: hidden; */
-    justify-content: center;
-    align-items: center;
-  }
+    .frame-container {
+        position: relative;
+        display: flex;
+        width: 100%;
+        /* aspect-ratio: 16 / 9; /* or adjust to your images */
+        /* overflow: hidden; */
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-  .base-image {
-    width: 100%;
-    height: 50%;
-    object-fit: cover;
-    display: block;
-    overflow: hidden;
-    border-radius: 0; /* your frame handles rounding */
-    clip-path: inset(2% round 1rem); /* fine-tune to match the wavy edges */
-  }
+    .base-image {
+        width: 100%;
+        height: 50%;
+        object-fit: cover;
+        display: block;
+        overflow: hidden;
+        border-radius: 0; /* your frame handles rounding */
+        clip-path: inset(2% round 1rem); /* fine-tune to match the wavy edges */
+    }
 
-  .frame-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: fill;
-    pointer-events: none; /* so you can click through the frame */
-  }
+    .frame-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: fill;
+        pointer-events: none; /* so you can click through the frame */
+    }
 </style>

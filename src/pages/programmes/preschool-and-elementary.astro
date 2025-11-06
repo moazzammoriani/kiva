@@ -24,11 +24,44 @@ const elementaryImgs = [
     elementaryImg2.src,
     elementaryImg3.src,
 ];
+
+const faqs = [
+    {
+        title: "What is the Early Years Foundation Stage (EYFS) framework?",
+        content:
+            "Created by the Department of Education in England, the Early Years Foundation Stage (EYFS) framework stipulates that all early years providers must ensure that children learn and develop well while keeping their well-being at the forefront. In the EYFS framework, there are seven areas of learning and development for young children including: Communication and Language, Personal, Social and Emotional Development (PSED), Physical Development, Literacy, Mathematics, Understanding the World, and Expressive Arts and Design. Each module has a criteria of early learning goals (ELG) to evaluate against the EYFS framework and make the correct judgement on a child’s early developmental skills to proceed accordingly.<br><br>The EYFS framework isn’t exclusive to one teaching and learning approach. However, play is considered essential to children’s development, building their confidence as they learn to explore, relate to others, set their own goals and solve problems.",
+    },
+    {
+        title: "What is the Finnish Educational System?",
+        content:
+            "The Finnish educational approach is rooted in play-based and inquiry-driven learning in early childhood education. There is a strong focus on conceptual understanding, exploring through curiosity and personalised learning paths for each child in line with the Finnish values of equity and differentiation. The play-based learning approach fosters holistic development, ignites curiosity and builds a solid foundation to seek lifelong learning.<br><br>As part of the Finnish approach, there are four kinds of play that can bolster children’s developmental skills: imaginative play promoting narrative and problem-solving skills, sensory play which develops fine motor skills and cognitive growth, constructive play enhancing logical thinking and spatial awareness, while outdoor play builds a positive relationship with nature and fosters physical development in children. Embodying the core values of collaboration, independence, empathy and sustainability, the Finnish approach inculcates a sense of personal and social responsibility in children for the wider world.",
+    },
+    {
+        title: "What is Waldorf Educational Approach?",
+        content:
+            "Developed in Europe nearly a century ago by an Austrian visionary, Rudolf Steiner, Waldorf education is a worldwide independent school movement where learning is considered an experiential activity. It is a threefold learning approach engaging head, heart and hands - or thinking, feeling, and doing - in which each child is nurtured through a curriculum that integrates academics, arts, and practical skills.<br><br>The curriculum in Waldorf education is comprehensive and interdisciplinary, removing the divide between vocational and academic curriculum leading it to be more artistically and culturally enriching. A key characteristic is the emphasis on a child to be allowed to live in the moment and savor their childhood through play, exploration and discovery. This ensures that every child has the opportunity and space to develop at their own pace and grow into healthy, self-actualised individuals capable of meeting the challenges of their time.",
+    },
+    {
+        title: "What is the Montessori Method?",
+        content:
+            "Developed in the early 1900s in Italy by Maria Montessori, the Montessori method is a child-centered educational philosophy that focuses on self-directed learning in a developmentally appropriate environment. The aim is to foster curiosity and create an inspiring and open-ended learning environment to support children as they explore and learn about the world at their own pace.<br><br>The Montessori method steps away from a rigid academic framework and leans into a child’s natural curiosity and interests, encouraging a positive and forthcoming attitude towards learning. The core focus is on having a supportive environment with educational materials set in an orderly manner as it creates a sense of independence and individual development in children, encouraging optimal intellectual, physical, emotional and social development to take place.",
+    },
+    {
+        title: "What is Reggio Emilia Approach?",
+        content:
+            "Originating in the 1950s in Reggio Emilia, Northern Italy, this educational philosophy was intended to be progressive, democratic and liberating. It emphasises the idea of an autonomous child, focusing on their creativity, intelligence and capability to explore and make meaning in different ways. The main features of this pedagogical approach include a focus on inquiry, project-based learning, environment as the third teacher, a collaborative dialogue and exchange of ideas, and pedagogical documentation.<br><br>Loris Malaguzzi, the founder of the Reggio Emilia approach, believed in the idea of a child having ‘100 languages’, focusing on the importance of providing children with one hundred ways to express themselves. At its core lies the idea that children possess a rich spectrum of expressive knowledge and they should have the means to convey and express through ways that suit them best.",
+    },
+    {
+        title: "What is the Forest School?",
+        content:
+            "Beginning in the early 1950s, the first Forest School was created by Ella Flautau in Denmark. An outdoor education model, the Forest School emphasises on natural spaces as a learning environment. It is a child-centred learning process where nature is expected to pique curiosity and lead the students to play, explore, and learn through dynamic learning conditions while managing their sense of safety and discovering the world around them.<br><br>The aim is to utilise the outdoor natural spaces to build independence, curiosity and self-esteem in children, giving them room to familiarise themselves with natural objects around them and create a connection. The Forest school’s broad cross-curriculum covers different academic areas and is set to foster personal skills such as adaptability, teamwork and critical problem solving, aiding in a child’s developmental skills and cognitive faculties.",
+    },
+];
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
     <IntroBlock>
-        <PageSection title="Pre-School" headingLevel={1}>
+        <PageSection title="PRE-SCHOOL" headingLevel={1}>
             <div class="stack-lg">
                 <p>
                     Through a purpose-built and immersive learning environment,
@@ -78,7 +111,7 @@ const elementaryImgs = [
     <SectionBreakLeaf />
 
     <IntroBlock>
-        <PageSection title="Elementary School" headingLevel={1}>
+        <PageSection title="ELEMENTARY SCHOOL" headingLevel={1}>
             <div class="stack-lg">
                 <p>
                     To ensure a smooth transition from Pre-school to Elementary
@@ -134,16 +167,9 @@ const elementaryImgs = [
     </PageSection>
 
     <!-- TODO: decrease space -->
-    <PageSection title="F.A.Q.S">
+    <PageSection title="F.A.Qs">
         <div class="stack-lg">
-            <Accordion
-                title="What is the Early Years Foundation Stage (EYFS)?"
-                content="stuffasdfffffffffffffffffffffffff"
-            />
-            <Accordion title="Question 2" content="stuff" />
-            <Accordion title="Question 3" content="stuff" />
-            <Accordion title="Question 4" content="stuff" />
-            <Accordion title="Question 5" content="stuff" />
+            {faqs.map((f) => <Accordion title={f.title} content={f.content} />)}
         </div>
     </PageSection>
 </BaseLayout>

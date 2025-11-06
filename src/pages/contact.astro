@@ -5,153 +5,155 @@ import PageSection from "../components/PageSection.astro";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-  <PageSection>
-    <div class="contact-highlights">
-      <div class="contact-card">
-        <span class="contact-icon" aria-hidden="true">📞</span>
-        <span class="contact-label">0300-060 (KIVA)</span>
-      </div>
-      <div class="contact-card">
-        <span class="contact-icon" aria-hidden="true">📍</span>
-        <span class="contact-label">32/E PECHS Block 6, Karachi</span>
-      </div>
-      <div class="contact-card">
-        <span class="contact-icon" aria-hidden="true">✉️</span>
-        <span class="contact-label">info@thekivaschool.com</span>
-      </div>
-    </div>
-  </PageSection>
+    <!-- <div class="leaf-divider" aria-hidden="true">🍃</div> -->
 
-  <!-- <div class="leaf-divider" aria-hidden="true">🍃</div> -->
+    <PageSection title="DROP US A MESSAGE">
+        <form class="contact-form">
+            <div class="form-grid">
+                <label class="form-field">
+                    <span>Name</span>
+                    <input type="text" name="name" required />
+                </label>
+                <label class="form-field">
+                    <span>Email Address</span>
+                    <input type="email" name="email" required />
+                </label>
+                <label class="form-field">
+                    <span>Subject</span>
+                    <input type="text" name="subject" />
+                </label>
+                <label class="form-field">
+                    <span>Cellphone Number</span>
+                    <input type="tel" name="phone" />
+                </label>
+            </div>
+            <label class="form-field">
+                <span>Message</span>
+                <textarea name="message" rows={4} required></textarea>
+            </label>
+            <div class="form-actions">
+                <button type="submit" class="primary-button">Submit</button>
+            </div>
+        </form>
+    </PageSection>
 
-  <PageSection title="Drop us a message" align="left">
-    <form class="contact-form">
-      <div class="form-grid">
-        <label class="form-field">
-          <span>Name</span>
-          <input type="text" name="name" required />
-        </label>
-        <label class="form-field">
-          <span>Email Address</span>
-          <input type="email" name="email" required />
-        </label>
-        <label class="form-field">
-          <span>Subject</span>
-          <input type="text" name="subject" />
-        </label>
-        <label class="form-field">
-          <span>Cellphone Number</span>
-          <input type="tel" name="phone" />
-        </label>
-      </div>
-      <label class="form-field">
-        <span>Message</span>
-        <textarea name="message" rows={4} required></textarea>
-      </label>
-      <div class="form-actions">
-        <button type="submit" class="primary-button">Submit</button>
-      </div>
-    </form>
-  </PageSection>
+    <PageSection>
+        <div class="contact-highlights">
+            <div class="contact-card">
+                <span class="contact-icon" aria-hidden="true">📞</span>
+                <span class="contact-label">0300-060 (KIVA)</span>
+            </div>
+            <div class="contact-card">
+                <span class="contact-icon" aria-hidden="true">📍</span>
+                <span class="contact-label">32/E PECHS Block 6, Karachi</span>
+            </div>
+            <div class="contact-card">
+                <span class="contact-icon" aria-hidden="true">✉️</span>
+                <span class="contact-label">info@thekivaschool.com</span>
+            </div>
+        </div>
+    </PageSection>
 </BaseLayout>
 
 <style>
-  .contact-highlights {
-    display: grid;
-    gap: 1.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    width: 100%;
-  }
-
-  .contact-card {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-  }
-
-  .contact-icon {
-    font-size: 2rem;
-    color: #c165dd;
-  }
-
-  .contact-label {
-    text-align: center;
-  }
-
-  .leaf-divider {
-    font-size: 1.8rem;
-    color: var(--color-teal);
-    text-align: center;
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .form-grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
-
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-    font-size: 0.95rem;
-  }
-
-  .form-field span {
-    font-weight: 600;
-    color: var(--color-text-primary);
-  }
-
-  .form-field input,
-  .form-field textarea {
-    border: none;
-    border-radius: 18px;
-    padding: 0.85rem 1rem;
-    font-size: 1rem;
-    background: #d59bed;
-    color: var(--color-text-inverse);
-  }
-
-  .form-field input::placeholder,
-  .form-field textarea::placeholder {
-    color: rgba(255, 255, 255, 0.85);
-  }
-
-  .form-field textarea {
-    resize: vertical;
-  }
-
-  .form-actions {
-    display: flex;
-    justify-content: center;
-  }
-
-  .primary-button {
-    background: #d59bed;
-    color: var(--color-text-inverse);
-    border: none;
-    border-radius: 999px;
-    padding: 0.85rem 2.5rem;
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  .primary-button:hover {
-    background: #b878d8;
-  }
-
-  @media (max-width: 720px) {
-    .contact-icon {
-      font-size: 1.6rem;
+    .contact-highlights {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        width: 100%;
     }
-  }
+
+    .contact-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        color: var(--color-text-primary);
+    }
+
+    .contact-icon {
+        font-size: 2rem;
+        color: #c165dd;
+    }
+
+    .contact-label {
+        text-align: center;
+    }
+
+    .leaf-divider {
+        font-size: 1.8rem;
+        color: var(--color-teal);
+        text-align: center;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .form-field span {
+        text-align: left;
+        font-weight: 800;
+        color: var(--color-text-primary);
+        padding-left: 14px;
+    }
+
+    .form-field input,
+    .form-field textarea {
+        border: none;
+        border-radius: 18px;
+        padding: 0.85rem 1rem;
+        font-size: 1rem;
+        background: #d59bed;
+        color: var(--color-text-inverse);
+    }
+
+    .form-field input::placeholder,
+    .form-field textarea::placeholder {
+        color: rgba(255, 255, 255, 0.85);
+    }
+
+    .form-field textarea {
+        resize: vertical;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: center;
+    }
+
+    .primary-button {
+        background: #d59bed;
+        color: var(--color-text-inverse);
+        border: none;
+        border-radius: 999px;
+        padding: 0.85rem 2.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .primary-button:hover {
+        background: #b878d8;
+    }
+
+    @media (max-width: 720px) {
+        .contact-icon {
+            font-size: 1.6rem;
+        }
+    }
 </style>

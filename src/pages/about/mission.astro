@@ -4,21 +4,21 @@ import heroImage from "../../assets/Banner_mission.png";
 import PageSection from "../../components/PageSection.astro";
 
 const values = [
-  {
-    title: "Sisu",
-    description:
-      "Resilience, perseverance, and courage in the face of challenges—instilled in every learner.",
-  },
-  {
-    title: "Inclusivity",
-    description:
-      "A welcoming community where every child and family feels seen, supported, and empowered.",
-  },
-  {
-    title: "Social Responsibility",
-    description:
-      "Learners who care for their communities and contribute thoughtfully to the world around them.",
-  },
+    {
+        title: "Sisu",
+        description:
+            "Resilience, perseverance, and courage in the face of challenges—instilled in every learner.",
+    },
+    {
+        title: "Inclusivity",
+        description:
+            "A welcoming community where every child and family feels seen, supported, and empowered.",
+    },
+    {
+        title: "Social Responsibility",
+        description:
+            "Learners who care for their communities and contribute thoughtfully to the world around them.",
+    },
 ];
 import IntroBlock from "../../components/IntroBlock.astro";
 import ValuesSection from "../../components/ValuesSection.astro";
@@ -26,36 +26,38 @@ import ValuesSection from "../../components/ValuesSection.astro";
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
     <!-- TODO: decrease margin between title and copy text -->
-  <PageSection title="Vision" headingLevel={1}>
-    <IntroBlock>
-      <p>
-        Launched in 2021, Kiva School came into being after Muzaffar Bukhari of
-        Veritas Learning Circle joined EWPL as a new partner. Bringing a fresh
-        perspective and vision to the organisation, Kiva School was established
-        as a new chapter of the AMI pre-school focusing on early developmental
-        years from a place of curiosity and exploration.
-      </p>
-      <p>
-        Breaking away from conventional teaching methods and adopting the
-        Finnish play-based educational philosophy, Kiva embodies values of
-        kindness and social responsibility that encourage personal growth at
-        each child’s own pace.
-      </p>
-    </IntroBlock>
-  </PageSection>
+    <PageSection title="VISION" headingLevel={1}>
+        <IntroBlock>
+            <p>
+                Launched in 2021, Kiva School came into being after Muzaffar
+                Bukhari of Veritas Learning Circle joined EWPL as a new partner.
+                Bringing a fresh perspective and vision to the organisation,
+                Kiva School was established as a new chapter of the AMI
+                pre-school focusing on early developmental years from a place of
+                curiosity and exploration.
+            </p>
+            <p>
+                Breaking away from conventional teaching methods and adopting
+                the Finnish play-based educational philosophy, Kiva embodies
+                values of kindness and social responsibility that encourage
+                personal growth at each child’s own pace.
+            </p>
+        </IntroBlock>
+    </PageSection>
 
-  <PageSection title="Mission">
-    <IntroBlock>
-      <p>
-        EWPL pursues improved educational standards while advancing
-        community-wide change through action research. With a commitment to
-        continuous improvement, every programme is designed to promote genuine
-        learning and create a meaningful, lasting impact for everyone involved.
-      </p>
-    </IntroBlock>
-  </PageSection>
+    <PageSection title="MISSION">
+        <IntroBlock>
+            <p>
+                EWPL pursues improved educational standards while advancing
+                community-wide change through action research. With a commitment
+                to continuous improvement, every programme is designed to
+                promote genuine learning and create a meaningful, lasting impact
+                for everyone involved.
+            </p>
+        </IntroBlock>
+    </PageSection>
 
-  <PageSection title="Values">
-    <ValuesSection />
-  </PageSection>
+    <PageSection title="VALUES">
+        <ValuesSection />
+    </PageSection>
 </BaseLayout>

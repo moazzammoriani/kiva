@@ -17,22 +17,22 @@ import IntroBlock from "../../components/IntroBlock.astro";
 const directors = [
     {
         name: "Nasira Faiz",
-        bio: "Nasira Faiz heads the Kiva School, AMI Daycare and Learning Centre, Paar and the Seniors’ Involvement Program as a Director and Partner at Education Works Private Limited (EWPL). As a strong advocate of inclusion, with a background in Psychology, Nasira has worked on projects such as research around occupational therapy, with context to inclusive education in Pakistan. With a focus on early childhood education and development, she further received training from the Forest School, the learnings of which were applied to creating an outdoor learning space model for incarcerated children in Karachi’s Central Prison. She is also associated with the Education and Skills Committee at the Karachi Down Syndrome Program. Stepping away from Education, Nasira’s passion for travelling has led her to be the Vice President of TravelinPk, a venture to promote responsible and sustainable tourism in Pakistan.",
+        bio: "Nasira Faiz heads the Kiva School, AMI Daycare and Learning Centre, Paar, and the Seniors’ Involvement Program as a Director and Partner at Education Works Private Limited (EWPL). As a strong advocate of inclusion, Nasira has worked on several projects with regards to inclusive education in Pakistan. She has co-authored a research titled, ‘Developing the role of Occupational Therapy in Inclusive Education in Pakistan’ with Brunel University, DOW University of Health Sciences and The AMI School. She is also associated with the Education and Skills Committee at the Karachi Down Syndrome Program.<br><br>With a focus on early childhood education and development, Nasira received training from the internationally acclaimed Forest School, which inspired her to create an outdoor learning space model for incarcerated children in Karachi’s Central Prison.",
         imgSrc: nasira.src,
     },
     {
         name: "Rabeea Minai",
-        bio: "Rabeea heads the Seniors Involve Program (SIP) and leads community engagement efforts. Her work connects generations through active, intergenerational projects that celebrate lifelong learning.",
+        bio: "Rabeea Minai is a Partner at Education Works Private Limited (EWPL), under the umbrella of which, she’s a Director at The AMI School, Paar and the Seniors’ Involvement Program (SIP). As an advocate of an inclusive society, Rabeea attended a 6-month M.Ed. module on Inclusive Education at AKU-IED and was one of the team leads in the 3-years action research project around the role of occupational therapy in inclusive education in Pakistan.<br><br>Alongside her work at EWPL, Rabeea has been involved in projects with The Book Group, served on the Board of Governors of the Teachers Resource Centre, established a preschool in the women’s section of Karachi’s Central Prison, and is a member of the Advisory Committee of the Legal Aid Office for the prison schools in Sindh.",
         imgSrc: rabea.src,
     },
     {
-        name: "Saba Qadir",
-        bio: "With more than twenty years in early years education, Saba has mentored educators across Pakistan. She guides curriculum design and educator development, ensuring every classroom is warm, inclusive, and intentional.",
+        name: "Saba Quadir",
+        bio: "Saba Quadir heads the Senior section at The AMI School, as a Director & Partner at Education Works Private Limited (EWPL). Since 1981, Saba has been professionally associated with the education sector and has worked in Montessori-adjacent roles in Pakistan and USA. She started as a Montessori-trained teacher with a Diploma from the Association Montessori Internationale and soon after joined the AMI team.<br><br>Over the years, Saba has volunteered on different projects with The Book Group and Zindagi Trust. She has also served on the Board of Governors at the Teachers’ Resource Centre.",
         imgSrc: saba.src,
     },
     {
         name: "Muzaffar Bukhari",
-        bio: "Muzaffar partners with EWPL to grow Kiva School’s play-based learning approach. His experience founding Veritas Learning Circle helps bridge holistic academics with meaningful community partnerships.",
+        bio: "Muzaffar is an ICF Certified Coach, RYT 200 Yoga Teacher (Bali) and a practicing therapist having completed his Advanced Diploma in Humanistic Integrative Counseling from CPPD, UK. With a background in finance, he later discovered his true calling in the field of education and mental health after attending executive education at Harvard Business School and interacting with educationists in Finnish schools. In 2016, he founded Veritas Learning Circle (VLC), a school based in Karachi, which believes in the power of play and human connection.<br><br>In 2021, Muzaffar joined Education Works Private Limited (EWPL) as a Director & Partner and played a key role in establishing the Kiva School.",
         imgSrc: muzaffar.src,
     },
 ];
@@ -40,33 +40,31 @@ const directors = [
 const teamMembers = [
     {
         name: "Samreen Jawaid",
-        bio: "Samreen is a specialist in early childhood education with 20+ years of experience. She mentors teachers on observation-led lesson design and supports families as children transition into primary grades.",
+        bio: "Samreen Javaid is a dedicated educator with over 27 years of experience in early childhood education. She currently serves as the Director of Research & Development at Kiva School.<br><br>Samreen holds a Master’s degree in Early Childhood Educational Development from the Aga Khan University (AKU), along with certifications in Special and Inclusive Education, contemporary teaching and learning strategies. She has also conducted numerous professional development sessions at renowned institutions including the AKU Institute for Educational Development, Education Fund for Sindh, DOW University, and Karachi Down Syndrome Program (KDSP). Samreen also played an active role in the 3-years action research project around the role of occupational therapy in inclusive education in Pakistan.",
         imgSrc: samreen.src,
     },
     {
         name: "Bushra Umair",
-        bio: "Bushra leads community enrichment programmes, collaborating with local partners to design joyful, hands-on learning experiences that extend beyond the classroom.",
+        bio: "Bushra has been a dedicated educator since 2001, having contributed toward the growth and development of early years education programs at The AMI School through the years. As of 2021, she heads the pre-school and elementary section at Kiva School as Vice Principal.<br><br>Extensively trained in the field of Inclusive Education, Bushra participated in a collaborative action research project titled “Developing Inclusive Education in Pakistan”, working closely with occupational therapists from Dow University of Health Sciences (DUHS) and researchers from Brunel University, UK. Her work in this area has positioned her as a resource person, and she has conducted numerous workshops and training sessions for schools across Karachi on inclusive practices in education.",
         imgSrc: bushra.src,
     },
     {
         name: "Hiba Abdul Razzaq",
-        bio: "Hiba focuses on programme operations and family partnerships. She keeps our learning environments running smoothly and ensures each Kiva family stays connected to the school’s mission.",
+        bio: "Hiba Abdul Razzaq is a dedicated administrative professional with over 13 years of experience in school operations. She joined The AMI School in 2012 and has been an integral part of the organization ever since. In 2021, she was appointed as the Manager of Administration, where she continues to play a vital role in ensuring smooth day-to-day operations and maintaining an organized, efficient administrative structure.<br><br>She holds a BBA (Honours) degree and is known for her reliability, attention to detail, and strong organizational skills.",
         imgSrc: hiba.src,
     },
 ];
 ---
 
 <BaseLayout pageTitle="Meet the Team" heroSrc={heroImage.src}>
+    <PageSection>
+        <IntroBlock heading="THE PEOPLE OF KIVA" />
+    </PageSection>
     <IntroBlock>
-        <PageSection
-            title="Meet the People of Kiva"
-            headingLevel={1}
-            description="A collective of educators, programme leads, and community builders who nurture curiosity, celebrate individuality, and keep our values alive every day."
-        />
+        <TeamSection title="THE DIRECTORS" members={directors} />
     </IntroBlock>
 
     <IntroBlock>
-        <TeamSection title="Meet the Directors" members={directors} />
-        <TeamSection title="Meet the Team" members={teamMembers} />
+        <TeamSection title="THE TEAM" members={teamMembers} />
     </IntroBlock>
 </BaseLayout>

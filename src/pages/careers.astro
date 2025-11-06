@@ -5,159 +5,161 @@ import PageSection from "../components/PageSection.astro";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-  <PageSection>
-    <p class="careers-intro">
-      <strong>If you feel like you resonate with our values and aren’t afraid to connect with your inner child –</strong>
-      join the flock!
-    </p>
-  </PageSection>
+    <PageSection>
+        <p class="careers-intro">
+            <strong
+                >If you feel like you resonate with our values and aren’t afraid
+                to connect with your inner child
+            </strong>
+            join the flock!
+        </p>
+    </PageSection>
 
-  <div class="leaf-divider" aria-hidden="true">🍃</div>
+    <PageSection align="left">
+        <form class="careers-form">
+            <div class="form-grid">
+                <label class="form-field">
+                    <span>Full Name</span>
+                    <input type="text" name="name" required />
+                </label>
+                <label class="form-field">
+                    <span>Email Address</span>
+                    <input type="email" name="email" required />
+                </label>
+                <label class="form-field">
+                    <span>Contact Number</span>
+                    <input type="tel" name="phone" />
+                </label>
+                <label class="form-field">
+                    <span>Position of Interest</span>
+                    <input type="text" name="position" />
+                </label>
+            </div>
 
-  <PageSection align="left">
-    <form class="careers-form">
-      <div class="form-grid">
-        <label class="form-field">
-          <span>Full Name</span>
-          <input type="text" name="name" required />
-        </label>
-        <label class="form-field">
-          <span>Email Address</span>
-          <input type="email" name="email" required />
-        </label>
-        <label class="form-field">
-          <span>Contact Number</span>
-          <input type="tel" name="phone" />
-        </label>
-        <label class="form-field">
-          <span>Position of Interest</span>
-          <input type="text" name="position" />
-        </label>
-      </div>
+            <label class="form-field">
+                <span>Cover Letter (300 words)</span>
+                <textarea name="coverLetter" rows={6}></textarea>
+            </label>
 
-      <label class="form-field">
-        <span>Cover Letter (300 words)</span>
-        <textarea name="coverLetter" rows={6}></textarea>
-      </label>
+            <div class="upload-row">
+                <label class="upload-button">
+                    <span>Upload CV</span>
+                    <input type="file" name="cv" accept=".pdf,.doc,.docx" />
+                </label>
+            </div>
 
-      <div class="upload-row">
-        <label class="upload-button">
-          <span>Upload CV</span>
-          <input type="file" name="cv" accept=".pdf,.doc,.docx" />
-        </label>
-      </div>
-
-      <div class="form-actions">
-        <button type="submit" class="submit-button">Submit</button>
-      </div>
-    </form>
-  </PageSection>
+            <div class="form-actions">
+                <button type="submit" class="submit-button">Submit</button>
+            </div>
+        </form>
+    </PageSection>
 </BaseLayout>
 
 <style>
-  .careers-intro {
-    max-width: 60ch;
-    margin: 0 auto;
-    font-size: 1.15rem;
-    line-height: 1.7;
-    color: var(--color-text-primary);
-    text-align: center;
-  }
-
-  .careers-intro strong {
-    display: block;
-    color: var(--color-teal);
-    margin-bottom: 0.4rem;
-  }
-
-  .leaf-divider {
-    font-size: 1.8rem;
-    text-align: center;
-    color: var(--color-teal);
-  }
-
-  .careers-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-
-  .form-grid {
-    display: grid;
-    gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  }
-
-  .form-field {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .form-field span {
-    font-weight: 600;
-    color: var(--color-text-primary);
-  }
-
-  .form-field input,
-  .form-field textarea {
-    border: none;
-    border-radius: 18px;
-    padding: 0.85rem 1rem;
-    background: #d59bed;
-    color: var(--color-text-inverse);
-    font-size: 1rem;
-  }
-
-  .form-field textarea {
-    resize: vertical;
-  }
-
-  .upload-row {
-    display: flex;
-    justify-content: center;
-  }
-
-  .upload-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    background: #d59bed;
-    color: var(--color-text-inverse);
-    border-radius: 999px;
-    padding: 0.75rem 2rem;
-    cursor: pointer;
-    font-weight: 900;
-  }
-
-  .upload-button input[type="file"] {
-    display: none;
-  }
-
-  .form-actions {
-    display: flex;
-    justify-content: center;
-  }
-
-  .submit-button {
-    border: none;
-    border-radius: 999px;
-    font-weight: 900;
-    padding: 0.85rem 2.75rem;
-    background: #032c47;
-    color: var(--color-text-inverse);
-    font-size: 1rem;
-    cursor: pointer;
-  }
-
-  .submit-button:hover {
-    background: #05456d;
-  }
-
-  @media (max-width: 720px) {
     .careers-intro {
-      font-size: 1.05rem;
+        max-width: 60ch;
+        margin: 0 auto;
+        font-size: 28px;
+        font-weight: 900;
+        color: var(--color-text-primary);
+        text-align: center;
     }
-  }
+
+    .careers-intro strong {
+        display: block;
+        color: var(--color-teal);
+        margin-bottom: 0.4rem;
+    }
+
+    .leaf-divider {
+        font-size: 1.8rem;
+        text-align: center;
+        color: var(--color-teal);
+    }
+
+    .careers-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-grid {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .form-field {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-field span {
+        font-weight:800;
+        color: var(--color-text-primary);
+        padding-left: 14px;
+    }
+
+    .form-field input,
+    .form-field textarea {
+        border: none;
+        border-radius: 18px;
+        padding: 0.85rem 1rem;
+        background: #d59bed;
+        color: var(--color-text-inverse);
+        font-size: 1rem;
+    }
+
+    .form-field textarea {
+        resize: vertical;
+    }
+
+    .upload-row {
+        display: flex;
+        justify-content: center;
+    }
+
+    .upload-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background: #d59bed;
+        color: var(--color-text-inverse);
+        border-radius: 999px;
+        padding: 0.75rem 2rem;
+        cursor: pointer;
+        font-weight: 900;
+    }
+
+    .upload-button input[type="file"] {
+        display: none;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: center;
+    }
+
+    .submit-button {
+        border: none;
+        border-radius: 999px;
+        font-weight: 900;
+        padding: 0.85rem 2.75rem;
+        background: #032c47;
+        color: var(--color-text-inverse);
+        font-size: 1rem;
+        cursor: pointer;
+    }
+
+    .submit-button:hover {
+        background: #05456d;
+    }
+
+    @media (max-width: 720px) {
+        .careers-intro {
+            font-size: 1.05rem;
+        }
+    }
 </style>
