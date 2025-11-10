@@ -2,11 +2,16 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import heroImage from "../assets/Banner_ContactUs.png";
 import PageSection from "../components/PageSection.astro";
+import SectionBreakLeaf from "../components/SectionBreakLeaf.astro";
+import phone from "../assets/contact_phone_icon.png";
+import location from "../assets/contact_location_icon.png";
+import email from "../assets/contact_email_icon.png";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
     <!-- <div class="leaf-divider" aria-hidden="true">🍃</div> -->
 
+    <SectionBreakLeaf />
     <PageSection title="DROP US A MESSAGE">
         <form class="contact-form">
             <div class="form-grid">
@@ -37,18 +42,31 @@ import PageSection from "../components/PageSection.astro";
         </form>
     </PageSection>
 
+    <SectionBreakLeaf />
+    <PageSection>
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.956712137171!2d67.0737774!3d24.865328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f7bdf724f3f%3A0xcf5e9b30d2cf7b4e!2sThe%20Kiva%20School!5e0!3m2!1sen!2s!4v1762774280783!5m2!1sen!2s"
+            width="800"
+            height="450"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </PageSection>
+
+    <SectionBreakLeaf />
     <PageSection>
         <div class="contact-highlights">
             <div class="contact-card">
-                <span class="contact-icon" aria-hidden="true">📞</span>
+                <img class="contact-icon" src={phone.src} />
                 <span class="contact-label">0300-060 (KIVA)</span>
             </div>
             <div class="contact-card">
-                <span class="contact-icon" aria-hidden="true">📍</span>
+                <img class="contact-icon" src={location.src} />
                 <span class="contact-label">32/E PECHS Block 6, Karachi</span>
             </div>
             <div class="contact-card">
-                <span class="contact-icon" aria-hidden="true">✉️</span>
+                <img class="contact-icon" src={email.src} />
                 <span class="contact-label">info@thekivaschool.com</span>
             </div>
         </div>
