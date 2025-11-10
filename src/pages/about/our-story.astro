@@ -1,78 +1,26 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import StoryTimelineItem from "../../components/StoryTimelineItem.astro";
 import PageSection from "../../components/PageSection.astro";
-import heroImage from "../../assets/high-angle-child-woman-painting.jpg";
-
-const timeline = [
-  {
-    year: "1983",
-    text: `Began with three Montessori-trained friends who came together as founders of the Beginner's Montessori, a visionary institution registered with the Pakistan Montessori Association. The space defied convention and centred every child's potential as its core value, serving as a place where learning flowed naturally and each child was cherished and nurtured to grow at their own rhythm.`,
-  },
-  {
-    year: "1989-1990",
-    text: `Taking over the management of a prestigious Montessori centre by Mrs Gool K. Minwalla, the school merged with Beginner's Montessori to form the AMI School.`,
-  },
-  {
-    year: "2001",
-    text: `AMI gradually expands into becoming an IGCSE institution, levelling up year by year.`,
-  },
-  {
-    year: "2006-2007",
-    text: `The first cohort of students sat for their O-level examinations.`,
-  },
-  {
-    year: "2011",
-    text: `Establishment of Education Works Pvt. Ltd., which soon became the driving force behind the school's growth with the launch of AMI Daycare and Learning Centre (ADLC), marking a turn towards prioritising early childhood development.`,
-  },
-  {
-    year: "2018",
-    text: `Committed to fostering community connections, the Seniors' Involvement Program (SIP) launched, focusing on active engagement and ageing for senior citizens in a supportive, empowering environment.`,
-  },
-  {
-    year: "2021",
-    text: `Muzaffar Bukhari of Veritas Learning Circle joins EWPL as a partner, bringing a fresh perspective and vision to the organisation. That same year, Kiva School came into being with a new spin on AMI's preschool, embracing Finnish play-based learning to encourage curiosity and a lifelong love of learning.`,
-  },
-  {
-    year: "2023",
-    text: `Dedicated to early childhood development and intervention, Paar—a transformative life-readiness program for children with special educational needs—became EWPL's most recent endeavour.`,
-  },
-];
-
-const highlights = [
-  { title: "Research Paper" },
-  { title: "Partnership with Kiran Foundation" },
-  { title: "Community Outreach" },
-];
+import heroImage from "../../assets/our_story_banner.png";
+import timeline from "../../assets/our_story_timeline.png";
 ---
 
-<BaseLayout pageTitle="Our Story" heroSrc={heroImage.src}>
-  <PageSection
-    title="Our Story"
-    description="A journey rooted in Montessori values, community partnerships, and a play-based approach that keeps curiosity at the heart of every classroom."
-    headingLevel={1}
-    align="left"
-    variant="accent"
-  >
-    <div class="stack-lg">
-      {timeline.map((entry) => (
-        <StoryTimelineItem year={entry.year}>
-          <p>{entry.text}</p>
-        </StoryTimelineItem>
-      ))}
-    </div>
-  </PageSection>
-
-  <PageSection
-    title="Highlights"
-    description="Peek into milestone moments. Detailed features and media will appear here soon."
-  >
-    <div class="grid-responsive">
-      {highlights.map((item) => (
-        <div class="placeholder-card" role="img" aria-label={`${item.title} highlight placeholder`}>
-          <span>{item.title}</span>
+<BaseLayout pageTitle={null} heroSrc={heroImage.src}>
+    <PageSection title="OUR STORY">
+        <div class="timeline-container stack-lg">
+            <img class="timeline" src={timeline.src} alt="" />
         </div>
-      ))}
-    </div>
-  </PageSection>
-</BaseLayout>
+    </PageSection>
+</BaseLayout>;
+
+<style>
+    .timeline {
+        width: 100%;
+    }
+    .timeline-container {
+        text-align: center;
+        box-sizing: border-box;
+        border: 16px solid var(--color-teal);
+        border-radius: 71px;
+    }
+</style>
