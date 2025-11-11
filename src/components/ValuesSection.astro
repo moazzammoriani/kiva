@@ -6,88 +6,126 @@ import tree from "../assets/responsibility_tree.png";
 import "../styles/tokens.css";
 ---
 
-<style>
-  .values {
-    width: 800px;
-    height: 650px;
-    margin: 0 auto;
-  }
-  .value-card {
-    display: flex;
-    border-width: 6px;
-    border-style: solid;
-    border-radius: 42px;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
+<div class="value-cards-container">
+    <div class="value-card">
+        <div class="content sisu">
+            <img src={bird.src} class="front" />
+            <div class="back">
+                <div back-text>
+                    <p>
+                        <strong>Sisu </strong> a Finnish concept, encompassing the
+                        qualities of perseverance and determination. Reflective of
+                        SISU, our swallow is a representation of an extraordinarily
+                        agile bird that embodies grit, resilience and strength qualities
+                        Kiva aims to foster in all its stakeholders.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  .value-card--text {
-    padding: 10px;
-  }
+    <div class="value-card">
+        <div class="content inclusivity">
+            <img src={sun.src} class="front" />
+            <div class="back">
+                <div back-text>
+                    <p>
+                        Much like the sun, and how it shines over everyone
+                        without prejudice, <strong>Inclusivity</strong> is at Kiva's
+                        core. Fostering a welcoming and equitable space where everyone's
+                        differences are celebrated through a community rooted in
+                        kindness, making parts of a whole.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 
-  .value-card img {
-    display: block;
-    width: 180px;
-  }
-
-  .values {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-
-    /* Define 3 equal-height rows */
-    grid-template-rows: repeat(2, 1fr);
-    gap: 20px;
-  }
-
-  .sisu {
-    border-color: #c470e0;
-  }
-
-  .inclusivity {
-    border-color: #fcc27b;
-  }
-
-  .responsibility {
-    border-color: #0db89e;
-  }
-</style>
-
-<!-- TODO: make cards flip https://codepen.io/edeesims/pen/wvpYWW -->
-<div class="values">
-  <div class="sisu value-card">
-    <img src={bird.src} alt="" />
-  </div>
-  <div class="inclusivity value-card">
-    <img src={sun.src} alt="" />
-  </div>
-  <div class="responsibility value-card">
-    <img src={tree.src} alt="" />
-  </div>
-  <div class="sisu value-card value-card--text">
-    <p>
-      <strong>Sisu</strong> is a Finnish concept, encompassing the qualities of perseverance
-      and determination. Reflective of SISU, our swallow is a representation of an
-      extraordinarily agile bird that embodies grit, resilience and strength qualities
-      Kiva aims to foster in all its stakeholders.
-    </p>
-  </div>
-  <div class="inclusivity value-card value-card--text">
-    <p>
-      Much like the sun, and how it shines over everyone without prejudice,
-      <strong>Inclusivity</strong> is at Kiva's core. Fostering a welcoming and equitable
-      space where everyone's differences are celebrated through a community rooted
-      in kindness, making parts of a whole.
-    </p>
-  </div>
-  <div class="responsibility value-card value-card--text">
-    <p>
-      Learning to care for the environment and forming a deep connection with
-      nature is considered paramount at Kiva. Respecting the life around us,
-      understanding that we don't exist in a vacuum and that all Life is
-      interconnected, is the key to cultivating empathy and <strong>
-        Social Responsibility</strong
-      > in all our interactions.
-    </p>
-  </div>
+    <div class="value-card">
+        <div class="content social-responsibility">
+            <img src={tree.src} class="front" />
+            <div class="back">
+                <div back-text>
+                    <p>
+                        Learning to care for the environment and forming a deep
+                        connection with nature is considered paramount at Kiva.
+                        Respecting the life around us, understanding that we
+                        don't exist in a vacuum and that all Life is
+                        interconnected, is the key to cultivating empathy and
+                        <strong>Social Responsibility</strong> in all our interactions.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<style>
+    .value-cards-container {
+        display: flex;
+        justify-content: space-evenly;
+    }
+    .value-card {
+        width: 300px;
+        height: 400px;
+        perspective: 500px;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-width: 6px;
+        border-style: solid;
+        border-radius: 42px;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        transition: transform 1s;
+        transform-style: preserve-3d;
+    }
+
+    .sisu {
+        border-color: #c470e0;
+    }
+
+    .inclusivity {
+        border-color: #fcc27b;
+    }
+
+    .social-responsibility {
+        border-color: var(--color-teal);
+    }
+
+    .value-card:hover .content {
+        transform: rotateY(180deg);
+        transition: transform 0.5s;
+    }
+
+    .front {
+        position: absolute;
+        height: 49%;
+        background: white;
+        color: #03446a;
+        text-align: center;
+        font-size: 60px;
+        border-radius: 5px;
+        backface-visibility: hidden;
+        top: 24%;
+        right: 7%;
+    }
+
+    .back {
+        background: white;
+        color: #03446a;
+        text-align: center;
+        font-size: 60px;
+        padding: 20px 20px;
+        backface-visibility: hidden;
+    }
+
+    .back {
+        font-size: 16px;
+        transform: rotateY(180deg);
+    }
+</style>
