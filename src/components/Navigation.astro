@@ -1,128 +1,128 @@
 ---
 import NavLink from "./NavLink.astro";
 import NavDropdown from "./NavDropdown.astro";
-import logo from "../assets/kiva-logo.png";
+import logo from "../assets/kiva-logo_home.png";
 ---
 
 <style>
-  .top-nav {
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 1.5rem;
-    padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
-    max-width:  1200px;/*var(--layout-max-width, 1200px); */
-    margin: 0 auto;
-    width: 100%;
-  }
-
-  .brand {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.65rem;
-    text-decoration: none;
-    color: var(--color-text-primary, #214244);
-    font-weight: 700;
-    font-size: 1.1rem;
-    letter-spacing: 0.04em;
-    flex: 0 0 auto;
-  }
-
-  .brand img {
-    height: 60px;
-    width: auto;
-    display: block;
-  }
-
-  .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-  }
-
-  @media (max-width: 820px) {
-    .brand img {
-      height: 40px;
-    }
-
     .top-nav {
-      padding: 1rem clamp(1rem, 5vw, 2rem);
-      gap: 1rem;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 1.5rem;
+        padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
+        max-width: 1200px; /*var(--layout-max-width, 1200px); */
+        margin: 0 auto;
+        width: 100%;
     }
-  }
 
-  @media (max-width: 640px) {
-    .brand span {
-      display: none;
+    .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.65rem;
+        text-decoration: none;
+        color: var(--color-text-primary, #214244);
+        font-weight: 700;
+        font-size: 1.1rem;
+        letter-spacing: 0.04em;
+        flex: 0 0 auto;
+    }
+
+    .brand img {
+        height: 60px;
+        width: auto;
+        display: block;
     }
 
     .nav-links {
-      gap: 0.5rem;
-      justify-content: center;
-      width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-wrap: wrap;
+        justify-content: flex-end;
     }
 
-    .top-nav {
-      flex-direction: column;
-      align-items: center;
+    @media (max-width: 820px) {
+        .brand img {
+            height: 40px;
+        }
+
+        .top-nav {
+            padding: 1rem clamp(1rem, 5vw, 2rem);
+            gap: 1rem;
+        }
     }
-  }
+
+    @media (max-width: 640px) {
+        .brand span {
+            display: none;
+        }
+
+        .nav-links {
+            gap: 0.5rem;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .top-nav {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
 </style>
 
 <nav class="top-nav">
-  <a class="brand" href="/">
-    <img src={logo.src} alt="Kiva School" loading="lazy" />
-    <!-- <span>Kiva School</span> -->
-  </a>
-  <div class="nav-links">
-    <NavLink link="/" text="Home" />
-    <NavDropdown
-      baseLink="/about/"
-      label="About Us"
-      items={[
-        { href: "/about/our-story/", text: "Our story" },
-        { href: "/about/mission/", text: "Mission, Vision & Values" },
-        { href: "/about/team/", text: "Meet the Team" },
-      ]}
-    />
-    <NavDropdown
-      baseLink="/programmes/"
-      label="Programmes"
-      items={[
-        {
-          href: "/programmes/preschool-and-elementary/",
-          text: "Preschool and Elementary",
-        },
-        {
-          href: "/programmes/middle-and-senior/",
-          text: "Middle & Senior School",
-        },
-        {
-          href: "/programmes/kiva-kamps/",
-          text: "Kiva Kamps",
-        },
-      ]}
-    />
-    <NavDropdown
-      baseLink="/admission/"
-      label="Admissions"
-      items={[
-        { href: "/admission/process/", text: "Admission Process" },
-        { href: "/admission/form/", text: "Admission Form" },
-      ]}
-    />
-    <NavLink link="/careers/" text="Careers" />
-    <NavDropdown
-      baseLink="/kiva_square/"
-      label="Kiva Square"
-      items={[
-        { href: "/kiva_square/2024/", text: "2024" },
-        { href: "/kiva_square/2026/", text: "2026" },
-      ]}
-    />
-    <NavLink link="/contact/" text="Contact Us" />
-    <NavLink link="/community/" text="Community Enrichment" />
-  </div>
+    <a class="brand" href="/">
+        <img src={logo.src} alt="Kiva School" loading="lazy" />
+        <!-- <span>Kiva School</span> -->
+    </a>
+    <div class="nav-links">
+        <NavLink link="/" text="Home" />
+        <NavDropdown
+            baseLink="/about/"
+            label="About Us"
+            items={[
+                { href: "/about/our-story/", text: "Our story" },
+                { href: "/about/mission/", text: "Mission, Vision & Values" },
+                { href: "/about/team/", text: "Meet the Team" },
+            ]}
+        />
+        <NavDropdown
+            baseLink="/programmes/"
+            label="Programmes"
+            items={[
+                {
+                    href: "/programmes/preschool-and-elementary/",
+                    text: "Preschool and Elementary",
+                },
+                {
+                    href: "/programmes/middle-and-senior/",
+                    text: "Middle & Senior School",
+                },
+                {
+                    href: "/programmes/kiva-kamps/",
+                    text: "Kiva Kamps",
+                },
+            ]}
+        />
+        <NavDropdown
+            baseLink="/admission/"
+            label="Admissions"
+            items={[
+                { href: "/admission/process/", text: "Admission Process" },
+                { href: "/admission/form/", text: "Admission Form" },
+            ]}
+        />
+        <NavLink link="/careers/" text="Careers" />
+        <NavDropdown
+            baseLink="/kiva_square/"
+            label="Kiva Square"
+            items={[
+                { href: "/kiva_square/2024/", text: "2024" },
+                { href: "/kiva_square/2026/", text: "2026" },
+            ]}
+        />
+        <NavLink link="/contact/" text="Contact Us" />
+        <NavLink link="/community/" text="Community Enrichment" />
+    </div>
 </nav>
