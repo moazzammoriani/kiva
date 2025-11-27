@@ -1,5 +1,8 @@
 ---
 import "../styles/tokens.css";
+import facebookIcon from "../assets/facebook-icon.png";
+import instagramIcon from "../assets/instagram-icon.png";
+import linkedinIcon from "../assets/linkedin-icon.png";
 ---
 
 <style>
@@ -25,26 +28,57 @@ import "../styles/tokens.css";
     .footer-heading {
         font-weight: 800;
     }
+
+    .footer__socials-icon {
+        width: 20px;
+    }
+
+    .footer-link {
+        font-weight: 600;
+    }
 </style>
 
 <footer>
     <div class="footer-info">
         <div>
             <p class="footer-heading"><strong>Get In Touch</strong></p>
-            <p>32/E, PECHS, Block 6, Karachi</p>
-            <p>0300 0605482</p>
-            <p>info@kivaschool.com</p>
+            <p class="footer-link">32/E, PECHS, Block 6, Karachi</p>
+            <p class="footer-link">0300 0605482</p>
+            <p class="footer-link">info@kivaschool.com</p>
         </div>
 
         <div>
             <p class="footer-heading"><strong>Useful Links</strong></p>
-            <p>Our story</p>
-            <p>Programs</p>
-            <p>Admissions</p>
-            <p>Careers</p>
+            <p class="footer-link">Our story</p>
+            <p class="footer-link">Programs</p>
+            <p class="footer-link">Admissions</p>
+            <p class="footer-link">Careers</p>
         </div>
 
-        <div><p class="footer-heading"><strong>Find us</strong></p></div>
+        <div>
+            <p class="footer-heading"><strong>Find us</strong></p>
+            <a href=""
+                ><img
+                    class="footer__socials-icon"
+                    src={facebookIcon.src}
+                    alt=""
+                /></a
+            >
+            <a href=""
+                ><img
+                    class="footer__socials-icon"
+                    src={instagramIcon.src}
+                    alt=""
+                /></a
+            >
+            <a href=""
+                ><img
+                    class="footer__socials-icon"
+                    src={linkedinIcon.src}
+                    alt=""
+                /></a
+            >
+        </div>
     </div>
     <div class="footer-copyright">
         <div>2025 Kiva School. All Rights Reserved.</div>
