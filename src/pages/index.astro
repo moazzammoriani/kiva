@@ -31,7 +31,7 @@ const slideshowImages = [
     {
         src: slideThree.src,
         alt: "Creative corner with art supplies",
-        label: "Ground",
+        label: "Playround",
     },
 ];
 ---
@@ -63,11 +63,11 @@ const slideshowImages = [
         </IntroBlock>
     </PageSection>
 
-    <PageSection title="OUR SPACES">
+    <PageSection title="OUR SPACES" headingLevel={3}>
         <SimpleSlideshow images={slideshowImages} />
     </PageSection>
 
-    <PageSection title="EDUCATION WORK PVT. LTD.">
+    <PageSection title="EDUCATION WORKs PVT. LTD." headingLevel={3}>
         <div class="logos">
             {
                 [kivaLogo, amiLogo, amiLogo2, paaryLogo].map((img) => (
@@ -78,7 +78,7 @@ const slideshowImages = [
             }
         </div>
     </PageSection>
-    <PageSection title="PARTNERS AND COLLABORATORS">
+    <PageSection title="PARTNERS AND COLLABORATORS" headingLevel={3}>
         <div class="logos">
             {
                 [
@@ -99,7 +99,6 @@ const slideshowImages = [
 </BaseLayout>
 
 <style>
-    /* TODO: make this 300px */
     #birdhouse {
         width: 300px;
     }

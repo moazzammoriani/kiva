@@ -34,7 +34,7 @@ main {
 
 .banner img {
   width: 100%;
-  height: clamp(200px, 20vw, 420px);
+  height: clamp(200px, 25vw, 480px);
   object-fit: cover;
   display: block;
 }
