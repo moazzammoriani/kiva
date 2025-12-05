@@ -9,7 +9,12 @@ import "../styles/tokens.css";
 <div class="value-cards-container">
     <div class="value-card">
         <div class="content sisu">
-            <img src={bird.src} class="front" />
+            <div class="front">
+                <div class="front-image-container">
+                    <img class="value-img" src={bird.src} />
+                    <div class="front-label">Sisu</div>
+                </div>
+            </div>
             <div class="back">
                 <div back-text>
                     <p>
@@ -26,7 +31,12 @@ import "../styles/tokens.css";
 
     <div class="value-card">
         <div class="content inclusivity">
-            <img src={sun.src} class="front" />
+            <div class="front">
+                <div class="front-image-container">
+                    <img class="value-img" src={sun.src} class="front" />
+                    <div class="front-label">Inclusivity</div>
+                </div>
+            </div>
             <div class="back">
                 <div back-text>
                     <p>
@@ -43,7 +53,13 @@ import "../styles/tokens.css";
 
     <div class="value-card">
         <div class="content social-responsibility">
-            <img src={tree.src} class="front" />
+            <div class="front">
+                <div class="front-image-container">
+                    <img class="value-img" src={tree.src} class="front" />
+                    <div class="front-label">Social Responsibility</div>
+                </div>
+            </div>
+
             <div class="back">
                 <div back-text>
                     <p>
@@ -112,7 +128,23 @@ import "../styles/tokens.css";
         border-radius: 5px;
         backface-visibility: hidden;
         top: 23%;
-        right: 12.5%;
+        right: 16%;
+    }
+
+    .front-image-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .front-label {
+        font-size: 20px;
+        font-weight: 800;
+        text-align: center;
+    }
+
+    .value-img {
+        width: 200px;
+        display: block;
     }
 
     .back {
