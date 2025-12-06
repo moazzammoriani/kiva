@@ -52,7 +52,7 @@ const faqs = [
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-    <PageSection title="ADMISSION PROCESS" headingLevel={1}>
+    <PageSection title="ADMISSION PROCESS" headingLevel={2}>
         <IntroBlock>
             <div class="diagram-container">
                 <img class="process-diagram" src={processDiagram.src} alt="" />
@@ -62,7 +62,7 @@ const faqs = [
             <YellowButton text={"Click here to apply"} />
         </div>
     </PageSection>
-    <PageSection title="F.A.Qs" headingLevel={1}>
+    <PageSection title="F.A.Qs" headingLevel={2}>
         <div class="stack-lg">
             {faqs.map((f) => <Accordion title={f.title} content={f.content} />)}
         </div>

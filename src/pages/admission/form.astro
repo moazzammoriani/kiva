@@ -7,7 +7,7 @@ import YellowButton from "../../components/YellowButton.astro";
 
 <!-- TODO: make labels more bold -->
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-    <PageSection title="ADMISSION FORM" headingLevel={1}>
+    <PageSection title="ADMISSION FORM" headingLevel={2}>
         <div class="stack-lg">
             <p>
                 At the Kiva School we aim to provide an admission process that
@@ -21,9 +21,9 @@ import YellowButton from "../../components/YellowButton.astro";
 
     <form class="admission-form stack-lg">
         <section class="form-panel">
-            <h2 class="form-heading">Session interested in</h2>
+            <h2 class="form-heading">Session</h2>
             <label class="form-field">
-                <span>Session</span>
+                <!-- <span>Session</span> -->
                 <select name="session" required>
                     <option value="">Select…</option>
                     <option>2024–2025</option>
@@ -362,7 +362,6 @@ import YellowButton from "../../components/YellowButton.astro";
         color: var(--color-teal);
         font-size: clamp(1.5rem, 2.5vw, 2rem);
         text-transform: uppercase;
-        letter-spacing: 0.12em;
     }
 
     .form-grid {

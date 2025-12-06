@@ -61,7 +61,7 @@ const faqs = [
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
     <IntroBlock>
-        <PageSection title="PRE-SCHOOL" headingLevel={1}>
+        <PageSection title="PRE-SCHOOL" headingLevel={2}>
             <div class="stack-lg">
                 <p>
                     Through a purpose-built and immersive learning environment,
@@ -84,7 +84,7 @@ const faqs = [
     </PageSection>
 
     <IntroBlock>
-        <PageSection title="" headingLevel={1}>
+        <PageSection title="" headingLevel={2}>
             <div class="stack-lg">
                 <p>
                     Kiva prides itself on its <strong>Curiosity Approach</strong
@@ -111,7 +111,7 @@ const faqs = [
     <SectionBreakLeaf />
 
     <IntroBlock>
-        <PageSection title="ELEMENTARY SCHOOL" headingLevel={1}>
+        <PageSection title="ELEMENTARY SCHOOL" headingLevel={2}>
             <div class="stack-lg">
                 <p>
                     To ensure a smooth transition from Pre-school to Elementary
@@ -143,7 +143,7 @@ const faqs = [
     </PageSection>
 
     <IntroBlock>
-        <PageSection title="" headingLevel={1}>
+        <PageSection title="" headingLevel={2}>
             <div class="stack-lg">
                 <p>
                     With a strong emphasis on personalized learning trajectories
@@ -167,7 +167,7 @@ const faqs = [
     </PageSection>
 
     <!-- TODO: decrease space -->
-    <PageSection title="F.A.Qs">
+    <PageSection title="F.A.Qs" headingLevel={2}>
         <div class="stack-lg">
             {faqs.map((f) => <Accordion title={f.title} content={f.content} />)}
         </div>
