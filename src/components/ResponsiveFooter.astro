@@ -1,0 +1,38 @@
+---
+import Footer from "./Footer.astro";
+import MobileFooter from "./MobileFooter.astro";
+
+const BREAKPOINT = 725;
+---
+
+<div class="responsive-footer" data-breakpoint={BREAKPOINT}>
+  <div data-footer="desktop">
+    <Footer />
+  </div>
+  <div data-footer="mobile" hidden>
+    <MobileFooter />
+  </div>
+</div>
+
+<script is:inline>
+  const root = document.currentScript?.previousElementSibling;
+  if (root instanceof HTMLElement) {
+    const breakpoint = Number(root.dataset.breakpoint ?? "725");
+    const desktop = root.querySelector('[data-footer="desktop"]');
+    const mobile = root.querySelector('[data-footer="mobile"]');
+
+    const setFooter = () => {
+      const isMobile = window.innerWidth <= breakpoint;
+      if (desktop instanceof HTMLElement) desktop.hidden = isMobile;
+      if (mobile instanceof HTMLElement) mobile.hidden = !isMobile;
+    };
+
+    setFooter();
+
+    let resizeTimer;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = window.setTimeout(setFooter, 10);
+    });
+  }
+</script>

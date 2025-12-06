@@ -1,0 +1,217 @@
+---
+import logo from "../assets/kiva-logo_home.png";
+import "../styles/tokens.css";
+import facebookIcon from "../assets/facebook-icon.png";
+import instagramIcon from "../assets/instagram-icon.png";
+import linkedinIcon from "../assets/linkedin-icon.png";
+---
+
+<footer class="mobile-footer">
+    <div class="mobile-footer__body">
+        <div class="mobile-footer__logo">
+            <img src={logo.src} alt="Kiva School" />
+        </div>
+
+        <div class="mobile-footer__columns">
+            <div class="mobile-footer__col">
+                <p class="mobile-footer__heading">Useful links</p>
+                <ul>
+                    <li><a href="/about/our-story/">Our Story</a></li>
+                    <li>
+                        <a href="/programmes/preschool-and-elementary/"
+                            >Programmes</a>
+                    </li>
+                    <li><a href="/admission/process/">Admissions</a></li>
+                    <li><a href="/careers/">Careers</a></li>
+                </ul>
+            </div>
+
+            <div class="mobile-footer__divider" aria-hidden="true"></div>
+
+            <div class="mobile-footer__col mobile-footer__col--contact">
+                <p class="mobile-footer__heading">Get in touch</p>
+                <ul>
+                    <li>32/E, PECHS, Block 6, Karachi</li>
+                    <li>0300 0605482</li>
+                    <li>
+                        <a href="mailto:info@kivaschool.com"
+                            >info@kivaschool.com</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="mobile-footer__bottom-row">
+            <div class="mobile-footer__socials" aria-label="Social media">
+                <a href="" aria-label="Facebook">
+                    <img src={facebookIcon.src} alt="" />
+                </a>
+                <a href="" aria-label="Instagram">
+                    <img src={instagramIcon.src} alt="" />
+                </a>
+                <a href="" aria-label="LinkedIn">
+                    <img src={linkedinIcon.src} alt="" />
+                </a>
+            </div>
+            <a class="mobile-footer__cta" href="/admission/form/">Apply Now</a>
+        </div>
+    </div>
+
+    <div class="mobile-footer__bar">
+        <span>2025 Kiva School. All Rights Reserved</span>
+    </div>
+</footer>
+
+<style>
+    .mobile-footer {
+        background: var(--color-yellow);
+        color: var(--color-dark-blue);
+        display: none;
+    }
+
+    .mobile-footer__body {
+        padding: 1.5rem 1.25rem 1.25rem;
+        display: grid;
+        gap: 1.25rem;
+    }
+
+    .mobile-footer__logo img {
+        height: 72px;
+        width: auto;
+    }
+
+  .mobile-footer__columns {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 1.25rem;
+    align-items: start;
+  }
+
+  .mobile-footer__divider {
+    width: 2px;
+    background: var(--color-teal2);
+    min-height: 100%;
+    justify-self: center;
+    align-self: stretch;
+  }
+
+  .mobile-footer__col {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+    padding-inline: 0.25rem;
+  }
+
+    .mobile-footer__heading {
+        margin: 0;
+        font-weight: 800;
+        font-size: 1rem;
+    }
+
+    .mobile-footer__col ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.6rem;
+    }
+
+  .mobile-footer__col a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: 600;
+  }
+
+  .mobile-footer__col--contact {
+    padding-left: 0.5rem;
+  }
+
+    .mobile-footer__col a:hover,
+    .mobile-footer__col a:focus-visible {
+        color: var(--color-teal2);
+        outline: none;
+    }
+
+    .mobile-footer__bottom-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .mobile-footer__socials {
+        display: inline-flex;
+        gap: 0.65rem;
+    }
+
+    .mobile-footer__socials a {
+        width: 38px;
+        height: 38px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-teal2);
+        border-radius: 50%;
+        text-decoration: none;
+    }
+
+    .mobile-footer__socials img {
+        width: 20px;
+        height: 20px;
+        object-fit: contain;
+        display: block;
+    }
+
+    .mobile-footer__socials a:hover,
+    .mobile-footer__socials a:focus-visible {
+        background: rgba(0, 0, 0, 0.05);
+        outline: none;
+    }
+
+    .mobile-footer__cta {
+        background: var(--color-teal2);
+        color: white;
+        padding: 0.65rem 1.4rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 140px;
+        text-align: center;
+    }
+
+    .mobile-footer__cta:hover,
+    .mobile-footer__cta:focus-visible {
+        background: var(--color-deep-teal);
+        outline: none;
+    }
+
+    .mobile-footer__bar {
+        background: var(--color-orange);
+        color: #fff;
+        text-align: center;
+        padding: 0.75rem 1rem;
+        font-weight: 700;
+    }
+
+    @media (max-width: 725px) {
+        .mobile-footer {
+            display: block;
+        }
+    }
+
+    @media (max-width: 400px) {
+        .mobile-footer__columns {
+            grid-template-columns: 1fr;
+        }
+
+        .mobile-footer__divider {
+            display: none;
+        }
+    }
+</style>

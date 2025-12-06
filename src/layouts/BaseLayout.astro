@@ -1,17 +1,17 @@
 ---
 import Navigation from "../components/Navigation.astro";
-import Footer from "../components/Footer.astro";
 import defaultHero from "../assets/high-angle-child-woman-painting.jpg";
 import MobileNavigation from "../components/MobileNavigation.astro";
+import ResponsiveFooter from "../components/ResponsiveFooter.astro";
 
 const {
-  pageTitle = null,
-  heroSrc = defaultHero.src,
-  heroAlt = "Children exploring paint materials at Kiva School",
+    pageTitle = null,
+    heroSrc = defaultHero.src,
+    heroAlt = "Children exploring paint materials at Kiva School",
 } = Astro.props as {
-  pageTitle?: string | null;
-  heroSrc?: string | null;
-  heroAlt?: string;
+    pageTitle?: string | null;
+    heroSrc?: string | null;
+    heroAlt?: string;
 };
 
 const documentTitle = pageTitle ? `${pageTitle} · Kiva School` : "Kiva School";
@@ -19,39 +19,41 @@ import "../styles/global.css";
 ---
 
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width" />
-    <meta name="generator" content={Astro.generator} />
-    <title>{documentTitle}</title>
-  </head>
-  <body>
-    <div class="wrapper">
-      <div class="desktop-nav">
-        <Navigation />
-      </div>
-      <MobileNavigation client:load />
-      {heroSrc && (
-        <div class="banner" role="presentation">
-          <img src={heroSrc} alt={heroAlt} loading="eager" />
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{documentTitle}</title>
+    </head>
+    <body>
+        <div class="wrapper">
+            <div class="desktop-nav">
+                <Navigation />
+            </div>
+            <MobileNavigation client:load />
+            {
+                heroSrc && (
+                    <div class="banner" role="presentation">
+                        <img src={heroSrc} alt={heroAlt} loading="eager" />
+                    </div>
+                )
+            }
+            <main class="page-content">
+                <slot />
+            </main>
+            <ResponsiveFooter />
         </div>
-      )}
-      <main class="page-content">
-        <slot />
-      </main>
-      <Footer />
-    </div>
-  </body>
+    </body>
 </html>
 
 <style>
-  .desktop-nav {
-    display: block;
-  }
-
-  @media (max-width: 1185px) {
     .desktop-nav {
-      display: none;
+        display: block;
     }
-  }
+
+    @media (max-width: 1185px) {
+        .desktop-nav {
+            display: none;
+        }
+    }
 </style>
