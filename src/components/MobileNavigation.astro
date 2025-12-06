@@ -5,11 +5,20 @@ import "../styles/tokens.css";
 
 const BREAKPOINT = 1185;
 const items = navItems;
+
+const rawBase = import.meta.env.BASE_URL || "/";
+const trimmedBase = rawBase.replace(/\/$/, "");
+const resolveHref = (href: string) => {
+  const clean = href.startsWith("/") ? href : `/${href}`;
+  if (trimmedBase === "") return clean;
+  if (clean === "/") return `${trimmedBase}/`;
+  return `${trimmedBase}${clean}`;
+};
 ---
 
 <div class="mobile-nav" data-mobile-nav>
   <div class="mobile-nav__bar">
-    <a class="mobile-nav__brand" href="/">
+    <a class="mobile-nav__brand" href={resolveHref("/")}>
       <img src={logo.src} alt="Kiva School" loading="lazy" />
     </a>
     <button
@@ -67,7 +76,7 @@ const items = navItems;
                   {
                     item.children.map((child) => (
                       <li>
-                        <a href={child.href}>{child.label}</a>
+                        <a href={resolveHref(child.href)}>{child.label}</a>
                       </li>
                     ))
                   }
@@ -75,7 +84,7 @@ const items = navItems;
               </details>
             ) : (
               <div class="mobile-nav__section mobile-nav__section--single">
-                <a href={item.href}>{item.label}</a>
+                <a href={resolveHref(item.href)}>{item.label}</a>
               </div>
             )
           ))

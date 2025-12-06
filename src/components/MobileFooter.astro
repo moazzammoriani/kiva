@@ -4,25 +4,37 @@ import "../styles/tokens.css";
 import facebookIcon from "../assets/facebook-icon.png";
 import instagramIcon from "../assets/instagram-icon.png";
 import linkedinIcon from "../assets/linkedin-icon.png";
+
+const rawBase = import.meta.env.BASE_URL || "/";
+const trimmedBase = rawBase.replace(/\/$/, "");
+const resolveHref = (href: string) => {
+  const clean = href.startsWith("/") ? href : `/${href}`;
+  if (trimmedBase === "") return clean;
+  if (clean === "/") return `${trimmedBase}/`;
+  return `${trimmedBase}${clean}`;
+};
 ---
 
 <footer class="mobile-footer">
     <div class="mobile-footer__body">
         <div class="mobile-footer__logo">
-            <img src={logo.src} alt="Kiva School" />
+            <a href={resolveHref("/")}>
+                <img src={logo.src} alt="Kiva School" />
+            </a>
         </div>
 
         <div class="mobile-footer__columns">
             <div class="mobile-footer__col">
                 <p class="mobile-footer__heading">Useful links</p>
                 <ul>
-                    <li><a href="/about/our-story/">Our Story</a></li>
+                    <li><a href={resolveHref("/about/our-story/")}>Our Story</a></li>
                     <li>
-                        <a href="/programmes/preschool-and-elementary/"
-                            >Programmes</a>
+                        <a href={resolveHref("/programmes/preschool-and-elementary/")}>
+                            Programmes
+                        </a>
                     </li>
-                    <li><a href="/admission/process/">Admissions</a></li>
-                    <li><a href="/careers/">Careers</a></li>
+                    <li><a href={resolveHref("/admission/process/")}>Admissions</a></li>
+                    <li><a href={resolveHref("/careers/")}>Careers</a></li>
                 </ul>
             </div>
 
@@ -53,7 +65,9 @@ import linkedinIcon from "../assets/linkedin-icon.png";
                     <img src={linkedinIcon.src} alt="" />
                 </a>
             </div>
-            <a class="mobile-footer__cta" href="/admission/form/">Apply Now</a>
+            <a class="mobile-footer__cta" href={resolveHref("/admission/form/")}>
+                Apply Now
+            </a>
         </div>
     </div>
 
