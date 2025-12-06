@@ -18,24 +18,14 @@ import rightBtn from "../assets/right_slideshow_button.png";
 
 <!-- TODO: make the flowers bigger  --><!-- TODO: decrease the button size --><!-- TODO: use proper fonts for the slideshow label -->
 <figure class="slideshow" data-length={images.length}>
-    <div class="slideshow__controls">
-        <div class="slideshow__sunflower_container">
-            <img class="sunflower" src={sunflower.src} alt="" />
-            <div class="slideshow__button_container">
-                <!-- <button -->
-                <!-- type="button" -->
-                <!-- class="slideshow__button" -->
-                <!-- data-action="prev" -->
-                <!-- aria-label="Previous slide">‹</button -->
-                <!-- > -->
-                <img
-                    src={leftBtn.src}
-                    class="slideshow__button"
-                    aria-label="Next slide"
-                />
-            </div>
-        </div>
-    </div>
+    <button
+        class="slideshow__button slideshow__button--left"
+        type="button"
+        data-action="prev"
+        aria-label="Previous slide"
+    >
+        <img src={leftBtn.src} alt="" class="slideshow__button-img" />
+    </button>
 
     <div class="slideshow__viewport">
         <img
@@ -45,24 +35,15 @@ import rightBtn from "../assets/right_slideshow_button.png";
         />
         <img src={frame.src} alt="" class="slideshow__frame" />
     </div>
-    <div class="slideshow__controls">
-        <div class="slideshow__sunflower_container">
-            <img class="sunflower" src={sunflower.src} alt="" />
-            <div class="slideshow__button_container">
-                <!-- <button -->
-                <!-- type="button" -->
-                <!-- class="slideshow__button" -->
-                <!-- data-action="next" -->
-                <!-- aria-label="Next slide">›</button -->
-                <!-- > -->
-                <img
-                    src={rightBtn.src}
-                    class="slideshow__button"
-                    aria-label="Next slide"
-                />
-            </div>
-        </div>
-    </div>
+
+    <button
+        class="slideshow__button slideshow__button--right"
+        type="button"
+        data-action="next"
+        aria-label="Next slide"
+    >
+        <img src={rightBtn.src} alt="" class="slideshow__button-img" />
+    </button>
 </figure>
 <div class="slideshow__caption">{initial.label}</div>
 
@@ -109,8 +90,9 @@ import rightBtn from "../assets/right_slideshow_button.png";
         max-width: 720px;
         margin: 0 auto;
         display: grid;
-        grid-template-columns: 15% 70% 15%;
+        grid-template-columns: auto 1fr auto;
         gap: 0.75rem;
+        align-items: center;
     }
 
     .slideshow__viewport {
@@ -150,33 +132,9 @@ import rightBtn from "../assets/right_slideshow_button.png";
         padding: 30px;
     }
 
-    .slideshow__controls {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .slideshow__sunflower_container {
-        position: relative;
-    }
-
-    .slideshoe__button_container {
-        position: absolute;
-        top: 10%;
-    }
-
-    .sunflower {
-        width: 110px;
-    }
-
-    .slideshow__button_container {
-        position: absolute;
-        top: 25.5%;
-        right: 28%;
-    }
     .slideshow__button {
-        width: 42px;
-        height: 42px;
+        width: 54px;
+        height: 54px;
         border-radius: 50%;
         border: none;
         background: var(--color-teal, #0db29b);
@@ -184,15 +142,54 @@ import rightBtn from "../assets/right_slideshow_button.png";
         font-size: 1.5rem;
         line-height: 1;
         cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 140ms ease, background 140ms ease;
     }
 
     .slideshow__button:hover {
         background: var(--color-deep-teal, #05897a);
+        transform: translateY(-2px);
+    }
+
+    .slideshow__button-img {
+        width: 28px;
+        height: 28px;
     }
 
     @media (max-width: 600px) {
         .slideshow__viewport {
             padding-top: 75%;
+        }
+    }
+
+    /* Responsive simplification at ~786px and below */
+    @media (max-width: 786px) {
+        .slideshow {
+            grid-template-columns: auto 1fr auto;
+            gap: 0.5rem;
+        }
+
+        .slideshow__viewport {
+            aspect-ratio: 1 / 1;
+            padding-top: 0;
+        }
+
+        .slideshow__button {
+            width: 44px;
+            height: 44px;
+            background: white;
+            border: 2px solid var(--color-teal);
+        }
+
+        .slideshow__button-img {
+            filter: invert(35%) sepia(98%) saturate(405%) hue-rotate(121deg)
+                brightness(92%) contrast(88%);
+        }
+
+        .slideshow__caption {
+            font-size: 1.4rem;
         }
     }
 </style>
