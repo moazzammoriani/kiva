@@ -20,39 +20,34 @@ const values = [
             "Learners who care for their communities and contribute thoughtfully to the world around them.",
     },
 ];
-import IntroBlock from "../../components/IntroBlock.astro";
 import ValuesSection from "../../components/ValuesSection.astro";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-    <PageSection title="VISION">
-        <IntroBlock>
-            <p>
-                To create an ecosystem that redefines the concept of expansion
-                and growth in education by prioritising horizontal growth
-                through supporting units, focusing on a holistic educational
-                experience for students, teachers and parents.
-            </p>
-            <p>
-                Spearheading change within the educational landscape of
-                Pakistan, by redefining the concept of expansion through
-                horizontal growth. The sustainable utilization of EWPL’s space,
-                to launch educational and community enrichment programs, ensures
-                a holistic community experience for all stakeholders.
-            </p>
-        </IntroBlock>
+    <PageSection title="VISION" contentWidth="narrow">
+        <p>
+            To create an ecosystem that redefines the concept of expansion and
+            growth in education by prioritising horizontal growth through
+            supporting units, focusing on a holistic educational experience for
+            students, teachers and parents.
+        </p>
+        <p>
+            Spearheading change within the educational landscape of Pakistan, by
+            redefining the concept of expansion through horizontal growth. The
+            sustainable utilization of EWPL’s space, to launch educational and
+            community enrichment programs, ensures a holistic community
+            experience for all stakeholders.
+        </p>
     </PageSection>
 
-    <PageSection title="MISSION">
-        <IntroBlock>
-            <p>
-                EWPL is focused on improving educational standards while working
-                towards a positive community-wide change through action
-                research. With a commitment to continuous improvement, all of
-                our programs are designed to promote genuine learning and create
-                a meaningful, lasting impact on everyone involved.
-            </p>
-        </IntroBlock>
+    <PageSection title="MISSION" contentWidth="narrow">
+        <p>
+            EWPL is focused on improving educational standards while working
+            towards a positive community-wide change through action research.
+            With a commitment to continuous improvement, all of our programs are
+            designed to promote genuine learning and create a meaningful,
+            lasting impact on everyone involved.
+        </p>
     </PageSection>
 
     <PageSection title="VALUES">

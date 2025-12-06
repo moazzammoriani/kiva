@@ -3,7 +3,6 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import heroImage from "../assets/Banner_SeniorSchool.png";
 import PageSection from "../components/PageSection.astro";
 import FramedImage from "../components/FramedImage.astro";
-import IntroBlock from "../components/IntroBlock.astro";
 import SectionBreakLeaf from "../components/SectionBreakLeaf.astro";
 
 import kivakamp1 from "../assets/kivakamp1.png";
@@ -11,59 +10,65 @@ import kivakamp2 from "../assets/kivakamp2.png";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-  <IntroBlock>
-    <PageSection title="PARENT ENGAGEMENT" headingLevel={2}>
-      <div class="stack-lg">
-        <p>
-          The Parental Engagement Program aims to support the social emotional
-          development of our students and encourage lifelong learning, through
-          the active participation of our parent commu-nity. The goal is to
-          establish shared responsibility, meaningful involvement and
-          collaboration between parents and teachers for the healthy development
-          of our students. As part of this initiative, parents are encouraged to
-          participate in the events and meetings hosted by the school to create
-          an active rapport between parents and teachers.
-        </p>
-      </div>
-    </PageSection>
-  </IntroBlock>
+  <PageSection
+    title="PARENT ENGAGEMENT"
+    headingLevel={2}
+    contentWidth="narrow"
+  >
+    <div class="stack-lg">
+      <p>
+        The Parental Engagement Program aims to support the social emotional
+        development of our students and encourage lifelong learning, through the
+        active participation of our parent commu-nity. The goal is to establish
+        shared responsibility, meaningful involvement and collaboration between
+        parents and teachers for the healthy development of our students. As
+        part of this initiative, parents are encouraged to participate in the
+        events and meetings hosted by the school to create an active rapport
+        between parents and teachers.
+      </p>
+    </div>
+  </PageSection>
 
-  <IntroBlock>
-    <PageSection title="CHILDREN'S DAY CELEBRATION 2024" headingLevel={2}>
-      <FramedImage imgSrc={kivakamp1.src} />
-      <div class="stack-lg">
-        <p>
-          Nothing is more meaningful, than to have our parents cheer us on,
-          while we get messy and explore with no inhibitions. Children's Day was
-          a momentous occasion, where our parents facilitated and curated
-          activities around graffiti art and tote bag screen printing for all
-          the little stars at Kiva. Ending on a high note, grounding our energy,
-          the event concluded with a Drum Circle, for parents and their children
-          to enjoy with free abandon. Let's just say being messy and loud was a
-          requirement!
-        </p>
-      </div>
-    </PageSection>
-  </IntroBlock>
+  <PageSection
+    title="CHILDREN'S DAY CELEBRATION 2024"
+    headingLevel={2}
+    contentWidth="narrow"
+  >
+    <FramedImage imgSrc={kivakamp1.src} />
+    <div class="stack-lg">
+      <p>
+        Nothing is more meaningful, than to have our parents cheer us on, while
+        we get messy and explore with no inhibitions. Children's Day was a
+        momentous occasion, where our parents facilitated and curated activities
+        around graffiti art and tote bag screen printing for all the little
+        stars at Kiva. Ending on a high note, grounding our energy, the event
+        concluded with a Drum Circle, for parents and their children to enjoy
+        with free abandon. Let's just say being messy and loud was a
+        requirement!
+      </p>
+    </div>
+  </PageSection>
 
   <SectionBreakLeaf />
 
-  <IntroBlock>
-    <PageSection title="STORY FEST 2025" headingLevel={2}>
-      <FramedImage imgSrc={kivakamp2.src} />
-      <div class="stack-lg">
-        <p>
-          Story Fest marked a momentous occasion at Kiva, whereby parents and
-          teachers came together to plan, organize and execute a meticulous
-          performance for our students. Titled, "Giraffes Can't Dance", based on
-          the book by Giles Andreae, the enactment of this story was rich in
-          lessons on finding your own tune and being compassionate and kind to
-          those around you. An experience filled with rhythm, creativity and
-          fun, Story Fest was the perfect blend of interactive storytelling.
-          music and art put together by parents after a series of rehearsals on
-          the school premises
-        </p>
-      </div>
-    </PageSection>
-  </IntroBlock>
+  <PageSection
+    title="STORY FEST 2025"
+    headingLevel={2}
+    contentWidth="narrow"
+  >
+    <FramedImage imgSrc={kivakamp2.src} />
+    <div class="stack-lg">
+      <p>
+        Story Fest marked a momentous occasion at Kiva, whereby parents and
+        teachers came together to plan, organize and execute a meticulous
+        performance for our students. Titled, "Giraffes Can't Dance", based on
+        the book by Giles Andreae, the enactment of this story was rich in
+        lessons on finding your own tune and being compassionate and kind to
+        those around you. An experience filled with rhythm, creativity and fun,
+        Story Fest was the perfect blend of interactive storytelling. music and
+        art put together by parents after a series of rehearsals on the school
+        premises
+      </p>
+    </div>
+  </PageSection>
 </BaseLayout>

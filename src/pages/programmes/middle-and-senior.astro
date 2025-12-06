@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageSection from "../../components/PageSection.astro";
-import IntroBlock from "../../components/IntroBlock.astro";
 import GalleryDisplay from "../../components/GalleryDisplay.astro";
 import YellowButton from "../../components/YellowButton.astro"
 
@@ -23,33 +22,31 @@ import heroImage from "../../assets/Banner_SeniorSchool.png";
 
   <GalleryDisplay images={seniorschoolImgs} />
 
-  <IntroBlock>
-    <PageSection title="" headingLevel={2}>
-      <div class="stack-lg">
-        <p>
-          The curriculum of <strong
-            >AMI Middle & Senior School - Grade VI to O level
-          </strong>- adheres to the Cambridge Assessment International
-          Examination board with the IGCSE framework. A highly interactive
-          approach to learning is encouraged in the classrooms through
-          discussion and group work. As part of our core school philosophy, we
-          emphasise on open communication with parents/guardians and are deeply
-          committed to collaborative problem solving and decision making between
-          management, teacher and parents to the utmost benefit and well-being
-          of our students.
-        </p>
-        <p>
-          For a more integrated learning environment, The AMI School focuses on
-          learning outside the classroom through extra-curricular subjects and
-          life skills including <strong
-            >Roller-Skating, Theatre, Gardening (exclusive to Grade VI
-            students), Music, Photography and Board games</strong
-          >. With this line-up, the goal is to ensure that children are
-          physically, mentally and artistically stimulated and discover their
-          unexplored skills and interests in the process.
-        </p>
-        <YellowButton text={"Learn More"}/>
-      </div>
-    </PageSection>
-  </IntroBlock>
+  <PageSection headingLevel={2} contentWidth="narrow">
+    <div class="stack-lg">
+      <p>
+        The curriculum of <strong
+          >AMI Middle & Senior School - Grade VI to O level
+        </strong>- adheres to the Cambridge Assessment International Examination
+        board with the IGCSE framework. A highly interactive approach to
+        learning is encouraged in the classrooms through discussion and group
+        work. As part of our core school philosophy, we emphasise on open
+        communication with parents/guardians and are deeply committed to
+        collaborative problem solving and decision making between management,
+        teacher and parents to the utmost benefit and well-being of our
+        students.
+      </p>
+      <p>
+        For a more integrated learning environment, The AMI School focuses on
+        learning outside the classroom through extra-curricular subjects and
+        life skills including <strong
+          >Roller-Skating, Theatre, Gardening (exclusive to Grade VI students),
+          Music, Photography and Board games</strong
+        >. With this line-up, the goal is to ensure that children are
+        physically, mentally and artistically stimulated and discover their
+        unexplored skills and interests in the process.
+      </p>
+      <YellowButton text={"Learn More"}/>
+    </div>
+  </PageSection>
 </BaseLayout>

@@ -8,6 +8,7 @@ const {
     variant = "plain",
     headingLevel = 2,
     className = "",
+    contentWidth = "full",
 } = Astro.props as {
     id?: string;
     title?: string;
@@ -17,6 +18,7 @@ const {
     variant?: "plain" | "panel" | "accent";
     headingLevel?: 1 | 2 | 3 | 4 | 5 | 6;
     className?: string;
+    contentWidth?: "full" | "narrow" | "tight";
 };
 
 const tag = `h${headingLevel}`;
@@ -36,12 +38,19 @@ const classes = [
 ]
     .filter(Boolean)
     .join(" ");
+
+const widthClass =
+    contentWidth === "narrow"
+        ? "page-section__body--narrow"
+        : contentWidth === "tight"
+          ? "page-section__body--tight"
+          : "";
 ---
 
 <section id={id} class={classes}>
     {
         (eyebrow || title || description) && (
-            <div class="page-section__header">
+            <div class={`page-section__header ${widthClass}`.trim()}>
                 {eyebrow && <p class="page-section__eyebrow">{eyebrow}</p>}
                 {title && (
                     <component
@@ -57,7 +66,7 @@ const classes = [
             </div>
         )
     }
-    <div class="page-section__body">
+    <div class={`page-section__body ${widthClass}`.trim()}>
         <slot />
     </div>
 </section>

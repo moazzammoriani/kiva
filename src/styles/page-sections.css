@@ -64,6 +64,27 @@
     width: 100%;
 }
 
+.page-section__body--narrow,
+.page-section__header.page-section__body--narrow {
+    max-width: 820px;
+    width: 100%;
+    margin-inline: auto;
+}
+
+.page-section__body--tight,
+.page-section__header.page-section__body--tight {
+    max-width: 680px;
+    width: 100%;
+    margin-inline: auto;
+}
+
+.page-section--align-left .page-section__body--narrow,
+.page-section--align-left .page-section__body--tight,
+.page-section--align-left .page-section__header.page-section__body--narrow,
+.page-section--align-left .page-section__header.page-section__body--tight {
+    margin-inline: 0;
+}
+
 .intro-block {
     display: flex;
     flex-direction: column;
