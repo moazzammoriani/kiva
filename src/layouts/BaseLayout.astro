@@ -2,6 +2,7 @@
 import Navigation from "../components/Navigation.astro";
 import Footer from "../components/Footer.astro";
 import defaultHero from "../assets/high-angle-child-woman-painting.jpg";
+import MobileNavigation from "../components/MobileNavigation.astro";
 
 const {
   pageTitle = null,
@@ -26,7 +27,10 @@ import "../styles/global.css";
   </head>
   <body>
     <div class="wrapper">
-      <Navigation />
+      <div class="desktop-nav">
+        <Navigation />
+      </div>
+      <MobileNavigation client:load />
       {heroSrc && (
         <div class="banner" role="presentation">
           <img src={heroSrc} alt={heroAlt} loading="eager" />
@@ -39,3 +43,15 @@ import "../styles/global.css";
     </div>
   </body>
 </html>
+
+<style>
+  .desktop-nav {
+    display: block;
+  }
+
+  @media (max-width: 1185px) {
+    .desktop-nav {
+      display: none;
+    }
+  }
+</style>

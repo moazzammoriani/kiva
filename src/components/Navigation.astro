@@ -2,6 +2,7 @@
 import NavLink from "./NavLink.astro";
 import NavDropdown from "./NavDropdown.astro";
 import logo from "../assets/kiva-logo_home.png";
+import { navItems } from "../data/navigation";
 ---
 
 <style>
@@ -86,52 +87,21 @@ import logo from "../assets/kiva-logo_home.png";
         <!-- <span>Kiva School</span> -->
     </a>
     <div class="nav-links">
-        <NavLink link="/" text="Home" />
-        <NavDropdown
-            baseLink="/about/"
-            label="About Us"
-            items={[
-                { href: "/about/our-story/", text: "Our story" },
-                { href: "/about/mission/", text: "Mission, Vision & Values" },
-                { href: "/about/team/", text: "Meet the Team" },
-            ]}
-        />
-        <NavDropdown
-            baseLink="/programmes/"
-            label="Programmes"
-            items={[
-                {
-                    href: "/programmes/preschool-and-elementary/",
-                    text: "Preschool and Elementary",
-                },
-                {
-                    href: "/programmes/middle-and-senior/",
-                    text: "Middle & Senior School",
-                },
-                {
-                    href: "/programmes/kiva-kamps/",
-                    text: "Kiva Kamps",
-                },
-            ]}
-        />
-        <NavDropdown
-            baseLink="/admission/"
-            label="Admissions"
-            items={[
-                { href: "/admission/process/", text: "Admission Process" },
-                { href: "/admission/form/", text: "Admission Form" },
-            ]}
-        />
-        <NavLink link="/careers/" text="Careers" />
-        <NavDropdown
-            baseLink="/kiva_square/"
-            label="Kiva Square"
-            items={[
-                { href: "/kiva_square/2024/", text: "2024" },
-                { href: "/kiva_square/2026/", text: "2026" },
-            ]}
-        />
-        <NavLink link="/contact/" text="Contact Us" />
-        <NavLink link="/community/" text="Community Enrichment" />
+        {
+            navItems.map((item) =>
+                item.type === "link" ? (
+                    <NavLink link={item.href} text={item.label} />
+                ) : (
+                    <NavDropdown
+                        baseLink={item.base}
+                        label={item.label}
+                        items={item.children.map((child) => ({
+                            href: child.href,
+                            text: child.label,
+                        }))}
+                    />
+                ),
+            )
+        }
     </div>
 </nav>

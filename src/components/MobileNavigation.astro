@@ -1,0 +1,397 @@
+---
+import logo from "../assets/kiva-logo_home.png";
+import { navItems, type NavGroupItem, type NavItem } from "../data/navigation";
+import "../styles/tokens.css";
+
+const BREAKPOINT = 1185;
+const items = navItems;
+---
+
+<div class="mobile-nav" data-mobile-nav>
+  <div class="mobile-nav__bar">
+    <a class="mobile-nav__brand" href="/">
+      <img src={logo.src} alt="Kiva School" loading="lazy" />
+    </a>
+    <button
+      class="mobile-nav__hamburger"
+      type="button"
+      aria-label="Open navigation menu"
+      aria-expanded="false"
+      data-toggle
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </div>
+
+  <div class="mobile-nav__overlay" aria-hidden="true">
+    <div class="mobile-nav__panel">
+      <div class="mobile-nav__panel-header">
+        <form class="mobile-nav__search" role="search">
+          <input
+            type="search"
+            name="q"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button type="submit" aria-label="Submit search">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M10.5 3a7.5 7.5 0 1 1 0 15 7.5 7.5 0 0 1 0-15Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Zm6.45 10.04 3.5 3.5-1.41 1.42-3.5-3.5 1.41-1.42Z"
+                fill="currentColor"
+              />
+            </svg>
+          </button>
+        </form>
+        <button
+          class="mobile-nav__close"
+          type="button"
+          aria-label="Close navigation menu"
+          data-close
+        >
+          ✕
+        </button>
+      </div>
+
+      <nav class="mobile-nav__list" aria-label="Mobile">
+        {
+          items.map((item) => (
+            item.type === "group" ? (
+              <details class="mobile-nav__section" data-section>
+                <summary>
+                  <span>{item.label}</span>
+                  <span class="mobile-nav__summary-icon">+</span>
+                </summary>
+                <ul class="mobile-nav__group">
+                  {
+                    item.children.map((child) => (
+                      <li>
+                        <a href={child.href}>{child.label}</a>
+                      </li>
+                    ))
+                  }
+                </ul>
+              </details>
+            ) : (
+              <div class="mobile-nav__section mobile-nav__section--single">
+                <a href={item.href}>{item.label}</a>
+              </div>
+            )
+          ))
+        }
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  const BREAKPOINT = 1185;
+  const root = document.querySelector("[data-mobile-nav]");
+  if (root) {
+    const overlay = root.querySelector(".mobile-nav__overlay");
+    const toggle = root.querySelector("[data-toggle]");
+    const closeBtn = root.querySelector("[data-close]");
+    const sections = root.querySelectorAll("[data-section]");
+    let open = false;
+
+    const update = () => {
+      if (!overlay || !toggle) return;
+      toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      overlay.setAttribute("aria-hidden", open ? "false" : "true");
+      root.classList.toggle("is-open", open);
+      document.body.style.overflow = open ? "hidden" : "";
+    };
+
+    const close = () => {
+      open = false;
+      update();
+    };
+
+    const openMenu = () => {
+      open = true;
+      update();
+    };
+
+    toggle?.addEventListener("click", () => {
+      open = !open;
+      update();
+    });
+
+    closeBtn?.addEventListener("click", close);
+
+    overlay?.addEventListener("click", (event) => {
+      if (event.target === overlay) close();
+    });
+
+    window.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && open) {
+        close();
+      }
+    });
+
+    const handleResize = () => {
+      if (window.innerWidth > BREAKPOINT && open) {
+        close();
+      }
+    };
+    window.addEventListener("resize", handleResize);
+
+    sections.forEach((section) => {
+      const group = section.querySelector(".mobile-nav__group");
+      if (group) {
+        group.style.maxHeight = "0px";
+        group.style.overflow = "hidden";
+      }
+      section.addEventListener("toggle", () => {
+        const target = section.querySelector(".mobile-nav__group");
+        if (!target) return;
+        if (section.open) {
+          target.style.maxHeight = `${target.scrollHeight}px`;
+        } else {
+          // Set current height to allow smooth collapse, then shrink.
+          target.style.maxHeight = `${target.scrollHeight}px`;
+          requestAnimationFrame(() => {
+            target.style.maxHeight = "0px";
+          });
+        }
+      });
+    });
+
+    // Prevent SSR errors
+    update();
+  }
+</script>
+
+<style>
+  :global(body) {
+    --mobile-yellow: var(--color-yellow);
+    --mobile-teal: var(--color-teal2);
+    --mobile-text: var(--color-dark-blue);
+    --mobile-divider: var(--color-black);
+  }
+
+  .mobile-nav {
+    display: none;
+  }
+
+  @media (max-width: 1185px) {
+    .mobile-nav {
+      display: block;
+      position: relative;
+      z-index: 200;
+    }
+  }
+
+  .mobile-nav__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 1rem;
+    background: white;
+    position: sticky;
+    top: 0;
+    z-index: 300;
+    border-bottom: 2px solid var(--mobile-yellow);
+  }
+
+  .mobile-nav__brand img {
+    height: 56px;
+    width: auto;
+    display: block;
+  }
+
+  .mobile-nav__hamburger {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    background: none;
+    border: none;
+    padding: 0.25rem;
+    cursor: pointer;
+  }
+
+  .mobile-nav__hamburger span {
+    display: block;
+    width: 26px;
+    height: 3px;
+    background: var(--mobile-teal);
+    border-radius: 4px;
+  }
+
+  .mobile-nav__overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    display: grid;
+    place-items: start;
+    z-index: 400;
+    overflow-y: auto;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 200ms ease;
+  }
+
+  .mobile-nav.is-open .mobile-nav__overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .mobile-nav__panel {
+    background: var(--mobile-yellow);
+    width: min(480px, 100%);
+    min-height: 100vh;
+    padding: 1rem;
+    box-sizing: border-box;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+    transform: translateX(-110%);
+    transition: transform 260ms ease;
+  }
+
+  .mobile-nav.is-open .mobile-nav__panel {
+    transform: translateX(0);
+  }
+
+  .mobile-nav__panel-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+
+  .mobile-nav__search {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    background: white;
+    border-radius: 999px;
+    border: 2px solid var(--mobile-teal);
+    overflow: hidden;
+  }
+
+  .mobile-nav__search input {
+    border: none;
+    padding: 0.75rem 0.85rem;
+    font-size: 1rem;
+    outline: none;
+  }
+
+  .mobile-nav__search button {
+    border: none;
+    background: var(--mobile-teal);
+    color: white;
+    width: 52px;
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+  }
+
+  .mobile-nav__search button svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .mobile-nav__close {
+    border: none;
+    background: none;
+    color: var(--mobile-teal);
+    font-size: 1.4rem;
+    cursor: pointer;
+    padding: 0.35rem;
+  }
+
+  .mobile-nav__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+  }
+
+  .mobile-nav__section {
+    border-bottom: 2px solid var(--mobile-divider);
+    padding: 0.25rem 0;
+  }
+
+  .mobile-nav__section summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    list-style: none;
+    font-weight: 700;
+    color: var(--mobile-text);
+    font-size: 1.05rem;
+    padding: 0.45rem 0;
+  }
+
+  .mobile-nav__section summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .mobile-nav__summary-icon {
+    color: var(--mobile-teal);
+    font-weight: 800;
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .mobile-nav__section ul {
+    margin: 0;
+    padding: 0 0 0.5rem 0.35rem;
+    list-style: none;
+    display: grid;
+    gap: 0.4rem;
+    transition: max-height 220ms ease;
+    max-height: 0;
+  }
+
+  .mobile-nav__section li {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+    padding-bottom: 0.25rem;
+  }
+
+  .mobile-nav__section li:last-child {
+    border-bottom: none;
+  }
+
+  .mobile-nav__section a {
+    color: var(--mobile-text);
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 0.98rem;
+  }
+
+  .mobile-nav__section a:hover,
+  .mobile-nav__section a:focus-visible {
+    color: var(--mobile-teal);
+    outline: none;
+  }
+
+  .mobile-nav__section--single {
+    padding: 0.65rem 0;
+    font-weight: 700;
+  }
+
+  .mobile-nav__section--single a {
+    color: var(--mobile-text);
+    text-decoration: none;
+  }
+
+  .mobile-nav__section--single a:hover,
+  .mobile-nav__section--single a:focus-visible {
+    color: var(--mobile-teal);
+  }
+
+  @media (max-width: 420px) {
+    .mobile-nav__panel {
+      padding: 0.75rem;
+    }
+
+    .mobile-nav__brand img {
+      height: 48px;
+    }
+
+    .mobile-nav__search input {
+      padding: 0.65rem 0.75rem;
+    }
+  }
+</style>
