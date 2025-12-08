@@ -1,26 +1,94 @@
 ---
 const { images } = Astro.props as {
-  images: string[];
+    images: string[];
 };
 ---
 
 <div class="gallery">
-  {
-    images.map((imgSrc) => (
-      <div>
-        <img class="gallery--img" src={imgSrc} alt="" />{" "}
-      </div>
-    ))
-  }
+    {
+        images.map((imgSrc) => (
+            <div>
+                <img class="gallery--img" src={imgSrc} alt="" />{" "}
+            </div>
+        ))
+    }
 </div>
 
 <style>
-  .gallery {
-    display: flex;
-    justify-content: space-between;
-  }
+    .gallery {
+        display: flex;
+        justify-content: space-between;
+    }
 
-  .gallery--img {
-    width: 350px;
-  }
+    .gallery--img {
+        width: 350px;
+    }
+
+    @media (max-width: 1176px) {
+        .gallery--img {
+            width: 300px;
+        }
+    }
+
+    @media (max-width: 925px) {
+        .gallery--img {
+            width: 250px;
+        }
+    }
+
+    @media (max-width: 842px) {
+        .gallery--img {
+            width: 220px;
+        }
+    }
+
+    @media (max-width: 738px) {
+        .gallery--img {
+            width: 200px;
+        }
+    }
+    @media (max-width: 676px) {
+        .gallery {
+            flex-direction: column;
+        }
+
+        .gallery--img {
+            width: 80vw;;
+        }
+    }
+    /**/
+    /* @media (max-width: 607px) { */
+    /*     .gallery--img { */
+    /*         width: 160px; */
+    /*     } */
+    /* } */
+    /**/
+    /* @media (max-width: 540px) { */
+    /*     .gallery--img { */
+    /*         width: 150px; */
+    /*     } */
+    /* } */
+    /**/
+    /* @media (max-width: 502px) { */
+    /*     .gallery--img { */
+    /*         width: 140px; */
+    /*     } */
+    /* } */
+    /**/
+    /* @media (max-width: 468px) { */
+    /*     .gallery--img { */
+    /*         width: 130px; */
+    /*     } */
+    /* } */
+    /**/
+    /* @media (max-width: 440px) { */
+    /*     .gallery--img { */
+    /*         width: 120px; */
+    /*     } */
+    /* } */
+    /* @media (max-width: 410px) { */
+    /*     .gallery--img { */
+    /*         width: 110px; */
+    /*     } */
+    /* } */
 </style>
