@@ -370,11 +370,19 @@ const resolveHref = (href: string) => {
         text-decoration: none;
         font-weight: 500;
         font-size: 0.98rem;
+        display: block;
+        width: 100%;
+        padding: 0.45rem 0.25rem;
+        border-radius: 6px;
+        transition:
+            background-color 120ms ease,
+            color 120ms ease;
     }
 
     .mobile-nav__section a:hover,
     .mobile-nav__section a:focus-visible {
-        color: var(--mobile-teal);
+        color: white;
+        background: var(--mobile-teal);
         outline: none;
     }
 
@@ -386,11 +394,19 @@ const resolveHref = (href: string) => {
     .mobile-nav__section--single a {
         color: var(--mobile-text);
         text-decoration: none;
+        display: block;
+        width: 100%;
+        padding: 0.45rem 0.25rem;
+        border-radius: 10px;
+        transition:
+            background-color 120ms ease,
+            color 120ms ease;
     }
 
     .mobile-nav__section--single a:hover,
     .mobile-nav__section--single a:focus-visible {
-        color: var(--mobile-teal);
+        color: white;
+        background: var(--mobile-teal);
     }
 
     @media (max-width: 420px) {
