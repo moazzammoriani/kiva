@@ -1,52 +1,88 @@
 <div>
-  <table class="age-table">
-    <tr>
-      <th>Playgroup</th>
-      <td>Age 1.5 to 2.5</td>
-      <th>Nursery</th>
-      <td>Age 3.5 – 4.5</td>
-    </tr>
-    <tr>
-      <th>Pre-Nursery</th>
-      <td>Age 2.5 to 3.5</td>
-      <th>Prep</th>
-      <td>Age 4.5 – 5.5</td>
-    </tr>
-  </table>
+    <table class="age-table">
+        <tr>
+            <th>Playgroup</th>
+            <td>Age 1.5 to 2.5</td>
+            <th>Nursery</th>
+            <td>Age 3.5 – 4.5</td>
+        </tr>
+        <tr>
+            <th>Pre-Nursery</th>
+            <td>Age 2.5 to 3.5</td>
+            <th>Prep</th>
+            <td>Age 4.5 – 5.5</td>
+        </tr>
+    </table>
 </div>
 
 <style>
-  .age-table {
-    border: 3px solid #f4c430; /* warm yellow */
-    border-radius: 16px;
-    border-collapse: separate;
-    border-spacing: 0;
-    font-family: sans-serif;
-    text-align: center;
-    color: #00a99d; /* teal text */
-    margin: 0 auto;
-  }
+    .age-table {
+        border: 3px solid #f4c430; /* warm yellow */
+        border-radius: 16px;
+        border-collapse: separate;
+        border-spacing: 0;
+        font-family: sans-serif;
+        text-align: center;
+        color: #00a99d; /* teal text */
+        margin: 0 auto;
+    }
 
-  .age-table th,
-  .age-table td {
-    border: 1.5px solid #f4c430;
-    padding: 1rem 1.25rem;
-  }
+    .age-table th,
+    .age-table td {
+        border: 1.5px solid #f4c430;
+        padding: 1rem 1.25rem;
+    }
 
-  .age-table th {
-    font-weight: 700;
-  }
+    .age-table th {
+        font-weight: 700;
+    }
 
-  .age-table tr:first-child th:first-child {
-    border-top-left-radius: 16px;
-  }
-  .age-table tr:first-child td:last-child {
-    border-top-right-radius: 16px;
-  }
-  .age-table tr:last-child th:first-child {
-    border-bottom-left-radius: 16px;
-  }
-  .age-table tr:last-child td:last-child {
-    border-bottom-right-radius: 16px;
-  }
+    .age-table tr:first-child th:first-child {
+        border-top-left-radius: 16px;
+    }
+    .age-table tr:first-child td:last-child {
+        border-top-right-radius: 16px;
+    }
+    .age-table tr:last-child th:first-child {
+        border-bottom-left-radius: 16px;
+    }
+    .age-table tr:last-child td:last-child {
+        border-bottom-right-radius: 16px;
+    }
+
+    @media (max-width: 573px) {
+        .age-table th,
+        .age-table td {
+            padding: 20px 8px;
+        }
+    }
+
+    @media (max-width: 460px) {
+        .age-table th,
+        .age-table td {
+            font-size: 14px;
+        }
+    }
+
+    @media (max-width: 426px) {
+        .age-table th,
+        .age-table td {
+            font-size: 13px;
+        }
+    }
+
+
+    @media (max-width: 392px) {
+        .age-table th,
+        .age-table td {
+            font-size: 12px;
+        }
+    }
+
+    @media (max-width: 392px) {
+        .age-table th,
+        .age-table td {
+            padding: 20px 6px;
+        }
+    }
 </style>

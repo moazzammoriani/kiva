@@ -44,9 +44,8 @@ import email from "../assets/contact_email_icon.png";
     <SectionBreakLeaf />
     <PageSection>
         <iframe
+            class="mapembed"
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.956712137171!2d67.0737774!3d24.865328!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f7bdf724f3f%3A0xcf5e9b30d2cf7b4e!2sThe%20Kiva%20School!5e0!3m2!1sen!2s!4v1762774280783!5m2!1sen!2s"
-            width="800"
-            height="450"
             style="border:0;"
             allowfullscreen=""
             loading="lazy"
@@ -168,7 +167,16 @@ import email from "../assets/contact_email_icon.png";
         background: #b878d8;
     }
 
+    .mapembed {
+        width: 60vw;
+        height: 40vw;
+    }
+
     @media (max-width: 720px) {
+        .mapembed {
+            width: 90vw;
+            height: 80vw;
+        }
         .contact-icon {
             font-size: 1.6rem;
         }

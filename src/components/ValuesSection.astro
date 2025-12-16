@@ -2,6 +2,7 @@
 import bird from "../assets/sisu_bird.png";
 import sun from "../assets/inclusivity_sun.png";
 import tree from "../assets/responsibility_tree.png";
+import PageSection from "./PageSection.astro";
 
 import "../styles/tokens.css";
 ---
@@ -16,7 +17,7 @@ import "../styles/tokens.css";
                 </div>
             </div>
             <div class="back">
-                <div back-text>
+                <div class="back-text">
                     <p>
                         <strong>Sisu </strong> a Finnish concept, encompassing the
                         qualities of perseverance and determination. Reflective of
@@ -28,7 +29,14 @@ import "../styles/tokens.css";
             </div>
         </div>
     </div>
-
+    <div class="mob-text">
+        <p>
+            <strong>Sisu </strong> a Finnish concept, encompassing the qualities
+            of perseverance and determination. Reflective of SISU, our swallow is
+            a representation of an extraordinarily agile bird that embodies grit,
+            resilience and strength qualities Kiva aims to foster in all its stakeholders.
+        </p>
+    </div>
     <div class="value-card">
         <div class="content inclusivity">
             <div class="front">
@@ -38,7 +46,7 @@ import "../styles/tokens.css";
                 </div>
             </div>
             <div class="back">
-                <div back-text>
+                <div class="back-text">
                     <p>
                         Much like the sun, and how it shines over everyone
                         without prejudice, <strong>Inclusivity</strong> is at Kiva's
@@ -51,6 +59,15 @@ import "../styles/tokens.css";
         </div>
     </div>
 
+    <div class="mob-text">
+        <p>
+            Much like the sun, and how it shines over everyone without
+            prejudice, <strong>Inclusivity</strong> is at Kiva's core. Fostering
+            a welcoming and equitable space where everyone's differences are celebrated
+            through a community rooted in kindness, making parts of a whole.
+        </p>
+    </div>
+
     <div class="value-card">
         <div class="content social-responsibility">
             <div class="front">
@@ -61,7 +78,7 @@ import "../styles/tokens.css";
             </div>
 
             <div class="back">
-                <div back-text>
+                <div class="back-text">
                     <p>
                         Learning to care for the environment and forming a deep
                         connection with nature is considered paramount at Kiva.
@@ -73,6 +90,16 @@ import "../styles/tokens.css";
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="mob-text">
+        <p>
+            Learning to care for the environment and forming a deep connection
+            with nature is considered paramount at Kiva. Respecting the life
+            around us, understanding that we don't exist in a vacuum and that
+            all Life is interconnected, is the key to cultivating empathy and
+            <strong>Social Responsibility</strong> in all our interactions.
+        </p>
     </div>
 </div>
 
@@ -159,5 +186,29 @@ import "../styles/tokens.css";
     .back {
         font-size: 16px;
         transform: rotateY(180deg);
+    }
+
+    .mob-text {
+        display: none;
+    }
+
+    @media (max-width: 1184px) {
+        .mob-text {
+            margin-top: 20px;
+            margin-bottom: 40px;
+            display: block;
+        }
+        .value-cards-container {
+            flex-direction: column;
+            align-items: center;
+        }
+        .value-card:hover .content {
+            transform: none;
+            transition: transform 0.5s;
+        }
+        .back {
+            display: none;
+            transform: none;
+        }
     }
 </style>

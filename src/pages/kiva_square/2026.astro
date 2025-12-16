@@ -55,11 +55,19 @@ import callForProposalsImage from "../../assets/kiva_square2026_call_for_proposa
     }
 
     .call-for-proposals {
-        width: 700px;
+        height: 40vw;
+
         display: block;
     }
     .call-for-proposals-container {
         display: flex;
         justify-content: center;
+    }
+
+    @media (max-width: 950px) {
+        .call-for-proposals {
+            width: 90vw;
+            height: auto;
+        }
     }
 </style>

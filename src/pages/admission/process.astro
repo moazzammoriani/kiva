@@ -4,6 +4,7 @@ import heroImage from "../../assets/Banner_AdmissionProcess.png";
 import PageSection from "../../components/PageSection.astro";
 import Accordion from "../../components/Accordion.astro";
 import processDiagram from "../../assets/process_diagram.png";
+import processDiagramMob from "../../assets/process_diagram_mob.png";
 import YellowButton from "../../components/YellowButton.astro";
 
 const faqs = [
@@ -51,9 +52,18 @@ const faqs = [
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-    <PageSection title="ADMISSION PROCESS" headingLevel={2} contentWidth="narrow">
+    <PageSection
+        title="ADMISSION PROCESS"
+        headingLevel={2}
+        contentWidth="narrow"
+    >
         <div class="diagram-container">
             <img class="process-diagram" src={processDiagram.src} alt="" />
+            <img
+                class="process-diagram-mob"
+                src={processDiagramMob.src}
+                alt=""
+            />
         </div>
         <div class="apply-now-btn-container">
             <YellowButton text={"Click here to apply"} />
@@ -77,5 +87,18 @@ const faqs = [
     }
     .apply-now-btn-container {
         margin-top: 40px;
+    }
+    .process-diagram-mob {
+        display: none;
+    }
+
+    @media (max-width: 915px) {
+        .process-diagram {
+            display: none;
+        }
+        .process-diagram-mob {
+            display: inline;
+            width: 80vw;
+        }
     }
 </style>

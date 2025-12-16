@@ -2,15 +2,18 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageSection from "../../components/PageSection.astro";
 import heroImage from "../../assets/our_story_banner.png";
-import timeline from "../../assets/our_story_timeline.png";
+import timeline from "../../assets/our_story_timeline_mob.png";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
     <PageSection title="OUR STORY">
-        <div class="timeline-container stack-lg">
+        <div class="timeline-container stack-lg timeline-container-desktop">
             <img class="timeline" src={timeline.src} alt="" />
         </div>
     </PageSection>
+    <div class="timeline-mob-container">
+        <img class="timeline-mob" src={timeline.src} alt="" />
+    </div>
 </BaseLayout>
 
 <style>
@@ -22,5 +25,23 @@ import timeline from "../../assets/our_story_timeline.png";
         box-sizing: border-box;
         border: 16px solid var(--color-teal);
         border-radius: 71px;
+    }
+
+    .timeline-mob-container {
+        display: none;
+    }
+
+    .timeline-mob {
+        width: 100%;
+    }
+
+    @media (max-width: 485px) {
+        .timeline-container-desktop {
+            display: none;
+        }
+
+        .timeline-mob-container {
+            display: block;
+        }
     }
 </style>
