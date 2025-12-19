@@ -1,92 +1,106 @@
 ---
 type Logo = { src: string; alt?: string };
 const {
-  logos = [],
-  speedMs = 24000,
-  height = 90,
-  gap = 32,
+    logos = [],
+    speedMs = 24000,
+    height = 90,
+    gap = 32,
 } = Astro.props as {
-  logos: Logo[];
-  speedMs?: number;
-  height?: number;
-  gap?: number;
+    logos: Logo[];
+    speedMs?: number;
+    height?: number;
+    gap?: number;
 };
 
 // Duplicate logos to allow seamless looping
 const loopLogos = [...logos, ...logos];
 ---
 
-{logos.length > 0 && (
-  <div class="logos-slideshow" style={`--height:${height}px; --gap:${gap}px; --duration:${speedMs}ms;`}>
-    <div class="logos-slideshow__track">
-      {
-        loopLogos.map((logo, idx) => (
-          <div class="logos-slideshow__item" aria-hidden={idx >= logos.length}>
-            <img src={logo.src} alt={logo.alt ?? ""} loading="lazy" />
-          </div>
-        ))
-      }
-    </div>
-  </div>
-)}
+{
+    logos.length > 0 && (
+        <div
+            class="logos-slideshow"
+            style={`--height:${height}px; --gap:${gap}px; --duration:${speedMs}ms;`}
+        >
+            <div class="logos-slideshow__track">
+                {loopLogos.map((logo, idx) => (
+                    <div
+                        class="logos-slideshow__item"
+                        aria-hidden={idx >= logos.length}
+                    >
+                        <img
+                            src={logo.src}
+                            alt={logo.alt ?? ""}
+                            loading="lazy"
+                        />
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
+}
 
 <style>
-  .logos-slideshow {
-    overflow: hidden;
-    max-width: 50vw;
-    position: relative;
-    height: var(--height);
-    margin: auto;
-  }
-
-  .logos-slideshow__track {
-    display: flex;
-    align-items: center;
-    gap: var(--gap);
-    width: max-content;
-    animation: marquee var(--duration) linear infinite;
-    flex-wrap: nowrap;
-    will-change: transform;
-  }
-
-  .logos-slideshow__item {
-    flex: 0 0 auto;
-    display: grid;
-    place-items: center;
-    height: var(--height);
-  }
-
-  .logos-slideshow__item img {
-    max-height: calc(var(--height) - 10px);
-    width: auto;
-    object-fit: contain;
-    display: block;
-  }
-
-  @keyframes marquee {
-    from {
-      transform: translateX(0);
-    }
-    to {
-      transform: translateX(-50%);
-    }
-  }
-
-  .logos-slideshow:hover .logos-slideshow__track,
-  .logos-slideshow:focus-within .logos-slideshow__track {
-    animation-play-state: paused;
-  }
-
-  @media (max-width: 1200px) {
     .logos-slideshow {
-        max-width: 80vw;
+        overflow: hidden;
+        max-width: 50vw;
+        position: relative;
+        height: var(--height);
+        margin: auto;
     }
-  }
 
-  @media (max-width: 600px) {
-    .logos-slideshow {
-      --height: 72px;
-      --gap: 20px;
+    .logos-slideshow__track {
+        display: flex;
+        align-items: center;
+        gap: var(--gap);
+        width: max-content;
+        animation: marquee var(--duration) linear infinite;
+        flex-wrap: nowrap;
+        will-change: transform;
     }
-  }
+
+    .logos-slideshow__item {
+        flex: 0 0 auto;
+        display: grid;
+        place-items: center;
+        height: var(--height);
+    }
+
+    .logos-slideshow__item img {
+        max-height: calc(var(--height) - 10px);
+        width: auto;
+        object-fit: contain;
+        display: block;
+    }
+
+    @keyframes marquee {
+        from {
+            transform: translateX(0);
+        }
+        to {
+            transform: translateX(-50%);
+        }
+    }
+
+    .logos-slideshow:hover .logos-slideshow__track,
+    .logos-slideshow:focus-within .logos-slideshow__track {
+        animation-play-state: paused;
+    }
+
+    @media (max-width: 1200px) {
+        .logos-slideshow {
+            max-width: 90vw;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .logos-slideshow {
+            max-width: 90vw;
+        }
+        .logos-slideshow {
+            --height: 72px;
+            --gap: 20px;
+        }
+    }
+
 </style>
