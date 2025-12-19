@@ -5,6 +5,7 @@ import birdhouse from "../assets/home_birdhouse.png";
 import PageSection from "../components/PageSection.astro";
 import IntroBlock from "../components/IntroBlock.astro";
 import SimpleSlideshow from "../components/SimpleSlideshow.astro";
+import LogosSlideShow from "../components/LogosSlideShow.astro";
 import slideOne from "../assets/spaces_library.png";
 import slideTwo from "../assets/spaces_garden.png";
 import slideThree from "../assets/spaces_ground.png";
@@ -67,48 +68,36 @@ const slideshowImages = [
         <SimpleSlideshow images={slideshowImages} />
     </PageSection>
 
-    <PageSection title="EDUCATION WORKs PVT. LTD." headingLevel={3}>
-        <div class="logos">
-            {
-                [kivaLogo, amiLogo, amiLogo2, paaryLogo].map((img) => (
-                    <div class="logo" role="img">
-                        <img src={img.src} alt="" />
-                    </div>
-                ))
-            }
-        </div>
+    <PageSection title="EDUCATION WORKS PVT. LTD." headingLevel={3}>
+        <LogosSlideShow
+            logos={[
+                { src: kivaLogo.src, alt: "Kiva School" },
+                { src: amiLogo.src, alt: "AMI School" },
+                { src: amiLogo2.src, alt: "AMI School secondary" },
+                { src: paaryLogo.src, alt: "Paary" },
+            ]}
+            speedMs={40000}
+            height={90}
+        />
     </PageSection>
     <PageSection title="PARTNERS AND COLLABORATORS" headingLevel={3}>
-        <div class="logos">
-            {
-                [
-                    veritasLogo,
-                    kiranLogo,
-                    teddyTennisLogo,
-                    tfsLogo,
-                    alignLogo,
-                    kdspLogo,
-                ].map((img) => (
-                    <div class="logo" role="img">
-                        <img src={img.src} alt="" />
-                    </div>
-                ))
-            }
-        </div>
+        <LogosSlideShow
+            logos={[
+                { src: veritasLogo.src, alt: "Veritas Learning Circle" },
+                { src: kiranLogo.src, alt: "Kiran Foundation" },
+                { src: teddyTennisLogo.src, alt: "Teddy Tennis" },
+                { src: tfsLogo.src, alt: "The Forest School" },
+                { src: alignLogo.src, alt: "Align" },
+                { src: kdspLogo.src, alt: "KDSP" },
+            ]}
+            speedMs={40000}
+            height={90}
+        />
     </PageSection>
 </BaseLayout>
 
 <style>
     #birdhouse {
         width: 300px;
-    }
-    .logo img {
-        height: 80px;
-    }
-
-    .logos {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-evenly;
     }
 </style>
