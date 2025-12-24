@@ -53,7 +53,7 @@ import email from "../assets/contact_email_icon.png";
     </PageSection>
 
     <PageSection>
-        <div class="contact-highlights">
+        <div class="contact-highlights stack-lg">
             <div class="contact-card">
                 <img class="contact-icon" src={phone.src} />
                 <span class="contact-label">0300-060 (KIVA)</span>
@@ -72,10 +72,12 @@ import email from "../assets/contact_email_icon.png";
 
 <style>
     .contact-highlights {
-        display: grid;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        margin: auto;
         gap: 1.5rem;
-        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-        width: 100%;
+        max-width: 800px;
     }
 
     .contact-card {
@@ -176,6 +178,12 @@ import email from "../assets/contact_email_icon.png";
         .mapembed {
             width: 90vw;
             height: 80vw;
+        }
+        
+        .contact-highlights {
+            flex-direction: column;
+            justify-content: flex-start;
+            gap: 48px;
         }
         .contact-icon {
             font-size: 1.6rem;

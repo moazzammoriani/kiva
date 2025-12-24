@@ -2,7 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import heroImage from "../../assets/Banner_KivaSquare2026.png";
 import PageSection from "../../components/PageSection.astro";
-import callForProposalsImage from "../../assets/kiva_square2026_call_for_proposals.png";
+import callForProposalsImage from "../../assets/kiva_square2026_call_for_proposals.jpg";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
@@ -17,14 +17,6 @@ import callForProposalsImage from "../../assets/kiva_square2026_call_for_proposa
         </div>
     </PageSection>
 
-    <PageSection title="" headingLevel={2}>
-        <!-- TODO: rewrite PageSection or create a new component to make this less awkward -->
-        <div>
-            <div class="submit-container">
-                <a id="submit" href="">Submit</a>
-            </div>
-        </div>
-    </PageSection>
 </BaseLayout>
 
 <style>
@@ -55,9 +47,9 @@ import callForProposalsImage from "../../assets/kiva_square2026_call_for_proposa
     }
 
     .call-for-proposals {
-        height: 40vw;
-
+        height: 800px;
         display: block;
+        border: solid 1px black;
     }
     .call-for-proposals-container {
         display: flex;
