@@ -5,7 +5,6 @@ import PageSection from "../../components/PageSection.astro";
 import YellowButton from "../../components/YellowButton.astro";
 ---
 
-<!-- TODO: make labels more bold -->
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
     <PageSection title="ADMISSION FORM" headingLevel={2}>
         <div class="stack-lg">
@@ -33,20 +32,20 @@ import YellowButton from "../../components/YellowButton.astro";
         </section>
 
         <section class="form-panel">
-            <h2 class="form-heading">Child’s Information</h2>
+            <h2 class="form-heading">Child's Information</h2>
             <div class="form-grid">
                 <label class="form-field">
-                    <span>Child’s name</span>
-                    <input type="text" name="childName" required />
+                    <input type="text" name="childName" placeholder=" " required />
+                    <span>Child's name</span>
                 </label>
                 <label class="form-field">
-                    <span>Date of birth</span>
                     <input type="date" name="dob" required />
+                    <span>Date of birth</span>
                 </label>
             </div>
-            <label class="form-field">
+            <label class="form-field form-field--textarea">
+                <textarea name="address" rows={2} placeholder=" " required></textarea>
                 <span>Address</span>
-                <textarea name="address" rows={2} required></textarea>
             </label>
 
             <fieldset class="form-fieldset">
@@ -66,12 +65,12 @@ import YellowButton from "../../components/YellowButton.astro";
 
             <div class="form-grid">
                 <label class="form-field">
+                    <input type="text" name="previousSchool" placeholder=" " />
                     <span>Previous school / daycare (if applicable)</span>
-                    <input type="text" name="previousSchool" />
                 </label>
                 <label class="form-field">
+                    <input type="text" name="previousClass" placeholder=" " />
                     <span>Previous class</span>
-                    <input type="text" name="previousClass" />
                 </label>
             </div>
 
@@ -85,7 +84,7 @@ import YellowButton from "../../components/YellowButton.astro";
                     ><input type="radio" name="hasReport" value="no" /> No, a progress
                     report is not applicable at this time.</label
                 >
-                <label class="form-field form-field--file">
+                <label class="upload-button">
                     <span>Upload progress report</span>
                     <input
                         type="file"
@@ -95,17 +94,14 @@ import YellowButton from "../../components/YellowButton.astro";
                 </label>
             </fieldset>
 
-            <label class="form-field">
+            <label class="form-field form-field--textarea">
+                <textarea name="reason" rows={3} placeholder=" "></textarea>
                 <span>Reason for changing school</span>
-                <textarea name="reason" rows={3}></textarea>
             </label>
 
-            <label class="form-field">
-                <span
-                    >Medical information (allergies, treatments, diagnoses,
-                    etc.)</span
-                >
-                <textarea name="medicalInfo" rows={3}></textarea>
+            <label class="form-field form-field--textarea">
+                <textarea name="medicalInfo" rows={3} placeholder=" "></textarea>
+                <span>Medical information (allergies, treatments, diagnoses, etc.)</span>
             </label>
 
             <fieldset class="form-fieldset">
@@ -136,96 +132,66 @@ import YellowButton from "../../components/YellowButton.astro";
             <h2 class="form-heading">Parents’ Information</h2>
             <div class="parents-grid">
                 <div class="stack-sm">
-                    <h3 class="sub-heading">Mother’s Details</h3>
-                    <label class="form-field"
-                        ><span>Name</span><input
-                            type="text"
-                            name="motherName"
-                            required
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>Profession</span><input
-                            type="text"
-                            name="motherProfession"
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>Educational qualification</span><input
-                            type="text"
-                            name="motherEducation"
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>Organization</span><input
-                            type="text"
-                            name="motherOrganization"
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>Email</span><input
-                            type="email"
-                            name="motherEmail"
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>Cellphone number</span><input
-                            type="tel"
-                            name="motherPhone"
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>CNIC number</span><input
-                            type="text"
-                            name="motherCnic"
-                        /></label
-                    >
+                    <h3 class="sub-heading">Mother's Details</h3>
+                    <label class="form-field">
+                        <input type="text" name="motherName" placeholder=" " required />
+                        <span>Name</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="text" name="motherProfession" placeholder=" " />
+                        <span>Profession</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="text" name="motherEducation" placeholder=" " />
+                        <span>Educational qualification</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="text" name="motherOrganization" placeholder=" " />
+                        <span>Organization</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="email" name="motherEmail" placeholder=" " />
+                        <span>Email</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="tel" name="motherPhone" placeholder=" " />
+                        <span>Cellphone number</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="text" name="motherCnic" placeholder=" " />
+                        <span>CNIC number</span>
+                    </label>
                 </div>
                 <div class="stack-sm">
-                    <h3 class="sub-heading">Father’s Details</h3>
-                    <label class="form-field"
-                        ><span>Name</span><input
-                            type="text"
-                            name="fatherName"
-                            required
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>Profession</span><input
-                            type="text"
-                            name="fatherProfession"
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>Educational qualification</span><input
-                            type="text"
-                            name="fatherEducation"
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>Organization</span><input
-                            type="text"
-                            name="fatherOrganization"
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>Email</span><input
-                            type="email"
-                            name="fatherEmail"
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>Cellphone number</span><input
-                            type="tel"
-                            name="fatherPhone"
-                        /></label
-                    >
-                    <label class="form-field"
-                        ><span>CNIC number</span><input
-                            type="text"
-                            name="fatherCnic"
-                        /></label
-                    >
+                    <h3 class="sub-heading">Father's Details</h3>
+                    <label class="form-field">
+                        <input type="text" name="fatherName" placeholder=" " required />
+                        <span>Name</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="text" name="fatherProfession" placeholder=" " />
+                        <span>Profession</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="text" name="fatherEducation" placeholder=" " />
+                        <span>Educational qualification</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="text" name="fatherOrganization" placeholder=" " />
+                        <span>Organization</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="email" name="fatherEmail" placeholder=" " />
+                        <span>Email</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="tel" name="fatherPhone" placeholder=" " />
+                        <span>Cellphone number</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="text" name="fatherCnic" placeholder=" " />
+                        <span>CNIC number</span>
+                    </label>
                 </div>
             </div>
         </section>
@@ -233,44 +199,32 @@ import YellowButton from "../../components/YellowButton.astro";
         <section class="form-panel">
             <h2 class="form-heading">Sibling(s) Information</h2>
             <div class="form-grid">
-                <label class="form-field"
-                    ><span>Name</span><input
-                        type="text"
-                        name="siblingName"
-                    /></label
-                >
-                <label class="form-field"
-                    ><span>Grade</span><input
-                        type="text"
-                        name="siblingGrade"
-                    /></label
-                >
+                <label class="form-field">
+                    <input type="text" name="siblingName" placeholder=" " />
+                    <span>Name</span>
+                </label>
+                <label class="form-field">
+                    <input type="text" name="siblingGrade" placeholder=" " />
+                    <span>Grade</span>
+                </label>
             </div>
-            <label class="form-field"
-                ><span>School</span><input
-                    type="text"
-                    name="siblingSchool"
-                /></label
-            >
+            <label class="form-field">
+                <input type="text" name="siblingSchool" placeholder=" " />
+                <span>School</span>
+            </label>
         </section>
 
         <section class="form-panel">
             <h2 class="form-heading">Emergency Contact</h2>
             <div class="form-grid">
-                <label class="form-field"
-                    ><span>Name</span><input
-                        type="text"
-                        name="emergencyName"
-                        required
-                    /></label
-                >
-                <label class="form-field"
-                    ><span>Cellphone number</span><input
-                        type="tel"
-                        name="emergencyPhone"
-                        required
-                    /></label
-                >
+                <label class="form-field">
+                    <input type="text" name="emergencyName" placeholder=" " required />
+                    <span>Name</span>
+                </label>
+                <label class="form-field">
+                    <input type="tel" name="emergencyPhone" placeholder=" " required />
+                    <span>Cellphone number</span>
+                </label>
             </div>
         </section>
 
@@ -311,9 +265,9 @@ import YellowButton from "../../components/YellowButton.astro";
             <h2 class="form-heading">
                 Why do you feel Kiva is a good fit for you and your family?
             </h2>
-            <label class="form-field">
+            <label class="form-field form-field--textarea">
+                <textarea name="fitResponse" rows={4} placeholder=" "></textarea>
                 <span>Your response</span>
-                <textarea name="fitResponse" rows={4}></textarea>
             </label>
         </section>
 
@@ -331,8 +285,8 @@ import YellowButton from "../../components/YellowButton.astro";
                 </label>
             </fieldset>
             <label class="form-field">
+                <input type="text" name="signature" placeholder=" " required />
                 <span>Signature (type your name)</span>
-                <input type="text" name="signature" required />
             </label>
         </section>
 
@@ -388,17 +342,23 @@ import YellowButton from "../../components/YellowButton.astro";
     }
 
     .form-field {
+        position: relative;
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
         font-size: 0.95rem;
         text-align: left;
     }
 
     .form-field span {
-        font-weight: 800;
-        color: var(--color-text-primary);
-        padding-left: 14px;
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 500;
+        color: rgba(33, 66, 68, 0.5);
+        pointer-events: none;
+        transition: all 0.2s ease;
+        background: transparent;
     }
 
     .form-field input,
@@ -406,19 +366,71 @@ import YellowButton from "../../components/YellowButton.astro";
     .form-field select {
         border: none;
         border-radius: var(--radius-md);
-        padding: 0.75rem 1rem;
+        padding: 1.4rem 1rem 0.6rem;
         font-size: 1rem;
         background: var(--color-yellow);
         color: var(--color-text-primary);
     }
 
-    .form-field textarea {
-        resize: vertical;
+    /* Floating label state - focused or has content */
+    .form-field input:focus + span,
+    .form-field input:not(:placeholder-shown) + span {
+        top: 0.5rem;
+        transform: translateY(0);
+        font-size: 0.6rem;
     }
 
-    .form-field--file input[type="file"] {
-        padding: 0.5rem;
-        background: #fff6d7;
+    /* Date inputs always show the picker, so label should always float */
+    .form-field input[type="date"] + span {
+        top: 0.5rem;
+        transform: translateY(0);
+        font-size: 0.6rem;
+    }
+
+    /* Textarea specific adjustments */
+    .form-field--textarea span {
+        top: 1.2rem;
+        transform: translateY(0);
+    }
+
+    .form-field textarea:focus + span,
+    .form-field textarea:not(:placeholder-shown) + span {
+        top: 0.4rem;
+        font-size: 0.6rem;
+    }
+
+    .form-field textarea {
+        resize: vertical;
+        padding-top: 1.6rem;
+    }
+
+    .upload-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        background: var(--color-teal);
+        color: var(--color-text-inverse);
+        border-radius: 999px;
+        padding: 0.75rem 1.5rem;
+        cursor: pointer;
+        font-weight: 600;
+        transition: background-color 0.2s ease;
+    }
+
+    .upload-button:hover {
+        background: var(--color-deep-teal);
+    }
+
+    .upload-button input[type="file"] {
+        display: none;
+    }
+
+    .upload-button span {
+        position: static;
+        transform: none;
+        color: inherit;
+        font-weight: inherit;
     }
 
     .form-fieldset {
