@@ -34,6 +34,7 @@ const active =
 <div class="nav-dropdown">
     <a class={`navspan ${active ? "active" : ""}`}>
         {label}
+        <span class="dropdown-arrow">⌄</span>
     </a>
     <ul class="menu" role="menu" aria-label={label}>
         {
@@ -66,7 +67,7 @@ const active =
             border: none;
             background-color: white;
             display: inline-block;
-            padding: 10px 20px;
+            padding: 10px 16px;
             border-radius: 20px;
             text-decoration: none;
             color: var(--text);
@@ -84,6 +85,17 @@ const active =
 
         .navspan.active {
             background: var(--teal);
+        }
+
+        .dropdown-arrow {
+            display: inline-block;
+            margin-left: 4px;
+            font-size: 1em;
+            transition: transform 150ms ease;
+        }
+
+        .nav-dropdown:hover .dropdown-arrow {
+            transform: rotate(180deg);
         }
         .nav-dropdown {
             position: relative;
@@ -141,6 +153,13 @@ const active =
             background: var(--teal);
             color: white;
             outline: none;
+        }
+
+        @media (max-width: 1420px) {
+            .navspan {
+                padding: 7px 14px;
+                font-size: 16px;
+            }
         }
     </style>
 </div>
