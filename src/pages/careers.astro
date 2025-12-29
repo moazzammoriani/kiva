@@ -19,26 +19,26 @@ import PageSection from "../components/PageSection.astro";
         <form class="careers-form">
             <div class="form-grid">
                 <label class="form-field">
+                    <input type="text" name="name" placeholder=" " required />
                     <span>Full Name</span>
-                    <input type="text" name="name" required />
                 </label>
                 <label class="form-field">
+                    <input type="email" name="email" placeholder=" " required />
                     <span>Email Address</span>
-                    <input type="email" name="email" required />
                 </label>
                 <label class="form-field">
+                    <input type="tel" name="phone" placeholder=" " />
                     <span>Contact Number</span>
-                    <input type="tel" name="phone" />
                 </label>
                 <label class="form-field">
+                    <input type="text" name="position" placeholder=" " />
                     <span>Position of Interest</span>
-                    <input type="text" name="position" />
                 </label>
             </div>
 
-            <label class="form-field">
+            <label class="form-field form-field--textarea">
+                <textarea name="coverLetter" rows={6} placeholder=" "></textarea>
                 <span>Cover Letter (300 words)</span>
-                <textarea name="coverLetter" rows={6}></textarea>
             </label>
 
             <div class="upload-row">
@@ -90,29 +90,56 @@ import PageSection from "../components/PageSection.astro";
     }
 
     .form-field {
+        position: relative;
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
     }
 
     .form-field span {
-        font-weight:800;
-        color: var(--color-text-primary);
-        padding-left: 14px;
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        font-weight: 500;
+        color: white;
+        pointer-events: none;
+        transition: all 0.2s ease;
+        background: transparent;
     }
 
     .form-field input,
     .form-field textarea {
         border: none;
         border-radius: 18px;
-        padding: 0.85rem 1rem;
+        padding: 1.4rem 1rem 0.6rem;
         background: var(--color-purple);
         color: var(--color-text-inverse);
         font-size: 1rem;
     }
 
+    /* Floating label state - focused or has content */
+    .form-field input:focus + span,
+    .form-field input:not(:placeholder-shown) + span {
+        top: 0.5rem;
+        transform: translateY(0);
+        font-size: 0.7rem;
+    }
+
+    /* Textarea specific adjustments */
+    .form-field--textarea span {
+        top: 1.2rem;
+        transform: translateY(0);
+    }
+
+    .form-field textarea:focus + span,
+    .form-field textarea:not(:placeholder-shown) + span {
+        top: 0.4rem;
+        font-size: 0.7rem;
+    }
+
     .form-field textarea {
         resize: vertical;
+        padding-top: 1.6rem;
     }
 
     .upload-row {
