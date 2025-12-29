@@ -101,7 +101,7 @@ import PageSection from "../components/PageSection.astro";
         top: 50%;
         transform: translateY(-50%);
         font-weight: 500;
-        color: white;
+        color: rgba(255, 255, 255, 0.7);
         pointer-events: none;
         transition: all 0.2s ease;
         background: transparent;
@@ -112,7 +112,7 @@ import PageSection from "../components/PageSection.astro";
         border: none;
         border-radius: 18px;
         padding: 1.4rem 1rem 0.6rem;
-        background: var(--color-purple);
+        background: #d59bed;
         color: var(--color-text-inverse);
         font-size: 1rem;
     }
@@ -135,6 +135,7 @@ import PageSection from "../components/PageSection.astro";
     .form-field textarea:not(:placeholder-shown) + span {
         top: 0.4rem;
         font-size: 0.6rem;
+        color: white;
     }
 
     .form-field textarea {
