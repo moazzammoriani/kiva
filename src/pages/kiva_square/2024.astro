@@ -1,73 +1,607 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import heroImage from "../../assets/Banner_KivaSquare2026.png";
+import heroImage from "../../assets/Banner_KivaSquare2024_2.png";
 import PageSection from "../../components/PageSection.astro";
-import callForProposalsImage from "../../assets/kiva_square2026_call_for_proposals.png";
+import FacilitatorCarousel from "../../components/FacilitatorCarousel.astro";
+
+// Facilitator images - Mindful Living (10 facilitators)
+import shelaHaider from "../../assets/facilitators/shela-haider.png";
+import zohaibZuby from "../../assets/facilitators/zohaib-zuby.png";
+import hanaZakaria from "../../assets/facilitators/hana-zakaria.png";
+import tehminaMansoor from "../../assets/facilitators/tehmina-mansoor.png";
+import nuveraMukaty from "../../assets/facilitators/nuvera-mukaty.png";
+import fawzia from "../../assets/facilitators/fawzia.png";
+import asifAliAzad from "../../assets/facilitators/asif-ali-azad.png";
+import uzmaIqbal from "../../assets/facilitators/uzma-iqbal.png";
+import kehkishanSyed from "../../assets/facilitators/kehkishan-syed.png";
+import shazrayMalik from "../../assets/facilitators/shazray-malik.png";
+
+// Mindful Living facilitators array for carousel
+const mindfulLivingFacilitators = [
+    { src: asifAliAzad.src, alt: "Asif Ali Azad" },
+    { src: uzmaIqbal.src, alt: "Uzma Iqbal" },
+    { src: kehkishanSyed.src, alt: "Kehkishan Syed" },
+    { src: shazrayMalik.src, alt: "Shazray Malik" },
+    { src: shelaHaider.src, alt: "Shehla Haider" },
+    { src: zohaibZuby.src, alt: "Zohaib Zuby" },
+    { src: hanaZakaria.src, alt: "Hana Zakaria" },
+    { src: tehminaMansoor.src, alt: "Tehmina Mansoor" },
+    { src: nuveraMukaty.src, alt: "Nuvera Mukaty" },
+    { src: fawzia.src, alt: "Fawzia Salahuddin" },
+];
+
+// Facilitator images - Building Communities (16 facilitators)
+import bismahIrfan from "../../assets/facilitators/bismah-irfan.png";
+import shehzanaVilliani from "../../assets/facilitators/shehzana-villiani.png";
+import tofiqPashaMooraj from "../../assets/facilitators/tofiq-pasha-mooraj.png";
+import rutabaSyed from "../../assets/facilitators/rutaba-syed.png";
+import aishaMotiwala from "../../assets/facilitators/aisha-motiwala.png";
+import gulrukhZaman from "../../assets/facilitators/gulrukh-zaman.png";
+import nehalFaisal from "../../assets/facilitators/nehal-faisal.png";
+import farahAftab from "../../assets/facilitators/farah-aftab.png";
+import drAshaBedar from "../../assets/facilitators/dr-asha-bedar.png";
+import drMunazzahMansoor from "../../assets/facilitators/dr-munazzah-mansoor.png";
+import margaretLoboFialho from "../../assets/facilitators/margaret-lobo-fialho.png";
+import aamnaLatif from "../../assets/facilitators/aamna-latif.png";
+import sabinaKhatri from "../../assets/facilitators/sabina-khatri.png";
+import faryalGoraya from "../../assets/facilitators/faryal-goraya.png";
+import natashaMukhtar from "../../assets/facilitators/natasha-mukhtar.png";
+import kulsoomAftab from "../../assets/facilitators/kulsoom-aftab.png";
+
+// Building Communities facilitators array for carousel
+const buildingCommunitiesFacilitators = [
+    { src: bismahIrfan.src, alt: "Bismah Irfan" },
+    { src: shehzanaVilliani.src, alt: "Shehzana Villiani" },
+    { src: tofiqPashaMooraj.src, alt: "Tofiq Pasha Mooraj" },
+    { src: rutabaSyed.src, alt: "Rutaba Syed" },
+    { src: aishaMotiwala.src, alt: "Aisha Motiwala" },
+    { src: gulrukhZaman.src, alt: "Gulrukh Zaman" },
+    { src: nehalFaisal.src, alt: "Nehal Faisal" },
+    { src: farahAftab.src, alt: "Farah Aftab" },
+    { src: drAshaBedar.src, alt: "Dr Asha Bedar" },
+    { src: drMunazzahMansoor.src, alt: "Dr. Munazzah Mansoor" },
+    { src: margaretLoboFialho.src, alt: "Margaret Lobo Fialho" },
+    { src: aamnaLatif.src, alt: "Aamna Latif" },
+    { src: sabinaKhatri.src, alt: "Sabina Khatri" },
+    { src: faryalGoraya.src, alt: "Faryal Goraya" },
+    { src: natashaMukhtar.src, alt: "Natasha Mukhtar" },
+    { src: kulsoomAftab.src, alt: "Kulsoom Aftab" },
+];
+
+// Facilitator images - Creative Expressions (8 facilitators)
+import rohailAhmed from "../../assets/facilitators/rohail-ahmed.png";
+import manahilNauman from "../../assets/facilitators/manahil-nauman.png";
+import areebAliKhan from "../../assets/facilitators/areeb-ali-khan.png";
+import aroojFatima from "../../assets/facilitators/arooj-fatima.png";
+import fizaAsar from "../../assets/facilitators/fiza-asar.png";
+import faizanHussain from "../../assets/facilitators/faizan-hussain.png";
+import harjaMateen from "../../assets/facilitators/harja-mateen.png";
+import hinaPasha from "../../assets/facilitators/hina-pasha.png";
+
+// Creative Expressions facilitators array for carousel
+const creativeExpressionsFacilitators = [
+    { src: rohailAhmed.src, alt: "Rohail Ahmed" },
+    { src: manahilNauman.src, alt: "Manahil Nauman" },
+    { src: areebAliKhan.src, alt: "Areeb Ali Khan" },
+    { src: aroojFatima.src, alt: "Arooj Fatima" },
+    { src: fizaAsar.src, alt: "Fiza Asar" },
+    { src: faizanHussain.src, alt: "Faizan Hussain" },
+    { src: harjaMateen.src, alt: "Harja Mateen" },
+    { src: hinaPasha.src, alt: "Hina Pasha" },
+];
+
+// Facilitator images - Emotional Wellbeing (13 facilitators)
+import alishbaSumbul from "../../assets/facilitators/alishba-sumbul.png";
+import uroosaMohsin from "../../assets/facilitators/uroosa-mohsin.png";
+import sanaNaseem from "../../assets/facilitators/sana-naseem.png";
+import rabeeaSaleem from "../../assets/facilitators/rabeea-saleem.png";
+import ambreenBashir from "../../assets/facilitators/ambreen-bashir.png";
+import ridaHameed from "../../assets/facilitators/rida-hameed.png";
+import khaulaAhmed from "../../assets/facilitators/khaula-ahmed.png";
+import drMariaIqbal from "../../assets/facilitators/dr-maria-iqbal.png";
+import ruqayyaRizwan from "../../assets/facilitators/ruqayya-rizwan.png";
+import mariamMotiwala from "../../assets/facilitators/mariam-motiwala.png";
+import aroobaSaleem from "../../assets/facilitators/arooba-saleem.png";
+import batoolJafry from "../../assets/facilitators/batool-jafry.png";
+import abeerAsim from "../../assets/facilitators/abeer-asim.png";
+
+// Emotional Wellbeing facilitators array for carousel
+const emotionalWellbeingFacilitators = [
+    { src: alishbaSumbul.src, alt: "Alishba & Sumbul" },
+    { src: uroosaMohsin.src, alt: "Uroosa Mohsin" },
+    { src: sanaNaseem.src, alt: "Sana Naseem" },
+    { src: rabeeaSaleem.src, alt: "Rabeea Saleem" },
+    { src: ambreenBashir.src, alt: "Ambreen Bashir" },
+    { src: ridaHameed.src, alt: "Rida Hameed" },
+    { src: khaulaAhmed.src, alt: "Khaula Ahmed" },
+    { src: drMariaIqbal.src, alt: "Dr. Maria Iqbal" },
+    { src: ruqayyaRizwan.src, alt: "Ruqayya Rizwan" },
+    { src: mariamMotiwala.src, alt: "Mariam Motiwala" },
+    { src: aroobaSaleem.src, alt: "Arooba Saleem" },
+    { src: batoolJafry.src, alt: "Batool Jafry" },
+    { src: abeerAsim.src, alt: "Abeer Asim" },
+];
+
+// Facilitator images - Entertainment (5 facilitators)
+import faheemAbbas from "../../assets/facilitators/faheem-abbas.png";
+import mohammadKhan from "../../assets/facilitators/mohammad-khan.png";
+import junaidKhan from "../../assets/facilitators/junaid-khan.png";
+import nadirAhmad from "../../assets/facilitators/nadir-ahmad.png";
+import awaazTheBand from "../../assets/facilitators/awaaz-the-band.png";
+
+// Entertainment facilitators array for carousel
+const entertainmentFacilitators = [
+    { src: faheemAbbas.src, alt: "Faheem Abbas" },
+    { src: mohammadKhan.src, alt: "Mohammad Khan" },
+    { src: junaidKhan.src, alt: "Junaid Khan" },
+    { src: nadirAhmad.src, alt: "Nadir Ahmad" },
+    { src: awaazTheBand.src, alt: "Awaaz the Band" },
+];
+
+// Facilitator images - Physical Wellbeing (5 facilitators)
+import raziaBano from "../../assets/facilitators/razia-bano.png";
+import hassanNajam from "../../assets/facilitators/hassan-najam.png";
+import uzmaKhan from "../../assets/facilitators/uzma-khan.png";
+import maryamHidayatallah from "../../assets/facilitators/maryam-hidayatallah.png";
+import fatimaEjaz from "../../assets/facilitators/fatima-ejaz.png";
+
+// Physical Wellbeing facilitators array for carousel
+const physicalWellbeingFacilitators = [
+    { src: raziaBano.src, alt: "Razia Bano" },
+    { src: hassanNajam.src, alt: "Hassan Najam" },
+    { src: uzmaKhan.src, alt: "Uzma Khan" },
+    { src: maryamHidayatallah.src, alt: "Maryam Hidayatallah" },
+    { src: fatimaEjaz.src, alt: "Fatima Ejaz" },
+];
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-    <PageSection title="KIVA SQUARE 2026" headingLevel={2}>
-        <!-- removed 'stack-lg' class -->
-        <div class="call-for-proposals-container">
-            <img
-                class="call-for-proposals"
-                src={callForProposalsImage.src}
-                alt=""
-            />
-        </div>
-    </PageSection>
+    <div class="kiva-square-page">
+        <!-- Vision Section -->
+        <PageSection title="KIVA SQUARE 2024" contentWidth="narrow">
+            <p>
+                "KIVA SQUARE" is an event curated by team at Education Works Private
+                Limited (EWPL) housing; The AMI School, Kiva School
+                (Co-Collaboration between TAS & VLC), AMI Daycare & Learning Centre
+                & Paar. KIVA SQUARE is driven by 2/3 of our core values for the last
+                4 decades; Inclusion & Social Responsibility.
+            </p>
 
-    <PageSection title="" headingLevel={2}>
-        <!-- TODO: rewrite PageSection or create a new component to make this less awkward -->
-        <div>
-            <div class="submit-container">
-                <a id="submit" href="">Submit</a>
+            <p>
+                Through our event we aspire to create awareness around Inclusion in
+                classrooms. We host at least 2 differently abled children in our
+                class rooms – therefore, we understand the importance the matter
+                entails. Our event is one with a cause, through our ticket sales we
+                pledge 50% of it to the causes of Down syndrome – @Karachi Down
+                Syndrome Program & sending humanitarian aid relief fund to Palestine
+                – @kiran foundation . Our students will enter for FREE – whereas the
+                pass cost is PKR 1000 for those who wish to participate.
+            </p>
+
+            <p><strong>What can be expected at KIVA SQUARE!?!</strong></p>
+
+            <p>
+                We have curated KIVA SQUARE in a manner where we aspire to welcome
+                our guests (Adults & Children) to come & immerse themselves in FREE
+                OF COST sessions around Interactive holistic well-being sessions –
+                ranging from Art to meditation to music therapy, to dog therapy to
+                nature therapy (tree hugging) mindfulness and so much more along
+                with various Food Stalls & an Organic Market Place, housing several
+                brands.
+            </p>
+
+            <p>
+                We are offering our guests the chance to understand how mindfulness
+                can help them achieve a state of Zen which can only reduce &
+                eliminate over time the judgement that we perceive as humans – once
+                we have achieved that Inclusion automatically becomes a part of the
+                system!!!
+            </p>
+
+            <p>
+                We have locked over 80 sessions spanning across 2 days with our
+                wellness volunteers!
+            </p>
+
+            <p>
+                Show your support towards creating a more #Inclusive , tolerant &
+                #SociallyResponsible Pakistan together !
+            </p>
+        </PageSection>
+
+        <!-- Schedule Section -->
+        <section class="schedule-section">
+            <div class="banner-title">
+                <span class="banner-text">SCHEDULE</span>
             </div>
-        </div>
-    </PageSection>
+            <div class="schedule-buttons">
+                <a href="#" class="schedule-btn">DAY 1 : 13<sup>TH</sup> JAN, 24</a>
+                <a href="#" class="schedule-btn">DAY 2 : 14<sup>TH</sup> JAN, 24</a>
+            </div>
+        </section>
+
+        <!-- Buy Tickets Section -->
+        <section class="tickets-section">
+            <div class="banner-title">
+                <span class="banner-text">BUY TICKETS</span>
+            </div>
+            <div class="tickets-buttons">
+                <a href="#" class="tickets-btn">CLICK HERE</a>
+            </div>
+        </section>
+
+        <!-- Meet the Facilitators Section -->
+        <section class="facilitators-section">
+            <div class="banner-title">
+                <span class="banner-text">MEET THE FACILITORS</span>
+            </div>
+
+            <!-- Mindful Living -->
+            <div class="facilitator-category">
+                <div class="category-title">
+                    <span class="category-text">MINDFUL LIVING</span>
+                </div>
+                <FacilitatorCarousel
+                    images={mindfulLivingFacilitators}
+                    itemsPerSlide={4}
+                    autoAdvanceMs={5000}
+                />
+            </div>
+
+            <!-- Building Communities -->
+            <div class="facilitator-category">
+                <div class="category-title">
+                    <span class="category-text">BUILDING COMMUNITIES</span>
+                </div>
+                <FacilitatorCarousel
+                    images={buildingCommunitiesFacilitators}
+                    itemsPerSlide={4}
+                    autoAdvanceMs={5000}
+                />
+            </div>
+
+            <!-- Creative Expressions -->
+            <div class="facilitator-category">
+                <div class="category-title">
+                    <span class="category-text">CREATIVE EXPRESSIONS</span>
+                </div>
+                <FacilitatorCarousel
+                    images={creativeExpressionsFacilitators}
+                    itemsPerSlide={4}
+                    autoAdvanceMs={5000}
+                />
+            </div>
+
+            <!-- Emotional Wellbeing -->
+            <div class="facilitator-category">
+                <div class="category-title">
+                    <span class="category-text">EMOTIONAL WELLBEING</span>
+                </div>
+                <FacilitatorCarousel
+                    images={emotionalWellbeingFacilitators}
+                    itemsPerSlide={4}
+                    autoAdvanceMs={5000}
+                />
+            </div>
+
+            <!-- Entertainment -->
+            <div class="facilitator-category">
+                <div class="category-title">
+                    <span class="category-text">ENTERTAINMENT</span>
+                </div>
+                <FacilitatorCarousel
+                    images={entertainmentFacilitators}
+                    itemsPerSlide={4}
+                    autoAdvanceMs={5000}
+                />
+            </div>
+
+            <!-- Physical Wellbeing -->
+            <div class="facilitator-category">
+                <div class="category-title">
+                    <span class="category-text">PHYSICAL WELLBEING</span>
+                </div>
+                <FacilitatorCarousel
+                    images={physicalWellbeingFacilitators}
+                    itemsPerSlide={4}
+                    autoAdvanceMs={5000}
+                />
+            </div>
+        </section>
+
+        <!-- Google Maps Section -->
+        <section class="map-section">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.955696739171!2d67.07120797515212!3d24.865362677926083!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f7bdf724f3f%3A0xcf5e9b30d2cf7b4e!2sThe%20Kiva%20School!5e0!3m2!1sen!2s!4v1704355766332!5m2!1sen!2s"
+                width="100%"
+                height="450"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                title="The Kiva School Location"
+            ></iframe>
+        </section>
+
+        <!-- Contact Us Section -->
+        <section class="contact-section">
+            <h2 class="contact-title">CONTACT US</h2>
+            <form class="contact-form">
+                <div class="form-row">
+                    <input type="text" name="name" placeholder="Your Name" required />
+                    <input type="email" name="email" placeholder="Email Address" required />
+                </div>
+                <div class="form-row">
+                    <input type="tel" name="phone" placeholder="Your Contact No." required />
+                    <input type="text" name="subject" placeholder="You want to know about" required />
+                </div>
+                <div class="form-row">
+                    <textarea name="message" placeholder="Enter Your Query" rows="4" required></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Send your Message</button>
+            </form>
+        </section>
+    </div>
 </BaseLayout>
 
 <style>
-    /* TODO: add color variables */
-    /* TODO: add border-radius variables */
-    /* TODO: create button component */
-    .submit-container {
-        display: flex;
-        justify-content: center;
+    .kiva-square-page {
+        /* background-color: #3ac7ed; */
+        padding-bottom: 2rem;
+        overflow-x: hidden;
     }
 
-    #submit {
-        text-decoration: none;
-        display: block;
-        background-color: #ff8941;
-        width: 500px;
-        height: 50px;
-        line-height: 50px;
-        border-radius: 50px;
-        color: #092c4b;
-        font-size: 30px;
+    /* Banner Title Styles */
+    .banner-title {
+        display: flex;
+        justify-content: center;
+        margin: 2rem 0 1.5rem;
+    }
+
+    .banner-text {
+        background-color: #fac217;
+        color: #082c4b;
+        font-size: clamp(1.5rem, 4vw, 2.5rem);
         font-weight: 800;
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        border: 4px solid #082c4b;
+        display: inline-block;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        width:70%;
+        text-align: center;
     }
 
-    #submit-container:visited {
-        color: black;
+    /* Schedule Section */
+    .schedule-section {
+        padding: 2rem var(--layout-padding-inline);
+        text-align: center;
+    }
+
+    .schedule-buttons {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .schedule-btn {
+        background-color: #fac217;
+        color: #082c4b;
+        font-size: clamp(1rem, 3vw, 1.5rem);
+        font-weight: 700;
+        padding: 0.75rem 2rem;
+        border-radius: 50px;
+        border: 3px solid #082c4b;
         text-decoration: none;
+        display: inline-block;
+        transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .call-for-proposals {
-        height: 40vw;
-
-        display: block;
+    .schedule-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
     }
-    .call-for-proposals-container {
+
+    /* Tickets Section */
+    .tickets-section {
+        padding: 2rem var(--layout-padding-inline);
+        text-align: center;
+    }
+
+    .tickets-buttons {
         display: flex;
         justify-content: center;
     }
 
-    @media (max-width: 950px) {
-        .call-for-proposals {
-            width: 90vw;
-            height: auto;
+    .tickets-btn {
+        background-color: #fac217;
+        color: #082c4b;
+        font-size: clamp(1.25rem, 3vw, 1.75rem);
+        font-weight: 700;
+        padding: 0.75rem 3rem;
+        border-radius: 50px;
+        border: 3px solid #082c4b;
+        text-decoration: none;
+        display: inline-block;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .tickets-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Facilitators Section */
+    .facilitators-section {
+        padding: 2rem var(--layout-padding-inline);
+    }
+
+    .facilitator-category {
+        margin: 2rem 0;
+    }
+
+    .category-title {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 1.5rem;
+    }
+
+    .category-text {
+        background-color: #ff8941;
+        color: #082c4b;
+        font-size: clamp(1rem, 2.5vw, 1.5rem);
+        font-weight: 700;
+        padding: 0.5rem 1.5rem;
+        border-radius: 50px;
+        border: 3px solid #082c4b;
+        display: inline-block;
+    }
+
+    .facilitator-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+    }
+
+    .facilitator-card {
+        background-color: #fac217;
+        border: 4px solid #082c4b;
+        border-radius: 12px;
+        overflow: hidden;
+        text-align: center;
+        transition: transform 0.2s;
+    }
+
+    .facilitator-card:hover {
+        transform: translateY(-4px);
+    }
+
+    .facilitator-image-placeholder {
+        width: 100%;
+        aspect-ratio: 1;
+        background-color: #e0e0e0;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='35' r='20' fill='%23999'/%3E%3Cellipse cx='50' cy='80' rx='30' ry='20' fill='%23999'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 60%;
+    }
+
+    .facilitator-card img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .facilitator-name {
+        padding: 0.75rem;
+        font-weight: 700;
+        color: #082c4b;
+        font-size: 0.9rem;
+    }
+
+    /* Map Section */
+    .map-section {
+        padding: 2rem var(--layout-padding-inline);
+    }
+
+    .map-section iframe {
+        border-radius: 12px;
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        display: block;
+    }
+
+    /* Contact Section */
+    .contact-section {
+        padding: 3rem var(--layout-padding-inline);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .contact-title {
+        color: #082c4b;
+        font-size: clamp(1.5rem, 4vw, 2rem);
+        font-weight: 800;
+        text-align: center;
+        margin-bottom: 2rem;
+    }
+
+    .contact-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .form-row:last-of-type {
+        grid-template-columns: 1fr;
+    }
+
+    .contact-form input,
+    .contact-form textarea {
+        width: 100%;
+        padding: 1rem 1.25rem;
+        border: 2px solid #082c4b;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-family: inherit;
+        background-color: white;
+        box-sizing: border-box;
+    }
+
+    .contact-form input:focus,
+    .contact-form textarea:focus {
+        outline: none;
+        border-color: #0db29b;
+        box-shadow: 0 0 0 3px rgba(13, 178, 155, 0.2);
+    }
+
+    .contact-form textarea {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .submit-btn {
+        background-color: #0db29b;
+        color: white;
+        font-size: 1.1rem;
+        font-weight: 700;
+        padding: 1rem 2.5rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.2s;
+        align-self: center;
+        margin-top: 0.5rem;
+    }
+
+    .submit-btn:hover {
+        background-color: #05897a;
+        transform: translateY(-2px);
+    }
+
+    @media (max-width: 600px) {
+        .banner-text {
+            min-width: auto;
+            padding: 0.75rem 1.5rem;
+        }
+
+        .form-row {
+            grid-template-columns: 1fr;
+        }
+
+        .facilitator-grid {
+            grid-template-columns: repeat(2, 1fr);
         }
     }
 </style>

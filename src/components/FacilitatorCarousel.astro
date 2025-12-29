@@ -1,0 +1,361 @@
+---
+type FacilitatorImage = {
+    src: string;
+    alt?: string;
+};
+
+interface Props {
+    images: FacilitatorImage[];
+    itemsPerSlide?: number;
+    autoAdvanceMs?: number;
+}
+
+const {
+    images = [],
+    itemsPerSlide = 4,
+    autoAdvanceMs = 5000
+} = Astro.props;
+
+// Calculate number of slides
+const totalSlides = Math.ceil(images.length / itemsPerSlide);
+---
+
+<div
+    class="facilitator-carousel"
+    role="region"
+    aria-roledescription="carousel"
+    aria-label="Facilitators"
+    data-items-per-slide={itemsPerSlide}
+    data-auto-advance={autoAdvanceMs}
+>
+    <button
+        class="carousel__btn carousel__btn--prev"
+        type="button"
+        aria-label="Previous slide"
+        data-action="prev"
+    >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+    </button>
+
+    <div class="carousel__viewport">
+        <div class="carousel__track">
+            {images.map((image, index) => (
+                <div class="carousel__card" data-index={index}>
+                    <img src={image.src} alt={image.alt || ''} loading="lazy" />
+                </div>
+            ))}
+        </div>
+    </div>
+
+    <button
+        class="carousel__btn carousel__btn--next"
+        type="button"
+        aria-label="Next slide"
+        data-action="next"
+    >
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+    </button>
+
+    <div class="carousel__dots" role="tablist" aria-label="Slide navigation">
+        {Array.from({ length: totalSlides }).map((_, i) => (
+            <button
+                class={`carousel__dot ${i === 0 ? 'carousel__dot--active' : ''}`}
+                type="button"
+                role="tab"
+                aria-selected={i === 0 ? 'true' : 'false'}
+                aria-label={`Go to slide ${i + 1}`}
+                data-slide={i}
+            ></button>
+        ))}
+    </div>
+</div>
+
+<script>
+    class FacilitatorCarousel {
+        private container: HTMLElement;
+        private track: HTMLElement;
+        private cards: HTMLElement[];
+        private dots: HTMLElement[];
+        private prevBtn: HTMLElement;
+        private nextBtn: HTMLElement;
+        private currentSlide: number = 0;
+        private totalSlides: number;
+        private itemsPerSlide: number;
+        private autoAdvanceMs: number;
+        private autoAdvanceTimer: number | null = null;
+        private isPaused: boolean = false;
+
+        constructor(container: HTMLElement) {
+            this.container = container;
+            this.track = container.querySelector('.carousel__track')!;
+            this.cards = Array.from(container.querySelectorAll('.carousel__card'));
+            this.dots = Array.from(container.querySelectorAll('.carousel__dot'));
+            this.prevBtn = container.querySelector('.carousel__btn--prev')!;
+            this.nextBtn = container.querySelector('.carousel__btn--next')!;
+
+            this.itemsPerSlide = parseInt(container.dataset.itemsPerSlide || '4');
+            this.autoAdvanceMs = parseInt(container.dataset.autoAdvance || '5000');
+            this.totalSlides = Math.ceil(this.cards.length / this.itemsPerSlide);
+
+            this.init();
+        }
+
+        private init() {
+            // Set up event listeners
+            this.prevBtn.addEventListener('click', () => this.prev());
+            this.nextBtn.addEventListener('click', () => this.next());
+
+            this.dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => this.goToSlide(index));
+            });
+
+            // Pause on hover
+            this.container.addEventListener('mouseenter', () => this.pause());
+            this.container.addEventListener('mouseleave', () => this.resume());
+
+            // Respect reduced motion preference
+            const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            if (!prefersReducedMotion && this.autoAdvanceMs > 0) {
+                this.startAutoAdvance();
+            }
+
+            // Handle responsive items per slide
+            this.handleResize();
+            window.addEventListener('resize', () => this.handleResize());
+
+            this.updateDisplay();
+        }
+
+        private handleResize() {
+            const width = window.innerWidth;
+            if (width < 600) {
+                this.itemsPerSlide = 2;
+            } else if (width < 900) {
+                this.itemsPerSlide = 3;
+            } else {
+                this.itemsPerSlide = parseInt(this.container.dataset.itemsPerSlide || '4');
+            }
+            this.totalSlides = Math.ceil(this.cards.length / this.itemsPerSlide);
+            this.updateDots();
+            this.updateDisplay();
+        }
+
+        private updateDots() {
+            // Update number of dots if needed
+            const dotsContainer = this.container.querySelector('.carousel__dots')!;
+            const currentDotCount = this.dots.length;
+
+            if (currentDotCount !== this.totalSlides) {
+                dotsContainer.innerHTML = '';
+                for (let i = 0; i < this.totalSlides; i++) {
+                    const dot = document.createElement('button');
+                    dot.className = `carousel__dot ${i === this.currentSlide ? 'carousel__dot--active' : ''}`;
+                    dot.type = 'button';
+                    dot.role = 'tab';
+                    dot.ariaSelected = i === this.currentSlide ? 'true' : 'false';
+                    dot.ariaLabel = `Go to slide ${i + 1}`;
+                    dot.dataset.slide = String(i);
+                    dot.addEventListener('click', () => this.goToSlide(i));
+                    dotsContainer.appendChild(dot);
+                }
+                this.dots = Array.from(dotsContainer.querySelectorAll('.carousel__dot'));
+            }
+        }
+
+        private prev() {
+            this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+            this.updateDisplay();
+            this.resetAutoAdvance();
+        }
+
+        private next() {
+            this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+            this.updateDisplay();
+            this.resetAutoAdvance();
+        }
+
+        private goToSlide(index: number) {
+            this.currentSlide = index;
+            this.updateDisplay();
+            this.resetAutoAdvance();
+        }
+
+        private updateDisplay() {
+            // Ensure currentSlide is within bounds
+            if (this.currentSlide >= this.totalSlides) {
+                this.currentSlide = 0;
+            }
+
+            // Calculate offset
+            const cardWidth = 100 / this.itemsPerSlide;
+            const offset = this.currentSlide * this.itemsPerSlide * cardWidth;
+
+            this.track.style.transform = `translateX(-${offset}%)`;
+
+            // Update card widths
+            this.cards.forEach(card => {
+                (card as HTMLElement).style.flex = `0 0 ${cardWidth}%`;
+            });
+
+            // Update dots
+            this.dots.forEach((dot, index) => {
+                const isActive = index === this.currentSlide;
+                dot.classList.toggle('carousel__dot--active', isActive);
+                dot.ariaSelected = isActive ? 'true' : 'false';
+            });
+        }
+
+        private startAutoAdvance() {
+            if (this.autoAdvanceTimer) return;
+            this.autoAdvanceTimer = window.setInterval(() => {
+                if (!this.isPaused) {
+                    this.next();
+                }
+            }, this.autoAdvanceMs);
+        }
+
+        private pause() {
+            this.isPaused = true;
+        }
+
+        private resume() {
+            this.isPaused = false;
+        }
+
+        private resetAutoAdvance() {
+            if (this.autoAdvanceTimer) {
+                clearInterval(this.autoAdvanceTimer);
+                this.autoAdvanceTimer = null;
+                this.startAutoAdvance();
+            }
+        }
+    }
+
+    // Initialize all carousels on the page
+    document.querySelectorAll('.facilitator-carousel').forEach(container => {
+        new FacilitatorCarousel(container as HTMLElement);
+    });
+</script>
+
+<style>
+    .facilitator-carousel {
+        position: relative;
+        width: 100%;
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 50px;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .carousel__viewport {
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .carousel__track {
+        display: flex;
+        transition: transform 0.4s ease-out;
+    }
+
+    .carousel__card {
+        flex: 0 0 25%;
+        padding: 0.5rem;
+        box-sizing: border-box;
+    }
+
+    .carousel__card img {
+        width: 100%;
+        height: auto;
+        display: block;
+        border-radius: 8px;
+        border: 4px solid #082c4b;
+        background-color: #fac217;
+    }
+
+    .carousel__btn {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        border: 3px solid #082c4b;
+        background: #fac217;
+        color: #082c4b;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color 0.2s, transform 0.2s;
+        z-index: 2;
+    }
+
+    .carousel__btn:hover {
+        background: #e8b315;
+        transform: translateY(-50%) scale(1.05);
+    }
+
+    .carousel__btn--prev {
+        left: 0;
+    }
+
+    .carousel__btn--next {
+        right: 0;
+    }
+
+    .carousel__dots {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        margin-top: 1rem;
+    }
+
+    .carousel__dot {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        border: 2px solid #082c4b;
+        background: transparent;
+        cursor: pointer;
+        padding: 0;
+        transition: background-color 0.2s;
+    }
+
+    .carousel__dot--active {
+        background: #082c4b;
+    }
+
+    .carousel__dot:hover {
+        background: rgba(8, 44, 75, 0.5);
+    }
+
+    .carousel__dot--active:hover {
+        background: #082c4b;
+    }
+
+    @media (max-width: 900px) {
+        .carousel__card {
+            flex: 0 0 33.333%;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .facilitator-carousel {
+            padding: 0 40px;
+        }
+
+        .carousel__card {
+            flex: 0 0 50%;
+        }
+
+        .carousel__btn {
+            width: 36px;
+            height: 36px;
+        }
+    }
+</style>
