@@ -308,39 +308,6 @@ const physicalWellbeingFacilitators = [
                 />
             </div>
         </section>
-
-        <!-- Google Maps Section -->
-        <section class="map-section">
-            <iframe
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3619.955696739171!2d67.07120797515212!3d24.865362677926083!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33f7bdf724f3f%3A0xcf5e9b30d2cf7b4e!2sThe%20Kiva%20School!5e0!3m2!1sen!2s!4v1704355766332!5m2!1sen!2s"
-                width="100%"
-                height="450"
-                style="border:0;"
-                allowfullscreen=""
-                loading="lazy"
-                referrerpolicy="no-referrer-when-downgrade"
-                title="The Kiva School Location"
-            ></iframe>
-        </section>
-
-        <!-- Contact Us Section -->
-        <section class="contact-section">
-            <h2 class="contact-title">CONTACT US</h2>
-            <form class="contact-form">
-                <div class="form-row">
-                    <input type="text" name="name" placeholder="Your Name" required />
-                    <input type="email" name="email" placeholder="Email Address" required />
-                </div>
-                <div class="form-row">
-                    <input type="tel" name="phone" placeholder="Your Contact No." required />
-                    <input type="text" name="subject" placeholder="You want to know about" required />
-                </div>
-                <div class="form-row">
-                    <textarea name="message" placeholder="Enter Your Query" rows="4" required></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Send your Message</button>
-            </form>
-        </section>
     </div>
 </BaseLayout>
 
@@ -503,101 +470,10 @@ const physicalWellbeingFacilitators = [
         font-size: 0.9rem;
     }
 
-    /* Map Section */
-    .map-section {
-        padding: 2rem var(--layout-padding-inline);
-    }
-
-    .map-section iframe {
-        border-radius: 12px;
-        width: 100%;
-        max-width: 1000px;
-        margin: 0 auto;
-        display: block;
-    }
-
-    /* Contact Section */
-    .contact-section {
-        padding: 3rem var(--layout-padding-inline);
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .contact-title {
-        color: #082c4b;
-        font-size: clamp(1.5rem, 4vw, 2rem);
-        font-weight: 800;
-        text-align: center;
-        margin-bottom: 2rem;
-    }
-
-    .contact-form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.25rem;
-    }
-
-    .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
-    }
-
-    .form-row:last-of-type {
-        grid-template-columns: 1fr;
-    }
-
-    .contact-form input,
-    .contact-form textarea {
-        width: 100%;
-        padding: 1rem 1.25rem;
-        border: 2px solid #082c4b;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-family: inherit;
-        background-color: white;
-        box-sizing: border-box;
-    }
-
-    .contact-form input:focus,
-    .contact-form textarea:focus {
-        outline: none;
-        border-color: #0db29b;
-        box-shadow: 0 0 0 3px rgba(13, 178, 155, 0.2);
-    }
-
-    .contact-form textarea {
-        resize: vertical;
-        min-height: 120px;
-    }
-
-    .submit-btn {
-        background-color: #0db29b;
-        color: white;
-        font-size: 1.1rem;
-        font-weight: 700;
-        padding: 1rem 2.5rem;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: background-color 0.2s, transform 0.2s;
-        align-self: center;
-        margin-top: 0.5rem;
-    }
-
-    .submit-btn:hover {
-        background-color: #05897a;
-        transform: translateY(-2px);
-    }
-
     @media (max-width: 600px) {
         .banner-text {
             min-width: auto;
             padding: 0.75rem 1.5rem;
-        }
-
-        .form-row {
-            grid-template-columns: 1fr;
         }
 
         .facilitator-grid {
