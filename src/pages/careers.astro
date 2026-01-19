@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import heroImage from "../assets/Banner_Career.png";
 import PageSection from "../components/PageSection.astro";
+import FormNotification from "../components/FormNotification.astro";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
@@ -16,7 +17,7 @@ import PageSection from "../components/PageSection.astro";
     </PageSection>
 
     <PageSection align="left">
-        <form class="careers-form">
+        <form class="careers-form" id="careers-form">
             <div class="form-grid">
                 <label class="form-field">
                     <input type="text" name="name" placeholder=" " required />
@@ -52,6 +53,11 @@ import PageSection from "../components/PageSection.astro";
                 <button type="submit" class="submit-button">Submit</button>
             </div>
         </form>
+        <FormNotification
+            id="careers-success"
+            title="Application Submitted"
+            message="Thank you for your interest! We will review your application and get back to you."
+        />
     </PageSection>
 </BaseLayout>
 
@@ -191,3 +197,27 @@ import PageSection from "../components/PageSection.astro";
         }
     }
 </style>
+
+<script>
+    const form = document.getElementById('careers-form') as HTMLFormElement;
+    const notification = document.getElementById('careers-success');
+
+    form?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        try {
+            const response = await fetch('/api/careers', {
+                method: 'POST',
+                body: formData,
+            });
+            if (response.ok) {
+                form.style.display = 'none';
+                if (notification) notification.style.display = 'flex';
+            } else {
+                alert('Something went wrong. Please try again.');
+            }
+        } catch (error) {
+            alert('Something went wrong. Please try again.');
+        }
+    });
+</script>

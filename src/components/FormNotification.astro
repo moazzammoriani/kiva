@@ -1,0 +1,42 @@
+---
+interface Props {
+    title: string;
+    message: string;
+    id?: string;
+}
+
+const { title, message, id = "form-notification" } = Astro.props;
+---
+
+<div class="form-notification" id={id} style="display: none;">
+    <h3><i class="fa-solid fa-circle-check"></i> {title}</h3>
+    <p>{message}</p>
+</div>
+
+<style>
+    .form-notification {
+        text-align: center;
+        padding: 2.5rem 2rem;
+        border-radius: var(--radius-lg);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        background: #fef7e2;
+        box-shadow: var(--shadow-soft);
+    }
+
+    .form-notification h3 {
+        margin: 0;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--color-teal);
+    }
+
+    .form-notification p {
+        margin: 0;
+        font-size: 1rem;
+        max-width: 45ch;
+        color: var(--color-text-primary);
+    }
+</style>
