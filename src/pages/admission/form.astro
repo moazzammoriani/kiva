@@ -60,41 +60,42 @@ import FormNotification from "../../components/FormNotification.astro";
                 >
             </fieldset>
 
-            <div class="form-grid">
-                <label class="form-field">
-                    <input type="text" name="previousSchool" placeholder=" " />
-                    <span>Previous school / daycare (if applicable)</span>
-                </label>
-                <label class="form-field">
-                    <input type="text" name="previousClass" placeholder=" " />
-                    <span>Previous class</span>
+            <div id="applied-before-fields" class="conditional-fields">
+                <div class="form-grid">
+                    <label class="form-field">
+                        <input type="text" name="previousSchool" placeholder=" " />
+                        <span>Previous school / daycare (if applicable)</span>
+                    </label>
+                    <label class="form-field">
+                        <input type="text" name="previousClass" placeholder=" " />
+                        <span>Previous class</span>
+                    </label>
+                </div>
+                <fieldset class="form-fieldset">
+                    <legend>Progress report</legend>
+                    <label
+                        ><input type="radio" name="hasReport" value="yes" /> Yes, I have
+                        a progress report to share.</label
+                    >
+                    <label
+                        ><input type="radio" name="hasReport" value="no" /> No, a progress
+                        report is not applicable at this time.</label
+                    >
+                    <label class="upload-button">
+                        <span>Upload progress report</span>
+                        <input
+                            type="file"
+                            name="progressReport"
+                            accept=".pdf,.doc,.docx,.jpg,.png"
+                        />
+                    </label>
+                </fieldset>
+
+                <label class="form-field form-field--textarea">
+                    <textarea name="reason" rows={3} placeholder=" "></textarea>
+                    <span>Reason for changing school</span>
                 </label>
             </div>
-
-            <fieldset class="form-fieldset">
-                <legend>Progress report</legend>
-                <label
-                    ><input type="radio" name="hasReport" value="yes" /> Yes, I have
-                    a progress report to share.</label
-                >
-                <label
-                    ><input type="radio" name="hasReport" value="no" /> No, a progress
-                    report is not applicable at this time.</label
-                >
-                <label class="upload-button">
-                    <span>Upload progress report</span>
-                    <input
-                        type="file"
-                        name="progressReport"
-                        accept=".pdf,.doc,.docx,.jpg,.png"
-                    />
-                </label>
-            </fieldset>
-
-            <label class="form-field form-field--textarea">
-                <textarea name="reason" rows={3} placeholder=" "></textarea>
-                <span>Reason for changing school</span>
-            </label>
 
             <label class="form-field form-field--textarea">
                 <textarea name="medicalInfo" rows={3} placeholder=" "></textarea>
@@ -555,11 +556,33 @@ import FormNotification from "../../components/FormNotification.astro";
             max-width: 100%;
         }
     }
+
+    .conditional-fields {
+        display: none;
+    }
+
+    .conditional-fields.visible {
+        display: contents;
+    }
 </style>
 
 <script>
     const form = document.getElementById('admission-form') as HTMLFormElement;
     const notification = document.getElementById('admission-success');
+    const appliedBeforeRadios = document.querySelectorAll('input[name="appliedBefore"]');
+    const conditionalFields = document.getElementById('applied-before-fields');
+
+    // Toggle conditional fields based on "applied before" selection
+    appliedBeforeRadios.forEach(radio => {
+        radio.addEventListener('change', (e) => {
+            const target = e.target as HTMLInputElement;
+            if (target.value === 'yes') {
+                conditionalFields?.classList.add('visible');
+            } else {
+                conditionalFields?.classList.remove('visible');
+            }
+        });
+    });
 
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
