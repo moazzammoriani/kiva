@@ -28,17 +28,17 @@ import FormNotification from "../components/FormNotification.astro";
                     <span>Email Address</span>
                 </label>
                 <label class="form-field">
-                    <input type="tel" name="phone" placeholder=" " />
+                    <input type="tel" name="phone" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
                     <span>Contact Number</span>
                 </label>
                 <label class="form-field">
-                    <input type="text" name="position" placeholder=" " />
+                    <input type="text" name="position" placeholder=" " required />
                     <span>Position of Interest</span>
                 </label>
             </div>
 
             <label class="form-field form-field--textarea">
-                <textarea name="coverLetter" rows={6} placeholder=" "></textarea>
+                <textarea name="coverLetter" rows={6} placeholder=" " required></textarea>
                 <span>Cover Letter (300 words)</span>
             </label>
 
@@ -46,7 +46,7 @@ import FormNotification from "../components/FormNotification.astro";
                 <div class="file-upload-wrapper" id="cv-upload-wrapper">
                     <label class="upload-button">
                         <span>Upload CV</span>
-                        <input type="file" name="cv" accept=".pdf,.doc,.docx" />
+                        <input type="file" name="cv" accept=".pdf,.doc,.docx" required />
                     </label>
                     <div class="file-info" style="display: none;">
                         <span class="file-name"></span>
@@ -243,6 +243,13 @@ import FormNotification from "../components/FormNotification.astro";
 <script>
     const form = document.getElementById('careers-form') as HTMLFormElement;
     const notification = document.getElementById('careers-success');
+
+    // Restrict phone field to digits only
+    const phoneField = document.querySelector('input[name="phone"]') as HTMLInputElement;
+    phoneField?.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        target.value = target.value.replace(/[^0-9]/g, '');
+    });
 
     // File upload handling
     const fileInput = document.querySelector('input[name="cv"]') as HTMLInputElement;
