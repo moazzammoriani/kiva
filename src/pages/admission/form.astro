@@ -74,7 +74,7 @@ import FormNotification from "../../components/FormNotification.astro";
                 <fieldset class="form-fieldset">
                     <legend>Progress report</legend>
                     <label
-                        ><input type="radio" name="hasReport" value="yes" /> Yes, I have
+                        ><input type="radio" name="hasReport" value="yes" required /> Yes, I have
                         a progress report to share.</label
                     >
                     <label
@@ -142,27 +142,27 @@ import FormNotification from "../../components/FormNotification.astro";
                         <span>Name</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="motherProfession" placeholder=" " />
+                        <input type="text" name="motherProfession" placeholder=" " required />
                         <span>Profession</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="motherEducation" placeholder=" " />
+                        <input type="text" name="motherEducation" placeholder=" " required />
                         <span>Educational qualification</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="motherOrganization" placeholder=" " />
+                        <input type="text" name="motherOrganization" placeholder=" " required />
                         <span>Organization</span>
                     </label>
                     <label class="form-field">
-                        <input type="email" name="motherEmail" placeholder=" " />
+                        <input type="email" name="motherEmail" placeholder=" " required />
                         <span>Email</span>
                     </label>
                     <label class="form-field">
-                        <input type="tel" name="motherPhone" placeholder=" " />
+                        <input type="tel" name="motherPhone" placeholder=" " required />
                         <span>Cellphone number</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="motherCnic" placeholder=" " />
+                        <input type="text" name="motherCnic" placeholder=" " required />
                         <span>CNIC number</span>
                     </label>
                 </div>
@@ -173,27 +173,27 @@ import FormNotification from "../../components/FormNotification.astro";
                         <span>Name</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="fatherProfession" placeholder=" " />
+                        <input type="text" name="fatherProfession" placeholder=" " required />
                         <span>Profession</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="fatherEducation" placeholder=" " />
+                        <input type="text" name="fatherEducation" placeholder=" " required />
                         <span>Educational qualification</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="fatherOrganization" placeholder=" " />
+                        <input type="text" name="fatherOrganization" placeholder=" " required />
                         <span>Organization</span>
                     </label>
                     <label class="form-field">
-                        <input type="email" name="fatherEmail" placeholder=" " />
+                        <input type="email" name="fatherEmail" placeholder=" " required />
                         <span>Email</span>
                     </label>
                     <label class="form-field">
-                        <input type="tel" name="fatherPhone" placeholder=" " />
+                        <input type="tel" name="fatherPhone" placeholder=" " required />
                         <span>Cellphone number</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="fatherCnic" placeholder=" " />
+                        <input type="text" name="fatherCnic" placeholder=" " required />
                         <span>CNIC number</span>
                     </label>
                 </div>
@@ -650,6 +650,16 @@ import FormNotification from "../../components/FormNotification.astro";
 
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        // Validate progress report file if "Yes" is selected
+        const hasReportYes = (document.querySelector('input[name="hasReport"]:checked') as HTMLInputElement)?.value === 'yes';
+        const progressReportFile = fileInput?.files?.length ?? 0;
+
+        if (hasReportYes && progressReportFile === 0) {
+            alert('Please upload your progress report.');
+            return;
+        }
+
         const formData = new FormData(form);
         try {
             const response = await fetch('/api/admission', {
