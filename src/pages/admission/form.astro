@@ -81,14 +81,20 @@ import FormNotification from "../../components/FormNotification.astro";
                         ><input type="radio" name="hasReport" value="no" /> No, a progress
                         report is not applicable at this time.</label
                     >
-                    <label class="upload-button">
-                        <span>Upload progress report</span>
-                        <input
-                            type="file"
-                            name="progressReport"
-                            accept=".pdf,.doc,.docx,.jpg,.png"
-                        />
-                    </label>
+                    <div class="file-upload-wrapper" id="progress-report-wrapper">
+                        <label class="upload-button">
+                            <span>Upload progress report</span>
+                            <input
+                                type="file"
+                                name="progressReport"
+                                accept=".pdf,.doc,.docx,.jpg,.png"
+                            />
+                        </label>
+                        <div class="file-info" style="display: none;">
+                            <span class="file-name"></span>
+                            <button type="button" class="remove-file-button">Remove</button>
+                        </div>
+                    </div>
                 </fieldset>
 
                 <label class="form-field form-field--textarea">
@@ -478,6 +484,42 @@ import FormNotification from "../../components/FormNotification.astro";
         font-weight: inherit;
     }
 
+    .file-upload-wrapper {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .file-info {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.75rem;
+        padding: 0.5rem 1rem;
+        background: var(--color-yellow);
+        border-radius: var(--radius-md);
+        font-size: 0.9rem;
+    }
+
+    .file-name {
+        color: var(--color-text-primary);
+        word-break: break-all;
+    }
+
+    .remove-file-button {
+        background: none;
+        border: none;
+        color: var(--color-accent-orange);
+        cursor: pointer;
+        font-weight: 600;
+        padding: 0.25rem 0.5rem;
+        font-family: inherit;
+    }
+
+    .remove-file-button:hover {
+        text-decoration: underline;
+    }
+
     .form-fieldset {
         border: none;
         margin: 0;
@@ -582,6 +624,28 @@ import FormNotification from "../../components/FormNotification.astro";
                 conditionalFields?.classList.remove('visible');
             }
         });
+    });
+
+    // File upload handling
+    const fileInput = document.querySelector('input[name="progressReport"]') as HTMLInputElement;
+    const uploadWrapper = document.getElementById('progress-report-wrapper');
+    const uploadButton = uploadWrapper?.querySelector('.upload-button') as HTMLElement;
+    const fileInfo = uploadWrapper?.querySelector('.file-info') as HTMLElement;
+    const fileName = uploadWrapper?.querySelector('.file-name') as HTMLElement;
+    const removeButton = uploadWrapper?.querySelector('.remove-file-button');
+
+    fileInput?.addEventListener('change', () => {
+        if (fileInput.files && fileInput.files.length > 0) {
+            fileName.textContent = fileInput.files[0].name;
+            uploadButton.style.display = 'none';
+            fileInfo.style.display = 'inline-flex';
+        }
+    });
+
+    removeButton?.addEventListener('click', () => {
+        fileInput.value = '';
+        uploadButton.style.display = 'inline-flex';
+        fileInfo.style.display = 'none';
     });
 
     form?.addEventListener('submit', async (e) => {
