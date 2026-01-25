@@ -24,11 +24,11 @@ import email from "../assets/contact_email_icon.png";
                     <span>Email Address</span>
                 </label>
                 <label class="form-field">
-                    <input type="text" name="subject" placeholder=" " />
+                    <input type="text" name="subject" placeholder=" " required />
                     <span>Subject</span>
                 </label>
                 <label class="form-field">
-                    <input type="tel" name="phone" placeholder=" " />
+                    <input type="tel" name="phone" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
                     <span>Cellphone Number</span>
                 </label>
             </div>
@@ -224,6 +224,13 @@ import email from "../assets/contact_email_icon.png";
 <script>
     const form = document.getElementById('contact-form') as HTMLFormElement;
     const notification = document.getElementById('contact-success');
+
+    // Restrict phone field to digits only
+    const phoneField = document.querySelector('input[name="phone"]') as HTMLInputElement;
+    phoneField?.addEventListener('input', (e) => {
+        const target = e.target as HTMLInputElement;
+        target.value = target.value.replace(/[^0-9]/g, '');
+    });
 
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
