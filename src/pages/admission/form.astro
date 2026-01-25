@@ -158,11 +158,11 @@ import FormNotification from "../../components/FormNotification.astro";
                         <span>Email</span>
                     </label>
                     <label class="form-field">
-                        <input type="tel" name="motherPhone" placeholder=" " required />
+                        <input type="tel" name="motherPhone" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
                         <span>Cellphone number</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="motherCnic" placeholder=" " required />
+                        <input type="text" name="motherCnic" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
                         <span>CNIC number</span>
                     </label>
                 </div>
@@ -189,11 +189,11 @@ import FormNotification from "../../components/FormNotification.astro";
                         <span>Email</span>
                     </label>
                     <label class="form-field">
-                        <input type="tel" name="fatherPhone" placeholder=" " required />
+                        <input type="tel" name="fatherPhone" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
                         <span>Cellphone number</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="fatherCnic" placeholder=" " required />
+                        <input type="text" name="fatherCnic" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
                         <span>CNIC number</span>
                     </label>
                 </div>
@@ -226,7 +226,7 @@ import FormNotification from "../../components/FormNotification.astro";
                     <span>Name</span>
                 </label>
                 <label class="form-field">
-                    <input type="tel" name="emergencyPhone" placeholder=" " required />
+                    <input type="tel" name="emergencyPhone" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
                     <span>Cellphone number</span>
                 </label>
             </div>
@@ -613,6 +613,15 @@ import FormNotification from "../../components/FormNotification.astro";
     const notification = document.getElementById('admission-success');
     const appliedBeforeRadios = document.querySelectorAll('input[name="appliedBefore"]');
     const conditionalFields = document.getElementById('applied-before-fields');
+
+    // Restrict numeric fields to digits only
+    const numericFields = document.querySelectorAll('input[name="motherPhone"], input[name="motherCnic"], input[name="fatherPhone"], input[name="fatherCnic"], input[name="emergencyPhone"]');
+    numericFields.forEach(field => {
+        field.addEventListener('input', (e) => {
+            const target = e.target as HTMLInputElement;
+            target.value = target.value.replace(/[^0-9]/g, '');
+        });
+    });
 
     // Toggle conditional fields based on "applied before" selection
     appliedBeforeRadios.forEach(radio => {
