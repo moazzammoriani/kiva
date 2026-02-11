@@ -1,0 +1,73 @@
+{
+  "heroImage": "/images/home/Banner_Home.png",
+  "birdHouseImage": "/images/home/home_birdhouse.png",
+  "welcomeHeading": "WELCOME TO KIVA",
+  "welcomeTagline": "A place we call home",
+  "welcomeParagraphs": [
+    "Launched in 2021, Kiva School came into being after Muzaffar Bukhari of Veritas Learning Circle joined EWPL as a new partner. Bringing a fresh perspective and vision to the organisation, Kiva School was established as a new chapter of the AMI pre-school focusing on early developmental years from a place of curiosity and exploration.\n\nBreaking away from conventional teaching methods and adopting the Finnish play-based educational philosophy, Kiva embodies values of kindness and social responsibility that encourage personal growth at each child's own pace."
+  ],
+  "spacesTitle": "OUR SPACES",
+  "slideshowImages": [
+    {
+      "src": "/images/home/spaces_library.png",
+      "alt": "Reading zone with colourful books",
+      "label": "Library"
+    },
+    {
+      "src": "/images/home/spaces_garden.png",
+      "alt": "Outdoor play area",
+      "label": "Garden"
+    },
+    {
+      "src": "/images/home/spaces_ground.png",
+      "alt": "Creative corner with art supplies",
+      "label": "Playground"
+    }
+  ],
+  "educationWorksTitle": "EDUCATION WORKS PVT. LTD.",
+  "educationWorksLogos": [
+    {
+      "src": "/images/home/kiva-logo.png",
+      "alt": "Kiva School"
+    },
+    {
+      "src": "/images/home/ami-logo.png",
+      "alt": "AMI School"
+    },
+    {
+      "src": "/images/home/ami-logo2.png",
+      "alt": "AMI School secondary"
+    },
+    {
+      "src": "/images/home/paary-logo.png",
+      "alt": "Paary"
+    }
+  ],
+  "partnersTitle": "PARTNERS AND COLLABORATORS",
+  "partnerLogos": [
+    {
+      "src": "/images/home/veritas-logo.png",
+      "alt": "Veritas Learning Circle"
+    },
+    {
+      "src": "/images/home/kiran-logo.png",
+      "alt": "Kiran Foundation"
+    },
+    {
+      "src": "/images/home/teddy-tennis-logo.png",
+      "alt": "Teddy Tennis"
+    },
+    {
+      "src": "/images/home/the-forest-school-logo.png",
+      "alt": "The Forest School"
+    },
+    {
+      "src": "/images/home/align-logo.png",
+      "alt": "Align"
+    },
+    {
+      "src": "/images/home/kdsp-logo.png",
+      "alt": "KDSP"
+    }
+  ]
+}

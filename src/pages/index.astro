@@ -1,95 +1,61 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import heroImage from "../assets/Banner_Home.png";
-import birdhouse from "../assets/home_birdhouse.png";
 import PageSection from "../components/PageSection.astro";
 import IntroBlock from "../components/IntroBlock.astro";
 import SimpleSlideshow from "../components/SimpleSlideshow.astro";
 import LogosSlideShow from "../components/LogosSlideShow.astro";
-import slideOne from "../assets/spaces_library.png";
-import slideTwo from "../assets/spaces_garden.png";
-import slideThree from "../assets/spaces_ground.png";
 
-import kivaLogo from "../assets/kiva-logo.png";
-import amiLogo from "../assets/ami-logo.png";
-import amiLogo2 from "../assets/ami-logo2.png";
-import paaryLogo from "../assets/paary-logo.png";
+const homeEntries = await getCollection("home");
+const home = homeEntries[0]?.data;
 
-import veritasLogo from "../assets/veritas-logo.png";
-import kiranLogo from "../assets/kiran-logo.png";
-import teddyTennisLogo from "../assets/teddy-tennis-logo.png";
-import tfsLogo from "../assets/the-forest-school-logo.png";
-import alignLogo from "../assets/align-logo.png";
-import kdspLogo from "../assets/kdsp-logo.png";
+const slideshowImages = (home?.slideshowImages ?? []).map((img) => ({
+    src: img?.src ?? "",
+    alt: img?.alt ?? "",
+    label: img?.label ?? "",
+}));
 
-const slideshowImages = [
-    {
-        src: slideOne.src,
-        alt: "Reading zone with colourful books",
-        label: "Library",
-    },
-    { src: slideTwo.src, alt: "Outdoor play area", label: "Garden" },
-    {
-        src: slideThree.src,
-        alt: "Creative corner with art supplies",
-        label: "Playground",
-    },
-];
+const educationWorksLogos = (home?.educationWorksLogos ?? []).map((logo) => ({
+    src: logo?.src ?? "",
+    alt: logo?.alt ?? "",
+}));
+
+const partnerLogos = (home?.partnerLogos ?? []).map((logo) => ({
+    src: logo?.src ?? "",
+    alt: logo?.alt ?? "",
+}));
 ---
 
-<BaseLayout pageTitle={null} heroSrc={heroImage.src}>
+<BaseLayout pageTitle={null} heroSrc={home?.heroImage ?? ""}>
     <!-- TODO: decrease the spacing between the letters -->
     <!-- TODO: make the font weight 1000-->
     <PageSection>
-        <img id="birdhouse" src={birdhouse.src} alt="" />
+        <img id="birdhouse" src={home?.birdHouseImage ?? ""} alt="" />
         <IntroBlock
             icon=""
-            heading="WELCOME TO KIVA"
-            tagline="A place we call home"
+            heading={home?.welcomeHeading ?? ""}
+            tagline={home?.welcomeTagline ?? ""}
         >
-            <p>
-                Launched in 2021, Kiva School came into being after Muzaffar
-                Bukhari of Veritas Learning Circle joined EWPL as a new partner.
-                Bringing a fresh perspective and vision to the organisation,
-                Kiva School was established as a new chapter of the AMI
-                pre-school focusing on early developmental years from a place of
-                curiosity and exploration.
-            </p>
-            <p>
-                Breaking away from conventional teaching methods and adopting
-                the Finnish play-based educational philosophy, Kiva embodies
-                values of kindness and social responsibility that encourage
-                personal growth at each child’s own pace.
-            </p>
+            {(home?.welcomeParagraphs ?? []).map((text) => (
+                <p>{text}</p>
+            ))}
         </IntroBlock>
     </PageSection>
 
-    <PageSection title="OUR SPACES" headingLevel={3}>
+    <PageSection title={home?.spacesTitle ?? "OUR SPACES"} headingLevel={3}>
         <SimpleSlideshow images={slideshowImages} />
     </PageSection>
 
-    <PageSection title="EDUCATION WORKS PVT. LTD." headingLevel={3}>
+    <PageSection title={home?.educationWorksTitle ?? "EDUCATION WORKS PVT. LTD."} headingLevel={3}>
         <LogosSlideShow
-            logos={[
-                { src: kivaLogo.src, alt: "Kiva School" },
-                { src: amiLogo.src, alt: "AMI School" },
-                { src: amiLogo2.src, alt: "AMI School secondary" },
-                { src: paaryLogo.src, alt: "Paary" },
-            ]}
+            logos={educationWorksLogos}
             speedMs={23000}
             height={90}
         />
     </PageSection>
-    <PageSection title="PARTNERS AND COLLABORATORS" headingLevel={3}>
+    <PageSection title={home?.partnersTitle ?? "PARTNERS AND COLLABORATORS"} headingLevel={3}>
         <LogosSlideShow
-            logos={[
-                { src: veritasLogo.src, alt: "Veritas Learning Circle" },
-                { src: kiranLogo.src, alt: "Kiran Foundation" },
-                { src: teddyTennisLogo.src, alt: "Teddy Tennis" },
-                { src: tfsLogo.src, alt: "The Forest School" },
-                { src: alignLogo.src, alt: "Align" },
-                { src: kdspLogo.src, alt: "KDSP" },
-            ]}
+            logos={partnerLogos}
             speedMs={23000}
             height={90}
         />
