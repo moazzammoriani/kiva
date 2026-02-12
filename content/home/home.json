@@ -3,9 +3,7 @@
   "birdHouseImage": "/images/home/home_birdhouse.png",
   "welcomeHeading": "WELCOME TO KIVA",
   "welcomeTagline": "A place we call home",
-  "welcomeParagraphs": [
-    "Launched in 2021, Kiva School came into being after Muzaffar Bukhari of Veritas Learning Circle joined EWPL as a new partner. Bringing a fresh perspective and vision to the organisation, Kiva School was established as a new chapter of the AMI pre-school focusing on early developmental years from a place of curiosity and exploration.\n\nBreaking away from conventional teaching methods and adopting the Finnish play-based educational philosophy, Kiva embodies values of kindness and social responsibility that encourage personal growth at each child's own pace."
-  ],
+  "welcomeBody": "Launched in 2021, Kiva School came into being after Muzaffar Bukhari of Veritas Learning Circle joined EWPL as a new partner. Bringing a fresh perspective and vision to the organisation, Kiva School was established as a new chapter of the AMI pre-school focusing on early developmental years from a place of curiosity and exploration.\n\nBreaking away from conventional teaching methods and adopting the Finnish play-based educational philosophy, Kiva embodies values of kindness and social responsibility that encourage personal growth at each child’s own pace.\n\nI like trains\n",
   "spacesTitle": "OUR SPACES",
   "slideshowImages": [
     {

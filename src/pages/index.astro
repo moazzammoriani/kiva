@@ -36,7 +36,7 @@ const partnerLogos = (home?.partnerLogos ?? []).map((logo) => ({
             heading={home?.welcomeHeading ?? ""}
             tagline={home?.welcomeTagline ?? ""}
         >
-            {(home?.welcomeParagraphs ?? []).map((text) => (
+            {(home?.welcomeBody ?? "").split("\n\n").filter(Boolean).map((text: string) => (
                 <p>{text}</p>
             ))}
         </IntroBlock>

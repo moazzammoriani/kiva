@@ -1,5 +1,7 @@
 import { defineConfig } from "tinacms";
 import { HomeCollection } from "./collections/home";
+import { KivaAuthProvider } from "./auth";
+import { PublishScreen } from "./PublishScreen";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -15,6 +17,8 @@ export default defineConfig({
   clientId: process.env.PUBLIC_TINA_CLIENT_ID,
   token: process.env.TINA_TOKEN,
 
+  authProvider: new KivaAuthProvider("http://localhost:8000"),
+
   build: {
     outputFolder: "admin",
     publicFolder: "public",
@@ -24,6 +28,14 @@ export default defineConfig({
       mediaRoot: "",
       publicFolder: "public",
     },
+  },
+  cmsCallback: (cms) => {
+    cms.plugins.add({
+      __type: "screen",
+      name: "Publish",
+      Component: PublishScreen,
+    });
+    return cms;
   },
   schema: {
     collections: [HomeCollection],

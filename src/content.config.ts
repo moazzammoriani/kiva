@@ -10,7 +10,7 @@ const home = defineCollection({
     birdHouseImage: z.string().optional(),
     welcomeHeading: z.string().optional(),
     welcomeTagline: z.string().optional(),
-    welcomeParagraphs: z.array(z.string()).optional(),
+    welcomeBody: z.any().optional(),
     spacesTitle: z.string().optional(),
     slideshowImages: z
       .array(

@@ -33,13 +33,9 @@ export const HomeCollection: Collection = {
       type: "string",
     },
     {
-      name: "welcomeParagraphs",
-      label: "Welcome Paragraphs",
-      type: "string",
-      list: true,
-      ui: {
-        component: "textarea",
-      },
+      name: "welcomeBody",
+      label: "Welcome Text",
+      type: "rich-text",
     },
     {
       name: "spacesTitle",
