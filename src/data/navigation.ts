@@ -38,7 +38,7 @@ export const navItems: NavItem[] = [
         href: "/programmes/preschool-and-elementary/",
       },
       {
-        label: "Middle & Senior School",
+        label: "Senior School",
         href: "/programmes/middle-and-senior/",
       },
       { label: "Kiva Kamps", href: "/programmes/kiva-kamps/" },
