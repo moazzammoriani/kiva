@@ -37,21 +37,6 @@ const resolveHref = (href: string) => {
     <div class="mobile-nav__overlay" aria-hidden="true">
         <div class="mobile-nav__panel">
             <div class="mobile-nav__panel-header">
-                <form class="mobile-nav__search" role="search">
-                    <input
-                        type="search"
-                        name="q"
-                        placeholder="Search"
-                        aria-label="Search"
-                    />
-                    <button type="submit" aria-label="Submit search">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path
-                                d="M10.5 3a7.5 7.5 0 1 1 0 15 7.5 7.5 0 0 1 0-15Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Zm6.45 10.04 3.5 3.5-1.41 1.42-3.5-3.5 1.41-1.42Z"
-                                fill="currentColor"></path>
-                        </svg>
-                    </button>
-                </form>
                 <button
                     class="mobile-nav__close"
                     type="button"
@@ -266,41 +251,8 @@ const resolveHref = (href: string) => {
 
     .mobile-nav__panel-header {
         display: flex;
-        align-items: center;
-        gap: 0.75rem;
+        justify-content: flex-end;
         margin-bottom: 1rem;
-    }
-
-    .mobile-nav__search {
-        flex: 1;
-        display: grid;
-        grid-template-columns: 1fr auto;
-        background: white;
-        border-radius: 999px;
-        border: 2px solid var(--mobile-teal);
-        overflow: hidden;
-    }
-
-    .mobile-nav__search input {
-        border: none;
-        padding: 0.75rem 0.85rem;
-        font-size: 1rem;
-        outline: none;
-    }
-
-    .mobile-nav__search button {
-        border: none;
-        background: var(--mobile-teal);
-        color: white;
-        width: 52px;
-        display: grid;
-        place-items: center;
-        cursor: pointer;
-    }
-
-    .mobile-nav__search button svg {
-        width: 22px;
-        height: 22px;
     }
 
     .mobile-nav__close {
@@ -321,6 +273,10 @@ const resolveHref = (href: string) => {
     .mobile-nav__section {
         border-bottom: 2px solid var(--mobile-divider);
         padding: 0.25rem 0;
+    }
+
+    .mobile-nav__section:first-child {
+        border-top: 2px solid var(--mobile-divider);
     }
 
     .mobile-nav__section summary {
