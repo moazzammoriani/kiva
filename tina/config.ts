@@ -17,7 +17,8 @@ export default defineConfig({
   clientId: process.env.PUBLIC_TINA_CLIENT_ID,
   token: process.env.TINA_TOKEN,
 
-  authProvider: new KivaAuthProvider("http://localhost:8000"),
+  authProvider: new KivaAuthProvider(""),
+  contentApiUrlOverride: "/graphql",
 
   build: {
     outputFolder: "admin",
