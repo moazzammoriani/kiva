@@ -14,7 +14,6 @@ import { navItems } from "../data/navigation";
         padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
         max-width: 1200px; /*var(--layout-max-width, 1200px); */
         margin: 0 auto;
-        width: 100%;
     }
 
     .brand {
@@ -52,14 +51,28 @@ import { navItems } from "../data/navigation";
 
     }
 
+    @media (max-width: 1055px) {
+        .top-nav {
+            gap: 1.2rem;
+        }
+
+    }
+
     @media (max-width: 820px) {
         .brand img {
             height: 40px;
         }
 
+        .nav-links {
+            gap: 0.2rem;
+            justify-content: center;
+            width: 100%;
+        }
+
         .top-nav {
-            padding: 1rem clamp(1rem, 5vw, 2rem);
+            padding: 1rem 0;
             gap: 1rem;
+            width: 90%;
         }
     }
 
