@@ -74,7 +74,7 @@ import FormNotification from "../../components/FormNotification.astro";
                 <fieldset class="form-fieldset">
                     <legend>Progress report</legend>
                     <label
-                        ><input type="radio" name="hasReport" value="yes" required /> Yes, I have
+                        ><input type="radio" name="hasReport" value="yes" /> Yes, I have
                         a progress report to share.</label
                     >
                     <label
@@ -660,11 +660,19 @@ import FormNotification from "../../components/FormNotification.astro";
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        // Validate hasReport selection if "applied before" section is visible
+        const appliedBefore = (document.querySelector('input[name="appliedBefore"]:checked') as HTMLInputElement)?.value;
+        const hasReportValue = (document.querySelector('input[name="hasReport"]:checked') as HTMLInputElement)?.value;
+
+        if (appliedBefore === 'yes' && !hasReportValue) {
+            alert('Please indicate whether you have a progress report.');
+            return;
+        }
+
         // Validate progress report file if "Yes" is selected
-        const hasReportYes = (document.querySelector('input[name="hasReport"]:checked') as HTMLInputElement)?.value === 'yes';
         const progressReportFile = fileInput?.files?.length ?? 0;
 
-        if (hasReportYes && progressReportFile === 0) {
+        if (hasReportValue === 'yes' && progressReportFile === 0) {
             alert('Please upload your progress report.');
             return;
         }
