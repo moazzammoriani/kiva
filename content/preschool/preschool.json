@@ -1,0 +1,82 @@
+{
+  "heroImage": "/images/preschool/Banner_preschool.png",
+  "preschoolTitle": "PRE-SCHOOL",
+  "preschoolIntro": "Through a purpose-built and immersive learning environment, children at Kiva are encouraged to feed their curiosity, by learning more about the world around them. Our resource-equipped classrooms and intentional outdoor spaces, beckon students to engage with their surroundings daily. Be it a cozy reading corner, a stroll through the vegetable garden, free play in the morning or an activity station within the classroom, students are encouraged to explore, create meaning, resolve conflicts and exercise all creative faculties at their disposal.",
+  "preschoolImages": [
+    {
+      "src": "/images/preschool/preschool1.png",
+      "alt": "Preschool activity 1"
+    },
+    {
+      "src": "/images/preschool/preschool2.png",
+      "alt": "Preschool activity 2"
+    },
+    {
+      "src": "/images/preschool/preschool3.png",
+      "alt": "Preschool activity 3"
+    }
+  ],
+  "curiosityApproach": "Kiva prides itself on its **Curiosity Approach** a blend of globally renowned teaching pedagogies; **Finnish, Waldorf, Reggio Emilia, Montessori** and **The Forest School**. This approach ensures an ever-evolving and adaptable approach to learning, which is developmentally appropriate for each child and at par with international learning standards. The curriculum adheres to the **Early Years Foundation Stage (EYFS)** framework, encouraging students to reach their developmental milestones through holistic integrated learning. By combining academics with experiential, project-based and activity-based learning our curiosity approach ensures students develop the appropriate social-emotional, cognitive, physical and critical thinking skills, imperative for activities of daily living",
+  "ageGroups": [
+    {
+      "name": "Playgroup",
+      "ageRange": "Age 1.5 to 2.5"
+    },
+    {
+      "name": "Pre-Nursery",
+      "ageRange": "Age 2.5 to 3.5"
+    },
+    {
+      "name": "Nursery",
+      "ageRange": "Age 3.5 – 4.5"
+    },
+    {
+      "name": "Prep",
+      "ageRange": "Age 4.5 – 5.5"
+    }
+  ],
+  "elementaryTitle": "ELEMENTARY SCHOOL",
+  "elementaryIntro": "To ensure a smooth transition from Pre-school to Elementary School, the tenets of our teaching philosophy remain similar, with a gradual advancement in subject matter. With a foundation rooted in the **Curiosity Approach**, the elementary school curriculum integrates components of the **Finnish National Curriculum, UK Primary National Curriculum, and the Early Years Foundation Stage (EYFS) framework**. This blended approach encourages our students to develop their capacity to understand new concepts, improvise, and move toward self-guided holistic learning. With experiential, project-based and activity-based learning at the core - our curiosity approach ensures students develop the appropriate social-emotional, cognitive, physical and critical thinking skills, imperative for tackling the **Cambridge International Assessment and Examinations (CAIE)**, in their academic journey.",
+  "elementaryImages": [
+    {
+      "src": "/images/preschool/elementary1.png",
+      "alt": "Elementary activity 1"
+    },
+    {
+      "src": "/images/preschool/elementary2.png",
+      "alt": "Elementary activity 2"
+    },
+    {
+      "src": "/images/preschool/elementary3.png",
+      "alt": "Elementary activity 3"
+    }
+  ],
+  "elementarySecond": "With a strong emphasis on personalized learning trajectories of each child, our focus remains on the individual progress and potential of our students. With the advancement of grades and in line with the CAIE curriculum, students are eased into standardized testing, ensuring they are equipped with the knowledge and experience to tackle IGCSE examinations with confidence. During this process, Kiva encourages transparency, active collaboration, and conversations with its parents and students, to ensure each child receives ample guidance and support, on and off campus.",
+  "faqsTitle": "F.A.Qs",
+  "faqs": [
+    {
+      "title": "What is the Early Years Foundation Stage (EYFS) framework?",
+      "content": "Created by the Department of Education in England, the Early Years Foundation Stage (EYFS) framework stipulates that all early years providers must ensure that children learn and develop well while keeping their well-being at the forefront. In the EYFS framework, there are seven areas of learning and development for young children including: Communication and Language, Personal, Social and Emotional Development (PSED), Physical Development, Literacy, Mathematics, Understanding the World, and Expressive Arts and Design. Each module has a criteria of early learning goals (ELG) to evaluate against the EYFS framework and make the correct judgement on a child's early developmental skills to proceed accordingly.\n\nThe EYFS framework isn't exclusive to one teaching and learning approach. However, play is considered essential to children's development, building their confidence as they learn to explore, relate to others, set their own goals and solve problems."
+    },
+    {
+      "title": "What is the Finnish Educational System?",
+      "content": "The Finnish educational approach is rooted in play-based and inquiry-driven learning in early childhood education. There is a strong focus on conceptual understanding, exploring through curiosity and personalised learning paths for each child in line with the Finnish values of equity and differentiation. The play-based learning approach fosters holistic development, ignites curiosity and builds a solid foundation to seek lifelong learning.\n\nAs part of the Finnish approach, there are four kinds of play that can bolster children's developmental skills: imaginative play promoting narrative and problem-solving skills, sensory play which develops fine motor skills and cognitive growth, constructive play enhancing logical thinking and spatial awareness, while outdoor play builds a positive relationship with nature and fosters physical development in children. Embodying the core values of collaboration, independence, empathy and sustainability, the Finnish approach inculcates a sense of personal and social responsibility in children for the wider world."
+    },
+    {
+      "title": "What is Waldorf Educational Approach?",
+      "content": "Developed in Europe nearly a century ago by an Austrian visionary, Rudolf Steiner, Waldorf education is a worldwide independent school movement where learning is considered an experiential activity. It is a threefold learning approach engaging head, heart and hands - or thinking, feeling, and doing - in which each child is nurtured through a curriculum that integrates academics, arts, and practical skills.\n\nThe curriculum in Waldorf education is comprehensive and interdisciplinary, removing the divide between vocational and academic curriculum leading it to be more artistically and culturally enriching. A key characteristic is the emphasis on a child to be allowed to live in the moment and savor their childhood through play, exploration and discovery. This ensures that every child has the opportunity and space to develop at their own pace and grow into healthy, self-actualised individuals capable of meeting the challenges of their time."
+    },
+    {
+      "title": "What is the Montessori Method?",
+      "content": "Developed in the early 1900s in Italy by Maria Montessori, the Montessori method is a child-centered educational philosophy that focuses on self-directed learning in a developmentally appropriate environment. The aim is to foster curiosity and create an inspiring and open-ended learning environment to support children as they explore and learn about the world at their own pace.\n\nThe Montessori method steps away from a rigid academic framework and leans into a child's natural curiosity and interests, encouraging a positive and forthcoming attitude towards learning. The core focus is on having a supportive environment with educational materials set in an orderly manner as it creates a sense of independence and individual development in children, encouraging optimal intellectual, physical, emotional and social development to take place."
+    },
+    {
+      "title": "What is Reggio Emilia Approach?",
+      "content": "Originating in the 1950s in Reggio Emilia, Northern Italy, this educational philosophy was intended to be progressive, democratic and liberating. It emphasises the idea of an autonomous child, focusing on their creativity, intelligence and capability to explore and make meaning in different ways. The main features of this pedagogical approach include a focus on inquiry, project-based learning, environment as the third teacher, a collaborative dialogue and exchange of ideas, and pedagogical documentation.\n\nLoris Malaguzzi, the founder of the Reggio Emilia approach, believed in the idea of a child having '100 languages', focusing on the importance of providing children with one hundred ways to express themselves. At its core lies the idea that children possess a rich spectrum of expressive knowledge and they should have the means to convey and express through ways that suit them best."
+    },
+    {
+      "title": "What is the Forest School?",
+      "content": "Beginning in the early 1950s, the first Forest School was created by Ella Flautau in Denmark. An outdoor education model, the Forest School emphasises on natural spaces as a learning environment. It is a child-centred learning process where nature is expected to pique curiosity and lead the students to play, explore, and learn through dynamic learning conditions while managing their sense of safety and discovering the world around them.\n\nThe aim is to utilise the outdoor natural spaces to build independence, curiosity and self-esteem in children, giving them room to familiarise themselves with natural objects around them and create a connection. The Forest school's broad cross-curriculum covers different academic areas and is set to foster personal skills such as adaptability, teamwork and critical problem solving, aiding in a child's developmental skills and cognitive faculties."
+    }
+  ]
+}

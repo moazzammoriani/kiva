@@ -29,14 +29,12 @@ const {
                 </div>
             </div>
             <div class="back">
-                <div class="back-text">
-                    <p>{sisuText}</p>
+                <div class="back-text" set:html={sisuText}>
                 </div>
             </div>
         </div>
     </div>
-    <div class="mob-text">
-        <p>{sisuText}</p>
+    <div class="mob-text" set:html={sisuText}>
     </div>
     <div class="value-card">
         <div class="content inclusivity">
@@ -47,15 +45,13 @@ const {
                 </div>
             </div>
             <div class="back">
-                <div class="back-text">
-                    <p>{inclusivityText}</p>
+                <div class="back-text" set:html={inclusivityText}>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="mob-text">
-        <p>{inclusivityText}</p>
+    <div class="mob-text" set:html={inclusivityText}>
     </div>
 
     <div class="value-card">
@@ -68,15 +64,13 @@ const {
             </div>
 
             <div class="back">
-                <div class="back-text">
-                    <p>{socialResponsibilityText}</p>
+                <div class="back-text" set:html={socialResponsibilityText}>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="mob-text">
-        <p>{socialResponsibilityText}</p>
+    <div class="mob-text" set:html={socialResponsibilityText}>
     </div>
 </div>
 

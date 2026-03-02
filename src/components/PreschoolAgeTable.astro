@@ -1,17 +1,55 @@
+---
+interface AgeGroup {
+    name?: string;
+    ageRange?: string;
+}
+
+const { ageGroups = [] } = Astro.props as { ageGroups?: AgeGroup[] };
+
+const defaultGroups: AgeGroup[] = [
+    { name: "Playgroup", ageRange: "Age 1.5 to 2.5" },
+    { name: "Pre-Nursery", ageRange: "Age 2.5 to 3.5" },
+    { name: "Nursery", ageRange: "Age 3.5 – 4.5" },
+    { name: "Prep", ageRange: "Age 4.5 – 5.5" },
+];
+
+const groups = ageGroups.length > 0 ? ageGroups : defaultGroups;
+
+// Split into pairs of 2 for the 2-column layout (left pair, right pair per row)
+const half = Math.ceil(groups.length / 2);
+const leftColumn = groups.slice(0, half);
+const rightColumn = groups.slice(half);
+const rowCount = Math.max(leftColumn.length, rightColumn.length);
+---
+
 <div>
     <table class="age-table">
-        <tr>
-            <th>Playgroup</th>
-            <td>Age 1.5 to 2.5</td>
-            <th>Nursery</th>
-            <td>Age 3.5 – 4.5</td>
-        </tr>
-        <tr>
-            <th>Pre-Nursery</th>
-            <td>Age 2.5 to 3.5</td>
-            <th>Prep</th>
-            <td>Age 4.5 – 5.5</td>
-        </tr>
+        {Array.from({ length: rowCount }).map((_, i) => (
+            <tr>
+                {leftColumn[i] ? (
+                    <>
+                        <th>{leftColumn[i].name}</th>
+                        <td>{leftColumn[i].ageRange}</td>
+                    </>
+                ) : (
+                    <>
+                        <th></th>
+                        <td></td>
+                    </>
+                )}
+                {rightColumn[i] ? (
+                    <>
+                        <th>{rightColumn[i].name}</th>
+                        <td>{rightColumn[i].ageRange}</td>
+                    </>
+                ) : (
+                    <>
+                        <th></th>
+                        <td></td>
+                    </>
+                )}
+            </tr>
+        ))}
     </table>
 </div>
 

@@ -3,19 +3,20 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TeamSection from "../../components/TeamSection.astro";
 import IntroBlock from "../../components/IntroBlock.astro";
+import { richTextToHtml } from "../../utils/richTextToHtml";
 
 const teamEntries = await getCollection("team");
 const team = teamEntries[0]?.data;
 
 const directors = (team?.directors ?? []).map((d) => ({
     name: d.name ?? "",
-    bio: d.bio ?? "",
+    bio: richTextToHtml(d.bio),
     imgSrc: d.image ?? "",
 }));
 
 const teamMembers = (team?.teamMembers ?? []).map((m) => ({
     name: m.name ?? "",
-    bio: m.bio ?? "",
+    bio: richTextToHtml(m.bio),
     imgSrc: m.image ?? "",
 }));
 ---

@@ -48,17 +48,17 @@ const mission = defineCollection({
   }),
   schema: z.object({
     heroImage: z.string().optional(),
-    visionText: z.string().optional(),
-    missionText: z.string().optional(),
-    sisuText: z.string().optional(),
-    inclusivityText: z.string().optional(),
-    socialResponsibilityText: z.string().optional(),
+    visionText: z.any().optional(),
+    missionText: z.any().optional(),
+    sisuText: z.any().optional(),
+    inclusivityText: z.any().optional(),
+    socialResponsibilityText: z.any().optional(),
   }),
 });
 
 const memberSchema = z.object({
   name: z.string().optional(),
-  bio: z.string().optional(),
+  bio: z.any().optional(),
   image: z.string().optional(),
 });
 
@@ -75,4 +75,52 @@ const team = defineCollection({
   }),
 });
 
-export const collections = { home, mission, team };
+const preschool = defineCollection({
+  loader: file("content/preschool/preschool.json", {
+    parser: (text) => [{ id: "preschool", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    heroImage: z.string().optional(),
+    preschoolTitle: z.string().optional(),
+    preschoolIntro: z.any().optional(),
+    preschoolImages: z
+      .array(
+        z.object({
+          src: z.string().optional(),
+          alt: z.string().optional(),
+        })
+      )
+      .optional(),
+    curiosityApproach: z.any().optional(),
+    ageGroups: z
+      .array(
+        z.object({
+          name: z.string().optional(),
+          ageRange: z.string().optional(),
+        })
+      )
+      .optional(),
+    elementaryTitle: z.string().optional(),
+    elementaryIntro: z.any().optional(),
+    elementaryImages: z
+      .array(
+        z.object({
+          src: z.string().optional(),
+          alt: z.string().optional(),
+        })
+      )
+      .optional(),
+    elementarySecond: z.any().optional(),
+    faqsTitle: z.string().optional(),
+    faqs: z
+      .array(
+        z.object({
+          title: z.string().optional(),
+          content: z.any().optional(),
+        })
+      )
+      .optional(),
+  }),
+});
+
+export const collections = { home, mission, team, preschool };

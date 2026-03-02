@@ -1,78 +1,31 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import heroImage from "../../assets/Banner_preschool.png";
 import PageSection from "../../components/PageSection.astro";
 import Accordion from "../../components/Accordion.astro";
 import GalleryDisplay from "../../components/GalleryDisplay.astro";
 import SectionBreakLeaf from "../../components/SectionBreakLeaf.astro";
 import PreschoolAgeTable from "../../components/PreschoolAgeTable.astro";
 import YellowButton from "../../components/YellowButton.astro";
+import { richTextToHtml } from "../../utils/richTextToHtml";
 
-import preschoolImg1 from "../../assets/preschool1.png";
-import preschoolImg2 from "../../assets/preschool2.png";
-import preschoolImg3 from "../../assets/preschool3.png";
+const entries = await getCollection("preschool");
+const data = entries[0]?.data;
 
-const preschoolImgs = [preschoolImg1.src, preschoolImg2.src, preschoolImg3.src];
+const heroSrc = data?.heroImage ?? "/images/preschool/Banner_preschool.png";
 
-import elementaryImg1 from "../../assets/elementary1.png";
-import elementaryImg2 from "../../assets/elementary2.png";
-import elementaryImg3 from "../../assets/elementary3.png";
+const preschoolImgs = (data?.preschoolImages ?? []).map((img) => img.src ?? "");
+const elementaryImgs = (data?.elementaryImages ?? []).map((img) => img.src ?? "");
 
-const elementaryImgs = [
-    elementaryImg1.src,
-    elementaryImg2.src,
-    elementaryImg3.src,
-];
-
-const faqs = [
-    {
-        title: "What is the Early Years Foundation Stage (EYFS) framework?",
-        content:
-            "Created by the Department of Education in England, the Early Years Foundation Stage (EYFS) framework stipulates that all early years providers must ensure that children learn and develop well while keeping their well-being at the forefront. In the EYFS framework, there are seven areas of learning and development for young children including: Communication and Language, Personal, Social and Emotional Development (PSED), Physical Development, Literacy, Mathematics, Understanding the World, and Expressive Arts and Design. Each module has a criteria of early learning goals (ELG) to evaluate against the EYFS framework and make the correct judgement on a child’s early developmental skills to proceed accordingly.<br><br>The EYFS framework isn’t exclusive to one teaching and learning approach. However, play is considered essential to children’s development, building their confidence as they learn to explore, relate to others, set their own goals and solve problems.",
-    },
-    {
-        title: "What is the Finnish Educational System?",
-        content:
-            "The Finnish educational approach is rooted in play-based and inquiry-driven learning in early childhood education. There is a strong focus on conceptual understanding, exploring through curiosity and personalised learning paths for each child in line with the Finnish values of equity and differentiation. The play-based learning approach fosters holistic development, ignites curiosity and builds a solid foundation to seek lifelong learning.<br><br>As part of the Finnish approach, there are four kinds of play that can bolster children’s developmental skills: imaginative play promoting narrative and problem-solving skills, sensory play which develops fine motor skills and cognitive growth, constructive play enhancing logical thinking and spatial awareness, while outdoor play builds a positive relationship with nature and fosters physical development in children. Embodying the core values of collaboration, independence, empathy and sustainability, the Finnish approach inculcates a sense of personal and social responsibility in children for the wider world.",
-    },
-    {
-        title: "What is Waldorf Educational Approach?",
-        content:
-            "Developed in Europe nearly a century ago by an Austrian visionary, Rudolf Steiner, Waldorf education is a worldwide independent school movement where learning is considered an experiential activity. It is a threefold learning approach engaging head, heart and hands - or thinking, feeling, and doing - in which each child is nurtured through a curriculum that integrates academics, arts, and practical skills.<br><br>The curriculum in Waldorf education is comprehensive and interdisciplinary, removing the divide between vocational and academic curriculum leading it to be more artistically and culturally enriching. A key characteristic is the emphasis on a child to be allowed to live in the moment and savor their childhood through play, exploration and discovery. This ensures that every child has the opportunity and space to develop at their own pace and grow into healthy, self-actualised individuals capable of meeting the challenges of their time.",
-    },
-    {
-        title: "What is the Montessori Method?",
-        content:
-            "Developed in the early 1900s in Italy by Maria Montessori, the Montessori method is a child-centered educational philosophy that focuses on self-directed learning in a developmentally appropriate environment. The aim is to foster curiosity and create an inspiring and open-ended learning environment to support children as they explore and learn about the world at their own pace.<br><br>The Montessori method steps away from a rigid academic framework and leans into a child’s natural curiosity and interests, encouraging a positive and forthcoming attitude towards learning. The core focus is on having a supportive environment with educational materials set in an orderly manner as it creates a sense of independence and individual development in children, encouraging optimal intellectual, physical, emotional and social development to take place.",
-    },
-    {
-        title: "What is Reggio Emilia Approach?",
-        content:
-            "Originating in the 1950s in Reggio Emilia, Northern Italy, this educational philosophy was intended to be progressive, democratic and liberating. It emphasises the idea of an autonomous child, focusing on their creativity, intelligence and capability to explore and make meaning in different ways. The main features of this pedagogical approach include a focus on inquiry, project-based learning, environment as the third teacher, a collaborative dialogue and exchange of ideas, and pedagogical documentation.<br><br>Loris Malaguzzi, the founder of the Reggio Emilia approach, believed in the idea of a child having ‘100 languages’, focusing on the importance of providing children with one hundred ways to express themselves. At its core lies the idea that children possess a rich spectrum of expressive knowledge and they should have the means to convey and express through ways that suit them best.",
-    },
-    {
-        title: "What is the Forest School?",
-        content:
-            "Beginning in the early 1950s, the first Forest School was created by Ella Flautau in Denmark. An outdoor education model, the Forest School emphasises on natural spaces as a learning environment. It is a child-centred learning process where nature is expected to pique curiosity and lead the students to play, explore, and learn through dynamic learning conditions while managing their sense of safety and discovering the world around them.<br><br>The aim is to utilise the outdoor natural spaces to build independence, curiosity and self-esteem in children, giving them room to familiarise themselves with natural objects around them and create a connection. The Forest school’s broad cross-curriculum covers different academic areas and is set to foster personal skills such as adaptability, teamwork and critical problem solving, aiding in a child’s developmental skills and cognitive faculties.",
-    },
-];
+const faqs = (data?.faqs ?? []).map((f) => ({
+    title: f.title ?? "",
+    content: richTextToHtml(f.content),
+}));
 ---
 
-<BaseLayout pageTitle={null} heroSrc={heroImage.src}>
-    <PageSection title="PRE-SCHOOL" headingLevel={2} contentWidth="narrow">
-        <div class="stack-lg">
-            <p>
-                Through a purpose-built and immersive learning environment,
-                children at Kiva are encouraged to feed their curiosity, by
-                learning more about the world around them. Our resource-equipped
-                classrooms and intentional outdoor spaces, beckon students to
-                engage with their surroundings daily. Be it a cozy reading
-                corner, a stroll through the vegetable garden, free play in the
-                morning or an activity station within the classroom, students
-                are encouraged to explore, create meaning, resolve conflicts and
-                exercise all creative faculties at their disposal.
-            </p>
-        </div>
+<BaseLayout pageTitle={null} heroSrc={heroSrc}>
+    <PageSection title={data?.preschoolTitle ?? "PRE-SCHOOL"} headingLevel={2} contentWidth="narrow">
+        <div class="stack-lg" set:html={richTextToHtml(data?.preschoolIntro) || "<p>Through a purpose-built and immersive learning environment, children at Kiva are encouraged to feed their curiosity, by learning more about the world around them. Our resource-equipped classrooms and intentional outdoor spaces, beckon students to engage with their surroundings daily. Be it a cozy reading corner, a stroll through the vegetable garden, free play in the morning or an activity station within the classroom, students are encouraged to explore, create meaning, resolve conflicts and exercise all creative faculties at their disposal.</p>"} />
     </PageSection>
 
     <PageSection>
@@ -80,57 +33,19 @@ const faqs = [
     </PageSection>
 
     <PageSection headingLevel={2} contentWidth="narrow">
-        <div class="stack-lg">
-            <p>
-                Kiva prides itself on its <strong>Curiosity Approach</strong> a blend
-                of globally renowned teaching pedagogies; <strong
-                    >Finnish, Waldorf, Reggio Emilia, Montessori</strong
-                > and <strong>The Forest School</strong>. This approach ensures
-                an ever-evolving and adaptable approach to learning, which is
-                developmentally appropriate for each child and at par with
-                international learning standards. The curriculum adheres to the <strong
-                    >Early Years Foundation Stage (EYFS)</strong
-                > framework, encouraging students to reach their developmental milestones
-                through holistic integrated learning. By combining academics with
-                experiential, project-based and activity-based learning our curiosity
-                approach ensures students develop the appropriate social-emotional,
-                cognitive, physical and critical thinking skills, imperative for
-                activities of daily living
-            </p>
-        </div>
+        <div class="stack-lg" set:html={richTextToHtml(data?.curiosityApproach) || "<p>Kiva prides itself on its <strong>Curiosity Approach</strong> a blend of globally renowned teaching pedagogies; <strong>Finnish, Waldorf, Reggio Emilia, Montessori</strong> and <strong>The Forest School</strong>. This approach ensures an ever-evolving and adaptable approach to learning, which is developmentally appropriate for each child and at par with international learning standards.</p>"} />
 
-        <PreschoolAgeTable />
+        <PreschoolAgeTable ageGroups={data?.ageGroups} />
     </PageSection>
 
     <SectionBreakLeaf />
 
     <PageSection
-        title="ELEMENTARY SCHOOL"
+        title={data?.elementaryTitle ?? "ELEMENTARY SCHOOL"}
         headingLevel={2}
         contentWidth="narrow"
     >
-        <div class="stack-lg">
-            <p>
-                To ensure a smooth transition from Pre-school to Elementary
-                School, the tenets of our teaching philosophy remain similar,
-                with a gradual advancement in subject matter. With a foundation
-                rooted in the <strong>Curiosity Approach</strong>, the
-                elementary school curriculum integrates components of the
-                <strong
-                    >Finnish National Curriculum, UK Primary National
-                    Curriculum, and the Early Years Foundation Stage (EYFS)
-                    framework</strong
-                >. This blended approach encourages our students to develop
-                their capacity to understand new concepts, improvise, and move
-                toward self-guided holistic learning. With experiential,
-                project-based and activity-based learning at the core - our
-                curiosity approach ensures students develop the appropriate
-                social-emotional, cognitive, physical and critical thinking
-                skills, imperative for tackling the <strong
-                    >Cambridge International Assessment and Examinations (CAIE)</strong
-                >, in their academic journey.
-            </p>
-        </div>
+        <div class="stack-lg" set:html={richTextToHtml(data?.elementaryIntro) || "<p>To ensure a smooth transition from Pre-school to Elementary School, the tenets of our teaching philosophy remain similar, with a gradual advancement in subject matter.</p>"} />
     </PageSection>
 
     <PageSection>
@@ -138,20 +53,7 @@ const faqs = [
     </PageSection>
 
     <PageSection headingLevel={2} contentWidth="narrow">
-        <div class="stack-lg">
-            <p>
-                With a strong emphasis on personalized learning trajectories of
-                each child, our focus remains on the individual progress and
-                potential of our students. With the advancement of grades and in
-                line with the CAIE curriculum, students are eased into
-                standardized testing, ensuring they are equipped with the
-                knowledge and experience to tackle IGCSE examinations with
-                confidence. During this process, Kiva encourages transparency,
-                active collaboration, and conversations with its parents and
-                students, to ensure each child receives ample guidance and
-                support, on and off campus.
-            </p>
-        </div>
+        <div class="stack-lg" set:html={richTextToHtml(data?.elementarySecond) || "<p>With a strong emphasis on personalized learning trajectories of each child, our focus remains on the individual progress and potential of our students.</p>"} />
     </PageSection>
 
     <PageSection>
@@ -159,7 +61,7 @@ const faqs = [
     </PageSection>
 
     <!-- TODO: decrease space -->
-    <PageSection title="F.A.Qs" headingLevel={2}>
+    <PageSection title={data?.faqsTitle ?? "F.A.Qs"} headingLevel={2}>
         <div class="stack-lg">
             {faqs.map((f) => <Accordion title={f.title} content={f.content} />)}
         </div>

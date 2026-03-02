@@ -3,6 +3,7 @@ import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageSection from "../../components/PageSection.astro";
 import ValuesSection from "../../components/ValuesSection.astro";
+import { richTextToHtml } from "../../utils/richTextToHtml";
 
 const missionEntries = await getCollection("mission");
 const mission = missionEntries[0]?.data;
@@ -10,22 +11,18 @@ const mission = missionEntries[0]?.data;
 
 <BaseLayout pageTitle={null} heroSrc={mission?.heroImage ?? ""}>
     <PageSection title="VISION" contentWidth="narrow">
-        <p>
-            {mission?.visionText ?? ""}
-        </p>
+        <Fragment set:html={richTextToHtml(mission?.visionText) || "<p></p>"} />
     </PageSection>
 
     <PageSection title="MISSION" contentWidth="narrow">
-        <p>
-            {mission?.missionText ?? ""}
-        </p>
+        <Fragment set:html={richTextToHtml(mission?.missionText) || "<p></p>"} />
     </PageSection>
 
     <PageSection title="VALUES">
         <ValuesSection
-            sisuText={mission?.sisuText}
-            inclusivityText={mission?.inclusivityText}
-            socialResponsibilityText={mission?.socialResponsibilityText}
+            sisuText={richTextToHtml(mission?.sisuText)}
+            inclusivityText={richTextToHtml(mission?.inclusivityText)}
+            socialResponsibilityText={richTextToHtml(mission?.socialResponsibilityText)}
         />
     </PageSection>
 </BaseLayout>

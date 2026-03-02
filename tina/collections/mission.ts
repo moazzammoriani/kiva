@@ -20,42 +20,27 @@ export const MissionCollection: Collection = {
     {
       name: "visionText",
       label: "Vision Text",
-      type: "string",
-      ui: {
-        component: "textarea",
-      },
+      type: "rich-text",
     },
     {
       name: "missionText",
       label: "Mission Text",
-      type: "string",
-      ui: {
-        component: "textarea",
-      },
+      type: "rich-text",
     },
     {
       name: "sisuText",
       label: "Sisu Value Text",
-      type: "string",
-      ui: {
-        component: "textarea",
-      },
+      type: "rich-text",
     },
     {
       name: "inclusivityText",
       label: "Inclusivity Value Text",
-      type: "string",
-      ui: {
-        component: "textarea",
-      },
+      type: "rich-text",
     },
     {
       name: "socialResponsibilityText",
       label: "Social Responsibility Value Text",
-      type: "string",
-      ui: {
-        component: "textarea",
-      },
+      type: "rich-text",
     },
   ],
 };

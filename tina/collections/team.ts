@@ -9,10 +9,7 @@ const memberFields = [
   {
     name: "bio",
     label: "Bio",
-    type: "string" as const,
-    ui: {
-      component: "textarea" as const,
-    },
+    type: "rich-text" as const,
   },
   {
     name: "image",

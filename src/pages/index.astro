@@ -5,6 +5,7 @@ import PageSection from "../components/PageSection.astro";
 import IntroBlock from "../components/IntroBlock.astro";
 import SimpleSlideshow from "../components/SimpleSlideshow.astro";
 import LogosSlideShow from "../components/LogosSlideShow.astro";
+import { richTextToHtml } from "../utils/richTextToHtml";
 
 const homeEntries = await getCollection("home");
 const home = homeEntries[0]?.data;
@@ -36,9 +37,7 @@ const partnerLogos = (home?.partnerLogos ?? []).map((logo) => ({
             heading={home?.welcomeHeading ?? ""}
             tagline={home?.welcomeTagline ?? ""}
         >
-            {(home?.welcomeBody ?? "").split("\n\n").filter(Boolean).map((text: string) => (
-                <p>{text}</p>
-            ))}
+            <Fragment set:html={richTextToHtml(home?.welcomeBody)} />
         </IntroBlock>
     </PageSection>
 
