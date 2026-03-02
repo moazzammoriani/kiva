@@ -5,6 +5,18 @@ import tree from "../assets/responsibility_tree.png";
 import PageSection from "./PageSection.astro";
 
 import "../styles/tokens.css";
+
+interface Props {
+    sisuText?: string;
+    inclusivityText?: string;
+    socialResponsibilityText?: string;
+}
+
+const {
+    sisuText = "Sisu, a Finnish concept, encompassing the qualities of perseverance and determination. Reflective of SISU, our swallow is a representation of an extraordinarily agile bird that embodies grit, resilience and strength\u2014qualities Kiva aims to foster in all its stakeholders.",
+    inclusivityText = "Much like the sun, and how it shines over everyone without prejudice, Inclusivity is at Kiva\u2019s core. Fostering a welcoming and equitable space where everyone\u2019s differences are celebrated through a community rooted in kindness, making parts of a whole.",
+    socialResponsibilityText = "Learning to care for the environment and forming a deep connection with nature is considered paramount at Kiva. Respecting the life around us, understanding that we don\u2019t exist in a vacuum and that all life is interconnected, is the key to cultivating empathy and Social Responsibility in all our interactions.",
+} = Astro.props;
 ---
 
 <div class="value-cards-container">
@@ -18,24 +30,13 @@ import "../styles/tokens.css";
             </div>
             <div class="back">
                 <div class="back-text">
-                    <p>
-                        <strong>Sisu </strong> a Finnish concept, encompassing the
-                        qualities of perseverance and determination. Reflective of
-                        SISU, our swallow is a representation of an extraordinarily
-                        agile bird that embodies grit, resilience and strength—qualities
-                        Kiva aims to foster in all its stakeholders.
-                    </p>
+                    <p>{sisuText}</p>
                 </div>
             </div>
         </div>
     </div>
     <div class="mob-text">
-        <p>
-            <strong>Sisu </strong> a Finnish concept, encompassing the qualities
-            of perseverance and determination. Reflective of SISU, our swallow is
-            a representation of an extraordinarily agile bird that embodies grit,
-            resilience and strength—qualities Kiva aims to foster in all its stakeholders.
-        </p>
+        <p>{sisuText}</p>
     </div>
     <div class="value-card">
         <div class="content inclusivity">
@@ -47,25 +48,14 @@ import "../styles/tokens.css";
             </div>
             <div class="back">
                 <div class="back-text">
-                    <p>
-                        Much like the sun, and how it shines over everyone
-                        without prejudice, <strong>Inclusivity</strong> is at Kiva's
-                        core. Fostering a welcoming and equitable space where everyone's
-                        differences are celebrated through a community rooted in
-                        kindness, making parts of a whole.
-                    </p>
+                    <p>{inclusivityText}</p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="mob-text">
-        <p>
-            Much like the sun, and how it shines over everyone without
-            prejudice, <strong>Inclusivity</strong> is at Kiva's core. Fostering
-            a welcoming and equitable space where everyone's differences are celebrated
-            through a community rooted in kindness, making parts of a whole.
-        </p>
+        <p>{inclusivityText}</p>
     </div>
 
     <div class="value-card">
@@ -79,27 +69,14 @@ import "../styles/tokens.css";
 
             <div class="back">
                 <div class="back-text">
-                    <p>
-                        Learning to care for the environment and forming a deep
-                        connection with nature is considered paramount at Kiva.
-                        Respecting the life around us, understanding that we
-                        don't exist in a vacuum and that all life is
-                        interconnected, is the key to cultivating empathy and
-                        <strong>Social Responsibility</strong> in all our interactions.
-                    </p>
+                    <p>{socialResponsibilityText}</p>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="mob-text">
-        <p>
-            Learning to care for the environment and forming a deep connection
-            with nature is considered paramount at Kiva. Respecting the life
-            around us, understanding that we don't exist in a vacuum and that
-            all life is interconnected, is the key to cultivating empathy and
-            <strong>Social Responsibility</strong> in all our interactions.
-        </p>
+        <p>{socialResponsibilityText}</p>
     </div>
 </div>
 

@@ -42,4 +42,18 @@ const home = defineCollection({
   }),
 });
 
-export const collections = { home };
+const mission = defineCollection({
+  loader: file("content/mission/mission.json", {
+    parser: (text) => [{ id: "mission", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    heroImage: z.string().optional(),
+    visionText: z.string().optional(),
+    missionText: z.string().optional(),
+    sisuText: z.string().optional(),
+    inclusivityText: z.string().optional(),
+    socialResponsibilityText: z.string().optional(),
+  }),
+});
+
+export const collections = { home, mission };

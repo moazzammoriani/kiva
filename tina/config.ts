@@ -1,5 +1,6 @@
 import { defineConfig } from "tinacms";
 import { HomeCollection } from "./collections/home";
+import { MissionCollection } from "./collections/mission";
 import { KivaAuthProvider } from "./auth";
 import { PublishScreen } from "./PublishScreen";
 
@@ -39,6 +40,6 @@ export default defineConfig({
     return cms;
   },
   schema: {
-    collections: [HomeCollection],
+    collections: [HomeCollection, MissionCollection],
   },
 });

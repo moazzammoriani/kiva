@@ -1,50 +1,31 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import heroImage from "../../assets/Banner_mission.png";
 import PageSection from "../../components/PageSection.astro";
-
-const values = [
-    {
-        title: "Sisu",
-        description:
-            "Resilience, perseverance, and courage in the face of challenges—instilled in every learner.",
-    },
-    {
-        title: "Inclusivity",
-        description:
-            "A welcoming community where every child and family feels seen, supported, and empowered.",
-    },
-    {
-        title: "Social Responsibility",
-        description:
-            "Learners who care for their communities and contribute thoughtfully to the world around them.",
-    },
-];
 import ValuesSection from "../../components/ValuesSection.astro";
+
+const missionEntries = await getCollection("mission");
+const mission = missionEntries[0]?.data;
 ---
 
-<BaseLayout pageTitle={null} heroSrc={heroImage.src}>
+<BaseLayout pageTitle={null} heroSrc={mission?.heroImage ?? ""}>
     <PageSection title="VISION" contentWidth="narrow">
         <p>
-            Spearheading change within the educational landscape of Pakistan, by
-            redefining the concept of expansion through horizontal growth. The
-            sustainable utilization of EWPL’s space, to launch educational and
-            community enrichment programs, ensures a holistic community
-            experience for all stakeholders.
+            {mission?.visionText ?? ""}
         </p>
     </PageSection>
 
     <PageSection title="MISSION" contentWidth="narrow">
         <p>
-            EWPL is focused on improving educational standards while working
-            towards a positive community-wide change through action research.
-            With a commitment to continuous improvement, all of our programs are
-            designed to promote genuine learning and create a meaningful,
-            lasting impact on everyone involved.
+            {mission?.missionText ?? ""}
         </p>
     </PageSection>
 
     <PageSection title="VALUES">
-        <ValuesSection />
+        <ValuesSection
+            sisuText={mission?.sisuText}
+            inclusivityText={mission?.inclusivityText}
+            socialResponsibilityText={mission?.socialResponsibilityText}
+        />
     </PageSection>
 </BaseLayout>
