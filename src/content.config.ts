@@ -56,4 +56,23 @@ const mission = defineCollection({
   }),
 });
 
-export const collections = { home, mission };
+const memberSchema = z.object({
+  name: z.string().optional(),
+  bio: z.string().optional(),
+  image: z.string().optional(),
+});
+
+const team = defineCollection({
+  loader: file("content/team/team.json", {
+    parser: (text) => [{ id: "team", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    heroImage: z.string().optional(),
+    directorsTitle: z.string().optional(),
+    directors: z.array(memberSchema).optional(),
+    teamTitle: z.string().optional(),
+    teamMembers: z.array(memberSchema).optional(),
+  }),
+});
+
+export const collections = { home, mission, team };
