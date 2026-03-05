@@ -123,4 +123,25 @@ const preschool = defineCollection({
   }),
 });
 
-export const collections = { home, mission, team, preschool };
+const middleAndSenior = defineCollection({
+  loader: file("content/middle-and-senior/middle-and-senior.json", {
+    parser: (text) => [{ id: "middleAndSenior", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    heroImage: z.string().optional(),
+    title: z.string().optional(),
+    galleryImages: z
+      .array(
+        z.object({
+          src: z.string().optional(),
+          alt: z.string().optional(),
+        })
+      )
+      .optional(),
+    bodyText: z.any().optional(),
+    buttonText: z.string().optional(),
+    buttonLink: z.string().optional(),
+  }),
+});
+
+export const collections = { home, mission, team, preschool, middleAndSenior };
