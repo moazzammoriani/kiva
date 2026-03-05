@@ -144,4 +144,46 @@ const middleAndSenior = defineCollection({
   }),
 });
 
-export const collections = { home, mission, team, preschool, middleAndSenior };
+const admissionProcess = defineCollection({
+  loader: file("content/admission-process/admission-process.json", {
+    parser: (text) => [{ id: "admissionProcess", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    heroImage: z.string().optional(),
+    title: z.string().optional(),
+    processDiagram: z.string().optional(),
+    processDiagramMobile: z.string().optional(),
+    buttonText: z.string().optional(),
+    faqsTitle: z.string().optional(),
+    faqs: z
+      .array(
+        z.object({
+          title: z.string().optional(),
+          content: z.any().optional(),
+        })
+      )
+      .optional(),
+  }),
+});
+
+const community = defineCollection({
+  loader: file("content/community/community.json", {
+    parser: (text) => [{ id: "community", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    heroImage: z.string().optional(),
+    introTitle: z.string().optional(),
+    introText: z.any().optional(),
+    events: z
+      .array(
+        z.object({
+          title: z.string().optional(),
+          image: z.string().optional(),
+          description: z.any().optional(),
+        })
+      )
+      .optional(),
+  }),
+});
+
+export const collections = { home, mission, team, preschool, middleAndSenior, admissionProcess, community };

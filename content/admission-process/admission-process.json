@@ -1,0 +1,42 @@
+{
+  "heroImage": "/images/admission-process/Banner_AdmissionProcess.png",
+  "title": "ADMISSION PROCESS",
+  "processDiagram": "/images/admission-process/process_diagram.png",
+  "processDiagramMobile": "/images/admission-process/process_diagram_mob.png",
+  "buttonText": "Click here to apply",
+  "faqsTitle": "F.A.Qs",
+  "faqs": [
+    {
+      "title": "How have Kiva School and Veritas Learning Circle collaborated?",
+      "content": "With a vision rooted in the idea of growing horizontally, The AMI School decided to break away from conventional forms of learning, and collaborated with another leading institution within the academic landscape of Pakistan - Veritas Learning Circle (VLC).\n\nThe shared ideology and pedagogy between The AMI School and VLC gave shape to Kiva School. Inspired by Waldorf, Early Years Foundation Stage (EYFS) and Finnish philosophy, Kiva is a space which not only provides a strong academic foundation, but also cultivates holistic growth; socially, emotionally, physically and intellectually.\n"
+    },
+    {
+      "title": "What curriculum does Kiva School follow?",
+      "content": "With a curriculum inspired by the Finnish educational philosophy and Reggio Emilia approach, the learning experience at the Kiva School integrates the magic of stories, the beauty of nature, the freedom of art, and the joy of play. The curriculum adheres to the Early Years Foundation Stage (EYFS) framework, encouraging students to reach their developmental milestones through holistic integrated learning.\n\nAt Kiva, the children's educational foundation is rooted in curiosity where learning itself is part of play, creating a positive, nurturing relationship between young students and school.\n"
+    },
+    {
+      "title": "If Kiva School is a pre-school, what happens when it's time for grade 1?",
+      "content": "Kiva School goes up till Grade VI, after which the students are smoothly transitioned into the Senior Section at The AMI School. Known for its sound reputation and impeccable teaching quality, The AMI School is registered with the Cambridge Assessment International Examination Board, and adheres to the IGCSE Curriculum.\n"
+    },
+    {
+      "title": "What is the difference between Kiva School and The AMI School?",
+      "content": "Kiva is a pre-school and elementary school, while AMI is the higher-secondary school within the same educational project – Education Works Private Limited (EWPL). While both follow a consistent philosophy and learning approach, they cater to different age groups.\n\nKiva focuses on early foundational education and AMI continues the journey with an IGCSE curriculum, geared toward Cambridge Assessment International Examinations.\n"
+    },
+    {
+      "title": "What is your admission criteria?",
+      "content": "We believe that it takes a village to raise a child. We look for families who agree with our learning philosophy of 'parents as partners', add to our community's diversity and have an open mind about their child's learning journey.\n\nInterested parents are invited for a one-on-one discussion with our team to see if Kiva School is a good fit for their children. We encourage them to bring their child along so that parents can observe how their child interacts with the space.\n"
+    },
+    {
+      "title": "Do we need to pay an admission fee when moving from Kiva to AMI?",
+      "content": "No, there is no admission fee when a child transitions from Kiva to AMI, as both schools are part of the same educational project – Education Works Private Limited (EWPL).\n"
+    },
+    {
+      "title": "Is a sibling discount applicable if I enroll more than one child?",
+      "content": "At present, we do not offer a sibling discount. However, please email us your request, and we will forward it to the management for consideration.\n"
+    },
+    {
+      "title": "Is there a daycare discount for Kiva parents?",
+      "content": "Yes, we do offer a daycare discount for children who are enrolled in Kiva.\n"
+    }
+  ]
+}
