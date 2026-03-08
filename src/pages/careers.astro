@@ -46,12 +46,13 @@ import FormNotification from "../components/FormNotification.astro";
                 <div class="file-upload-wrapper" id="cv-upload-wrapper">
                     <label class="upload-button">
                         <span>Upload CV</span>
-                        <input type="file" name="cv" accept=".pdf,.doc,.docx" required />
+                        <input type="file" name="cv" accept=".pdf,.doc,.docx" />
                     </label>
                     <div class="file-info" style="display: none;">
                         <span class="file-name"></span>
                         <button type="button" class="remove-file-button">Remove</button>
                     </div>
+                    <span class="cv-error" style="display: none;">Please attach your CV</span>
                 </div>
             </div>
 
@@ -213,6 +214,12 @@ import FormNotification from "../components/FormNotification.astro";
         text-decoration: underline;
     }
 
+    .cv-error {
+        color: #e74c3c;
+        font-size: 0.85rem;
+        font-weight: 600;
+    }
+
     .form-actions {
         display: flex;
         justify-content: center;
@@ -273,8 +280,23 @@ import FormNotification from "../components/FormNotification.astro";
         fileInfo.style.display = 'none';
     });
 
+    const cvError = uploadWrapper?.querySelector('.cv-error') as HTMLElement;
+
+    // Hide CV error when a file is selected
+    fileInput?.addEventListener('change', () => {
+        if (fileInput.files && fileInput.files.length > 0 && cvError) {
+            cvError.style.display = 'none';
+        }
+    });
+
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        if (!fileInput?.files || fileInput.files.length === 0) {
+            if (cvError) cvError.style.display = 'inline';
+            return;
+        }
+
         const formData = new FormData(form);
         try {
             const response = await fetch('/api/careers', {
