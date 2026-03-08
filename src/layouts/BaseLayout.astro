@@ -3,6 +3,7 @@ import Navigation from "../components/Navigation.astro";
 import defaultHero from "../assets/high-angle-child-woman-painting.jpg";
 import MobileNavigation from "../components/MobileNavigation.astro";
 import ResponsiveFooter from "../components/ResponsiveFooter.astro";
+import tabIcon from "../assets/tab-icon.png";
 
 const {
     pageTitle = null,
@@ -24,6 +25,7 @@ import "../styles/global.css";
         <meta name="viewport" content="width=device-width" />
         <meta name="generator" content={Astro.generator} />
         <title>{documentTitle}</title>
+        <link rel="icon" type="image/png" href={tabIcon.src} />
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
