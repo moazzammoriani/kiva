@@ -12,7 +12,7 @@ import { navItems } from "../data/navigation";
         justify-content: flex-start;
         gap: 3rem;
         padding: 1.25rem clamp(1.5rem, 4vw, 3rem);
-        max-width: 1200px; /*var(--layout-max-width, 1200px); */
+        max-width: 1200px;
         margin: 0 auto;
     }
 
@@ -38,8 +38,54 @@ import { navItems } from "../data/navigation";
         display: flex;
         align-items: center;
         gap: 0.5rem;
-        flex-wrap: wrap;
+        flex: 1 1 auto;
+        flex-wrap: nowrap;
         justify-content: flex-end;
+    }
+
+    .apply-btn {
+        flex: 0 0 auto;
+        display: inline-block;
+        background: var(--color-purple, #ab75b2);
+        color: var(--color-text-primary, #082c4b);
+        font-weight: 800;
+        font-size: 16px;
+        padding: 10px 16px;
+        border-radius: 20px;
+        text-decoration: none;
+        white-space: nowrap;
+        transition: background 0.15s ease;
+    }
+
+    .apply-btn:hover {
+        background: #9a63a1;
+    }
+
+    @media (max-width: 1420px) {
+        .apply-btn {
+            padding: 7px 14px;
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 1304px) {
+        .apply-btn {
+            padding: 6px 12px;
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 1064px) {
+        .apply-btn {
+            padding: 4px 8px;
+            font-size: 13px;
+        }
+    }
+
+    @media (max-width: 1010px) {
+        .apply-btn {
+            display: none;
+        }
     }
 
     @media (max-width: 1420px) {
@@ -126,4 +172,5 @@ import { navItems } from "../data/navigation";
             )
         }
     </div>
+    <a class="apply-btn" href="/admission/form/">Apply Now</a>
 </nav>
