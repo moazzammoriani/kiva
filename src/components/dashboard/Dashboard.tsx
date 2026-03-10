@@ -1,10 +1,29 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { LoginForm } from "./LoginForm";
 import { SubmissionsTable, type ColumnDef } from "./SubmissionsTable";
 import { AdmissionDetail } from "./AdmissionDetail";
+import { ContactDetail } from "./ContactDetail";
+import { CareerDetail } from "./CareerDetail";
 import "./dashboard.css";
 
 type Tab = "contacts" | "careers" | "admissions";
+
+const TABS: Tab[] = ["contacts", "careers", "admissions"];
+
+function parseRoute(): { tab: Tab; detailId: number | null } {
+  const path = window.location.pathname.replace(/\/+$/, "");
+  // e.g. /dashboard/careers/5
+  const match = path.match(/^\/dashboard\/(\w+)\/(\d+)$/);
+  if (match && TABS.includes(match[1] as Tab)) {
+    return { tab: match[1] as Tab, detailId: Number(match[2]) };
+  }
+  // e.g. /dashboard/careers
+  const tabMatch = path.match(/^\/dashboard\/(\w+)$/);
+  if (tabMatch && TABS.includes(tabMatch[1] as Tab)) {
+    return { tab: tabMatch[1] as Tab, detailId: null };
+  }
+  return { tab: "contacts", detailId: null };
+}
 
 function formatDate(value: string | null) {
   if (!value) return "—";
@@ -84,7 +103,20 @@ export default function Dashboard() {
   const [username, setUsername] = useState<string | null>(null);
   const [checking, setChecking] = useState(true);
   const [activeTab, setActiveTab] = useState<Tab>("contacts");
-  const [admissionDetailId, setAdmissionDetailId] = useState<number | null>(null);
+  const [detailId, setDetailId] = useState<number | null>(null);
+
+  const applyRoute = useCallback(() => {
+    const route = parseRoute();
+    setActiveTab(route.tab);
+    setDetailId(route.detailId);
+  }, []);
+
+  // Parse URL on mount + listen for popstate (browser back/forward)
+  useEffect(() => {
+    applyRoute();
+    window.addEventListener("popstate", applyRoute);
+    return () => window.removeEventListener("popstate", applyRoute);
+  }, [applyRoute]);
 
   // Check for existing token on mount
   useEffect(() => {
@@ -113,9 +145,13 @@ export default function Dashboard() {
     check();
   }, []);
 
+  function navigate(path: string) {
+    history.pushState(null, "", path);
+    applyRoute();
+  }
+
   function handleLogin(newToken: string) {
     setToken(newToken);
-    // Fetch username
     fetch("/api/auth/me", {
       headers: { Authorization: `Bearer ${newToken}` },
     })
@@ -131,8 +167,15 @@ export default function Dashboard() {
   }
 
   function handleTabChange(tab: Tab) {
-    setActiveTab(tab);
-    setAdmissionDetailId(null);
+    navigate(`/dashboard/${tab}`);
+  }
+
+  function handleRowClick(row: any) {
+    navigate(`/dashboard/${activeTab}/${row.id}`);
+  }
+
+  function handleBack() {
+    navigate(`/dashboard/${activeTab}`);
   }
 
   if (checking) {
@@ -148,6 +191,18 @@ export default function Dashboard() {
     { key: "careers", label: "Careers" },
     { key: "admissions", label: "Admissions" },
   ];
+
+  function renderDetail() {
+    if (detailId == null) return null;
+    switch (activeTab) {
+      case "contacts":
+        return <ContactDetail id={detailId} token={token!} onBack={handleBack} />;
+      case "careers":
+        return <CareerDetail id={detailId} token={token!} onBack={handleBack} />;
+      case "admissions":
+        return <AdmissionDetail id={detailId} token={token!} onBack={handleBack} />;
+    }
+  }
 
   return (
     <>
@@ -174,12 +229,8 @@ export default function Dashboard() {
           ))}
         </div>
 
-        {activeTab === "admissions" && admissionDetailId != null ? (
-          <AdmissionDetail
-            id={admissionDetailId}
-            token={token}
-            onBack={() => setAdmissionDetailId(null)}
-          />
+        {detailId != null ? (
+          renderDetail()
         ) : (
           <SubmissionsTable
             key={activeTab}
@@ -192,11 +243,7 @@ export default function Dashboard() {
                   ? CAREER_COLUMNS
                   : ADMISSION_COLUMNS
             }
-            onRowClick={
-              activeTab === "admissions"
-                ? (row) => setAdmissionDetailId(row.id)
-                : undefined
-            }
+            onRowClick={handleRowClick}
           />
         )}
       </main>
