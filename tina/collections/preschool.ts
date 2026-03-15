@@ -102,6 +102,27 @@ export const PreschoolCollection: Collection = {
       type: "rich-text",
     },
     {
+      name: "instagramEmbeds",
+      label: "Instagram Embeds",
+      type: "object",
+      list: true,
+      ui: {
+        itemProps: (item) => ({
+          label:
+            item?.embedCode?.match(/instagram\.com\/p\/([^/]+)/)?.[1] ||
+            "Instagram Embed",
+        }),
+      },
+      fields: [
+        {
+          name: "embedCode",
+          label: "Embed Code (paste full HTML from Instagram)",
+          type: "string",
+          ui: { component: "textarea" },
+        },
+      ],
+    },
+    {
       name: "faqsTitle",
       label: "FAQs Section Title",
       type: "string",

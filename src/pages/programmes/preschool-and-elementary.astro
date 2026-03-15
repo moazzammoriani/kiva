@@ -60,6 +60,17 @@ const faqs = (data?.faqs ?? []).map((f) => ({
         <YellowButton text={"Apply Now"} />
     </PageSection>
 
+    {(data?.instagramEmbeds ?? []).length > 0 && (
+        <PageSection>
+            <div class="instagram-grid">
+                {(data?.instagramEmbeds ?? []).map((e) => (
+                    <Fragment set:html={e.embedCode ?? ""} />
+                ))}
+                <script is:inline async src="//www.instagram.com/embed.js"></script>
+            </div>
+        </PageSection>
+    )}
+
     <!-- TODO: decrease space -->
     <PageSection title={data?.faqsTitle ?? "F.A.Qs"} headingLevel={2}>
         <div class="stack-lg">
@@ -67,3 +78,33 @@ const faqs = (data?.faqs ?? []).map((f) => ({
         </div>
     </PageSection>
 </BaseLayout>
+
+<style>
+    .instagram-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        justify-items: center;
+    }
+
+    .instagram-grid > :global(*) {
+        height: 680px;
+        overflow: hidden;
+    }
+
+    .instagram-grid :global(iframe) {
+        height: 680px !important;
+    }
+
+    @media (max-width: 1024px) {
+        .instagram-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 725px) {
+        .instagram-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
