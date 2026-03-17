@@ -1,0 +1,96 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PageSection from "../../components/PageSection.astro";
+import GalleryDisplay from "../../components/GalleryDisplay.astro";
+import YellowButton from "../../components/YellowButton.astro";
+import { richTextToHtml } from "../../utils/richTextToHtml";
+
+export async function getStaticPaths() {
+  const pages = await getCollection("aboutPages");
+  return pages.map((page) => ({
+    params: { slug: page.id },
+    props: { page },
+  }));
+}
+
+const { page } = Astro.props;
+const data = page.data;
+const blocks = data.blocks ?? [];
+---
+
+<BaseLayout
+  pageTitle={data.title ?? null}
+  heroSrc={data.heroImage}
+  heroAlt={data.heroAlt}
+>
+  {blocks.map((block) => {
+    if (block._template === "textSection") {
+      return (
+        <PageSection
+          title={block.sectionTitle}
+          variant={block.variant ?? "plain"}
+          contentWidth={block.contentWidth ?? "narrow"}
+        >
+          <div set:html={richTextToHtml(block.body)} />
+        </PageSection>
+      );
+    }
+
+    if (block._template === "imageGallery") {
+      return (
+        <PageSection title={block.sectionTitle}>
+          <GalleryDisplay
+            images={(block.images ?? []).map((img) => img.src ?? "")}
+          />
+        </PageSection>
+      );
+    }
+
+    if (block._template === "featureImage") {
+      return (
+        <PageSection>
+          <figure class="feature-image">
+            <img src={block.src ?? ""} alt={block.alt ?? ""} />
+            {block.caption && <figcaption>{block.caption}</figcaption>}
+          </figure>
+        </PageSection>
+      );
+    }
+
+    if (block._template === "callToAction") {
+      return (
+        <PageSection variant="accent">
+          {block.heading && <h2>{block.heading}</h2>}
+          <div set:html={richTextToHtml(block.body)} />
+          {block.buttonText && (
+            <YellowButton
+              text={block.buttonText}
+              link={block.buttonLink ?? "#"}
+            />
+          )}
+        </PageSection>
+      );
+    }
+
+    return null;
+  })}
+</BaseLayout>
+
+<style>
+  .feature-image {
+    text-align: center;
+  }
+
+  .feature-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  .feature-image figcaption {
+    margin-top: 0.75rem;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary, #555);
+  }
+</style>

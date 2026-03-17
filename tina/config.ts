@@ -6,6 +6,7 @@ import { PreschoolCollection } from "./collections/preschool";
 import { MiddleAndSeniorCollection } from "./collections/middleAndSenior";
 import { AdmissionProcessCollection } from "./collections/admissionProcess";
 import { CommunityCollection } from "./collections/community";
+import { AboutPagesCollection } from "./collections/aboutPages";
 import { KivaAuthProvider } from "./auth";
 import { PublishScreen } from "./PublishScreen";
 
@@ -31,9 +32,9 @@ export default defineConfig({
     publicFolder: "public",
   },
   media: {
-    tina: {
-      mediaRoot: "",
-      publicFolder: "public",
+    loadCustomStore: async () => {
+      const { LocalMediaStore } = await import("./media-store");
+      return LocalMediaStore;
     },
   },
   cmsCallback: (cms) => {
@@ -45,6 +46,6 @@ export default defineConfig({
     return cms;
   },
   schema: {
-    collections: [HomeCollection, MissionCollection, TeamCollection, PreschoolCollection, MiddleAndSeniorCollection, AdmissionProcessCollection, CommunityCollection],
+    collections: [HomeCollection, MissionCollection, TeamCollection, PreschoolCollection, MiddleAndSeniorCollection, AdmissionProcessCollection, CommunityCollection, AboutPagesCollection],
   },
 });

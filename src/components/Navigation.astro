@@ -1,8 +1,24 @@
 ---
+import { getCollection } from "astro:content";
 import NavLink from "./NavLink.astro";
 import NavDropdown from "./NavDropdown.astro";
 import logo from "../assets/kiva-logo_home.png";
-import { navItems } from "../data/navigation";
+import { navItems, staticAboutChildren } from "../data/navigation";
+
+const aboutPages = await getCollection("aboutPages");
+const dynamicAboutChildren = aboutPages
+  .sort((a, b) => (a.data.navOrder ?? 999) - (b.data.navOrder ?? 999))
+  .map((page) => ({
+    label: page.data.navLabel || page.data.title || page.id,
+    href: `/about/${page.id}/`,
+  }));
+
+const resolvedNavItems = navItems.map((item) => {
+  if (item.type === "group" && item.label === "About Us") {
+    return { ...item, children: [...staticAboutChildren, ...dynamicAboutChildren] };
+  }
+  return item;
+});
 ---
 
 <style>
@@ -156,7 +172,7 @@ import { navItems } from "../data/navigation";
     </a>
     <div class="nav-links">
         {
-            navItems.map((item) =>
+            resolvedNavItems.map((item) =>
                 item.type === "link" ? (
                     <NavLink link={item.href} text={item.label} />
                 ) : (

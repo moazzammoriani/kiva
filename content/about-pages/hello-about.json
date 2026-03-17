@@ -1,0 +1,16 @@
+{
+  "title": "Hello About",
+  "navLabel": "thing",
+  "navOrder": 4,
+  "heroImage": "/images/our_story_banner-2.png",
+  "heroAlt": "ban",
+  "blocks": [
+    {
+      "sectionTitle": "First Title",
+      "body": "Hello World\n",
+      "variant": "plain",
+      "contentWidth": "narrow",
+      "_template": "textSection"
+    }
+  ]
+}

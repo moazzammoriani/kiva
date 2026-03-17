@@ -16,17 +16,19 @@ export type NavGroupItem = {
 
 export type NavItem = NavLinkItem | NavGroupItem;
 
+export const staticAboutChildren = [
+  { label: "Our Story", href: "/about/our-story/" },
+  { label: "Mission, Vision & Values", href: "/about/mission/" },
+  { label: "Meet the Team", href: "/about/team/" },
+];
+
 export const navItems: NavItem[] = [
   { type: "link", label: "Home", href: "/" },
   {
     type: "group",
     label: "About Us",
     base: "/about/",
-    children: [
-      { label: "Our Story", href: "/about/our-story/" },
-      { label: "Mission, Vision & Values", href: "/about/mission/" },
-      { label: "Meet the Team", href: "/about/team/" },
-    ],
+    children: staticAboutChildren,
   },
   {
     type: "group",
