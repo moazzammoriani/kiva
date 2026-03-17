@@ -8,6 +8,8 @@ import { AdmissionProcessCollection } from "./collections/admissionProcess";
 import { CommunityCollection } from "./collections/community";
 import { AboutPagesCollection } from "./collections/aboutPages";
 import { ProgrammePagesCollection } from "./collections/programmePages";
+import { AdmissionPagesCollection } from "./collections/admissionPages";
+import { KivaSquarePagesCollection } from "./collections/kivaSquarePages";
 import { KivaAuthProvider } from "./auth";
 import { PublishScreen } from "./PublishScreen";
 
@@ -47,6 +49,6 @@ export default defineConfig({
     return cms;
   },
   schema: {
-    collections: [HomeCollection, MissionCollection, TeamCollection, PreschoolCollection, MiddleAndSeniorCollection, AdmissionProcessCollection, CommunityCollection, AboutPagesCollection, ProgrammePagesCollection],
+    collections: [HomeCollection, MissionCollection, TeamCollection, PreschoolCollection, MiddleAndSeniorCollection, AdmissionProcessCollection, CommunityCollection, AboutPagesCollection, ProgrammePagesCollection, AdmissionPagesCollection, KivaSquarePagesCollection],
   },
 });

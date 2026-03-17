@@ -34,6 +34,16 @@ export const staticProgrammeChildren = [
   { label: "Kiva Kamps", href: "/programmes/kiva-kamps/" },
 ];
 
+export const staticKivaSquareChildren = [
+  { label: "2024", href: "/kiva_square/2024/" },
+  { label: "2026", href: "/kiva_square/2026/" },
+];
+
+export const staticAdmissionChildren = [
+  { label: "Admission Process", href: "/admission/process/" },
+  { label: "Admission Form", href: "/admission/form/" },
+];
+
 export const navItems: NavItem[] = [
   { type: "link", label: "Home", href: "/" },
   {
@@ -52,20 +62,14 @@ export const navItems: NavItem[] = [
     type: "group",
     label: "Admissions",
     base: "/admission/",
-    children: [
-      { label: "Admission Process", href: "/admission/process/" },
-      { label: "Admission Form", href: "/admission/form/" },
-    ],
+    children: staticAdmissionChildren,
   },
   { type: "link", label: "Careers", href: "/careers/" },
   {
     type: "group",
     label: "Kiva Square",
     base: "/kiva_square/",
-    children: [
-      { label: "2024", href: "/kiva_square/2024/" },
-      { label: "2026", href: "/kiva_square/2026/" },
-    ],
+    children: staticKivaSquareChildren,
   },
   { type: "link", label: "Contact Us", href: "/contact/" },
   { type: "link", label: "Community Enrichment", href: "/community/" },

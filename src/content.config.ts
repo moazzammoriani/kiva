@@ -238,4 +238,14 @@ const programmePages = defineCollection({
   schema: dynamicPageSchema,
 });
 
-export const collections = { home, mission, team, preschool, middleAndSenior, admissionProcess, community, aboutPages, programmePages };
+const admissionPages = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "content/admission-pages" }),
+  schema: dynamicPageSchema,
+});
+
+const kivaSquarePages = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "content/kiva-square-pages" }),
+  schema: dynamicPageSchema,
+});
+
+export const collections = { home, mission, team, preschool, middleAndSenior, admissionProcess, community, aboutPages, programmePages, admissionPages, kivaSquarePages };
