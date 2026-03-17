@@ -1,7 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import logo from "../assets/kiva-logo_home.png";
-import { navItems, staticAboutChildren, type NavGroupItem, type NavItem } from "../data/navigation";
+import { navItems, staticAboutChildren, staticProgrammeChildren, type NavGroupItem, type NavItem } from "../data/navigation";
 import "../styles/tokens.css";
 
 const BREAKPOINT = 1185;
@@ -14,9 +14,20 @@ const dynamicAboutChildren = aboutPages
     href: `/about/${page.id}/`,
   }));
 
+const programmePages = await getCollection("programmePages");
+const dynamicProgrammeChildren = programmePages
+  .sort((a, b) => (a.data.navOrder ?? 999) - (b.data.navOrder ?? 999))
+  .map((page) => ({
+    label: page.data.navLabel || page.data.title || page.id,
+    href: `/programmes/${page.id}/`,
+  }));
+
 const items = navItems.map((item) => {
   if (item.type === "group" && item.label === "About Us") {
     return { ...item, children: [...staticAboutChildren, ...dynamicAboutChildren] };
+  }
+  if (item.type === "group" && item.label === "Programmes") {
+    return { ...item, children: [...staticProgrammeChildren, ...dynamicProgrammeChildren] };
   }
   return item;
 });

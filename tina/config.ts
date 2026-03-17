@@ -7,6 +7,7 @@ import { MiddleAndSeniorCollection } from "./collections/middleAndSenior";
 import { AdmissionProcessCollection } from "./collections/admissionProcess";
 import { CommunityCollection } from "./collections/community";
 import { AboutPagesCollection } from "./collections/aboutPages";
+import { ProgrammePagesCollection } from "./collections/programmePages";
 import { KivaAuthProvider } from "./auth";
 import { PublishScreen } from "./PublishScreen";
 
@@ -46,6 +47,6 @@ export default defineConfig({
     return cms;
   },
   schema: {
-    collections: [HomeCollection, MissionCollection, TeamCollection, PreschoolCollection, MiddleAndSeniorCollection, AdmissionProcessCollection, CommunityCollection, AboutPagesCollection],
+    collections: [HomeCollection, MissionCollection, TeamCollection, PreschoolCollection, MiddleAndSeniorCollection, AdmissionProcessCollection, CommunityCollection, AboutPagesCollection, ProgrammePagesCollection],
   },
 });

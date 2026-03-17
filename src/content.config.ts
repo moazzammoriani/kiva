@@ -189,48 +189,53 @@ const community = defineCollection({
   }),
 });
 
-const aboutPages = defineCollection({
-  loader: glob({ pattern: "**/*.json", base: "content/about-pages" }),
-  schema: z.object({
-    title: z.string().optional(),
-    navLabel: z.string().optional(),
-    navOrder: z.number().optional(),
-    heroImage: z.string().optional(),
-    heroAlt: z.string().optional(),
-    blocks: z
-      .array(
-        z.discriminatedUnion("_template", [
-          z.object({
-            _template: z.literal("textSection"),
-            sectionTitle: z.string().optional(),
-            body: z.any().optional(),
-            variant: z.enum(["plain", "panel", "accent"]).optional(),
-            contentWidth: z.enum(["full", "narrow", "tight"]).optional(),
-          }),
-          z.object({
-            _template: z.literal("imageGallery"),
-            sectionTitle: z.string().optional(),
-            images: z
-              .array(z.object({ src: z.string().optional(), alt: z.string().optional() }))
-              .optional(),
-          }),
-          z.object({
-            _template: z.literal("featureImage"),
-            src: z.string().optional(),
-            alt: z.string().optional(),
-            caption: z.string().optional(),
-          }),
-          z.object({
-            _template: z.literal("callToAction"),
-            heading: z.string().optional(),
-            body: z.any().optional(),
-            buttonText: z.string().optional(),
-            buttonLink: z.string().optional(),
-          }),
-        ])
-      )
+const blockSchema = z.discriminatedUnion("_template", [
+  z.object({
+    _template: z.literal("textSection"),
+    sectionTitle: z.string().optional(),
+    body: z.any().optional(),
+    variant: z.enum(["plain", "panel", "accent"]).optional(),
+    contentWidth: z.enum(["full", "narrow", "tight"]).optional(),
+  }),
+  z.object({
+    _template: z.literal("imageGallery"),
+    sectionTitle: z.string().optional(),
+    images: z
+      .array(z.object({ src: z.string().optional(), alt: z.string().optional() }))
       .optional(),
   }),
+  z.object({
+    _template: z.literal("featureImage"),
+    src: z.string().optional(),
+    alt: z.string().optional(),
+    caption: z.string().optional(),
+  }),
+  z.object({
+    _template: z.literal("callToAction"),
+    heading: z.string().optional(),
+    body: z.any().optional(),
+    buttonText: z.string().optional(),
+    buttonLink: z.string().optional(),
+  }),
+]);
+
+const dynamicPageSchema = z.object({
+  title: z.string().optional(),
+  navLabel: z.string().optional(),
+  navOrder: z.number().optional(),
+  heroImage: z.string().optional(),
+  heroAlt: z.string().optional(),
+  blocks: z.array(blockSchema).optional(),
 });
 
-export const collections = { home, mission, team, preschool, middleAndSenior, admissionProcess, community, aboutPages };
+const aboutPages = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "content/about-pages" }),
+  schema: dynamicPageSchema,
+});
+
+const programmePages = defineCollection({
+  loader: glob({ pattern: "**/*.json", base: "content/programme-pages" }),
+  schema: dynamicPageSchema,
+});
+
+export const collections = { home, mission, team, preschool, middleAndSenior, admissionProcess, community, aboutPages, programmePages };

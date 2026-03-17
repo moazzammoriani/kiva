@@ -22,6 +22,18 @@ export const staticAboutChildren = [
   { label: "Meet the Team", href: "/about/team/" },
 ];
 
+export const staticProgrammeChildren = [
+  {
+    label: "Pre-school & Elementary School",
+    href: "/programmes/preschool-and-elementary/",
+  },
+  {
+    label: "Senior School",
+    href: "/programmes/middle-and-senior/",
+  },
+  { label: "Kiva Kamps", href: "/programmes/kiva-kamps/" },
+];
+
 export const navItems: NavItem[] = [
   { type: "link", label: "Home", href: "/" },
   {
@@ -34,17 +46,7 @@ export const navItems: NavItem[] = [
     type: "group",
     label: "Programmes",
     base: "/programmes/",
-    children: [
-      {
-        label: "Pre-school & Elementary School",
-        href: "/programmes/preschool-and-elementary/",
-      },
-      {
-        label: "Senior School",
-        href: "/programmes/middle-and-senior/",
-      },
-      { label: "Kiva Kamps", href: "/programmes/kiva-kamps/" },
-    ],
+    children: staticProgrammeChildren,
   },
   {
     type: "group",
