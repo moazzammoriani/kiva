@@ -1,8 +1,8 @@
 import type { Collection } from "tinacms";
 
-export const MissionCollection: Collection = {
+export const MissionCollection = (label = "Mission, Vision & Values"): Collection => ({
   name: "mission",
-  label: "Mission Page",
+  label,
   path: "content/mission",
   format: "json",
   ui: {
@@ -43,4 +43,4 @@ export const MissionCollection: Collection = {
       type: "rich-text",
     },
   ],
-};
+});

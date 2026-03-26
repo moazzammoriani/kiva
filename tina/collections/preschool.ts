@@ -13,9 +13,9 @@ const imageFields = [
   },
 ];
 
-export const PreschoolCollection: Collection = {
+export const PreschoolCollection = (label = "Pre-school & Elementary School"): Collection => ({
   name: "preschool",
-  label: "Preschool & Elementary",
+  label,
   path: "content/preschool",
   format: "json",
   ui: {
@@ -149,4 +149,4 @@ export const PreschoolCollection: Collection = {
       ],
     },
   ],
-};
+});

@@ -1,8 +1,8 @@
 import type { Collection } from "tinacms";
 
-export const CommunityCollection: Collection = {
+export const CommunityCollection = (label = "Community Enrichment"): Collection => ({
   name: "community",
-  label: "Community",
+  label,
   path: "content/community",
   format: "json",
   ui: {
@@ -54,4 +54,4 @@ export const CommunityCollection: Collection = {
       ],
     },
   ],
-};
+});

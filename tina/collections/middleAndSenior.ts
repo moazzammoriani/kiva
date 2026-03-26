@@ -1,8 +1,8 @@
 import type { Collection } from "tinacms";
 
-export const MiddleAndSeniorCollection: Collection = {
+export const MiddleAndSeniorCollection = (label = "Senior School"): Collection => ({
   name: "middleAndSenior",
-  label: "Middle & Senior School",
+  label,
   path: "content/middle-and-senior",
   format: "json",
   ui: {
@@ -59,4 +59,4 @@ export const MiddleAndSeniorCollection: Collection = {
       type: "string",
     },
   ],
-};
+});

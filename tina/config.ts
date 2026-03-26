@@ -13,6 +13,7 @@ import { KivaSquarePagesCollection } from "./collections/kivaSquarePages";
 import { NavigationCollection } from "./collections/navigation";
 import { KivaAuthProvider } from "./auth";
 import { PublishScreen } from "./PublishScreen";
+import navLabels from "../content/navigation/navigation.json";
 
 // Your hosting provider likely exposes this as an environment variable
 const branch =
@@ -50,6 +51,19 @@ export default defineConfig({
     return cms;
   },
   schema: {
-    collections: [HomeCollection, MissionCollection, TeamCollection, PreschoolCollection, MiddleAndSeniorCollection, AdmissionProcessCollection, CommunityCollection, AboutPagesCollection, ProgrammePagesCollection, AdmissionPagesCollection, KivaSquarePagesCollection, NavigationCollection],
+    collections: [
+      HomeCollection(navLabels.homeLabel),
+      MissionCollection(navLabels.aboutUs?.[0]?.missionLabel),
+      TeamCollection(navLabels.aboutUs?.[0]?.teamLabel),
+      PreschoolCollection(navLabels.programmes?.[0]?.preschoolLabel),
+      MiddleAndSeniorCollection(navLabels.programmes?.[0]?.seniorLabel),
+      AdmissionProcessCollection(navLabels.admissions?.[0]?.processLabel),
+      CommunityCollection(navLabels.communityEnrichmentLabel),
+      AboutPagesCollection(navLabels.aboutUs?.[0]?.label),
+      ProgrammePagesCollection(navLabels.programmes?.[0]?.label),
+      AdmissionPagesCollection(navLabels.admissions?.[0]?.label),
+      KivaSquarePagesCollection(navLabels.kivaSquare?.[0]?.label),
+      NavigationCollection,
+    ],
   },
 });

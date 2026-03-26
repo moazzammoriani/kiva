@@ -1,8 +1,8 @@
 import type { Collection } from "tinacms";
 
-export const AdmissionProcessCollection: Collection = {
+export const AdmissionProcessCollection = (label = "Admission Process"): Collection => ({
   name: "admissionProcess",
-  label: "Admission Process",
+  label,
   path: "content/admission-process",
   format: "json",
   ui: {
@@ -64,4 +64,4 @@ export const AdmissionProcessCollection: Collection = {
       ],
     },
   ],
-};
+});

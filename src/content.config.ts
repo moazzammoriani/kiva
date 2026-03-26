@@ -257,28 +257,28 @@ const navigation = defineCollection({
     careersLabel: z.string().optional(),
     contactUsLabel: z.string().optional(),
     communityEnrichmentLabel: z.string().optional(),
-    aboutUs: z.object({
+    aboutUs: z.array(z.object({
       label: z.string().optional(),
       ourStoryLabel: z.string().optional(),
       missionLabel: z.string().optional(),
       teamLabel: z.string().optional(),
-    }).optional(),
-    programmes: z.object({
+    })).optional(),
+    programmes: z.array(z.object({
       label: z.string().optional(),
       preschoolLabel: z.string().optional(),
       seniorLabel: z.string().optional(),
       kampsLabel: z.string().optional(),
-    }).optional(),
-    admissions: z.object({
+    })).optional(),
+    admissions: z.array(z.object({
       label: z.string().optional(),
       processLabel: z.string().optional(),
       formLabel: z.string().optional(),
-    }).optional(),
-    kivaSquare: z.object({
+    })).optional(),
+    kivaSquare: z.array(z.object({
       label: z.string().optional(),
       year2024Label: z.string().optional(),
       year2026Label: z.string().optional(),
-    }).optional(),
+    })).optional(),
   }),
 });
 

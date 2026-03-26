@@ -18,9 +18,9 @@ const memberFields = [
   },
 ];
 
-export const TeamCollection: Collection = {
+export const TeamCollection = (label = "Meet the Team"): Collection => ({
   name: "team",
-  label: "Team Page",
+  label,
   path: "content/team",
   format: "json",
   ui: {
@@ -66,4 +66,4 @@ export const TeamCollection: Collection = {
       fields: memberFields,
     },
   ],
-};
+});

@@ -17,11 +17,17 @@ export const NavigationCollection: Collection = {
     { name: "careersLabel", label: "Careers", type: "string" },
     { name: "contactUsLabel", label: "Contact Us", type: "string" },
     { name: "communityEnrichmentLabel", label: "Community Enrichment", type: "string" },
-    // Dropdown groups (collapsible objects)
+    // Dropdown groups (collapsible list objects with dynamic headers)
     {
       name: "aboutUs",
       label: "About Us",
       type: "object",
+      list: true,
+      ui: {
+        itemProps: (item: Record<string, string>) => ({
+          label: item?.label || "About Us",
+        }),
+      },
       fields: [
         { name: "label", label: "Dropdown Heading", type: "string" },
         { name: "ourStoryLabel", label: "Our Story", type: "string" },
@@ -33,6 +39,12 @@ export const NavigationCollection: Collection = {
       name: "programmes",
       label: "Programmes",
       type: "object",
+      list: true,
+      ui: {
+        itemProps: (item: Record<string, string>) => ({
+          label: item?.label || "Programmes",
+        }),
+      },
       fields: [
         { name: "label", label: "Dropdown Heading", type: "string" },
         { name: "preschoolLabel", label: "Pre-school & Elementary School", type: "string" },
@@ -44,6 +56,12 @@ export const NavigationCollection: Collection = {
       name: "admissions",
       label: "Admissions",
       type: "object",
+      list: true,
+      ui: {
+        itemProps: (item: Record<string, string>) => ({
+          label: item?.label || "Admissions",
+        }),
+      },
       fields: [
         { name: "label", label: "Dropdown Heading", type: "string" },
         { name: "processLabel", label: "Admission Process", type: "string" },
@@ -54,6 +72,12 @@ export const NavigationCollection: Collection = {
       name: "kivaSquare",
       label: "Kiva Square",
       type: "object",
+      list: true,
+      ui: {
+        itemProps: (item: Record<string, string>) => ({
+          label: item?.label || "Kiva Square",
+        }),
+      },
       fields: [
         { name: "label", label: "Dropdown Heading", type: "string" },
         { name: "year2024Label", label: "2024", type: "string" },

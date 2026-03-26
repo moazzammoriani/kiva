@@ -1,8 +1,8 @@
 import type { Collection } from "tinacms";
 
-export const HomeCollection: Collection = {
+export const HomeCollection = (label = "Home"): Collection => ({
   name: "home",
-  label: "Home Page",
+  label,
   path: "content/home",
   format: "json",
   ui: {
@@ -112,4 +112,4 @@ export const HomeCollection: Collection = {
       ],
     },
   ],
-};
+});

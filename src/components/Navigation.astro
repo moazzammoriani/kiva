@@ -16,20 +16,24 @@ if (nav) {
   if (nav.careersLabel) labelOverrides["careers"] = nav.careersLabel;
   if (nav.contactUsLabel) labelOverrides["contactUs"] = nav.contactUsLabel;
   if (nav.communityEnrichmentLabel) labelOverrides["communityEnrichment"] = nav.communityEnrichmentLabel;
-  if (nav.aboutUs?.label) labelOverrides["aboutUs"] = nav.aboutUs.label;
-  if (nav.aboutUs?.ourStoryLabel) labelOverrides["aboutOurStory"] = nav.aboutUs.ourStoryLabel;
-  if (nav.aboutUs?.missionLabel) labelOverrides["aboutMission"] = nav.aboutUs.missionLabel;
-  if (nav.aboutUs?.teamLabel) labelOverrides["aboutTeam"] = nav.aboutUs.teamLabel;
-  if (nav.programmes?.label) labelOverrides["programmes"] = nav.programmes.label;
-  if (nav.programmes?.preschoolLabel) labelOverrides["progPreschool"] = nav.programmes.preschoolLabel;
-  if (nav.programmes?.seniorLabel) labelOverrides["progSenior"] = nav.programmes.seniorLabel;
-  if (nav.programmes?.kampsLabel) labelOverrides["progKamps"] = nav.programmes.kampsLabel;
-  if (nav.admissions?.label) labelOverrides["admissions"] = nav.admissions.label;
-  if (nav.admissions?.processLabel) labelOverrides["admProcess"] = nav.admissions.processLabel;
-  if (nav.admissions?.formLabel) labelOverrides["admForm"] = nav.admissions.formLabel;
-  if (nav.kivaSquare?.label) labelOverrides["kivaSquare"] = nav.kivaSquare.label;
-  if (nav.kivaSquare?.year2024Label) labelOverrides["kSquare2024"] = nav.kivaSquare.year2024Label;
-  if (nav.kivaSquare?.year2026Label) labelOverrides["kSquare2026"] = nav.kivaSquare.year2026Label;
+  const aboutUs = nav.aboutUs?.[0];
+  const programmes = nav.programmes?.[0];
+  const admissions = nav.admissions?.[0];
+  const kivaSquare = nav.kivaSquare?.[0];
+  if (aboutUs?.label) labelOverrides["aboutUs"] = aboutUs.label;
+  if (aboutUs?.ourStoryLabel) labelOverrides["aboutOurStory"] = aboutUs.ourStoryLabel;
+  if (aboutUs?.missionLabel) labelOverrides["aboutMission"] = aboutUs.missionLabel;
+  if (aboutUs?.teamLabel) labelOverrides["aboutTeam"] = aboutUs.teamLabel;
+  if (programmes?.label) labelOverrides["programmes"] = programmes.label;
+  if (programmes?.preschoolLabel) labelOverrides["progPreschool"] = programmes.preschoolLabel;
+  if (programmes?.seniorLabel) labelOverrides["progSenior"] = programmes.seniorLabel;
+  if (programmes?.kampsLabel) labelOverrides["progKamps"] = programmes.kampsLabel;
+  if (admissions?.label) labelOverrides["admissions"] = admissions.label;
+  if (admissions?.processLabel) labelOverrides["admProcess"] = admissions.processLabel;
+  if (admissions?.formLabel) labelOverrides["admForm"] = admissions.formLabel;
+  if (kivaSquare?.label) labelOverrides["kivaSquare"] = kivaSquare.label;
+  if (kivaSquare?.year2024Label) labelOverrides["kSquare2024"] = kivaSquare.year2024Label;
+  if (kivaSquare?.year2026Label) labelOverrides["kSquare2026"] = kivaSquare.year2026Label;
 }
 
 const applyOverrides = (children: typeof staticAboutChildren) =>

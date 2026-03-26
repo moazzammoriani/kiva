@@ -8,9 +8,9 @@ const slugify = (title: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-export const AboutPagesCollection: Collection = {
+export const AboutPagesCollection = (groupLabel = "About Us"): Collection => ({
   name: "aboutPages",
-  label: "📁 About Us Pages",
+  label: `📁 ${groupLabel} Pages`,
   path: "content/about-pages",
   format: "json",
   ui: {
@@ -139,4 +139,4 @@ export const AboutPagesCollection: Collection = {
       ],
     },
   ],
-};
+});

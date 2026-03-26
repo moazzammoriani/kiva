@@ -8,9 +8,9 @@ const slugify = (title: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-export const KivaSquarePagesCollection: Collection = {
+export const KivaSquarePagesCollection = (groupLabel = "Kiva Square"): Collection => ({
   name: "kivaSquarePages",
-  label: "📁 Kiva Square Pages",
+  label: `📁 ${groupLabel} Pages`,
   path: "content/kiva-square-pages",
   format: "json",
   ui: {
@@ -139,4 +139,4 @@ export const KivaSquarePagesCollection: Collection = {
       ],
     },
   ],
-};
+});
