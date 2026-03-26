@@ -2,7 +2,6 @@
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import TeamSection from "../../components/TeamSection.astro";
-import IntroBlock from "../../components/IntroBlock.astro";
 import { richTextToHtml } from "../../utils/richTextToHtml";
 
 const teamEntries = await getCollection("team");
@@ -22,11 +21,6 @@ const teamMembers = (team?.teamMembers ?? []).map((m) => ({
 ---
 
 <BaseLayout pageTitle="Meet the Team" heroSrc={team?.heroImage ?? ""}>
-    <IntroBlock>
-        <TeamSection title={team?.directorsTitle ?? "OUR DIRECTORS"} members={directors} />
-    </IntroBlock>
-
-    <IntroBlock>
-        <TeamSection title={team?.teamTitle ?? "OUR TEAM"} members={teamMembers} />
-    </IntroBlock>
+    <TeamSection title={team?.directorsTitle ?? "OUR DIRECTORS"} members={directors} />
+    <TeamSection title={team?.teamTitle ?? "OUR TEAM"} members={teamMembers} />
 </BaseLayout>

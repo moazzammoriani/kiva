@@ -71,6 +71,11 @@ import rightBtn from "../assets/right_slideshow_button.png";
         if (captionEl) captionEl.textContent = slide.label;
     };
 
+    images.forEach((slide) => {
+        const img = new Image();
+        img.src = slide.src;
+    });
+
     buttons.forEach((button) => {
         button.addEventListener("click", () => {
             if (button.dataset.action === "prev") {
