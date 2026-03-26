@@ -2,11 +2,20 @@
   "heroImage": "/images/middle-and-senior/Banner_SeniorSchool.png",
   "title": "SENIOR SCHOOL",
   "galleryImages": [
-    { "src": "/images/middle-and-senior/seniorschool1.png", "alt": "Senior school 1" },
-    { "src": "/images/middle-and-senior/seniorschool2.png", "alt": "Senior school 2" },
-    { "src": "/images/middle-and-senior/seniorschool3.png", "alt": "Senior school 3" }
+    {
+      "src": "/images/middle-and-senior/seniorschool1.png",
+      "alt": "Senior school 1"
+    },
+    {
+      "src": "/images/middle-and-senior/seniorschool2.png",
+      "alt": "Senior school 2"
+    },
+    {
+      "src": "/images/middle-and-senior/seniorschool3.png",
+      "alt": "Senior school 3"
+    }
   ],
-  "bodyText": "**The AMI Middle & Senior School - Grade VI to O level** - adheres to the Cambridge Assessment International Examination board with the IGCSE framework. A highly interactive approach to learning is encouraged in the classrooms through discussion and group work. As part of our core school philosophy, we emphasise on open communication with parents/guardians and are deeply committed to collaborative problem solving and decision making between management, teacher and parents to the utmost benefit and well-being of our students.\n\nFor a more integrated learning environment, The AMI School focuses on learning outside the classroom through extra-curricular subjects and life skills including **Roller-Skating, Theatre, Music, Photography and Board games**. With this line-up, the goal is to ensure that children are physically, mentally and artistically stimulated and discover their unexplored skills and interests in the process.",
+  "bodyText": "**The AMI School - Grade VII to O level** - adheres to the Cambridge Assessment International Examination board with the IGCSE framework. A highly interactive approach to learning is encouraged in the classrooms through discussion and group work. As part of our core school philosophy, we emphasise on open communication with parents/guardians and are deeply committed to collaborative problem solving and decision making between management, teacher and parents to the utmost benefit and well-being of our students.\n\nFor a more integrated learning environment, The AMI School focuses on learning outside the classroom through extra-curricular subjects and life skills including **Roller-Skating, Theatre, Music, Photography and Board games**. With this line-up, the goal is to ensure that children are physically, mentally and artistically stimulated and discover their unexplored skills and interests in the process.\n",
   "buttonText": "Learn More",
   "buttonLink": "https://amischool.edu.pk"
 }

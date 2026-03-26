@@ -1,0 +1,30 @@
+{
+  "title": "2027",
+  "navLabel": "2027",
+  "navOrder": 4,
+  "heroImage": "/images/Thank you post-02 (1)-4.png",
+  "heroAlt": "Animated, expressive crowd enjoying stage performances.",
+  "blocks": [
+    {
+      "sectionTitle": "Kiva Square 2.0",
+      "body": "Born out of a desire to give back, Kiva Square is a community engagement initiative by Kiva School that brings together people, practices, and purpose.\n\nDriven by our values of Inclusion and Social Responsibility, Kiva Square offers a holistic and interactive experience for both adults and children. For its 2nd iteration, we collaborated with various wellness practitioners, artists and organisations to host 50+ wellness sessions, panel discussions, performers and activity spaces.\n\nRooted in the belief that wellness should be accessible, inclusive, and familiar, Kiva Square is thoughtfully designed as a marketplace for wellness where individuals and families can explore various facets of wellbeing through movement, creativity, dialogue, and shared experiences. In addition to this, Kiva Square's Bazaar featured predominantly local and women-led businesses, interactive community spaces and a food court; offering a holistic, community-focused experience.\n\nWith the aim to highlight, uplift and unite communities, Kiva Square also partnered with Kiran Foundation, to shed light on their culture and ongoing work in Lyari, with 50% of all ticket proceeds being donated to Kiran Foundation.\n\nKiva Square continues to grow as a collective effort to make wellness more accessible, more communal, and familiar for all.\n",
+      "variant": "plain",
+      "contentWidth": "tight",
+      "_template": "textSection"
+    },
+    {
+      "images": [
+        {
+          "src": "/images/Kiva Square-07.png"
+        },
+        {
+          "src": "/images/Kiva Square-05.png"
+        },
+        {
+          "src": "/images/Kiva Square-06.png"
+        }
+      ],
+      "_template": "imageGallery"
+    }
+  ]
+}
