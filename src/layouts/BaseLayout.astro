@@ -1,6 +1,6 @@
 ---
 import Navigation from "../components/Navigation.astro";
-import defaultHero from "../assets/high-angle-child-woman-painting.jpg";
+import defaultHero from "../assets/high-angle-child-woman-painting.webp";
 import MobileNavigation from "../components/MobileNavigation.astro";
 import ResponsiveFooter from "../components/ResponsiveFooter.astro";
 import tabIcon from "../assets/tab-icon.png";
@@ -15,6 +15,7 @@ const {
     heroAlt?: string;
 };
 
+const heroWebP = heroSrc?.replace(/\.(png|jpe?g)$/i, ".webp") ?? null;
 const documentTitle = pageTitle ? `${pageTitle} · Kiva School` : "Kiva School";
 import "../styles/global.css";
 ---
@@ -26,6 +27,9 @@ import "../styles/global.css";
         <meta name="generator" content={Astro.generator} />
         <title>{documentTitle}</title>
         <link rel="icon" type="image/png" href={tabIcon.src} />
+        {heroSrc && (
+            <link rel="preload" as="image" href={heroWebP || heroSrc} type={heroWebP ? "image/webp" : undefined} fetchpriority="high" />
+        )}
         <link
             rel="stylesheet"
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
@@ -43,7 +47,10 @@ import "../styles/global.css";
             {
                 heroSrc && (
                     <div class="banner" role="presentation">
-                        <img src={heroSrc} alt={heroAlt} loading="eager" />
+                        <picture>
+                            {heroWebP && <source srcset={heroWebP} type="image/webp" />}
+                            <img src={heroSrc} alt={heroAlt} loading="eager" fetchpriority="high" />
+                        </picture>
                     </div>
                 )
             }
