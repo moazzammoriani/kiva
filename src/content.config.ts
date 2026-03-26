@@ -248,4 +248,38 @@ const kivaSquarePages = defineCollection({
   schema: dynamicPageSchema,
 });
 
-export const collections = { home, mission, team, preschool, middleAndSenior, admissionProcess, community, aboutPages, programmePages, admissionPages, kivaSquarePages };
+const navigation = defineCollection({
+  loader: file("content/navigation/navigation.json", {
+    parser: (text) => [{ id: "navigation", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    homeLabel: z.string().optional(),
+    careersLabel: z.string().optional(),
+    contactUsLabel: z.string().optional(),
+    communityEnrichmentLabel: z.string().optional(),
+    aboutUs: z.object({
+      label: z.string().optional(),
+      ourStoryLabel: z.string().optional(),
+      missionLabel: z.string().optional(),
+      teamLabel: z.string().optional(),
+    }).optional(),
+    programmes: z.object({
+      label: z.string().optional(),
+      preschoolLabel: z.string().optional(),
+      seniorLabel: z.string().optional(),
+      kampsLabel: z.string().optional(),
+    }).optional(),
+    admissions: z.object({
+      label: z.string().optional(),
+      processLabel: z.string().optional(),
+      formLabel: z.string().optional(),
+    }).optional(),
+    kivaSquare: z.object({
+      label: z.string().optional(),
+      year2024Label: z.string().optional(),
+      year2026Label: z.string().optional(),
+    }).optional(),
+  }),
+});
+
+export const collections = { home, mission, team, preschool, middleAndSenior, admissionProcess, community, aboutPages, programmePages, admissionPages, kivaSquarePages, navigation };

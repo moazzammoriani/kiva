@@ -1,0 +1,28 @@
+{
+  "homeLabel": "Home",
+  "careersLabel": "Careers",
+  "contactUsLabel": "Contact Us",
+  "communityEnrichmentLabel": "Community Enrichment",
+  "aboutUs": {
+    "label": "About Us All",
+    "ourStoryLabel": "Our Story",
+    "missionLabel": "Mission, Vision & Values",
+    "teamLabel": "Meet the Team"
+  },
+  "programmes": {
+    "label": "Programmes",
+    "preschoolLabel": "Pre-school & Elementary School",
+    "seniorLabel": "Senior School",
+    "kampsLabel": "Kiva Kamps"
+  },
+  "admissions": {
+    "label": "Admissions",
+    "processLabel": "Admission Process",
+    "formLabel": "Admission Form"
+  },
+  "kivaSquare": {
+    "label": "Kiva Square",
+    "year2024Label": "2024",
+    "year2026Label": "2026"
+  }
+}

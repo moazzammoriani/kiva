@@ -10,6 +10,7 @@ import { AboutPagesCollection } from "./collections/aboutPages";
 import { ProgrammePagesCollection } from "./collections/programmePages";
 import { AdmissionPagesCollection } from "./collections/admissionPages";
 import { KivaSquarePagesCollection } from "./collections/kivaSquarePages";
+import { NavigationCollection } from "./collections/navigation";
 import { KivaAuthProvider } from "./auth";
 import { PublishScreen } from "./PublishScreen";
 
@@ -49,6 +50,6 @@ export default defineConfig({
     return cms;
   },
   schema: {
-    collections: [HomeCollection, MissionCollection, TeamCollection, PreschoolCollection, MiddleAndSeniorCollection, AdmissionProcessCollection, CommunityCollection, AboutPagesCollection, ProgrammePagesCollection, AdmissionPagesCollection, KivaSquarePagesCollection],
+    collections: [HomeCollection, MissionCollection, TeamCollection, PreschoolCollection, MiddleAndSeniorCollection, AdmissionProcessCollection, CommunityCollection, AboutPagesCollection, ProgrammePagesCollection, AdmissionPagesCollection, KivaSquarePagesCollection, NavigationCollection],
   },
 });

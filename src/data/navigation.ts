@@ -1,14 +1,17 @@
 export type NavLinkItem = {
   type: "link";
+  key: string;
   label: string;
   href: string;
 };
 
 export type NavGroupItem = {
   type: "group";
+  key: string;
   label: string;
   base: string;
   children: {
+    key: string;
     label: string;
     href: string;
   }[];
@@ -17,60 +20,66 @@ export type NavGroupItem = {
 export type NavItem = NavLinkItem | NavGroupItem;
 
 export const staticAboutChildren = [
-  { label: "Our Story", href: "/about/our-story/" },
-  { label: "Mission, Vision & Values", href: "/about/mission/" },
-  { label: "Meet the Team", href: "/about/team/" },
+  { key: "aboutOurStory", label: "Our Story", href: "/about/our-story/" },
+  { key: "aboutMission", label: "Mission, Vision & Values", href: "/about/mission/" },
+  { key: "aboutTeam", label: "Meet the Team", href: "/about/team/" },
 ];
 
 export const staticProgrammeChildren = [
   {
+    key: "progPreschool",
     label: "Pre-school & Elementary School",
     href: "/programmes/preschool-and-elementary/",
   },
   {
+    key: "progSenior",
     label: "Senior School",
     href: "/programmes/middle-and-senior/",
   },
-  { label: "Kiva Kamps", href: "/programmes/kiva-kamps/" },
+  { key: "progKamps", label: "Kiva Kamps", href: "/programmes/kiva-kamps/" },
 ];
 
 export const staticKivaSquareChildren = [
-  { label: "2024", href: "/kiva_square/2024/" },
-  { label: "2026", href: "/kiva_square/2026/" },
+  { key: "kSquare2024", label: "2024", href: "/kiva_square/2024/" },
+  { key: "kSquare2026", label: "2026", href: "/kiva_square/2026/" },
 ];
 
 export const staticAdmissionChildren = [
-  { label: "Admission Process", href: "/admission/process/" },
-  { label: "Admission Form", href: "/admission/form/" },
+  { key: "admProcess", label: "Admission Process", href: "/admission/process/" },
+  { key: "admForm", label: "Admission Form", href: "/admission/form/" },
 ];
 
 export const navItems: NavItem[] = [
-  { type: "link", label: "Home", href: "/" },
+  { type: "link", key: "home", label: "Home", href: "/" },
   {
     type: "group",
+    key: "aboutUs",
     label: "About Us",
     base: "/about/",
     children: staticAboutChildren,
   },
   {
     type: "group",
+    key: "programmes",
     label: "Programmes",
     base: "/programmes/",
     children: staticProgrammeChildren,
   },
   {
     type: "group",
+    key: "admissions",
     label: "Admissions",
     base: "/admission/",
     children: staticAdmissionChildren,
   },
-  { type: "link", label: "Careers", href: "/careers/" },
+  { type: "link", key: "careers", label: "Careers", href: "/careers/" },
   {
     type: "group",
+    key: "kivaSquare",
     label: "Kiva Square",
     base: "/kiva_square/",
     children: staticKivaSquareChildren,
   },
-  { type: "link", label: "Contact Us", href: "/contact/" },
-  { type: "link", label: "Community Enrichment", href: "/community/" },
+  { type: "link", key: "contactUs", label: "Contact Us", href: "/contact/" },
+  { type: "link", key: "communityEnrichment", label: "Community Enrichment", href: "/community/" },
 ];

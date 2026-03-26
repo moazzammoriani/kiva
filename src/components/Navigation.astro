@@ -5,6 +5,36 @@ import NavDropdown from "./NavDropdown.astro";
 import logo from "../assets/kiva-logo_home.png";
 import { navItems, staticAboutChildren, staticProgrammeChildren, staticAdmissionChildren, staticKivaSquareChildren } from "../data/navigation";
 
+// Load CMS nav labels
+const navEntries = await getCollection("navigation");
+const nav = navEntries[0]?.data;
+
+// Build flat key → label map from nested CMS data
+const labelOverrides: Record<string, string> = {};
+if (nav) {
+  if (nav.homeLabel) labelOverrides["home"] = nav.homeLabel;
+  if (nav.careersLabel) labelOverrides["careers"] = nav.careersLabel;
+  if (nav.contactUsLabel) labelOverrides["contactUs"] = nav.contactUsLabel;
+  if (nav.communityEnrichmentLabel) labelOverrides["communityEnrichment"] = nav.communityEnrichmentLabel;
+  if (nav.aboutUs?.label) labelOverrides["aboutUs"] = nav.aboutUs.label;
+  if (nav.aboutUs?.ourStoryLabel) labelOverrides["aboutOurStory"] = nav.aboutUs.ourStoryLabel;
+  if (nav.aboutUs?.missionLabel) labelOverrides["aboutMission"] = nav.aboutUs.missionLabel;
+  if (nav.aboutUs?.teamLabel) labelOverrides["aboutTeam"] = nav.aboutUs.teamLabel;
+  if (nav.programmes?.label) labelOverrides["programmes"] = nav.programmes.label;
+  if (nav.programmes?.preschoolLabel) labelOverrides["progPreschool"] = nav.programmes.preschoolLabel;
+  if (nav.programmes?.seniorLabel) labelOverrides["progSenior"] = nav.programmes.seniorLabel;
+  if (nav.programmes?.kampsLabel) labelOverrides["progKamps"] = nav.programmes.kampsLabel;
+  if (nav.admissions?.label) labelOverrides["admissions"] = nav.admissions.label;
+  if (nav.admissions?.processLabel) labelOverrides["admProcess"] = nav.admissions.processLabel;
+  if (nav.admissions?.formLabel) labelOverrides["admForm"] = nav.admissions.formLabel;
+  if (nav.kivaSquare?.label) labelOverrides["kivaSquare"] = nav.kivaSquare.label;
+  if (nav.kivaSquare?.year2024Label) labelOverrides["kSquare2024"] = nav.kivaSquare.year2024Label;
+  if (nav.kivaSquare?.year2026Label) labelOverrides["kSquare2026"] = nav.kivaSquare.year2026Label;
+}
+
+const applyOverrides = (children: typeof staticAboutChildren) =>
+  children.map((c) => ({ ...c, label: labelOverrides[c.key] ?? c.label }));
+
 const aboutPages = await getCollection("aboutPages");
 const dynamicAboutChildren = aboutPages
   .sort((a, b) => (a.data.navOrder ?? 999) - (b.data.navOrder ?? 999))
@@ -38,19 +68,20 @@ const dynamicKivaSquareChildren = kivaSquarePages
   }));
 
 const resolvedNavItems = navItems.map((item) => {
-  if (item.type === "group" && item.label === "About Us") {
-    return { ...item, children: [...staticAboutChildren, ...dynamicAboutChildren] };
+  const overridden = { ...item, label: labelOverrides[item.key] ?? item.label };
+  if (item.type === "group" && item.key === "aboutUs") {
+    return { ...overridden, children: [...applyOverrides(staticAboutChildren), ...dynamicAboutChildren] };
   }
-  if (item.type === "group" && item.label === "Programmes") {
-    return { ...item, children: [...staticProgrammeChildren, ...dynamicProgrammeChildren] };
+  if (item.type === "group" && item.key === "programmes") {
+    return { ...overridden, children: [...applyOverrides(staticProgrammeChildren), ...dynamicProgrammeChildren] };
   }
-  if (item.type === "group" && item.label === "Admissions") {
-    return { ...item, children: [...staticAdmissionChildren, ...dynamicAdmissionChildren] };
+  if (item.type === "group" && item.key === "admissions") {
+    return { ...overridden, children: [...applyOverrides(staticAdmissionChildren), ...dynamicAdmissionChildren] };
   }
-  if (item.type === "group" && item.label === "Kiva Square") {
-    return { ...item, children: [...staticKivaSquareChildren, ...dynamicKivaSquareChildren] };
+  if (item.type === "group" && item.key === "kivaSquare") {
+    return { ...overridden, children: [...applyOverrides(staticKivaSquareChildren), ...dynamicKivaSquareChildren] };
   }
-  return item;
+  return overridden;
 });
 ---
 
