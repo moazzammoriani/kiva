@@ -5,15 +5,19 @@ type Slide = {
     label?: string;
 };
 
-const { images = [] } = Astro.props as { images: Slide[] };
-const initial = images[0] ?? { src: "", alt: "", label: "" };
+const { images: rawImages = [] } = Astro.props as { images: Slide[] };
+const images = rawImages.map((img) => ({
+    ...img,
+    webp: img.src.replace(/\.(png|jpe?g)$/i, ".webp"),
+}));
+const initial = images[0] ?? { src: "", alt: "", label: "", webp: "" };
 
-import sunflower from "../assets/sunflower.png";
-import frame from "../assets/slideshow-frame.png";
+import sunflower from "../assets/sunflower.webp";
+import frame from "../assets/slideshow-frame.webp";
 import "../styles/tokens.css";
 import "../styles/global.css";
-import leftBtn from "../assets/left_slideshow_button.png";
-import rightBtn from "../assets/right_slideshow_button.png";
+import leftBtn from "../assets/left_slideshow_button.webp";
+import rightBtn from "../assets/right_slideshow_button.webp";
 ---
 
 <!-- TODO: make the flowers bigger  --><!-- TODO: decrease the button size --><!-- TODO: use proper fonts for the slideshow label -->
@@ -28,11 +32,14 @@ import rightBtn from "../assets/right_slideshow_button.png";
     </button>
 
     <div class="slideshow__viewport">
-        <img
-            src={initial.src}
-            alt={initial.alt ?? ""}
-            class="slideshow__image"
-        />
+        <picture>
+            {initial.webp !== initial.src && <source srcset={initial.webp} type="image/webp" class="slideshow__source" />}
+            <img
+                src={initial.src}
+                alt={initial.alt ?? ""}
+                class="slideshow__image"
+            />
+        </picture>
         <img src={frame.src} alt="" class="slideshow__frame" />
     </div>
 
@@ -57,6 +64,7 @@ import rightBtn from "../assets/right_slideshow_button.png";
 
     let index = 0;
     const imageEl = container.querySelector(".slideshow__image");
+    const sourceEl = container.querySelector(".slideshow__source");
     const captionEl = document.querySelector(".slideshow__caption");
     const buttons = container.querySelectorAll(".slideshow__button");
 
@@ -67,13 +75,16 @@ import rightBtn from "../assets/right_slideshow_button.png";
             imageEl.src = slide.src;
             imageEl.alt = slide.alt ?? "";
         }
+        if (sourceEl && slide.webp) {
+            sourceEl.srcset = slide.webp;
+        }
         console.log(slide.label);
         if (captionEl) captionEl.textContent = slide.label;
     };
 
     images.forEach((slide) => {
         const img = new Image();
-        img.src = slide.src;
+        img.src = slide.webp || slide.src;
     });
 
     buttons.forEach((button) => {

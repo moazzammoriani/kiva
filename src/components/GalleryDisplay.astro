@@ -6,11 +6,17 @@ const { images } = Astro.props as {
 
 <div class="gallery">
     {
-        images.map((imgSrc) => (
-            <div>
-                <img class="gallery--img" src={imgSrc} alt="" />{" "}
-            </div>
-        ))
+        images.map((imgSrc) => {
+            const webp = imgSrc.replace(/\.(png|jpe?g)$/i, ".webp");
+            return (
+                <div>
+                    <picture>
+                        {webp !== imgSrc && <source srcset={webp} type="image/webp" />}
+                        <img class="gallery--img" src={imgSrc} alt="" />
+                    </picture>
+                </div>
+            );
+        })
     }
 </div>
 

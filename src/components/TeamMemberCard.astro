@@ -6,8 +6,10 @@ const { name, bio, color, imgSrc } = Astro.props as {
     color: string;
 };
 
-import yellowRibbon from "../assets/name-ribbon-yellow.png";
-import blueRibbon from "../assets/name-ribbon-blue.png";
+const imgWebP = imgSrc.replace(/\.(png|jpe?g)$/i, ".webp");
+
+import yellowRibbon from "../assets/name-ribbon-yellow.webp";
+import blueRibbon from "../assets/name-ribbon-blue.webp";
 ---
 
 <!-- TODO: make the card as wide as the faq thing -->
@@ -17,7 +19,10 @@ import blueRibbon from "../assets/name-ribbon-blue.png";
     aria-label={`${name} profile`}
 >
     <div class="member-photo" role="img">
-        <img src={imgSrc} alt="" />
+        <picture>
+            {imgWebP !== imgSrc && <source srcset={imgWebP} type="image/webp" />}
+            <img src={imgSrc} alt="" />
+        </picture>
         <h3
             class={color === "yellow"
                 ? "yellow-card-ribbon"

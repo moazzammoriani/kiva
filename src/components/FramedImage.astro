@@ -5,11 +5,12 @@ interface Props {
     frameColor?: string; // optional frame overlay PNG
 }
 
-import yellowFrame from "../assets/frame-yellow.png";
-import orangeFrame from "../assets/frame-orange.png";
-import purpleFrame from "../assets/frame-purple.png";
+import yellowFrame from "../assets/frame-yellow.webp";
+import orangeFrame from "../assets/frame-orange.webp";
+import purpleFrame from "../assets/frame-purple.webp";
 
 const { imgSrc, frameColor } = Astro.props;
+const imgWebP = imgSrc.replace(/\.(png|jpe?g)$/i, ".webp");
 
 let frame;
 if (frameColor === "orange") {
@@ -22,7 +23,10 @@ if (frameColor === "orange") {
 ---
 
 <div class="frame-container">
-    <img src={imgSrc} class="base-image" />
+    <picture>
+        {imgWebP !== imgSrc && <source srcset={imgWebP} type="image/webp" />}
+        <img src={imgSrc} class="base-image" />
+    </picture>
     <img src={frame} alt="" class="frame-overlay" />
 </div>
 

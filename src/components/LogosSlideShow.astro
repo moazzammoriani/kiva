@@ -115,7 +115,15 @@ const {
 
 <div class="scroller" data-direction="left" data-speed="medium">
     <div class="scroller__inner">
-        {logos.map((l) => <img src={l.src} alt={l.alt} />)}
+        {logos.map((l) => {
+            const webp = l.src.replace(/\.(png|jpe?g)$/i, ".webp");
+            return (
+                <picture>
+                    {webp !== l.src && <source srcset={webp} type="image/webp" />}
+                    <img src={l.src} alt={l.alt} />
+                </picture>
+            );
+        })}
     </div>
 </div>
 

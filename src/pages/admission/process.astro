@@ -24,12 +24,18 @@ const faqs = (data?.faqs ?? []).map((f) => ({
         contentWidth="narrow"
     >
         <div class="diagram-container">
-            <img class="process-diagram" src={data?.processDiagram ?? "/images/admission-process/process_diagram.png"} alt="" />
-            <img
-                class="process-diagram-mob"
-                src={data?.processDiagramMobile ?? "/images/admission-process/process_diagram_mob.png"}
-                alt=""
-            />
+            <picture>
+                <source srcset={(data?.processDiagram ?? "/images/admission-process/process_diagram.png").replace(/\.(png|jpe?g)$/i, ".webp")} type="image/webp" />
+                <img class="process-diagram" src={data?.processDiagram ?? "/images/admission-process/process_diagram.png"} alt="" />
+            </picture>
+            <picture>
+                <source srcset={(data?.processDiagramMobile ?? "/images/admission-process/process_diagram_mob.png").replace(/\.(png|jpe?g)$/i, ".webp")} type="image/webp" />
+                <img
+                    class="process-diagram-mob"
+                    src={data?.processDiagramMobile ?? "/images/admission-process/process_diagram_mob.png"}
+                    alt=""
+                />
+            </picture>
         </div>
         <div class="apply-now-btn-container">
             <YellowButton text={data?.buttonText ?? "Click here to apply"} />

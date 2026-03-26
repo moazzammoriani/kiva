@@ -51,7 +51,10 @@ const blocks = data.blocks ?? [];
       return (
         <PageSection>
           <figure class="feature-image">
-            <img src={block.src ?? ""} alt={block.alt ?? ""} />
+            <picture>
+              <source srcset={(block.src ?? "").replace(/\.(png|jpe?g)$/i, ".webp")} type="image/webp" />
+              <img src={block.src ?? ""} alt={block.alt ?? ""} />
+            </picture>
             {block.caption && <figcaption>{block.caption}</figcaption>}
           </figure>
         </PageSection>

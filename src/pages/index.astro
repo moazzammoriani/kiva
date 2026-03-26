@@ -31,7 +31,10 @@ const partnerLogos = (home?.partnerLogos ?? []).map((logo) => ({
     <!-- TODO: decrease the spacing between the letters -->
     <!-- TODO: make the font weight 1000-->
     <PageSection>
-        <img id="birdhouse" src={home?.birdHouseImage ?? ""} alt="" />
+        <picture>
+            <source srcset={(home?.birdHouseImage ?? "").replace(/\.(png|jpe?g)$/i, ".webp")} type="image/webp" />
+            <img id="birdhouse" src={home?.birdHouseImage ?? ""} alt="" />
+        </picture>
         <IntroBlock
             icon=""
             heading={home?.welcomeHeading ?? ""}
