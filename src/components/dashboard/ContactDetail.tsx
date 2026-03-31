@@ -69,9 +69,19 @@ export function ContactDetail({ id, token, onBack }: Props) {
 
   return (
     <div>
-      <button className="db-detail-back" onClick={onBack}>
-        &larr; Back to list
-      </button>
+      <div className="db-detail-toolbar">
+        <button className="db-detail-back" onClick={onBack}>
+          &larr; Back to list
+        </button>
+        <button className="db-btn-print" onClick={() => window.print()}>
+          Print
+        </button>
+      </div>
+
+      <div className="db-print-header">
+        <img src="/images/home/kiva-logo.png" alt="Kiva School" className="db-print-logo" />
+        <p>Contact Submission</p>
+      </div>
 
       <h2 className="db-detail-title">{data.name}</h2>
 

@@ -100,15 +100,19 @@ body {
   border-bottom-color: var(--db-teal);
 }
 
-/* ── Search ─────────────────────────────────────────────── */
+/* ── Filters ───────────────────────────────────────────── */
 
-.db-search-bar {
+.db-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 0.75rem;
   margin-bottom: 1rem;
 }
 
 .db-search-input {
   width: 100%;
-  max-width: 360px;
+  max-width: 300px;
   padding: 0.5rem 0.75rem;
   border: 1px solid var(--db-border);
   border-radius: var(--db-radius);
@@ -116,8 +120,52 @@ body {
   font-size: 0.875rem;
   outline: none;
   transition: border-color 0.15s;
+  align-self: flex-end;
 }
 .db-search-input:focus { border-color: var(--db-teal); }
+
+.db-date-filters {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+
+.db-date-label {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--db-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  gap: 0.2rem;
+}
+
+.db-date-input {
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  font-family: inherit;
+  font-size: 0.8rem;
+  outline: none;
+  transition: border-color 0.15s;
+  color: var(--db-text);
+}
+.db-date-input:focus { border-color: var(--db-teal); }
+
+.db-btn-clear {
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  background: var(--db-white);
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--db-text-muted);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.db-btn-clear:hover { border-color: var(--db-teal); color: var(--db-text); }
 
 /* ── Table ──────────────────────────────────────────────── */
 
@@ -212,6 +260,32 @@ body {
 }
 .db-btn-page:hover:not(:disabled) { border-color: var(--db-teal); }
 .db-btn-page:disabled { opacity: 0.4; cursor: default; }
+
+.db-btn-page-num {
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  background: var(--db-white);
+  font-family: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+  color: var(--db-text);
+  transition: border-color 0.15s, background 0.15s;
+}
+.db-btn-page-num:hover { border-color: var(--db-teal); }
+.db-btn-page-num.active {
+  background: var(--db-teal);
+  border-color: var(--db-teal);
+  color: var(--db-white);
+  font-weight: 700;
+}
+
+.db-pagination-ellipsis {
+  font-size: 0.85rem;
+  color: var(--db-text-muted);
+  padding: 0 0.15rem;
+}
 
 /* ── Login ──────────────────────────────────────────────── */
 
@@ -358,6 +432,120 @@ body {
 
 .db-detail-field.full-width {
   grid-column: 1 / -1;
+}
+
+/* ── Print button ──────────────────────────────────────── */
+
+.db-detail-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+
+.db-btn-print {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.4rem 0.85rem;
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  background: var(--db-white);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--db-text);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+.db-btn-print:hover {
+  border-color: var(--db-teal);
+  background: var(--db-row-hover);
+}
+
+/* ── Print-only header ─────────────────────────────────── */
+
+.db-print-header {
+  display: none;
+}
+
+/* ── Print styles ──────────────────────────────────────── */
+
+@media print {
+  /* Hide all UI chrome */
+  .db-header,
+  .db-tabs,
+  .db-detail-back,
+  .db-btn-print,
+  .db-detail-toolbar,
+  .db-filters,
+  .db-search-bar,
+  .db-pagination,
+  .db-btn-logout { display: none !important; }
+
+  /* Show print header */
+  .db-print-header {
+    display: block !important;
+    text-align: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid #082c4b;
+  }
+  .db-print-logo {
+    height: 60px;
+    margin-bottom: 0.25rem;
+  }
+  .db-print-header p {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin: 0;
+  }
+
+  /* Reset page */
+  body { background: white; }
+  .db-content { max-width: 100%; padding: 0; }
+
+  /* Clean detail sections */
+  .db-detail-title {
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+  }
+
+  .db-detail-section {
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 0;
+    padding: 0.75rem 0;
+    margin-bottom: 0.5rem;
+    box-shadow: none;
+    break-inside: avoid;
+  }
+
+  .db-detail-section h3 {
+    font-size: 0.75rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .db-detail-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.4rem 1.5rem;
+  }
+
+  .db-detail-field label {
+    font-size: 0.65rem;
+    margin-bottom: 0.05rem;
+  }
+
+  .db-detail-field span {
+    font-size: 0.8rem;
+  }
+
+  .db-detail-field.full-width {
+    grid-column: 1 / -1;
+  }
+
+  /* Hide download links in print */
+  .db-link { display: none !important; }
 }
 
 /* ── Loading / Empty ────────────────────────────────────── */

@@ -25,6 +25,8 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick }: Props
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
+  const [dateFrom, setDateFrom] = useState("");
+  const [dateTo, setDateTo] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -34,10 +36,10 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick }: Props
     return () => clearTimeout(id);
   }, [search]);
 
-  // Reset to page 1 when search changes
+  // Reset to page 1 when filters change
   useEffect(() => {
     setPage(1);
-  }, [debouncedSearch]);
+  }, [debouncedSearch, dateFrom, dateTo]);
 
   const fetchData = useCallback(async () => {
     setLoading(true);
@@ -50,6 +52,8 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick }: Props
         order: sortOrder,
       });
       if (debouncedSearch) params.set("search", debouncedSearch);
+      if (dateFrom) params.set("date_from", dateFrom);
+      if (dateTo) params.set("date_to", dateTo);
 
       const res = await fetch(`${endpoint}?${params}`, {
         headers: { Authorization: `Bearer ${token}` },
@@ -64,7 +68,7 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick }: Props
     } finally {
       setLoading(false);
     }
-  }, [token, endpoint, page, perPage, sortCol, sortOrder, debouncedSearch]);
+  }, [token, endpoint, page, perPage, sortCol, sortOrder, debouncedSearch, dateFrom, dateTo]);
 
   useEffect(() => {
     fetchData();
@@ -79,13 +83,21 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick }: Props
     }
   }
 
+  function clearFilters() {
+    setSearch("");
+    setDateFrom("");
+    setDateTo("");
+  }
+
+  const hasFilters = search || dateFrom || dateTo;
+
   if (error) {
     return <div className="db-empty">{error}</div>;
   }
 
   return (
     <>
-      <div className="db-search-bar">
+      <div className="db-filters">
         <input
           className="db-search-input"
           type="text"
@@ -93,6 +105,31 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick }: Props
           value={search}
           onChange={(e) => setSearch(e.target.value)}
         />
+        <div className="db-date-filters">
+          <label className="db-date-label">
+            From
+            <input
+              className="db-date-input"
+              type="date"
+              value={dateFrom}
+              onChange={(e) => setDateFrom(e.target.value)}
+            />
+          </label>
+          <label className="db-date-label">
+            To
+            <input
+              className="db-date-input"
+              type="date"
+              value={dateTo}
+              onChange={(e) => setDateTo(e.target.value)}
+            />
+          </label>
+          {hasFilters && (
+            <button className="db-btn-clear" onClick={clearFilters}>
+              Clear filters
+            </button>
+          )}
+        </div>
       </div>
 
       {loading ? (

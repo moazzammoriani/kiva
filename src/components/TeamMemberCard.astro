@@ -53,7 +53,7 @@ import blueRibbon from "../assets/name-ribbon-blue.webp";
                 display: grid;
                 grid-template-columns: minmax(140px, 250px) 1fr;
                 gap: 1.5rem;
-                align-items: start;
+                align-items: stretch;
                 color: #000000;
                 max-width: var(--layout-max-width);
                 margin: 0 auto;
@@ -77,6 +77,9 @@ import blueRibbon from "../assets/name-ribbon-blue.webp";
 
             .member-content {
                 text-align: left;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
             }
 
             .yellow-card-ribbon {
