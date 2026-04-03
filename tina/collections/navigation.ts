@@ -81,7 +81,6 @@ export const NavigationCollection: Collection = {
       fields: [
         { name: "label", label: "Dropdown Heading", type: "string" },
         { name: "year2024Label", label: "2024", type: "string" },
-        { name: "year2026Label", label: "2026", type: "string" },
       ],
     },
   ],

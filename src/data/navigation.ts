@@ -41,7 +41,6 @@ export const staticProgrammeChildren = [
 
 export const staticKivaSquareChildren = [
   { key: "kSquare2024", label: "2024", href: "/kiva_square/2024/" },
-  { key: "kSquare2026", label: "2026", href: "/kiva_square/2026/" },
 ];
 
 export const staticAdmissionChildren = [

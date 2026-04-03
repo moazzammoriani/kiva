@@ -277,7 +277,6 @@ const navigation = defineCollection({
     kivaSquare: z.array(z.object({
       label: z.string().optional(),
       year2024Label: z.string().optional(),
-      year2026Label: z.string().optional(),
     })).optional(),
   }),
 });
