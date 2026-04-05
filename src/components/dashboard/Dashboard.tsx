@@ -4,25 +4,39 @@ import { SubmissionsTable, type ColumnDef } from "./SubmissionsTable";
 import { AdmissionDetail } from "./AdmissionDetail";
 import { ContactDetail } from "./ContactDetail";
 import { CareerDetail } from "./CareerDetail";
+import { ProgressList } from "./ProgressList";
+import { ProgressForm } from "./ProgressForm";
 import "./dashboard.css";
 
-type Tab = "contacts" | "careers" | "admissions";
+type Tab = "contacts" | "careers" | "admissions" | "progress";
 
-const TABS: Tab[] = ["contacts", "careers", "admissions"];
+const TABS: Tab[] = ["contacts", "careers", "admissions", "progress"];
 
-function parseRoute(): { tab: Tab; detailId: number | null } {
+type RouteMode = "list" | "detail" | "new" | "edit";
+
+function parseRoute(): { tab: Tab; detailId: number | null; mode: RouteMode } {
   const path = window.location.pathname.replace(/\/+$/, "");
+  // e.g. /dashboard/progress/new
+  const newMatch = path.match(/^\/dashboard\/(\w+)\/new$/);
+  if (newMatch && TABS.includes(newMatch[1] as Tab)) {
+    return { tab: newMatch[1] as Tab, detailId: null, mode: "new" };
+  }
+  // e.g. /dashboard/progress/5/edit
+  const editMatch = path.match(/^\/dashboard\/(\w+)\/(\d+)\/edit$/);
+  if (editMatch && TABS.includes(editMatch[1] as Tab)) {
+    return { tab: editMatch[1] as Tab, detailId: Number(editMatch[2]), mode: "edit" };
+  }
   // e.g. /dashboard/careers/5
   const match = path.match(/^\/dashboard\/(\w+)\/(\d+)$/);
   if (match && TABS.includes(match[1] as Tab)) {
-    return { tab: match[1] as Tab, detailId: Number(match[2]) };
+    return { tab: match[1] as Tab, detailId: Number(match[2]), mode: "detail" };
   }
   // e.g. /dashboard/careers
   const tabMatch = path.match(/^\/dashboard\/(\w+)$/);
   if (tabMatch && TABS.includes(tabMatch[1] as Tab)) {
-    return { tab: tabMatch[1] as Tab, detailId: null };
+    return { tab: tabMatch[1] as Tab, detailId: null, mode: "list" };
   }
-  return { tab: "contacts", detailId: null };
+  return { tab: "contacts", detailId: null, mode: "list" };
 }
 
 function formatDate(value: string | null) {
@@ -104,11 +118,13 @@ export default function Dashboard() {
   const [checking, setChecking] = useState(true);
   const [activeTab, setActiveTab] = useState<Tab>("contacts");
   const [detailId, setDetailId] = useState<number | null>(null);
+  const [routeMode, setRouteMode] = useState<RouteMode>("list");
 
   const applyRoute = useCallback(() => {
     const route = parseRoute();
     setActiveTab(route.tab);
     setDetailId(route.detailId);
+    setRouteMode(route.mode);
   }, []);
 
   // Parse URL on mount + listen for popstate (browser back/forward)
@@ -190,6 +206,7 @@ export default function Dashboard() {
     { key: "contacts", label: "Contacts" },
     { key: "careers", label: "Careers" },
     { key: "admissions", label: "Admissions" },
+    { key: "progress", label: "Progress" },
   ];
 
   function renderDetail() {
@@ -202,6 +219,49 @@ export default function Dashboard() {
       case "admissions":
         return <AdmissionDetail id={detailId} token={token!} onBack={handleBack} />;
     }
+  }
+
+  function renderProgressTab() {
+    if (routeMode === "edit" && detailId != null) {
+      return (
+        <ProgressForm
+          token={token!}
+          admissionId={detailId}
+          onBack={handleBack}
+          onSaved={handleBack}
+        />
+      );
+    }
+    return (
+      <ProgressList
+        token={token!}
+        onEdit={(admissionId) => navigate(`/dashboard/progress/${admissionId}/edit`)}
+      />
+    );
+  }
+
+  function renderContent() {
+    if (activeTab === "progress") {
+      return renderProgressTab();
+    }
+    if (detailId != null) {
+      return renderDetail();
+    }
+    return (
+      <SubmissionsTable
+        key={activeTab}
+        token={token!}
+        endpoint={`/api/submissions/${activeTab}`}
+        columns={
+          activeTab === "contacts"
+            ? CONTACT_COLUMNS
+            : activeTab === "careers"
+              ? CAREER_COLUMNS
+              : ADMISSION_COLUMNS
+        }
+        onRowClick={handleRowClick}
+      />
+    );
   }
 
   return (
@@ -229,23 +289,7 @@ export default function Dashboard() {
           ))}
         </div>
 
-        {detailId != null ? (
-          renderDetail()
-        ) : (
-          <SubmissionsTable
-            key={activeTab}
-            token={token}
-            endpoint={`/api/submissions/${activeTab}`}
-            columns={
-              activeTab === "contacts"
-                ? CONTACT_COLUMNS
-                : activeTab === "careers"
-                  ? CAREER_COLUMNS
-                  : ADMISSION_COLUMNS
-            }
-            onRowClick={handleRowClick}
-          />
-        )}
+        {renderContent()}
       </main>
     </>
   );

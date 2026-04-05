@@ -546,6 +546,213 @@ body {
 
   /* Hide download links in print */
   .db-link { display: none !important; }
+
+  /* Progress form print styles */
+  .db-form-actions { display: none !important; }
+
+  .db-progress-form-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 0.3rem 1.5rem;
+  }
+
+  .db-form-group input,
+  .db-form-group textarea {
+    border: none;
+    padding: 0;
+    font-size: 0.8rem;
+    background: transparent;
+    resize: none;
+    overflow: visible;
+  }
+
+  .db-form-group label {
+    font-size: 0.65rem;
+  }
+}
+
+/* ── Progress table (wide) ─────────────────────────────── */
+
+.db-progress-table { min-width: 2200px; }
+.db-progress-table td,
+.db-progress-table th { white-space: nowrap; }
+
+.db-actions-cell {
+  display: flex;
+  gap: 0.35rem;
+}
+
+.db-btn-action {
+  padding: 0.2rem 0.5rem;
+  border-radius: var(--db-radius);
+  font-family: inherit;
+  font-size: 0.7rem;
+  font-weight: 600;
+  cursor: pointer;
+  border: 1px solid var(--db-border);
+  transition: background 0.15s, border-color 0.15s;
+}
+.db-btn-action-edit {
+  background: var(--db-white);
+  color: var(--db-teal);
+  border-color: var(--db-teal);
+}
+.db-btn-action-edit:hover { background: var(--db-row-hover); }
+.db-btn-action-delete {
+  background: var(--db-white);
+  color: #dc2626;
+  border-color: #dc2626;
+}
+.db-btn-action-delete:hover { background: #fef2f2; }
+
+/* ── Toolbar (filters + new button) ───────────────────── */
+
+.db-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.db-toolbar .db-filters { margin-bottom: 0; }
+
+.db-btn-new {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: var(--db-radius);
+  background: var(--db-teal);
+  color: var(--db-white);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: opacity 0.15s;
+}
+.db-btn-new:hover { opacity: 0.85; }
+
+/* ── Progress form ────────────────────────────────────── */
+
+.db-progress-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.db-progress-form-grid .full-width { grid-column: 1 / -1; }
+
+.db-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.db-form-group label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--db-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+.db-form-group input,
+.db-form-group textarea {
+  padding: 0.45rem 0.6rem;
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  font-family: inherit;
+  font-size: 0.85rem;
+  outline: none;
+  transition: border-color 0.15s;
+  color: var(--db-text);
+}
+.db-form-group input:focus,
+.db-form-group textarea:focus { border-color: var(--db-teal); }
+.db-form-group textarea { resize: vertical; }
+
+.db-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--db-border);
+}
+
+.db-btn-cancel {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  background: var(--db-white);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--db-text-muted);
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+.db-btn-cancel:hover { border-color: var(--db-teal); color: var(--db-text); }
+
+.db-btn-save {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  border-radius: var(--db-radius);
+  background: var(--db-teal);
+  color: var(--db-white);
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+.db-btn-save:hover { opacity: 0.85; }
+.db-btn-save:disabled { opacity: 0.5; cursor: default; }
+
+.db-form-error {
+  background: #fef2f2;
+  color: #dc2626;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--db-radius);
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+/* ── Admission selector (create mode) ─────────────────── */
+
+.db-admission-picker { margin-bottom: 1.5rem; }
+
+.db-picker-label {
+  font-size: 0.85rem;
+  color: var(--db-text-muted);
+  margin-bottom: 0.5rem;
+}
+
+.db-admission-selector {
+  max-height: 300px;
+  overflow-y: auto;
+  border: 1px solid var(--db-border);
+  border-radius: var(--db-radius);
+  margin-top: 0.5rem;
+}
+
+.db-admission-option {
+  padding: 0.6rem 0.75rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--db-border);
+  font-size: 0.85rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.1s;
+}
+.db-admission-option:last-child { border-bottom: none; }
+.db-admission-option:hover { background: var(--db-row-hover); }
+
+.db-admission-option-parents {
+  font-size: 0.75rem;
+  color: var(--db-text-muted);
+}
+
+@media (max-width: 720px) {
+  .db-progress-form-grid { grid-template-columns: 1fr; }
+  .db-toolbar { flex-direction: column; }
 }
 
 /* ── Loading / Empty ────────────────────────────────────── */
