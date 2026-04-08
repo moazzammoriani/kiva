@@ -40,6 +40,7 @@ const FIELD_DEFS: { key: string; label: string; wide?: boolean; options?: string
 export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
   const [fields, setFields] = useState<Record<string, string>>({});
   const [childName, setChildName] = useState("");
+  const [submittedAt, setSubmittedAt] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -60,6 +61,7 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
         }
         setFields(f);
         setChildName(data.child_name ?? "");
+        setSubmittedAt(data.submitted_at ? new Date(data.submitted_at).toLocaleDateString() : "");
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -114,6 +116,17 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
         <img src="/images/home/kiva-logo.png" alt="Kiva School" className="db-print-logo" />
         <p>Admission Progress</p>
       </div>
+
+      {submittedAt && (
+        <div className="db-detail-section" style={{ marginBottom: "1rem" }}>
+          <div className="db-detail-grid">
+            <div className="db-detail-field">
+              <label>Admission Submitted</label>
+              <span>{submittedAt}</span>
+            </div>
+          </div>
+        </div>
+      )}
 
       {error && <div className="db-form-error">{error}</div>}
 

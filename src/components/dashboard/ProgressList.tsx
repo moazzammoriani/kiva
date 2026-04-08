@@ -7,6 +7,7 @@ interface Props {
 }
 
 const COLUMNS = [
+  { key: "submitted_at", label: "Submitted" },
   { key: "child_name", label: "Child Name" },
   { key: "class_name", label: "Class" },
   { key: "father_name", label: "Father" },
@@ -33,6 +34,14 @@ const COLUMNS = [
 function truncate(value: string | null, max = 40): string {
   if (!value) return "";
   return value.length > max ? value.slice(0, max) + "..." : value;
+}
+
+function formatCell(key: string, value: string | null): string {
+  if (!value) return "";
+  if (key === "submitted_at") {
+    return new Date(value).toLocaleDateString();
+  }
+  return truncate(value);
 }
 
 export function ProgressList({ token, onEdit }: Props) {
@@ -214,7 +223,7 @@ export function ProgressList({ token, onEdit }: Props) {
                     </td>
                     {COLUMNS.map((col) => (
                       <td key={col.key} title={row[col.key] || ""}>
-                        {truncate(row[col.key]) || "\u2014"}
+                        {formatCell(col.key, row[col.key]) || "\u2014"}
                       </td>
                     ))}
                   </tr>
