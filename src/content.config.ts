@@ -221,6 +221,7 @@ const blockSchema = z.discriminatedUnion("_template", [
 
 const dynamicPageSchema = z.object({
   title: z.string().optional(),
+  slug: z.string().optional(),
   navLabel: z.string().optional(),
   navOrder: z.number().optional(),
   heroImage: z.string().optional(),

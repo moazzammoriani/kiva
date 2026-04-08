@@ -9,7 +9,7 @@ import { richTextToHtml } from "../../utils/richTextToHtml";
 export async function getStaticPaths() {
   const pages = await getCollection("kivaSquarePages");
   return pages.map((page) => ({
-    params: { slug: page.id },
+    params: { slug: page.data.slug || page.id },
     props: { page },
   }));
 }

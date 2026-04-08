@@ -19,16 +19,16 @@ export const ProgrammePagesCollection = (groupLabel = "Programmes"): Collection 
       delete: true,
     },
     filename: {
-      slugify: (values) => slugify(values?.title),
+      slugify: () => crypto.randomUUID().split("-")[0],
     },
     beforeSubmit: async ({ values }) => {
-      const slug = slugify(String(values.title ?? ""));
+      const slug = values.slug || slugify(String(values.title ?? ""));
       if (RESERVED_SLUGS.includes(slug)) {
         throw new Error(
           `The slug "${slug}" is reserved by an existing page. Choose a different title.`
         );
       }
-      return values;
+      return { ...values, slug };
     },
   },
   fields: [
@@ -38,6 +38,13 @@ export const ProgrammePagesCollection = (groupLabel = "Programmes"): Collection 
       type: "string",
       required: true,
       isTitle: true,
+    },
+    {
+      name: "slug",
+      label: "URL Slug",
+      type: "string",
+      description:
+        "The URL path for this page (auto-generated from title, editable). Changing this changes the page URL.",
     },
     {
       name: "navLabel",

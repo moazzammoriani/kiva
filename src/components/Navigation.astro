@@ -44,7 +44,7 @@ const dynamicAboutChildren = aboutPages
   .sort((a, b) => (a.data.navOrder ?? 999) - (b.data.navOrder ?? 999))
   .map((page) => ({
     label: page.data.navLabel || page.data.title || page.id,
-    href: `/about/${page.id}/`,
+    href: `/about/${page.data.slug || page.id}/`,
   }));
 
 const programmePages = await getCollection("programmePages");
@@ -52,7 +52,7 @@ const dynamicProgrammeChildren = programmePages
   .sort((a, b) => (a.data.navOrder ?? 999) - (b.data.navOrder ?? 999))
   .map((page) => ({
     label: page.data.navLabel || page.data.title || page.id,
-    href: `/programmes/${page.id}/`,
+    href: `/programmes/${page.data.slug || page.id}/`,
   }));
 
 const admissionPages = await getCollection("admissionPages");
@@ -60,7 +60,7 @@ const dynamicAdmissionChildren = admissionPages
   .sort((a, b) => (a.data.navOrder ?? 999) - (b.data.navOrder ?? 999))
   .map((page) => ({
     label: page.data.navLabel || page.data.title || page.id,
-    href: `/admission/${page.id}/`,
+    href: `/admission/${page.data.slug || page.id}/`,
   }));
 
 const kivaSquarePages = await getCollection("kivaSquarePages");
@@ -68,7 +68,7 @@ const dynamicKivaSquareChildren = kivaSquarePages
   .sort((a, b) => (a.data.navOrder ?? 999) - (b.data.navOrder ?? 999))
   .map((page) => ({
     label: page.data.navLabel || page.data.title || page.id,
-    href: `/kiva_square/${page.id}/`,
+    href: `/kiva_square/${page.data.slug || page.id}/`,
   }));
 
 const resolvedNavItems = navItems.map((item) => {
