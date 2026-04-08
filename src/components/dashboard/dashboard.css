@@ -556,13 +556,16 @@ body {
   }
 
   .db-form-group input,
-  .db-form-group textarea {
+  .db-form-group textarea,
+  .db-form-group select {
     border: none;
     padding: 0;
     font-size: 0.8rem;
     background: transparent;
     resize: none;
     overflow: visible;
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   .db-form-group label {
@@ -653,7 +656,8 @@ body {
   letter-spacing: 0.03em;
 }
 .db-form-group input,
-.db-form-group textarea {
+.db-form-group textarea,
+.db-form-group select {
   padding: 0.45rem 0.6rem;
   border: 1px solid var(--db-border);
   border-radius: var(--db-radius);
@@ -662,9 +666,11 @@ body {
   outline: none;
   transition: border-color 0.15s;
   color: var(--db-text);
+  background: var(--db-white);
 }
 .db-form-group input:focus,
-.db-form-group textarea:focus { border-color: var(--db-teal); }
+.db-form-group textarea:focus,
+.db-form-group select:focus { border-color: var(--db-teal); }
 .db-form-group textarea { resize: vertical; }
 
 .db-form-actions {

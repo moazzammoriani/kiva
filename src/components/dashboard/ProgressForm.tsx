@@ -7,25 +7,30 @@ interface Props {
   onSaved: () => void;
 }
 
-const FIELD_DEFS: { key: string; label: string; wide?: boolean }[] = [
+const CLASS_OPTIONS = [
+  "Playgroup", "Pre-Nursery", "Nursery", "KG",
+  "I", "II", "III", "IV", "V", "VI", "VII", "VIII",
+];
+
+const FIELD_DEFS: { key: string; label: string; wide?: boolean; options?: string[]; type?: string }[] = [
   { key: "child_name", label: "Child Name" },
   { key: "father_name", label: "Father Name" },
   { key: "father_phone", label: "Father Contact No" },
   { key: "mother_name", label: "Mother Name" },
   { key: "mother_phone", label: "Mother Contact No" },
-  { key: "date_of_facilitation", label: "Date of Facilitation" },
-  { key: "class_name", label: "Class" },
-  { key: "form_status", label: "Form Status" },
-  { key: "affiliation", label: "Affiliation" },
-  { key: "interview_applicable", label: "Interview Applicable" },
-  { key: "parent_status", label: "Parent Status" },
-  { key: "first_call_interview_assessment", label: "1st Call Interview Assessment" },
-  { key: "second_call_interview_assessment", label: "2nd Call Interview Assessment" },
-  { key: "acceptance", label: "Acceptance / No Acceptance" },
+  { key: "date_of_facilitation", label: "Date of Facilitation", type: "date" },
+  { key: "class_name", label: "Class", options: CLASS_OPTIONS },
+  { key: "form_status", label: "Form Status", options: ["YES", "NO", "PAAR", "OTHER"] },
+  { key: "affiliation", label: "Affiliation", options: ["AMI", "DAYCARE", "KIVA", "PAAR", "Other"] },
+  { key: "interview_applicable", label: "Interview Applicable", options: ["YES", "NO"] },
+  { key: "parent_status", label: "Parent Status", options: ["Reachable", "Not Reachable"] },
+  { key: "first_call_interview_assessment", label: "1st Call Interview Assessment", type: "date" },
+  { key: "second_call_interview_assessment", label: "2nd Call Interview Assessment", type: "date" },
+  { key: "acceptance", label: "Acceptance / No Acceptance", options: ["YES", "NO"] },
   { key: "session", label: "Session" },
-  { key: "send_confirmation_date", label: "Send Confirmation Date" },
-  { key: "due_date_for_payment", label: "Due Date for Payment" },
-  { key: "status", label: "Status" },
+  { key: "send_confirmation_date", label: "Send Confirmation Date", type: "date" },
+  { key: "due_date_for_payment", label: "Due Date for Payment", type: "date" },
+  { key: "status", label: "Status", options: ["ACCEPTED", "AWAITING", "DECLINE", "EXTENDED"] },
   { key: "follow_up", label: "Follow Up", wide: true },
   { key: "follow_up_2", label: "Follow Up 2", wide: true },
   { key: "follow_up_3", label: "Follow Up 3", wide: true },
@@ -120,7 +125,17 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
               className={`db-form-group ${def.wide ? "full-width" : ""}`}
             >
               <label>{def.label}</label>
-              {def.wide ? (
+              {def.options ? (
+                <select
+                  value={fields[def.key] ?? ""}
+                  onChange={(e) => handleFieldChange(def.key, e.target.value)}
+                >
+                  <option value="">— Select —</option>
+                  {def.options.map((opt) => (
+                    <option key={opt} value={opt}>{opt}</option>
+                  ))}
+                </select>
+              ) : def.wide ? (
                 <textarea
                   rows={3}
                   value={fields[def.key] ?? ""}
@@ -128,7 +143,7 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
                 />
               ) : (
                 <input
-                  type="text"
+                  type={def.type ?? "text"}
                   value={fields[def.key] ?? ""}
                   onChange={(e) => handleFieldChange(def.key, e.target.value)}
                 />
