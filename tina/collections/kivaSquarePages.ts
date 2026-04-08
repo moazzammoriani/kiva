@@ -1,6 +1,6 @@
 import type { Collection } from "tinacms";
 
-const RESERVED_SLUGS = ["2024", "2026"];
+const RESERVED_SLUGS = ["2024"];
 
 const slugify = (title: string) =>
   (title || "untitled")
