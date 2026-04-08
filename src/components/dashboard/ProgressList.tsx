@@ -58,6 +58,10 @@ export function ProgressList({ token, onEdit }: Props) {
   const [dateTo, setDateTo] = useState("");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [showExport, setShowExport] = useState(false);
+  const [exportFrom, setExportFrom] = useState("");
+  const [exportTo, setExportTo] = useState("");
+  const [exporting, setExporting] = useState(false);
 
   useEffect(() => {
     const id = setTimeout(() => setDebouncedSearch(search), 300);
@@ -131,6 +135,33 @@ export function ProgressList({ token, onEdit }: Props) {
     }
   }
 
+  async function handleExport(all: boolean) {
+    setExporting(true);
+    try {
+      const params = new URLSearchParams();
+      if (!all) {
+        if (exportFrom) params.set("date_from", exportFrom);
+        if (exportTo) params.set("date_to", exportTo);
+      }
+      const res = await fetch(`/api/submissions/progress/export?${params}`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}`);
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "progress-export.csv";
+      a.click();
+      URL.revokeObjectURL(url);
+      setShowExport(false);
+    } catch (err: any) {
+      alert(err.message ?? "Export failed");
+    } finally {
+      setExporting(false);
+    }
+  }
+
   const hasFilters = search || dateFrom || dateTo;
 
   if (error) {
@@ -139,6 +170,55 @@ export function ProgressList({ token, onEdit }: Props) {
 
   return (
     <>
+      {showExport && (
+        <div className="db-modal-overlay" onClick={() => setShowExport(false)}>
+          <div className="db-modal" onClick={(e) => e.stopPropagation()}>
+            <h3>Export CSV</h3>
+            <div className="db-modal-body">
+              <button
+                className="db-btn-primary"
+                style={{ marginBottom: "1rem" }}
+                disabled={exporting}
+                onClick={() => handleExport(true)}
+              >
+                {exporting ? "Exporting..." : "Export All Entries"}
+              </button>
+              <div className="db-modal-divider">or select a date range</div>
+              <div className="db-modal-dates">
+                <label className="db-date-label">
+                  From
+                  <input
+                    className="db-date-input"
+                    type="date"
+                    value={exportFrom}
+                    onChange={(e) => setExportFrom(e.target.value)}
+                  />
+                </label>
+                <label className="db-date-label">
+                  To
+                  <input
+                    className="db-date-input"
+                    type="date"
+                    value={exportTo}
+                    onChange={(e) => setExportTo(e.target.value)}
+                  />
+                </label>
+              </div>
+              <button
+                className="db-btn-primary"
+                disabled={exporting || (!exportFrom && !exportTo)}
+                onClick={() => handleExport(false)}
+              >
+                {exporting ? "Exporting..." : "Export Date Range"}
+              </button>
+            </div>
+            <button className="db-modal-close" onClick={() => setShowExport(false)}>
+              &times;
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className="db-filters">
         <input
           className="db-search-input"
@@ -172,6 +252,9 @@ export function ProgressList({ token, onEdit }: Props) {
             </button>
           )}
         </div>
+        <button className="db-btn-export" onClick={() => setShowExport(true)}>
+          Export CSV
+        </button>
       </div>
 
       {loading ? (
