@@ -6,6 +6,9 @@ import { ContactDetail } from "./ContactDetail";
 import { CareerDetail } from "./CareerDetail";
 import { ProgressList } from "./ProgressList";
 import { ProgressForm } from "./ProgressForm";
+import { AdmissionForm } from "./AdmissionForm";
+import { ContactForm } from "./ContactForm";
+import { CareerForm } from "./CareerForm";
 import "./dashboard.css";
 
 type Tab = "contacts" | "careers" | "admissions" | "progress";
@@ -244,9 +247,54 @@ export default function Dashboard() {
     if (activeTab === "progress") {
       return renderProgressTab();
     }
+    if (routeMode === "edit" && detailId != null) {
+      if (activeTab === "admissions") {
+        return (
+          <AdmissionForm
+            token={token!}
+            id={detailId}
+            onBack={handleBack}
+            onSaved={handleBack}
+          />
+        );
+      }
+      if (activeTab === "contacts") {
+        return (
+          <ContactForm
+            token={token!}
+            id={detailId}
+            onBack={handleBack}
+            onSaved={handleBack}
+          />
+        );
+      }
+      if (activeTab === "careers") {
+        return (
+          <CareerForm
+            token={token!}
+            id={detailId}
+            onBack={handleBack}
+            onSaved={handleBack}
+          />
+        );
+      }
+    }
     if (detailId != null) {
       return renderDetail();
     }
+    const deleteMessageByTab: Record<string, (row: any) => string> = {
+      contacts: (row) =>
+        `This will permanently delete the contact submission from ${row.name || "this entry"}. This cannot be undone.`,
+      careers: (row) =>
+        `This will permanently delete the career application from ${row.name || "this entry"}, along with the uploaded CV. This cannot be undone.`,
+      admissions: (row) =>
+        `This will permanently delete the admission for ${row.child_name || "this entry"}, along with any progress data and the uploaded progress report. This cannot be undone.`,
+    };
+    const deleteTitleByTab: Record<string, string> = {
+      contacts: "Delete contact entry?",
+      careers: "Delete career entry?",
+      admissions: "Delete admission entry?",
+    };
     return (
       <SubmissionsTable
         key={activeTab}
@@ -261,6 +309,10 @@ export default function Dashboard() {
         }
         onRowClick={handleRowClick}
         exportFilename={`${activeTab}-export.csv`}
+        onEdit={(row) => navigate(`/dashboard/${activeTab}/${row.id}/edit`)}
+        deleteEndpoint={`/api/submissions/${activeTab}`}
+        deleteTitle={deleteTitleByTab[activeTab]}
+        deleteMessage={deleteMessageByTab[activeTab]}
       />
     );
   }

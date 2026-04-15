@@ -205,6 +205,7 @@ body {
   padding: 0.55rem 0.75rem;
   border-top: 1px solid var(--db-border);
   vertical-align: top;
+  white-space: nowrap;
 }
 
 .db-table tr:nth-child(even) td { background: var(--db-row-alt); }
@@ -486,7 +487,7 @@ body {
   /* Show print header */
   .db-print-header {
     display: block !important;
-    text-align: center;
+    text-align: left;
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
     border-bottom: 2px solid #082c4b;
@@ -558,20 +559,25 @@ body {
   .db-form-group input,
   .db-form-group textarea,
   .db-form-group select {
-    border: none;
-    padding: 0;
-    font-size: 0.8rem;
-    background: transparent;
-    resize: none;
-    overflow: visible;
-    -webkit-appearance: none;
-    appearance: none;
+    display: none !important;
   }
 
   .db-form-group label {
     font-size: 0.65rem;
   }
+
+  .db-form-print-value {
+    display: block !important;
+    font-size: 0.8rem;
+    white-space: pre-wrap;
+  }
+  .db-form-print-value.empty {
+    color: #9ca3af;
+    font-style: italic;
+  }
 }
+
+.db-form-print-value { display: none; }
 
 /* ── Progress table (wide) ─────────────────────────────── */
 
@@ -580,9 +586,10 @@ body {
 .db-progress-table th { white-space: nowrap; }
 
 .db-actions-cell {
-  display: flex;
-  gap: 0.35rem;
+  white-space: nowrap;
 }
+.db-actions-cell .db-btn-action { margin-right: 0.35rem; }
+.db-actions-cell .db-btn-action:last-child { margin-right: 0; }
 
 .db-btn-action {
   padding: 0.2rem 0.5rem;
@@ -605,7 +612,8 @@ body {
   color: #dc2626;
   border-color: #dc2626;
 }
-.db-btn-action-delete:hover { background: #fef2f2; }
+.db-btn-action-delete:hover:not(:disabled) { background: #fef2f2; }
+.db-btn-action:disabled { opacity: 0.4; cursor: not-allowed; }
 
 /* ── Toolbar (filters + new button) ───────────────────── */
 
@@ -851,3 +859,45 @@ body {
   padding: 0.25rem;
 }
 .db-modal-close:hover { color: var(--db-text); }
+
+.db-modal-message {
+  color: var(--db-text);
+  line-height: 1.5;
+  margin-bottom: 1.5rem;
+}
+
+.db-modal-actions {
+  display: flex;
+  gap: 0.75rem;
+  justify-content: flex-end;
+}
+
+.db-btn-secondary {
+  padding: 0.5rem 1rem;
+  border-radius: var(--db-radius);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: var(--db-white);
+  color: var(--db-text);
+  border: 1px solid var(--db-border);
+  transition: background 0.15s;
+}
+.db-btn-secondary:hover:not(:disabled) { background: var(--db-row-hover); }
+.db-btn-secondary:disabled { opacity: 0.6; cursor: not-allowed; }
+
+.db-btn-danger {
+  padding: 0.5rem 1rem;
+  border-radius: var(--db-radius);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: #dc2626;
+  color: var(--db-white);
+  border: 1px solid #dc2626;
+  transition: background 0.15s;
+}
+.db-btn-danger:hover:not(:disabled) { background: #b91c1c; }
+.db-btn-danger:disabled { opacity: 0.6; cursor: wait; }

@@ -37,6 +37,15 @@ const FIELD_DEFS: { key: string; label: string; wide?: boolean; options?: string
   { key: "remarks", label: "Remarks", wide: true },
 ];
 
+function PrintValue({ value }: { value: any }) {
+  const isEmpty = value === null || value === undefined || value === "";
+  return (
+    <span className={`db-form-print-value${isEmpty ? " empty" : ""}`}>
+      {isEmpty ? "empty" : String(value)}
+    </span>
+  );
+}
+
 export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
   const [fields, setFields] = useState<Record<string, string>>({});
   const [childName, setChildName] = useState("");
@@ -161,6 +170,7 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
                   onChange={(e) => handleFieldChange(def.key, e.target.value)}
                 />
               )}
+              <PrintValue value={fields[def.key]} />
             </div>
           ))}
         </div>

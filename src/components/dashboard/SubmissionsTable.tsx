@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Pagination } from "./Pagination";
 import { ExportModal } from "./ExportModal";
+import { ConfirmModal } from "./ConfirmModal";
 
 export interface ColumnDef {
   key: string;
@@ -15,10 +16,26 @@ interface Props {
   columns: ColumnDef[];
   onRowClick?: (row: any) => void;
   exportFilename?: string;
+  onEdit?: (row: any) => void;
+  deleteEndpoint?: string;
+  deleteTitle?: string;
+  deleteMessage?: (row: any) => string;
 }
 
-export function SubmissionsTable({ token, endpoint, columns, onRowClick, exportFilename }: Props) {
+export function SubmissionsTable({
+  token,
+  endpoint,
+  columns,
+  onRowClick,
+  exportFilename,
+  onEdit,
+  deleteEndpoint,
+  deleteTitle,
+  deleteMessage,
+}: Props) {
   const [showExport, setShowExport] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<any | null>(null);
+  const [deleting, setDeleting] = useState(false);
   const [items, setItems] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [pages, setPages] = useState(1);
@@ -92,7 +109,26 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick, exportF
     setDateTo("");
   }
 
+  async function confirmDelete() {
+    if (!deleteTarget || !deleteEndpoint) return;
+    setDeleting(true);
+    try {
+      const res = await fetch(`${deleteEndpoint}/${deleteTarget.id}`, {
+        method: "DELETE",
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error(`Error ${res.status}`);
+      setDeleteTarget(null);
+      fetchData();
+    } catch (err: any) {
+      alert(err.message ?? "Failed to delete");
+    } finally {
+      setDeleting(false);
+    }
+  }
+
   const hasFilters = search || dateFrom || dateTo;
+  const showActions = Boolean(onEdit || deleteEndpoint);
 
   if (error) {
     return <div className="db-empty">{error}</div>;
@@ -106,6 +142,18 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick, exportF
           endpoint={`${endpoint}/export`}
           filename={exportFilename}
           onClose={() => setShowExport(false)}
+        />
+      )}
+
+      {deleteTarget && deleteEndpoint && (
+        <ConfirmModal
+          title={deleteTitle ?? "Delete entry?"}
+          message={deleteMessage ? deleteMessage(deleteTarget) : "This action cannot be undone."}
+          confirmLabel="Delete"
+          danger
+          busy={deleting}
+          onConfirm={confirmDelete}
+          onCancel={() => !deleting && setDeleteTarget(null)}
         />
       )}
 
@@ -159,6 +207,7 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick, exportF
             <table className="db-table">
               <thead>
                 <tr>
+                  {showActions && <th>Actions</th>}
                   {columns.map((col) => (
                     <th
                       key={col.key}
@@ -188,6 +237,27 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick, exportF
                     className={onRowClick ? "clickable-row" : ""}
                     onClick={() => onRowClick?.(row)}
                   >
+                    {showActions && (
+                      <td className="db-actions-cell" onClick={(e) => e.stopPropagation()}>
+                        {onEdit && (
+                          <button
+                            className="db-btn-action db-btn-action-edit"
+                            onClick={() => onEdit(row)}
+                          >
+                            Edit
+                          </button>
+                        )}
+                        {deleteEndpoint && (
+                          <button
+                            className="db-btn-action db-btn-action-delete"
+                            onClick={() => setDeleteTarget(row)}
+                            title="Delete entry"
+                          >
+                            Delete
+                          </button>
+                        )}
+                      </td>
+                    )}
                     {columns.map((col) => (
                       <td key={col.key}>
                         {col.render

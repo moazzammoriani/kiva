@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Pagination } from "./Pagination";
 import { ExportModal } from "./ExportModal";
+import { ConfirmModal } from "./ConfirmModal";
 
 interface Props {
   token: string;
@@ -60,6 +61,8 @@ export function ProgressList({ token, onEdit }: Props) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [showExport, setShowExport] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<any | null>(null);
+  const [deleting, setDeleting] = useState(false);
 
   useEffect(() => {
     const id = setTimeout(() => setDebouncedSearch(search), 300);
@@ -118,18 +121,21 @@ export function ProgressList({ token, onEdit }: Props) {
     setDateTo("");
   }
 
-  async function handleDelete(row: any) {
-    if (!row.progress_id) return;
-    if (!window.confirm(`Clear progress data for ${row.child_name}?`)) return;
+  async function confirmDelete() {
+    if (!deleteTarget) return;
+    setDeleting(true);
     try {
-      const res = await fetch(`/api/submissions/progress/${row.admission_id}`, {
+      const res = await fetch(`/api/submissions/admissions/${deleteTarget.admission_id}`, {
         method: "DELETE",
         headers: { Authorization: `Bearer ${token}` },
       });
       if (!res.ok) throw new Error(`Error ${res.status}`);
+      setDeleteTarget(null);
       fetchData();
     } catch (err: any) {
       alert(err.message ?? "Failed to delete");
+    } finally {
+      setDeleting(false);
     }
   }
 
@@ -147,6 +153,18 @@ export function ProgressList({ token, onEdit }: Props) {
           endpoint="/api/submissions/progress/export"
           filename="progress-export.csv"
           onClose={() => setShowExport(false)}
+        />
+      )}
+
+      {deleteTarget && (
+        <ConfirmModal
+          title="Delete admission entry?"
+          message={`This will permanently delete the admission for ${deleteTarget.child_name || "this entry"}, along with any progress data and the uploaded progress report. This cannot be undone.`}
+          confirmLabel="Delete"
+          danger
+          busy={deleting}
+          onConfirm={confirmDelete}
+          onCancel={() => !deleting && setDeleteTarget(null)}
         />
       )}
 
@@ -226,14 +244,13 @@ export function ProgressList({ token, onEdit }: Props) {
                       >
                         Edit
                       </button>
-                      {row.progress_id && (
-                        <button
-                          className="db-btn-action db-btn-action-delete"
-                          onClick={() => handleDelete(row)}
-                        >
-                          Delete
-                        </button>
-                      )}
+                      <button
+                        className="db-btn-action db-btn-action-delete"
+                        onClick={() => setDeleteTarget(row)}
+                        title="Delete admission"
+                      >
+                        Delete
+                      </button>
                     </td>
                     {COLUMNS.map((col) => (
                       <td key={col.key} title={row[col.key] || ""}>
