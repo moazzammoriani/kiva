@@ -250,6 +250,12 @@ const resolvedNavItems = navItems.map((item) => {
                         items={item.children.map((child) => ({
                             href: child.href,
                             text: child.label,
+                            children: (child as any).children?.map(
+                                (c: { href: string; label: string }) => ({
+                                    href: c.href,
+                                    text: c.label,
+                                }),
+                            ),
                         }))}
                     />
                 ),

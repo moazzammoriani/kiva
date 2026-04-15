@@ -144,9 +144,34 @@ const resolveHref = (href: string) => {
                                 <ul class="mobile-nav__group">
                                     {item.children.map((child) => (
                                         <li>
-                                            <a href={resolveHref(child.href)}>
-                                                {child.label}
-                                            </a>
+                                            {"children" in child && child.children ? (
+                                                <details class="mobile-nav__subsection">
+                                                    <summary>
+                                                        <a
+                                                            class="mobile-nav__sub-parent"
+                                                            href={resolveHref(child.href)}
+                                                        >
+                                                            {child.label}
+                                                        </a>
+                                                        <span class="mobile-nav__summary-icon">
+                                                            +
+                                                        </span>
+                                                    </summary>
+                                                    <ul class="mobile-nav__subgroup">
+                                                        {child.children.map((sub) => (
+                                                            <li>
+                                                                <a href={resolveHref(sub.href)}>
+                                                                    {sub.label}
+                                                                </a>
+                                                            </li>
+                                                        ))}
+                                                    </ul>
+                                                </details>
+                                            ) : (
+                                                <a href={resolveHref(child.href)}>
+                                                    {child.label}
+                                                </a>
+                                            )}
                                         </li>
                                     ))}
                                 </ul>
@@ -223,9 +248,20 @@ const resolveHref = (href: string) => {
                 group.style.maxHeight = "0px";
                 group.style.overflow = "hidden";
             }
-            section.addEventListener("toggle", () => {
+            const remeasure = () => {
+                if (group && section.open) {
+                    group.style.maxHeight = `${group.scrollHeight}px`;
+                }
+            };
+            section.addEventListener("toggle", (event) => {
                 const target = section.querySelector(".mobile-nav__group");
                 if (!target) return;
+                // When a nested <details> inside this section toggles,
+                // the event bubbles up — only respond to the outer one.
+                if (event.target !== section) {
+                    remeasure();
+                    return;
+                }
                 if (section.open) {
                     target.style.maxHeight = `${target.scrollHeight}px`;
                 } else {
@@ -385,7 +421,7 @@ const resolveHref = (href: string) => {
         line-height: 1;
     }
 
-    .mobile-nav__section ul {
+    .mobile-nav__group {
         margin: 0;
         padding: 0 0 0.5rem 0.35rem;
         list-style: none;
@@ -395,12 +431,12 @@ const resolveHref = (href: string) => {
         max-height: 0;
     }
 
-    .mobile-nav__section li {
+    .mobile-nav__group > li {
         border-bottom: 1px solid rgba(0, 0, 0, 0.25);
         padding-bottom: 0.25rem;
     }
 
-    .mobile-nav__section li:last-child {
+    .mobile-nav__group > li:last-child {
         border-bottom: none;
     }
 
@@ -423,6 +459,48 @@ const resolveHref = (href: string) => {
         color: white;
         background: var(--mobile-teal);
         outline: none;
+    }
+
+    .mobile-nav__subsection {
+        width: 100%;
+    }
+
+    .mobile-nav__subsection summary {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        list-style: none;
+        cursor: pointer;
+        padding: 0.2rem 0;
+    }
+
+    .mobile-nav__subsection summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .mobile-nav__sub-parent {
+        flex: 1 1 auto;
+    }
+
+    .mobile-nav__subgroup {
+        margin: 0;
+        padding: 0.25rem 0 0.25rem 0.9rem;
+        list-style: none;
+        display: grid;
+        gap: 0.3rem;
+    }
+
+    .mobile-nav__subsection:not([open]) .mobile-nav__subgroup {
+        display: none;
+    }
+
+    .mobile-nav__subgroup li {
+        border-bottom: 1px solid rgba(0, 0, 0, 0.18);
+        padding-bottom: 0.2rem;
+    }
+
+    .mobile-nav__subgroup li:last-child {
+        border-bottom: none;
     }
 
     .mobile-nav__section--single {

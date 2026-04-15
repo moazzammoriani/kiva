@@ -5,16 +5,19 @@ export type NavLinkItem = {
   href: string;
 };
 
+export type NavChildItem = {
+  key: string;
+  label: string;
+  href: string;
+  children?: { key: string; label: string; href: string }[];
+};
+
 export type NavGroupItem = {
   type: "group";
   key: string;
   label: string;
   base: string;
-  children: {
-    key: string;
-    label: string;
-    href: string;
-  }[];
+  children: NavChildItem[];
 };
 
 export type NavItem = NavLinkItem | NavGroupItem;
@@ -25,11 +28,23 @@ export const staticAboutChildren = [
   { key: "aboutTeam", label: "Meet the Team", href: "/about/team/" },
 ];
 
-export const staticProgrammeChildren = [
+export const staticProgrammeChildren: NavChildItem[] = [
   {
     key: "progPreschool",
     label: "Pre-school & Elementary School",
     href: "/programmes/preschool-and-elementary/",
+    children: [
+      {
+        key: "progPreschoolAmi",
+        label: "AMI Portal",
+        href: "#",
+      },
+      {
+        key: "progPreschoolInfo",
+        label: "Info",
+        href: "/programmes/preschool-and-elementary/",
+      },
+    ],
   },
   {
     key: "progSenior",
