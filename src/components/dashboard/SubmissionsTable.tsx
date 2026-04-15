@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { Pagination } from "./Pagination";
+import { ExportModal } from "./ExportModal";
 
 export interface ColumnDef {
   key: string;
@@ -13,9 +14,11 @@ interface Props {
   endpoint: string;
   columns: ColumnDef[];
   onRowClick?: (row: any) => void;
+  exportFilename?: string;
 }
 
-export function SubmissionsTable({ token, endpoint, columns, onRowClick }: Props) {
+export function SubmissionsTable({ token, endpoint, columns, onRowClick, exportFilename }: Props) {
+  const [showExport, setShowExport] = useState(false);
   const [items, setItems] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [pages, setPages] = useState(1);
@@ -97,6 +100,15 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick }: Props
 
   return (
     <>
+      {showExport && exportFilename && (
+        <ExportModal
+          token={token}
+          endpoint={`${endpoint}/export`}
+          filename={exportFilename}
+          onClose={() => setShowExport(false)}
+        />
+      )}
+
       <div className="db-filters">
         <input
           className="db-search-input"
@@ -130,6 +142,11 @@ export function SubmissionsTable({ token, endpoint, columns, onRowClick }: Props
             </button>
           )}
         </div>
+        {exportFilename && (
+          <button className="db-btn-export" onClick={() => setShowExport(true)}>
+            Export CSV
+          </button>
+        )}
       </div>
 
       {loading ? (

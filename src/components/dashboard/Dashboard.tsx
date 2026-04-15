@@ -260,6 +260,7 @@ export default function Dashboard() {
               : ADMISSION_COLUMNS
         }
         onRowClick={handleRowClick}
+        exportFilename={`${activeTab}-export.csv`}
       />
     );
   }
