@@ -9,7 +9,7 @@ export type NavChildItem = {
   key: string;
   label: string;
   href: string;
-  children?: { key: string; label: string; href: string }[];
+  external?: boolean;
 };
 
 export type NavGroupItem = {
@@ -33,18 +33,6 @@ export const staticProgrammeChildren: NavChildItem[] = [
     key: "progPreschool",
     label: "Pre-school & Elementary School",
     href: "/programmes/preschool-and-elementary/",
-    children: [
-      {
-        key: "progPreschoolAmi",
-        label: "AMI Portal",
-        href: "#",
-      },
-      {
-        key: "progPreschoolInfo",
-        label: "Info",
-        href: "/programmes/preschool-and-elementary/",
-      },
-    ],
   },
   {
     key: "progSenior",
@@ -52,6 +40,12 @@ export const staticProgrammeChildren: NavChildItem[] = [
     href: "/programmes/middle-and-senior/",
   },
   { key: "progKamps", label: "Kiva Kamps", href: "/programmes/kiva-kamps/" },
+  {
+    key: "progReports",
+    label: "Progress Reports",
+    href: "https://my.amischool.edu.pk",
+    external: true,
+  },
 ];
 
 export const staticKivaSquareChildren = [

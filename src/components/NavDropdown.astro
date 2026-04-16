@@ -1,7 +1,7 @@
 ---
 import NavLink from "./NavLink.astro";
 
-type Item = { href: string; text: string; children?: Item[] };
+type Item = { href: string; text: string; external?: boolean };
 const { baseLink, label, items } = Astro.props as {
     baseLink: string;
     label: string;
@@ -11,7 +11,10 @@ const { baseLink, label, items } = Astro.props as {
 const rawBase = import.meta.env.BASE_URL || "/";
 const trimmedBase = rawBase.replace(/\/$/, "");
 
+const isExternal = (href: string) => /^https?:\/\//i.test(href);
+
 const resolveHref = (href: string) => {
+    if (isExternal(href)) return href;
     const clean = href.startsWith("/") ? href : `/${href}`;
     if (trimmedBase === "") return clean;
     if (clean === "/") return `${trimmedBase}/`;
@@ -39,30 +42,16 @@ const active =
     <ul class="menu" role="menu" aria-label={label}>
         {
             items.map((i) => (
-                <li role="none" class={i.children ? "has-submenu" : ""}>
+                <li role="none">
                     <a
                         class="menu-link"
                         role="menuitem"
                         href={resolveHref(i.href)}
+                        target={i.external ? "_blank" : undefined}
+                        rel={i.external ? "noopener noreferrer" : undefined}
                     >
                         {i.text}
-                        {i.children && <span class="submenu-arrow">›</span>}
                     </a>
-                    {i.children && (
-                        <ul class="submenu" role="menu" aria-label={i.text}>
-                            {i.children.map((c) => (
-                                <li role="none">
-                                    <a
-                                        class="menu-link"
-                                        role="menuitem"
-                                        href={resolveHref(c.href)}
-                                    >
-                                        {c.text}
-                                    </a>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
                 </li>
             ))
         }
@@ -151,54 +140,9 @@ const active =
 
         .menu li {
             margin: 0;
-            position: relative;
         }
         .menu li:not(:last-child) {
             border-bottom: 2px solid var(--teal);
-        }
-
-        .has-submenu > .menu-link {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 0.5rem;
-        }
-        .submenu-arrow {
-            font-size: 1.1em;
-            line-height: 1;
-            transition: transform 150ms ease;
-        }
-        .has-submenu:hover .submenu-arrow,
-        .has-submenu:focus-within .submenu-arrow {
-            transform: translateX(2px);
-        }
-
-        .submenu {
-            position: absolute;
-            top: -0.4rem;
-            left: calc(100% + 4px);
-            display: none;
-            list-style: none;
-            margin: 0;
-            padding: 0.4rem;
-            min-width: 180px;
-            background-color: var(--color-yellow);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            box-shadow: var(--menu-shadow);
-            z-index: 70;
-        }
-        .has-submenu::after {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 100%;
-            width: 8px;
-            height: 100%;
-        }
-        .has-submenu:hover > .submenu,
-        .has-submenu:focus-within > .submenu {
-            display: block;
         }
         .menu-link {
             border-radius: 4px;
