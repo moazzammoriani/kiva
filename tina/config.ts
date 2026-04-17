@@ -11,6 +11,7 @@ import { ProgrammePagesCollection } from "./collections/programmePages";
 import { AdmissionPagesCollection } from "./collections/admissionPages";
 import { KivaSquarePagesCollection } from "./collections/kivaSquarePages";
 import { NavigationCollection } from "./collections/navigation";
+import { KivaKampFormCollection } from "./collections/kivaKampForm";
 import { KivaAuthProvider } from "./auth";
 import { PublishScreen } from "./PublishScreen";
 import navLabels from "../content/navigation/navigation.json";
@@ -63,6 +64,7 @@ export default defineConfig({
       ProgrammePagesCollection(navLabels.programmes?.[0]?.label),
       AdmissionPagesCollection(navLabels.admissions?.[0]?.label),
       KivaSquarePagesCollection(navLabels.kivaSquare?.[0]?.label),
+      KivaKampFormCollection(),
       NavigationCollection,
     ],
   },

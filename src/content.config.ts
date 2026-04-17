@@ -18,7 +18,7 @@ const home = defineCollection({
           src: z.string().optional(),
           alt: z.string().optional(),
           label: z.string().optional(),
-        })
+        }),
       )
       .optional(),
     educationWorksTitle: z.string().optional(),
@@ -27,7 +27,7 @@ const home = defineCollection({
         z.object({
           src: z.string().optional(),
           alt: z.string().optional(),
-        })
+        }),
       )
       .optional(),
     partnersTitle: z.string().optional(),
@@ -36,7 +36,7 @@ const home = defineCollection({
         z.object({
           src: z.string().optional(),
           alt: z.string().optional(),
-        })
+        }),
       )
       .optional(),
   }),
@@ -88,7 +88,7 @@ const preschool = defineCollection({
         z.object({
           src: z.string().optional(),
           alt: z.string().optional(),
-        })
+        }),
       )
       .optional(),
     curiosityApproach: z.any().optional(),
@@ -97,7 +97,7 @@ const preschool = defineCollection({
         z.object({
           name: z.string().optional(),
           ageRange: z.string().optional(),
-        })
+        }),
       )
       .optional(),
     elementaryTitle: z.string().optional(),
@@ -107,7 +107,7 @@ const preschool = defineCollection({
         z.object({
           src: z.string().optional(),
           alt: z.string().optional(),
-        })
+        }),
       )
       .optional(),
     elementarySecond: z.any().optional(),
@@ -120,7 +120,7 @@ const preschool = defineCollection({
         z.object({
           title: z.string().optional(),
           content: z.any().optional(),
-        })
+        }),
       )
       .optional(),
   }),
@@ -138,7 +138,7 @@ const middleAndSenior = defineCollection({
         z.object({
           src: z.string().optional(),
           alt: z.string().optional(),
-        })
+        }),
       )
       .optional(),
     bodyText: z.any().optional(),
@@ -163,7 +163,7 @@ const admissionProcess = defineCollection({
         z.object({
           title: z.string().optional(),
           content: z.any().optional(),
-        })
+        }),
       )
       .optional(),
   }),
@@ -183,8 +183,87 @@ const community = defineCollection({
           title: z.string().optional(),
           image: z.string().optional(),
           description: z.any().optional(),
-        })
+        }),
       )
+      .optional(),
+  }),
+});
+
+const kivaKampForm = defineCollection({
+  loader: file("content/kiva-kamp-form/kiva-kamp-form.json", {
+    parser: (text) => [{ id: "kivaKampForm", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    bannerSlides: z
+      .array(
+        z.object({
+          src: z.string().optional(),
+          alt: z.string().optional(),
+        }),
+      )
+      .optional(),
+    intro: z
+      .object({
+        title: z.string().optional(),
+        kicker: z.string().optional(),
+        lead: z.any().optional(),
+        bodyLines: z.array(z.string()).optional(),
+        contactText: z.string().optional(),
+        contactNumber: z.string().optional(),
+        disclaimer: z.string().optional(),
+      })
+      .optional(),
+    cardGroups: z
+      .array(
+        z.object({
+          variant: z.enum(["details", "offers"]).optional(),
+          items: z
+            .array(
+              z.object({
+                label: z.string().optional(),
+                value: z.string().optional(),
+              }),
+            )
+            .optional(),
+        }),
+      )
+      .optional(),
+    form: z
+      .object({
+        title: z.string().optional(),
+        textFields: z
+          .array(
+            z.object({
+              key: z.string().optional(),
+              label: z.string().optional(),
+              type: z.string().optional(),
+              required: z.boolean().optional(),
+              inputMode: z.string().optional(),
+              pattern: z.string().optional(),
+            }),
+          )
+          .optional(),
+        choiceGroups: z
+          .array(
+            z.object({
+              key: z.string().optional(),
+              prompt: z.string().optional(),
+              required: z.boolean().optional(),
+              options: z
+                .array(
+                  z.object({
+                    label: z.string().optional(),
+                    value: z.string().optional(),
+                  }),
+                )
+                .optional(),
+            }),
+          )
+          .optional(),
+        submitButtonText: z.string().optional(),
+        successTitle: z.string().optional(),
+        successMessage: z.string().optional(),
+      })
       .optional(),
   }),
 });
@@ -201,7 +280,9 @@ const blockSchema = z.discriminatedUnion("_template", [
     _template: z.literal("imageGallery"),
     sectionTitle: z.string().optional(),
     images: z
-      .array(z.object({ src: z.string().optional(), alt: z.string().optional() }))
+      .array(
+        z.object({ src: z.string().optional(), alt: z.string().optional() }),
+      )
       .optional(),
   }),
   z.object({
@@ -258,28 +339,58 @@ const navigation = defineCollection({
     careersLabel: z.string().optional(),
     contactUsLabel: z.string().optional(),
     communityEnrichmentLabel: z.string().optional(),
-    aboutUs: z.array(z.object({
-      label: z.string().optional(),
-      ourStoryLabel: z.string().optional(),
-      missionLabel: z.string().optional(),
-      teamLabel: z.string().optional(),
-    })).optional(),
-    programmes: z.array(z.object({
-      label: z.string().optional(),
-      preschoolLabel: z.string().optional(),
-      seniorLabel: z.string().optional(),
-      kampsLabel: z.string().optional(),
-    })).optional(),
-    admissions: z.array(z.object({
-      label: z.string().optional(),
-      processLabel: z.string().optional(),
-      formLabel: z.string().optional(),
-    })).optional(),
-    kivaSquare: z.array(z.object({
-      label: z.string().optional(),
-      year2024Label: z.string().optional(),
-    })).optional(),
+    aboutUs: z
+      .array(
+        z.object({
+          label: z.string().optional(),
+          ourStoryLabel: z.string().optional(),
+          missionLabel: z.string().optional(),
+          teamLabel: z.string().optional(),
+        }),
+      )
+      .optional(),
+    programmes: z
+      .array(
+        z.object({
+          label: z.string().optional(),
+          preschoolLabel: z.string().optional(),
+          seniorLabel: z.string().optional(),
+          kampsLabel: z.string().optional(),
+        }),
+      )
+      .optional(),
+    admissions: z
+      .array(
+        z.object({
+          label: z.string().optional(),
+          processLabel: z.string().optional(),
+          formLabel: z.string().optional(),
+        }),
+      )
+      .optional(),
+    kivaSquare: z
+      .array(
+        z.object({
+          label: z.string().optional(),
+          year2024Label: z.string().optional(),
+        }),
+      )
+      .optional(),
   }),
 });
 
-export const collections = { home, mission, team, preschool, middleAndSenior, admissionProcess, community, aboutPages, programmePages, admissionPages, kivaSquarePages, navigation };
+export const collections = {
+  home,
+  mission,
+  team,
+  preschool,
+  middleAndSenior,
+  admissionProcess,
+  community,
+  kivaKampForm,
+  aboutPages,
+  programmePages,
+  admissionPages,
+  kivaSquarePages,
+  navigation,
+};
