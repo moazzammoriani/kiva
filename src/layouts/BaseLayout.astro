@@ -15,6 +15,7 @@ const {
     heroAlt?: string;
 };
 
+const hasCustomHero = Astro.slots.has("hero");
 const heroWebP = heroSrc?.replace(/\.(png|jpe?g)$/i, ".webp") ?? null;
 const documentTitle = pageTitle ? `${pageTitle} · Kiva School` : "Kiva School";
 import "../styles/global.css";
@@ -27,7 +28,7 @@ import "../styles/global.css";
         <meta name="generator" content={Astro.generator} />
         <title>{documentTitle}</title>
         <link rel="icon" type="image/png" href={tabIcon.src} />
-        {heroSrc && (
+        {!hasCustomHero && heroSrc && (
             <link rel="preload" as="image" href={heroWebP || heroSrc} type={heroWebP ? "image/webp" : undefined} fetchpriority="high" />
         )}
         <link
@@ -44,7 +45,7 @@ import "../styles/global.css";
                 <Navigation />
             </div>
             <MobileNavigation client:load />
-            {
+            {hasCustomHero ? <slot name="hero" /> : (
                 heroSrc && (
                     <div class="banner" role="presentation">
                         <picture>
@@ -53,7 +54,7 @@ import "../styles/global.css";
                         </picture>
                     </div>
                 )
-            }
+            )}
             <main class="page-content">
                 <slot />
             </main>

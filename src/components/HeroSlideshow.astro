@@ -1,0 +1,124 @@
+---
+type Slide = {
+    src: string;
+    alt?: string;
+};
+
+const { images: rawImages = [], intervalMs = 4200 } = Astro.props as {
+    images?: Slide[];
+    intervalMs?: number;
+};
+
+const images = rawImages.filter((image) => image?.src);
+const slideshowId = `hero-slideshow-${Math.random().toString(36).slice(2, 10)}`;
+---
+
+{
+    images.length > 0 && (
+        <div
+            id={slideshowId}
+            class="hero-slideshow"
+            role="presentation"
+        >
+            {
+                images.map((image, index) => (
+                    <img
+                        src={image.src}
+                        alt={image.alt ?? ""}
+                        class={`hero-slideshow__image${index === 0 ? " is-active" : ""}`}
+                        loading={index === 0 ? "eager" : "lazy"}
+                        fetchpriority={index === 0 ? "high" : undefined}
+                        data-slide
+                    />
+                ))
+            }
+        </div>
+    )
+}
+
+<script type="module" define:vars={{ intervalMs, slideshowId }}>
+    const root = document.getElementById(slideshowId);
+
+    if (!(root instanceof HTMLElement)) {
+    } else {
+        const slides = Array.from(root.querySelectorAll("[data-slide]"));
+
+        if (slides.length > 1) {
+            const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+            let index = 0;
+            let timer;
+
+            const show = (nextIndex) => {
+                slides[index]?.classList.remove("is-active");
+                index = nextIndex;
+                slides[index]?.classList.add("is-active");
+            };
+
+            const advance = () => {
+                show((index + 1) % slides.length);
+            };
+
+            const stop = () => {
+                if (timer !== undefined) {
+                    window.clearInterval(timer);
+                    timer = undefined;
+                }
+            };
+
+            const start = () => {
+                stop();
+                if (reducedMotion.matches) return;
+                timer = window.setInterval(advance, intervalMs);
+            };
+
+            const handleVisibility = () => {
+                if (document.hidden) {
+                    stop();
+                } else {
+                    start();
+                }
+            };
+
+            const handleMotionChange = () => {
+                start();
+            };
+
+            root.addEventListener("mouseenter", stop);
+            root.addEventListener("mouseleave", start);
+            document.addEventListener("visibilitychange", handleVisibility);
+
+            if (typeof reducedMotion.addEventListener === "function") {
+                reducedMotion.addEventListener("change", handleMotionChange);
+            } else {
+                reducedMotion.addListener(handleMotionChange);
+            }
+
+            start();
+        }
+    }
+</script>
+
+<style>
+    .hero-slideshow {
+        position: relative;
+        width: 100%;
+        height: clamp(200px, 25vw, 480px);
+        overflow: hidden;
+        background: #ffffff;
+    }
+
+    .hero-slideshow__image {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        transition: opacity 700ms ease;
+        filter: saturate(1.08) contrast(1.04) brightness(1.03);
+    }
+
+    .hero-slideshow__image.is-active {
+        opacity: 1;
+    }
+ </style>

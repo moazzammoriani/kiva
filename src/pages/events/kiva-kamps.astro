@@ -1,11 +1,26 @@
 ---
+import { readdirSync } from "node:fs";
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import heroImage from "../../assets/Banner_KivaKamp.webp";
 import PageSection from "../../components/PageSection.astro";
 import FormNotification from "../../components/FormNotification.astro";
+import HeroSlideshow from "../../components/HeroSlideshow.astro";
+
+const bannerSlidesDir = new URL("../../../public/images/kiva-kamps/form/", import.meta.url);
+
+const bannerSlides = readdirSync(bannerSlidesDir)
+    .filter((fileName) => fileName.endsWith(".webp"))
+    .sort((leftPath, rightPath) =>
+        leftPath.localeCompare(rightPath, undefined, { numeric: true })
+    )
+    .map((fileName) => ({
+        src: `/images/kiva-kamps/form/${fileName}`,
+        alt: "",
+    }));
 ---
 
-<BaseLayout pageTitle={null} heroSrc={heroImage.src}>
+<BaseLayout pageTitle={null} heroSrc={null}>
+    <HeroSlideshow slot="hero" images={bannerSlides} intervalMs={3800} />
+
     <PageSection contentWidth="narrow">
         <div class="kamp-intro">
             <h1 class="kamp-intro__title">Kiva Kamp 2026</h1>
