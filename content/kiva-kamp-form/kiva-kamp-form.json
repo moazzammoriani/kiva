@@ -1,0 +1,290 @@
+{
+  "bannerSlides": [
+    {
+      "src": "/images/kiva-kamps/form/image00001.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00002.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00003.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00004.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00005.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00006.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00007.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00008.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00009.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00010.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00011.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00012.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00013.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00014.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00015.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00076.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00077.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00078.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00079.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00080.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00081.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00082.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00083.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00084.webp",
+      "alt": ""
+    },
+    {
+      "src": "/images/kiva-kamps/form/image00157.webp",
+      "alt": ""
+    }
+  ],
+  "intro": {
+    "title": "Kiva Kamp 2026",
+    "kicker": "Pack your school books away, it's time to Kamp the Kiva way! ☀️",
+    "lead": "**Summers at Kiva** will be a whirlwind of exploration, creation, learning and of course, play!",
+    "bodyLines": [
+      "Let's make this a summer to cherish and remember.",
+      "Sign up today, and let the adventure begin."
+    ],
+    "contactText": "For further information please contact:",
+    "contactNumber": "0306 5329813",
+    "disclaimer": "*Discounts are eligible till 9th May, after which the standard fee — Rs. 15,000 will be applicable."
+  },
+  "cardGroups": [
+    {
+      "variant": "details",
+      "items": [
+        {
+          "label": "Date",
+          "value": "27th May to 20th June"
+        },
+        {
+          "label": "Age",
+          "value": "3 years to 12 years"
+        },
+        {
+          "label": "Fee",
+          "value": "Rs. 15,000/."
+        }
+      ]
+    },
+    {
+      "variant": "offers",
+      "items": [
+        {
+          "label": "Early Bird Discount",
+          "value": "15% — Rs. 12,750/."
+        },
+        {
+          "label": "Group Discount",
+          "value": "20% — Rs. 12,000/."
+        }
+      ]
+    }
+  ],
+  "form": {
+    "title": "REGISTER",
+    "textFields": [
+      {
+        "key": "name",
+        "label": "Name",
+        "type": "text",
+        "required": true,
+        "inputMode": "text",
+        "pattern": ""
+      },
+      {
+        "key": "class",
+        "label": "Class",
+        "type": "text",
+        "required": true,
+        "inputMode": "text",
+        "pattern": ""
+      },
+      {
+        "key": "age",
+        "label": "Age",
+        "type": "text",
+        "required": true,
+        "inputMode": "text",
+        "pattern": ""
+      },
+      {
+        "key": "schoolName",
+        "label": "School Name",
+        "type": "text",
+        "required": true,
+        "inputMode": "text",
+        "pattern": ""
+      },
+      {
+        "key": "fatherName",
+        "label": "Father Name",
+        "type": "text",
+        "required": true,
+        "inputMode": "text",
+        "pattern": ""
+      },
+      {
+        "key": "motherName",
+        "label": "Mother Name",
+        "type": "text",
+        "required": true,
+        "inputMode": "text",
+        "pattern": ""
+      },
+      {
+        "key": "fatherContact",
+        "label": "Father Contact Number",
+        "type": "tel",
+        "required": true,
+        "inputMode": "numeric",
+        "pattern": "[0-9]+"
+      },
+      {
+        "key": "motherContact",
+        "label": "Mother Contact Number",
+        "type": "tel",
+        "required": true,
+        "inputMode": "numeric",
+        "pattern": "[0-9]+"
+      }
+    ],
+    "choiceGroups": [
+      {
+        "key": "attendedPast",
+        "prompt": "Have you attended Kiva Kamp in the past?",
+        "required": true,
+        "options": [
+          {
+            "label": "Yes",
+            "value": "Yes"
+          },
+          {
+            "label": "No",
+            "value": "No"
+          }
+        ]
+      },
+      {
+        "key": "sibling",
+        "prompt": "Do you have a sibling enrolled at The Kiva School or The AMI School?",
+        "required": true,
+        "options": [
+          {
+            "label": "Yes",
+            "value": "Yes"
+          },
+          {
+            "label": "No",
+            "value": "No"
+          }
+        ]
+      },
+      {
+        "key": "group",
+        "prompt": "Are you registering as a group of 3 or more children? Please note, you're eligible for a 20% Group Discount till 9th May.",
+        "required": true,
+        "options": [
+          {
+            "label": "Yes",
+            "value": "Yes"
+          },
+          {
+            "label": "No",
+            "value": "No"
+          }
+        ]
+      },
+      {
+        "key": "referral",
+        "prompt": "Where did you hear about us?",
+        "required": true,
+        "options": [
+          {
+            "label": "Social Media",
+            "value": "Social Media"
+          },
+          {
+            "label": "Word of Mouth",
+            "value": "Word of Mouth"
+          },
+          {
+            "label": "Website",
+            "value": "Website"
+          },
+          {
+            "label": "Friend",
+            "value": "Friend"
+          }
+        ]
+      }
+    ],
+    "submitButtonText": "Submit",
+    "successTitle": "Registration received",
+    "successMessage": "Thanks for signing up! We'll be in touch shortly."
+  }
+}
