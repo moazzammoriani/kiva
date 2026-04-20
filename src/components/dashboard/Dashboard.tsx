@@ -4,6 +4,7 @@ import { SubmissionsTable, type ColumnDef } from "./SubmissionsTable";
 import { AdmissionDetail } from "./AdmissionDetail";
 import { ContactDetail } from "./ContactDetail";
 import { CareerDetail } from "./CareerDetail";
+import { KivaKampDetail } from "./KivaKampDetail";
 import { ProgressList } from "./ProgressList";
 import { ProgressForm } from "./ProgressForm";
 import { AdmissionForm } from "./AdmissionForm";
@@ -11,31 +12,31 @@ import { ContactForm } from "./ContactForm";
 import { CareerForm } from "./CareerForm";
 import "./dashboard.css";
 
-type Tab = "contacts" | "careers" | "admissions" | "progress";
+type Tab = "contacts" | "careers" | "admissions" | "kiva-kamps" | "progress";
 
-const TABS: Tab[] = ["contacts", "careers", "admissions", "progress"];
+const TABS: Tab[] = ["contacts", "careers", "admissions", "kiva-kamps", "progress"];
 
 type RouteMode = "list" | "detail" | "new" | "edit";
 
 function parseRoute(): { tab: Tab; detailId: number | null; mode: RouteMode } {
   const path = window.location.pathname.replace(/\/+$/, "");
   // e.g. /dashboard/progress/new
-  const newMatch = path.match(/^\/dashboard\/(\w+)\/new$/);
+  const newMatch = path.match(/^\/dashboard\/([\w-]+)\/new$/);
   if (newMatch && TABS.includes(newMatch[1] as Tab)) {
     return { tab: newMatch[1] as Tab, detailId: null, mode: "new" };
   }
   // e.g. /dashboard/progress/5/edit
-  const editMatch = path.match(/^\/dashboard\/(\w+)\/(\d+)\/edit$/);
+  const editMatch = path.match(/^\/dashboard\/([\w-]+)\/(\d+)\/edit$/);
   if (editMatch && TABS.includes(editMatch[1] as Tab)) {
     return { tab: editMatch[1] as Tab, detailId: Number(editMatch[2]), mode: "edit" };
   }
   // e.g. /dashboard/careers/5
-  const match = path.match(/^\/dashboard\/(\w+)\/(\d+)$/);
+  const match = path.match(/^\/dashboard\/([\w-]+)\/(\d+)$/);
   if (match && TABS.includes(match[1] as Tab)) {
     return { tab: match[1] as Tab, detailId: Number(match[2]), mode: "detail" };
   }
   // e.g. /dashboard/careers
-  const tabMatch = path.match(/^\/dashboard\/(\w+)$/);
+  const tabMatch = path.match(/^\/dashboard\/([\w-]+)$/);
   if (tabMatch && TABS.includes(tabMatch[1] as Tab)) {
     return { tab: tabMatch[1] as Tab, detailId: null, mode: "list" };
   }
@@ -112,6 +113,19 @@ const ADMISSION_COLUMNS: ColumnDef[] = [
   { key: "mother_name", label: "Mother", sortable: false },
   { key: "father_name", label: "Father", sortable: false },
   { key: "mother_phone", label: "Mother Phone", sortable: false },
+  { key: "created_at", label: "Date", render: formatDate },
+];
+
+const KIVA_KAMP_COLUMNS: ColumnDef[] = [
+  { key: "id", label: "#" },
+  { key: "name", label: "Name" },
+  { key: "child_class", label: "Class", sortable: false },
+  { key: "age", label: "Age", sortable: false },
+  { key: "school_name", label: "School" },
+  { key: "father_name", label: "Father", sortable: false },
+  { key: "mother_name", label: "Mother", sortable: false },
+  { key: "father_contact", label: "Father Contact", sortable: false },
+  { key: "referral", label: "Referral", sortable: false },
   { key: "created_at", label: "Date", render: formatDate },
 ];
 
@@ -209,6 +223,7 @@ export default function Dashboard() {
     { key: "contacts", label: "Contacts" },
     { key: "careers", label: "Careers" },
     { key: "admissions", label: "Admissions" },
+    { key: "kiva-kamps", label: "Kamps" },
     { key: "progress", label: "Progress" },
   ];
 
@@ -221,6 +236,8 @@ export default function Dashboard() {
         return <CareerDetail id={detailId} token={token!} onBack={handleBack} />;
       case "admissions":
         return <AdmissionDetail id={detailId} token={token!} onBack={handleBack} />;
+      case "kiva-kamps":
+        return <KivaKampDetail id={detailId} token={token!} onBack={handleBack} />;
     }
   }
 
@@ -289,27 +306,35 @@ export default function Dashboard() {
         `This will permanently delete the career application from ${row.name || "this entry"}, along with the uploaded CV. This cannot be undone.`,
       admissions: (row) =>
         `This will permanently delete the admission for ${row.child_name || "this entry"}, along with any progress data and the uploaded progress report. This cannot be undone.`,
+      "kiva-kamps": (row) =>
+        `This will permanently delete the Kiva Kamps registration from ${row.name || "this entry"}. This cannot be undone.`,
     };
     const deleteTitleByTab: Record<string, string> = {
       contacts: "Delete contact entry?",
       careers: "Delete career entry?",
       admissions: "Delete admission entry?",
+      "kiva-kamps": "Delete Kamps entry?",
     };
+    const columnsByTab: Record<string, ColumnDef[]> = {
+      contacts: CONTACT_COLUMNS,
+      careers: CAREER_COLUMNS,
+      admissions: ADMISSION_COLUMNS,
+      "kiva-kamps": KIVA_KAMP_COLUMNS,
+    };
+    const supportsEdit = activeTab !== "kiva-kamps";
     return (
       <SubmissionsTable
         key={activeTab}
         token={token!}
         endpoint={`/api/submissions/${activeTab}`}
-        columns={
-          activeTab === "contacts"
-            ? CONTACT_COLUMNS
-            : activeTab === "careers"
-              ? CAREER_COLUMNS
-              : ADMISSION_COLUMNS
-        }
+        columns={columnsByTab[activeTab]}
         onRowClick={handleRowClick}
         exportFilename={`${activeTab}-export.csv`}
-        onEdit={(row) => navigate(`/dashboard/${activeTab}/${row.id}/edit`)}
+        onEdit={
+          supportsEdit
+            ? (row) => navigate(`/dashboard/${activeTab}/${row.id}/edit`)
+            : undefined
+        }
         deleteEndpoint={`/api/submissions/${activeTab}`}
         deleteTitle={deleteTitleByTab[activeTab]}
         deleteMessage={deleteMessageByTab[activeTab]}

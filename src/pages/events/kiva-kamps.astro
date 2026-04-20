@@ -564,9 +564,23 @@ const successMessage =
     ?.querySelectorAll<HTMLInputElement>('input[type="tel"]')
     .forEach((el) => el.addEventListener("input", stripNonDigits));
 
-  form?.addEventListener("submit", (e) => {
+  form?.addEventListener("submit", async (e) => {
     e.preventDefault();
-    if (form) form.style.display = "none";
-    if (notification) notification.style.display = "flex";
+    if (!form) return;
+    const formData = new FormData(form);
+    try {
+      const response = await fetch("/api/kiva-kamps", {
+        method: "POST",
+        body: formData,
+      });
+      if (response.ok) {
+        form.style.display = "none";
+        if (notification) notification.style.display = "flex";
+      } else {
+        alert("Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      alert("Something went wrong. Please try again.");
+    }
   });
 </script>
