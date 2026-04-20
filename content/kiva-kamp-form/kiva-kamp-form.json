@@ -104,14 +104,14 @@
   "intro": {
     "title": "Kiva Kamp 2026",
     "kicker": "Pack your school books away, it's time to Kamp the Kiva way! ☀️",
-    "lead": "**Summers at Kiva** will be a whirlwind of exploration, creation, learning and of course, play!",
+    "lead": "**Summers at Kiva** will be a whirlwind of exploration, creation, learning, and of course, play!\n",
     "bodyLines": [
       "Let's make this a summer to cherish and remember.",
       "Sign up today, and let the adventure begin."
     ],
-    "contactText": "For further information please contact:",
-    "contactNumber": "0306 5329813",
-    "disclaimer": "*Discounts are eligible till 9th May, after which the standard fee — Rs. 15,000 will be applicable."
+    "contactText": "For further information, please contact:",
+    "contactNumber": "0333 0328058",
+    "disclaimer": "*Discounts are eligible till 3rd May, after which the standard fee - Rs. 20,000 will be applicable."
   },
   "cardGroups": [
     {
@@ -119,15 +119,15 @@
       "items": [
         {
           "label": "Date",
-          "value": "27th May to 20th June"
+          "value": "19th May to 19th June"
         },
         {
           "label": "Age",
-          "value": "3 years to 12 years"
+          "value": "3 years to 15 years"
         },
         {
           "label": "Fee",
-          "value": "Rs. 15,000/."
+          "value": "Rs. 20,000/."
         }
       ]
     },
@@ -136,11 +136,11 @@
       "items": [
         {
           "label": "Early Bird Discount",
-          "value": "15% — Rs. 12,750/."
+          "value": "15% — Rs. 17,000/."
         },
         {
           "label": "Group Discount",
-          "value": "20% — Rs. 12,000/."
+          "value": "20% — Rs. 16,000/."
         }
       ]
     }
@@ -246,7 +246,7 @@
       },
       {
         "key": "group",
-        "prompt": "Are you registering as a group of 3 or more children? Please note, you're eligible for a 20% Group Discount till 9th May.",
+        "prompt": "Are you registering as a group of 3 or more children? Please note, you're eligible for a 20% Group Discount till 3rd May.",
         "required": true,
         "options": [
           {
