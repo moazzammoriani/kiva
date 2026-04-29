@@ -1,38 +1,134 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import heroImage from "../../assets/Banner_AdmissionForm.webp";
 import PageSection from "../../components/PageSection.astro";
 import FormNotification from "../../components/FormNotification.astro";
+import { richTextToHtml } from "../../utils/richTextToHtml";
+
+const fallbackIntro =
+  "<p>At the Kiva School we aim to provide an admission process that is smooth and stress-free for parents. To initiate the admission process, please fill out the form below. A member from our Admissions Office will be in touch with you soon to communicate next steps.</p>";
+
+const fallbackSessionOptions = ["2025–2026", "2026–2027"];
+
+const fallbackHeadings = {
+  session: "Session",
+  child: "Child's Information",
+  parents: "Parents' Information",
+  motherDetails: "Mother's Details",
+  fatherDetails: "Father's Details",
+  sibling: "Sibling(s) Information",
+  emergency: "Emergency Contact",
+  hearAbout: "How did you hear about us?",
+  fit: "Why do you feel Kiva is a good fit for you and your family?",
+  declaration: "Declaration",
+};
+
+const fallbackPrompts = {
+  appliedBefore: "Have you applied before?",
+  progressReport: "Progress report",
+  specialNeeds: "Does your child have any special educational needs?",
+};
+
+const fallbackSpecialNeeds = {
+  helperText:
+    "Due to an overwhelming response, Kiva has taken the hard decision to temporarily suspend admissions for children with special needs. For further information and queries, please reach out to us on admissions@thekivaschool.com or 0333 0328058.",
+  modalTitle: "Admissions temporarily suspended",
+  modalBodyHtml:
+    "<p>Due to an overwhelming response, Kiva has taken the hard decision to temporarily suspend admissions for children with special needs. For further information and queries, please reach out to us at <a href=\"mailto:admissions@thekivaschool.com\">admissions@thekivaschool.com</a> or <a href=\"tel:+923330328058\">0333 0328058</a>.</p>",
+};
+
+const fallbackDeclarationStatement =
+  "I hereby declare that the information given in this application is true and correct to the best of my knowledge and belief. I understand that inaccurate information may impact the application.";
+const fallbackSignatureLabel = "Signature (type your name)";
+const fallbackSubmitButtonText = "Submit";
+const fallbackSuccess = {
+  title: "Application Submitted",
+  message:
+    "Thank you for applying! A member from our Admissions Office will be in touch with you soon.",
+};
+
+const entries = await getCollection("admissionForm");
+const data = entries[0]?.data;
+
+const introHtml = richTextToHtml(data?.intro) || fallbackIntro;
+
+const sessionOptions = (
+  data?.sessionOptions?.length ? data.sessionOptions : fallbackSessionOptions
+)
+  .map((option) => option ?? "")
+  .filter((option) => option.length > 0);
+
+function mergeWithFallback<T extends Record<string, string>>(
+  fallback: T,
+  override: Partial<Record<keyof T, string | null | undefined>> | undefined | null,
+): T {
+  const result: Record<string, string> = { ...fallback };
+  if (override) {
+    for (const [key, value] of Object.entries(override)) {
+      if (typeof value === "string" && value.length > 0) result[key] = value;
+    }
+  }
+  return result as T;
+}
+
+const headings = mergeWithFallback(fallbackHeadings, data?.headings);
+const prompts = mergeWithFallback(fallbackPrompts, data?.prompts);
+const pickString = (value: string | null | undefined, fallback: string) =>
+  typeof value === "string" && value.length > 0 ? value : fallback;
+
+const specialNeeds = {
+  helperText: pickString(
+    data?.specialNeeds?.helperText,
+    fallbackSpecialNeeds.helperText,
+  ),
+  modalTitle: pickString(
+    data?.specialNeeds?.modalTitle,
+    fallbackSpecialNeeds.modalTitle,
+  ),
+  modalBodyHtml:
+    richTextToHtml(data?.specialNeeds?.modalBody) ||
+    fallbackSpecialNeeds.modalBodyHtml,
+};
+const declarationStatement = pickString(
+  data?.declarationStatement,
+  fallbackDeclarationStatement,
+);
+const signatureLabel = pickString(data?.signatureLabel, fallbackSignatureLabel);
+const submitButtonText = pickString(
+  data?.submitButtonText,
+  fallbackSubmitButtonText,
+);
+const success = {
+  title: pickString(data?.success?.title, fallbackSuccess.title),
+  message: pickString(data?.success?.message, fallbackSuccess.message),
+};
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
     <PageSection title="ADMISSION FORM" headingLevel={2}>
-        <div class="stack-lg">
-            <p>
-                At the Kiva School we aim to provide an admission process that
-                is smooth and stress-free for parents. To initiate the admission
-                process, please fill out the form below. A member from our
-                Admissions Office will be in touch with you soon to communicate
-                next steps.
-            </p>
-        </div>
+        <div class="stack-lg admission-intro" set:html={introHtml} />
     </PageSection>
 
     <form class="admission-form stack-lg" id="admission-form">
         <section class="form-panel">
-            <h2 class="form-heading">Session</h2>
+            <h2 class="form-heading">{headings.session}</h2>
             <select class="form-select" name="session" required>
                 <option value="">Select session…</option>
-                <option>2024–2025</option>
-                <option>2025–2026</option>
+                {sessionOptions.map((option) => <option>{option}</option>)}
             </select>
         </section>
 
         <section class="form-panel">
-            <h2 class="form-heading">Child's Information</h2>
+            <h2 class="form-heading">{headings.child}</h2>
             <div class="form-grid">
                 <label class="form-field">
-                    <input type="text" name="childName" placeholder=" " required />
+                    <input
+                        type="text"
+                        name="childName"
+                        placeholder=" "
+                        required
+                    />
                     <span>Child's name</span>
                 </label>
                 <label class="form-field--date">
@@ -41,12 +137,13 @@ import FormNotification from "../../components/FormNotification.astro";
                 </label>
             </div>
             <label class="form-field form-field--textarea">
-                <textarea name="address" rows={2} placeholder=" " required></textarea>
+                <textarea name="address" rows={2} placeholder=" " required
+                ></textarea>
                 <span>Address</span>
             </label>
 
             <fieldset class="form-fieldset">
-                <legend>Have you applied before?</legend>
+                <legend>{prompts.appliedBefore}</legend>
                 <label
                     ><input
                         type="radio"
@@ -63,25 +160,36 @@ import FormNotification from "../../components/FormNotification.astro";
             <div id="applied-before-fields" class="conditional-fields">
                 <div class="form-grid">
                     <label class="form-field">
-                        <input type="text" name="previousSchool" placeholder=" " />
+                        <input
+                            type="text"
+                            name="previousSchool"
+                            placeholder=" "
+                        />
                         <span>Previous school / daycare (if applicable)</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="previousClass" placeholder=" " />
+                        <input
+                            type="text"
+                            name="previousClass"
+                            placeholder=" "
+                        />
                         <span>Previous class</span>
                     </label>
                 </div>
                 <fieldset class="form-fieldset">
-                    <legend>Progress report</legend>
+                    <legend>{prompts.progressReport}</legend>
                     <label
-                        ><input type="radio" name="hasReport" value="yes" /> Yes, I have
-                        a progress report to share.</label
+                        ><input type="radio" name="hasReport" value="yes" /> Yes,
+                        I have a progress report to share.</label
                     >
                     <label
-                        ><input type="radio" name="hasReport" value="no" /> No, a progress
-                        report is not applicable at this time.</label
+                        ><input type="radio" name="hasReport" value="no" /> No, a
+                        progress report is not applicable at this time.</label
                     >
-                    <div class="file-upload-wrapper" id="progress-report-wrapper">
+                    <div
+                        class="file-upload-wrapper"
+                        id="progress-report-wrapper"
+                    >
                         <label class="upload-button">
                             <span>Upload progress report</span>
                             <input
@@ -92,7 +200,9 @@ import FormNotification from "../../components/FormNotification.astro";
                         </label>
                         <div class="file-info" style="display: none;">
                             <span class="file-name"></span>
-                            <button type="button" class="remove-file-button">Remove</button>
+                            <button type="button" class="remove-file-button"
+                                >Remove</button
+                            >
                         </div>
                     </div>
                 </fieldset>
@@ -104,14 +214,16 @@ import FormNotification from "../../components/FormNotification.astro";
             </div>
 
             <label class="form-field form-field--textarea">
-                <textarea name="medicalInfo" rows={3} placeholder=" "></textarea>
-                <span>Medical information (allergies, treatments, diagnoses, etc.)</span>
+                <textarea name="medicalInfo" rows={3} placeholder=" "
+                ></textarea>
+                <span
+                    >Medical information (allergies, treatments, diagnoses,
+                    etc.)</span
+                >
             </label>
 
             <fieldset class="form-fieldset">
-                <legend
-                    >Does your child have any special educational needs?</legend
-                >
+                <legend>{prompts.specialNeeds}</legend>
                 <label
                     ><input
                         type="radio"
@@ -123,77 +235,150 @@ import FormNotification from "../../components/FormNotification.astro";
                 <label
                     ><input type="radio" name="specialNeeds" value="no" /> No</label
                 >
-                <p class="helper-text">
-                    Due to an overwhelming response to Kiva, seats for children
-                    with SEN requirements are limited. For further information
-                    and guidance, please reach out to
-                    administration@kivaschool.com or 0333 0320805.
-                </p>
+                <p class="helper-text">{specialNeeds.helperText}</p>
             </fieldset>
         </section>
 
         <section class="form-panel">
-            <h2 class="form-heading">Parents’ Information</h2>
+            <h2 class="form-heading">{headings.parents}</h2>
             <div class="parents-grid">
                 <div class="stack-sm">
-                    <h3 class="sub-heading">Mother's Details</h3>
+                    <h3 class="sub-heading">{headings.motherDetails}</h3>
                     <label class="form-field">
-                        <input type="text" name="motherName" placeholder=" " required />
+                        <input
+                            type="text"
+                            name="motherName"
+                            placeholder=" "
+                            required
+                        />
                         <span>Name</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="motherProfession" placeholder=" " required />
+                        <input
+                            type="text"
+                            name="motherProfession"
+                            placeholder=" "
+                            required
+                        />
                         <span>Profession</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="motherEducation" placeholder=" " required />
+                        <input
+                            type="text"
+                            name="motherEducation"
+                            placeholder=" "
+                            required
+                        />
                         <span>Educational qualification</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="motherOrganization" placeholder=" " required />
+                        <input
+                            type="text"
+                            name="motherOrganization"
+                            placeholder=" "
+                            required
+                        />
                         <span>Organization</span>
                     </label>
                     <label class="form-field">
-                        <input type="email" name="motherEmail" placeholder=" " required />
+                        <input
+                            type="email"
+                            name="motherEmail"
+                            placeholder=" "
+                            required
+                        />
                         <span>Email</span>
                     </label>
                     <label class="form-field">
-                        <input type="tel" name="motherPhone" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
+                        <input
+                            type="tel"
+                            name="motherPhone"
+                            placeholder=" "
+                            required
+                            inputmode="numeric"
+                            pattern="[0-9]+"
+                        />
                         <span>Cellphone number</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="motherCnic" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
+                        <input
+                            type="text"
+                            name="motherCnic"
+                            placeholder=" "
+                            required
+                            inputmode="numeric"
+                            pattern="[0-9]+"
+                        />
                         <span>CNIC number</span>
                     </label>
                 </div>
                 <div class="stack-sm">
-                    <h3 class="sub-heading">Father's Details</h3>
+                    <h3 class="sub-heading">{headings.fatherDetails}</h3>
                     <label class="form-field">
-                        <input type="text" name="fatherName" placeholder=" " required />
+                        <input
+                            type="text"
+                            name="fatherName"
+                            placeholder=" "
+                            required
+                        />
                         <span>Name</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="fatherProfession" placeholder=" " required />
+                        <input
+                            type="text"
+                            name="fatherProfession"
+                            placeholder=" "
+                            required
+                        />
                         <span>Profession</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="fatherEducation" placeholder=" " required />
+                        <input
+                            type="text"
+                            name="fatherEducation"
+                            placeholder=" "
+                            required
+                        />
                         <span>Educational qualification</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="fatherOrganization" placeholder=" " required />
+                        <input
+                            type="text"
+                            name="fatherOrganization"
+                            placeholder=" "
+                            required
+                        />
                         <span>Organization</span>
                     </label>
                     <label class="form-field">
-                        <input type="email" name="fatherEmail" placeholder=" " required />
+                        <input
+                            type="email"
+                            name="fatherEmail"
+                            placeholder=" "
+                            required
+                        />
                         <span>Email</span>
                     </label>
                     <label class="form-field">
-                        <input type="tel" name="fatherPhone" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
+                        <input
+                            type="tel"
+                            name="fatherPhone"
+                            placeholder=" "
+                            required
+                            inputmode="numeric"
+                            pattern="[0-9]+"
+                        />
                         <span>Cellphone number</span>
                     </label>
                     <label class="form-field">
-                        <input type="text" name="fatherCnic" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
+                        <input
+                            type="text"
+                            name="fatherCnic"
+                            placeholder=" "
+                            required
+                            inputmode="numeric"
+                            pattern="[0-9]+"
+                        />
                         <span>CNIC number</span>
                     </label>
                 </div>
@@ -201,7 +386,7 @@ import FormNotification from "../../components/FormNotification.astro";
         </section>
 
         <section class="form-panel">
-            <h2 class="form-heading">Sibling(s) Information</h2>
+            <h2 class="form-heading">{headings.sibling}</h2>
             <div class="form-grid">
                 <label class="form-field">
                     <input type="text" name="siblingName" placeholder=" " />
@@ -219,21 +404,33 @@ import FormNotification from "../../components/FormNotification.astro";
         </section>
 
         <section class="form-panel">
-            <h2 class="form-heading">Emergency Contact</h2>
+            <h2 class="form-heading">{headings.emergency}</h2>
             <div class="form-grid">
                 <label class="form-field">
-                    <input type="text" name="emergencyName" placeholder=" " required />
+                    <input
+                        type="text"
+                        name="emergencyName"
+                        placeholder=" "
+                        required
+                    />
                     <span>Name</span>
                 </label>
                 <label class="form-field">
-                    <input type="tel" name="emergencyPhone" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
+                    <input
+                        type="tel"
+                        name="emergencyPhone"
+                        placeholder=" "
+                        required
+                        inputmode="numeric"
+                        pattern="[0-9]+"
+                    />
                     <span>Cellphone number</span>
                 </label>
             </div>
         </section>
 
         <section class="form-panel">
-            <h2 class="form-heading">How did you hear about us?</h2>
+            <h2 class="form-heading">{headings.hearAbout}</h2>
             <fieldset class="form-fieldset form-fieldset--vertical">
                 <label
                     ><input type="checkbox" name="hearAbout" value="website" /> Website</label
@@ -266,43 +463,56 @@ import FormNotification from "../../components/FormNotification.astro";
         </section>
 
         <section class="form-panel">
-            <h2 class="form-heading">
-                Why do you feel Kiva is a good fit for you and your family?
-            </h2>
+            <h2 class="form-heading">{headings.fit}</h2>
             <label class="form-field form-field--textarea">
-                <textarea name="fitResponse" rows={4} placeholder=" "></textarea>
+                <textarea name="fitResponse" rows={4} placeholder=" "
+                ></textarea>
                 <span>Your response</span>
             </label>
         </section>
 
         <section class="form-panel">
             <fieldset class="form-fieldset form-fieldset--vertical">
-                <legend>Declaration</legend>
+                <legend>{headings.declaration}</legend>
                 <label class="form-fieldset__statement">
                     <input type="checkbox" name="declaration" required />
-                    <span>
-                        I hereby declare that the information given in this
-                        application is true and correct to the best of my
-                        knowledge and belief. I understand that inaccurate
-                        information may impact the application.
-                    </span>
+                    <span>{declarationStatement}</span>
                 </label>
             </fieldset>
             <label class="form-field">
                 <input type="text" name="signature" placeholder=" " required />
-                <span>Signature (type your name)</span>
+                <span>{signatureLabel}</span>
             </label>
         </section>
 
         <div class="form-actions">
-            <button type="submit" class="submit-button">Submit</button>
+            <button type="submit" class="submit-button">{submitButtonText}</button>
         </div>
     </form>
     <FormNotification
         id="admission-success"
-        title="Application Submitted"
-        message="Thank you for applying! A member from our Admissions Office will be in touch with you soon."
+        title={success.title}
+        message={success.message}
     />
+
+    <div
+        class="modal-overlay"
+        id="special-needs-modal"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="special-needs-modal-title"
+        hidden
+    >
+        <div class="modal-card">
+            <h3 id="special-needs-modal-title" class="modal-title">
+                {specialNeeds.modalTitle}
+            </h3>
+            <div class="modal-body" set:html={specialNeeds.modalBodyHtml} />
+            <button type="button" class="modal-close" id="special-needs-modal-close"
+                >Close</button
+            >
+        </div>
+    </div>
 </BaseLayout>
 
 <style>
@@ -606,91 +816,232 @@ import FormNotification from "../../components/FormNotification.astro";
     .conditional-fields.visible {
         display: contents;
     }
+
+    .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(33, 66, 68, 0.55);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1.5rem;
+        z-index: 1000;
+        animation: modal-fade-in 0.18s ease-out;
+    }
+
+    .modal-overlay[hidden] {
+        display: none;
+    }
+
+    .modal-card {
+        background: #fef7e2;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-soft);
+        padding: clamp(1.75rem, 4vw, 2.5rem);
+        max-width: 480px;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: left;
+        animation: modal-pop-in 0.22s ease-out;
+    }
+
+    .modal-title {
+        margin: 0;
+        color: var(--color-teal);
+        font-size: 1.4rem;
+        font-weight: 700;
+    }
+
+    .modal-body {
+        margin: 0;
+        color: var(--color-text-primary);
+        line-height: 1.55;
+    }
+
+    .modal-body :global(p) {
+        margin: 0 0 0.75rem;
+    }
+
+    .modal-body :global(p:last-child) {
+        margin-bottom: 0;
+    }
+
+    .modal-body :global(a) {
+        color: var(--color-teal);
+        font-weight: 600;
+    }
+
+    .modal-close {
+        align-self: flex-end;
+        font-family: "Nunito", sans-serif;
+        font-weight: 700;
+        font-size: 1rem;
+        background-color: var(--color-yellow);
+        color: var(--color-dark-blue);
+        border: none;
+        padding: 0.6rem 1.5rem;
+        border-radius: 12px;
+        cursor: pointer;
+        margin-top: 0.5rem;
+    }
+
+    .modal-close:hover {
+        filter: brightness(0.95);
+    }
+
+    @keyframes modal-fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+
+    @keyframes modal-pop-in {
+        from {
+            opacity: 0;
+            transform: translateY(8px) scale(0.98);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+    }
 </style>
 
 <script>
-    const form = document.getElementById('admission-form') as HTMLFormElement;
-    const notification = document.getElementById('admission-success');
-    const appliedBeforeRadios = document.querySelectorAll('input[name="appliedBefore"]');
-    const conditionalFields = document.getElementById('applied-before-fields');
+    const form = document.getElementById("admission-form") as HTMLFormElement;
+    const notification = document.getElementById("admission-success");
+    const appliedBeforeRadios = document.querySelectorAll(
+        'input[name="appliedBefore"]',
+    );
+    const conditionalFields = document.getElementById("applied-before-fields");
 
     // Restrict numeric fields to digits only
-    const numericFields = document.querySelectorAll('input[name="motherPhone"], input[name="motherCnic"], input[name="fatherPhone"], input[name="fatherCnic"], input[name="emergencyPhone"]');
-    numericFields.forEach(field => {
-        field.addEventListener('input', (e) => {
+    const numericFields = document.querySelectorAll(
+        'input[name="motherPhone"], input[name="motherCnic"], input[name="fatherPhone"], input[name="fatherCnic"], input[name="emergencyPhone"]',
+    );
+    numericFields.forEach((field) => {
+        field.addEventListener("input", (e) => {
             const target = e.target as HTMLInputElement;
-            target.value = target.value.replace(/[^0-9]/g, '');
+            target.value = target.value.replace(/[^0-9]/g, "");
         });
     });
 
     // Toggle conditional fields based on "applied before" selection
-    appliedBeforeRadios.forEach(radio => {
-        radio.addEventListener('change', (e) => {
+    appliedBeforeRadios.forEach((radio) => {
+        radio.addEventListener("change", (e) => {
             const target = e.target as HTMLInputElement;
-            if (target.value === 'yes') {
-                conditionalFields?.classList.add('visible');
+            if (target.value === "yes") {
+                conditionalFields?.classList.add("visible");
             } else {
-                conditionalFields?.classList.remove('visible');
+                conditionalFields?.classList.remove("visible");
             }
         });
     });
 
     // File upload handling
-    const fileInput = document.querySelector('input[name="progressReport"]') as HTMLInputElement;
-    const uploadWrapper = document.getElementById('progress-report-wrapper');
-    const uploadButton = uploadWrapper?.querySelector('.upload-button') as HTMLElement;
-    const fileInfo = uploadWrapper?.querySelector('.file-info') as HTMLElement;
-    const fileName = uploadWrapper?.querySelector('.file-name') as HTMLElement;
-    const removeButton = uploadWrapper?.querySelector('.remove-file-button');
+    const fileInput = document.querySelector(
+        'input[name="progressReport"]',
+    ) as HTMLInputElement;
+    const uploadWrapper = document.getElementById("progress-report-wrapper");
+    const uploadButton = uploadWrapper?.querySelector(
+        ".upload-button",
+    ) as HTMLElement;
+    const fileInfo = uploadWrapper?.querySelector(".file-info") as HTMLElement;
+    const fileName = uploadWrapper?.querySelector(".file-name") as HTMLElement;
+    const removeButton = uploadWrapper?.querySelector(".remove-file-button");
 
-    fileInput?.addEventListener('change', () => {
+    fileInput?.addEventListener("change", () => {
         if (fileInput.files && fileInput.files.length > 0) {
             fileName.textContent = fileInput.files[0].name;
-            uploadButton.style.display = 'none';
-            fileInfo.style.display = 'inline-flex';
+            uploadButton.style.display = "none";
+            fileInfo.style.display = "inline-flex";
         }
     });
 
-    removeButton?.addEventListener('click', () => {
-        fileInput.value = '';
-        uploadButton.style.display = 'inline-flex';
-        fileInfo.style.display = 'none';
+    removeButton?.addEventListener("click", () => {
+        fileInput.value = "";
+        uploadButton.style.display = "inline-flex";
+        fileInfo.style.display = "none";
     });
 
-    form?.addEventListener('submit', async (e) => {
+    const specialNeedsModal = document.getElementById("special-needs-modal");
+    const specialNeedsModalClose = document.getElementById(
+        "special-needs-modal-close",
+    );
+
+    function closeSpecialNeedsModal() {
+        specialNeedsModal?.setAttribute("hidden", "");
+    }
+
+    specialNeedsModalClose?.addEventListener("click", closeSpecialNeedsModal);
+    specialNeedsModal?.addEventListener("click", (e) => {
+        if (e.target === specialNeedsModal) closeSpecialNeedsModal();
+    });
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && !specialNeedsModal?.hasAttribute("hidden")) {
+            closeSpecialNeedsModal();
+        }
+    });
+
+    form?.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        // Validate hasReport selection if "applied before" section is visible
-        const appliedBefore = (document.querySelector('input[name="appliedBefore"]:checked') as HTMLInputElement)?.value;
-        const hasReportValue = (document.querySelector('input[name="hasReport"]:checked') as HTMLInputElement)?.value;
+        const specialNeedsValue = (
+            document.querySelector(
+                'input[name="specialNeeds"]:checked',
+            ) as HTMLInputElement
+        )?.value;
 
-        if (appliedBefore === 'yes' && !hasReportValue) {
-            alert('Please indicate whether you have a progress report.');
+        if (specialNeedsValue === "yes") {
+            specialNeedsModal?.removeAttribute("hidden");
+            specialNeedsModalClose?.focus();
+            return;
+        }
+
+        // Validate hasReport selection if "applied before" section is visible
+        const appliedBefore = (
+            document.querySelector(
+                'input[name="appliedBefore"]:checked',
+            ) as HTMLInputElement
+        )?.value;
+        const hasReportValue = (
+            document.querySelector(
+                'input[name="hasReport"]:checked',
+            ) as HTMLInputElement
+        )?.value;
+
+        if (appliedBefore === "yes" && !hasReportValue) {
+            alert("Please indicate whether you have a progress report.");
             return;
         }
 
         // Validate progress report file if "Yes" is selected
         const progressReportFile = fileInput?.files?.length ?? 0;
 
-        if (hasReportValue === 'yes' && progressReportFile === 0) {
-            alert('Please upload your progress report.');
+        if (hasReportValue === "yes" && progressReportFile === 0) {
+            alert("Please upload your progress report.");
             return;
         }
 
         const formData = new FormData(form);
         try {
-            const response = await fetch('/api/admission', {
-                method: 'POST',
+            const response = await fetch("/api/admission", {
+                method: "POST",
                 body: formData,
             });
             if (response.ok) {
-                form.style.display = 'none';
-                if (notification) notification.style.display = 'flex';
+                form.style.display = "none";
+                if (notification) notification.style.display = "flex";
             } else {
-                alert('Something went wrong. Please try again.');
+                alert("Something went wrong. Please try again.");
             }
         } catch (error) {
-            alert('Something went wrong. Please try again.');
+            alert("Something went wrong. Please try again.");
         }
     });
 </script>

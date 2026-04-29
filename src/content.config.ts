@@ -189,6 +189,53 @@ const community = defineCollection({
   }),
 });
 
+const admissionForm = defineCollection({
+  loader: file("content/admission-form/admission-form.json", {
+    parser: (text) => [{ id: "admissionForm", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    intro: z.any().optional(),
+    sessionOptions: z.array(z.string()).optional(),
+    headings: z
+      .object({
+        session: z.string().optional(),
+        child: z.string().optional(),
+        parents: z.string().optional(),
+        motherDetails: z.string().optional(),
+        fatherDetails: z.string().optional(),
+        sibling: z.string().optional(),
+        emergency: z.string().optional(),
+        hearAbout: z.string().optional(),
+        fit: z.string().optional(),
+        declaration: z.string().optional(),
+      })
+      .optional(),
+    prompts: z
+      .object({
+        appliedBefore: z.string().optional(),
+        progressReport: z.string().optional(),
+        specialNeeds: z.string().optional(),
+      })
+      .optional(),
+    specialNeeds: z
+      .object({
+        helperText: z.string().optional(),
+        modalTitle: z.string().optional(),
+        modalBody: z.any().optional(),
+      })
+      .optional(),
+    declarationStatement: z.string().optional(),
+    signatureLabel: z.string().optional(),
+    submitButtonText: z.string().optional(),
+    success: z
+      .object({
+        title: z.string().optional(),
+        message: z.string().optional(),
+      })
+      .optional(),
+  }),
+});
+
 const kivaKampForm = defineCollection({
   loader: file("content/kiva-kamp-form/kiva-kamp-form.json", {
     parser: (text) => [{ id: "kivaKampForm", ...JSON.parse(text) }],
@@ -388,6 +435,7 @@ export const collections = {
   admissionProcess,
   community,
   kivaKampForm,
+  admissionForm,
   aboutPages,
   programmePages,
   admissionPages,

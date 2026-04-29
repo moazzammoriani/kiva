@@ -1,0 +1,33 @@
+{
+  "intro": "At the Kiva School we aim to provide an admission process that is smooth and stress-free for parents. To initiate the admission process, please fill out the form below. A member from our Admissions Office will be in touch with you soon to communicate next steps.",
+  "sessionOptions": ["2025–2026", "2026–2027"],
+  "headings": {
+    "session": "Session",
+    "child": "Child's Information",
+    "parents": "Parents' Information",
+    "motherDetails": "Mother's Details",
+    "fatherDetails": "Father's Details",
+    "sibling": "Sibling(s) Information",
+    "emergency": "Emergency Contact",
+    "hearAbout": "How did you hear about us?",
+    "fit": "Why do you feel Kiva is a good fit for you and your family?",
+    "declaration": "Declaration"
+  },
+  "prompts": {
+    "appliedBefore": "Have you applied before?",
+    "progressReport": "Progress report",
+    "specialNeeds": "Does your child have any special educational needs?"
+  },
+  "specialNeeds": {
+    "helperText": "Due to an overwhelming response, Kiva has taken the hard decision to temporarily suspend admissions for children with special needs. For further information and queries, please reach out to us on admissions@thekivaschool.com or 0333 0328058.",
+    "modalTitle": "Admissions temporarily suspended",
+    "modalBody": "Due to an overwhelming response, Kiva has taken the hard decision to temporarily suspend admissions for children with special needs. For further information and queries, please reach out to us at [admissions@thekivaschool.com](mailto:admissions@thekivaschool.com) or [0333 0328058](tel:+923330328058)."
+  },
+  "declarationStatement": "I hereby declare that the information given in this application is true and correct to the best of my knowledge and belief. I understand that inaccurate information may impact the application.",
+  "signatureLabel": "Signature (type your name)",
+  "submitButtonText": "Submit",
+  "success": {
+    "title": "Application Submitted",
+    "message": "Thank you for applying! A member from our Admissions Office will be in touch with you soon."
+  }
+}
