@@ -111,9 +111,6 @@ const preschool = defineCollection({
       )
       .optional(),
     elementarySecond: z.any().optional(),
-    instagramEmbeds: z
-      .array(z.object({ embedCode: z.string().optional() }))
-      .optional(),
     faqsTitle: z.string().optional(),
     faqs: z
       .array(
