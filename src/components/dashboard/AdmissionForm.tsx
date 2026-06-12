@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { formatCnic, normalizeCnic } from "../../utils/cnic";
 
 interface Props {
   token: string;
@@ -13,6 +14,7 @@ interface FieldDef {
   type?: "text" | "date" | "textarea" | "checkbox";
   section: string;
   wide?: boolean;
+  cnic?: boolean;
 }
 
 const FIELDS: FieldDef[] = [
@@ -34,7 +36,7 @@ const FIELDS: FieldDef[] = [
   { key: "mother_organization", label: "Organization", section: "Mother's Details" },
   { key: "mother_email", label: "Email", section: "Mother's Details" },
   { key: "mother_phone", label: "Phone", section: "Mother's Details" },
-  { key: "mother_cnic", label: "CNIC", section: "Mother's Details" },
+  { key: "mother_cnic", label: "CNIC", section: "Mother's Details", cnic: true },
 
   { key: "father_name", label: "Name", section: "Father's Details" },
   { key: "father_profession", label: "Profession", section: "Father's Details" },
@@ -42,7 +44,7 @@ const FIELDS: FieldDef[] = [
   { key: "father_organization", label: "Organization", section: "Father's Details" },
   { key: "father_email", label: "Email", section: "Father's Details" },
   { key: "father_phone", label: "Phone", section: "Father's Details" },
-  { key: "father_cnic", label: "CNIC", section: "Father's Details" },
+  { key: "father_cnic", label: "CNIC", section: "Father's Details", cnic: true },
 
   { key: "sibling_name", label: "Name", section: "Sibling Information" },
   { key: "sibling_grade", label: "Grade", section: "Sibling Information" },
@@ -90,7 +92,8 @@ export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
       .then((data) => {
         const v: Record<string, any> = {};
         for (const f of FIELDS) {
-          v[f.key] = data[f.key] ?? (f.type === "checkbox" ? false : "");
+          const value = data[f.key] ?? (f.type === "checkbox" ? false : "");
+          v[f.key] = f.cnic ? formatCnic(value) : value;
         }
         setValues(v);
         setChildName(data.child_name ?? "");
@@ -108,13 +111,18 @@ export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
     setSaving(true);
     setError("");
     try {
+      const payload = {
+        ...values,
+        mother_cnic: normalizeCnic(values.mother_cnic),
+        father_cnic: normalizeCnic(values.father_cnic),
+      };
       const res = await fetch(`/api/submissions/admissions/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -173,7 +181,12 @@ export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
                     <input
                       type={f.type ?? "text"}
                       value={values[f.key] ?? ""}
-                      onChange={(e) => setField(f.key, e.target.value)}
+                      onChange={(e) =>
+                        setField(f.key, f.cnic ? formatCnic(e.target.value) : e.target.value)
+                      }
+                      inputMode={f.cnic ? "numeric" : undefined}
+                      maxLength={f.cnic ? 15 : undefined}
+                      pattern={f.cnic ? "[0-9]{5}-[0-9]{7}-[0-9]" : undefined}
                     />
                   )}
                   <PrintValue value={values[f.key]} isCheckbox={f.type === "checkbox"} />

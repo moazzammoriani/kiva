@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { formatCnic } from "../../utils/cnic";
 
 interface Props {
   id: number;
@@ -125,7 +126,7 @@ export function AdmissionDetail({ id, token, onBack }: Props) {
           <Field label="Organization" value={data.mother_organization} />
           <Field label="Email" value={data.mother_email} />
           <Field label="Phone" value={data.mother_phone} />
-          <Field label="CNIC" value={data.mother_cnic} />
+          <Field label="CNIC" value={formatCnic(data.mother_cnic)} />
         </div>
       </div>
 
@@ -138,7 +139,7 @@ export function AdmissionDetail({ id, token, onBack }: Props) {
           <Field label="Organization" value={data.father_organization} />
           <Field label="Email" value={data.father_email} />
           <Field label="Phone" value={data.father_phone} />
-          <Field label="CNIC" value={data.father_cnic} />
+          <Field label="CNIC" value={formatCnic(data.father_cnic)} />
         </div>
       </div>
 

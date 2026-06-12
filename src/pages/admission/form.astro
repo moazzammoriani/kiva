@@ -307,7 +307,8 @@ const success = {
                             placeholder=" "
                             required
                             inputmode="numeric"
-                            pattern="[0-9]+"
+                            maxlength="15"
+                            pattern="[0-9]{5}-[0-9]{7}-[0-9]"
                         />
                         <span>CNIC number</span>
                     </label>
@@ -377,7 +378,8 @@ const success = {
                             placeholder=" "
                             required
                             inputmode="numeric"
-                            pattern="[0-9]+"
+                            maxlength="15"
+                            pattern="[0-9]{5}-[0-9]{7}-[0-9]"
                         />
                         <span>CNIC number</span>
                     </label>
@@ -913,6 +915,8 @@ const success = {
 </style>
 
 <script>
+    import { formatCnic, normalizeCnic } from "../../utils/cnic";
+
     const form = document.getElementById("admission-form") as HTMLFormElement;
     const notification = document.getElementById("admission-success");
     const appliedBeforeRadios = document.querySelectorAll(
@@ -922,12 +926,21 @@ const success = {
 
     // Restrict numeric fields to digits only
     const numericFields = document.querySelectorAll(
-        'input[name="motherPhone"], input[name="motherCnic"], input[name="fatherPhone"], input[name="fatherCnic"], input[name="emergencyPhone"]',
+        'input[name="motherPhone"], input[name="fatherPhone"], input[name="emergencyPhone"]',
     );
     numericFields.forEach((field) => {
         field.addEventListener("input", (e) => {
             const target = e.target as HTMLInputElement;
             target.value = target.value.replace(/[^0-9]/g, "");
+        });
+    });
+
+    const cnicFields = document.querySelectorAll<HTMLInputElement>(
+        'input[name="motherCnic"], input[name="fatherCnic"]',
+    );
+    cnicFields.forEach((field) => {
+        field.addEventListener("input", () => {
+            field.value = formatCnic(field.value);
         });
     });
 
@@ -1029,6 +1042,8 @@ const success = {
         }
 
         const formData = new FormData(form);
+        formData.set("motherCnic", normalizeCnic(formData.get("motherCnic")));
+        formData.set("fatherCnic", normalizeCnic(formData.get("fatherCnic")));
         try {
             const response = await fetch("/api/admission", {
                 method: "POST",
