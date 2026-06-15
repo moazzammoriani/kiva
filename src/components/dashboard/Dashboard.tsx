@@ -110,6 +110,7 @@ const ADMISSION_COLUMNS: ColumnDef[] = [
   { key: "session", label: "Session" },
   { key: "child_name", label: "Child Name" },
   { key: "dob", label: "DOB", sortable: false },
+  { key: "eligible_class", label: "Eligible Class", sortable: false },
   { key: "mother_name", label: "Mother", sortable: false },
   { key: "father_name", label: "Father", sortable: false },
   { key: "mother_phone", label: "Mother Phone", sortable: false },

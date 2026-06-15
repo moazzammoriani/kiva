@@ -93,6 +93,7 @@ export function AdmissionDetail({ id, token, onBack }: Props) {
         <div className="db-detail-grid">
           <Field label="Child Name" value={data.child_name} />
           <Field label="Date of Birth" value={data.dob} />
+          <Field label="Eligible Class" value={data.eligible_class} />
           <Field label="Session" value={data.session} />
           <Field label="Applied Before" value={data.applied_before} />
           <Field label="Previous School" value={data.previous_school} />

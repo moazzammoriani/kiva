@@ -135,6 +135,15 @@ const success = {
                     <input type="date" name="dob" required />
                     <span>Date of birth</span>
                 </label>
+                <label class="form-field">
+                    <input
+                        type="text"
+                        id="eligible-class"
+                        placeholder=" "
+                        readonly
+                    />
+                    <span>Eligible class</span>
+                </label>
             </div>
             <label class="form-field form-field--textarea">
                 <textarea name="address" rows={2} placeholder=" " required
@@ -592,6 +601,11 @@ const success = {
         color: var(--color-text-primary);
     }
 
+    .form-field input[readonly] {
+        cursor: default;
+        opacity: 0.85;
+    }
+
     /* Standalone select */
     .form-select {
         border: none;
@@ -916,6 +930,10 @@ const success = {
 
 <script>
     import { formatCnic, normalizeCnic } from "../../utils/cnic";
+    import {
+        calculateEligibleClass,
+        currentEligibilityYear,
+    } from "../../utils/classEligibility";
 
     const form = document.getElementById("admission-form") as HTMLFormElement;
     const notification = document.getElementById("admission-success");
@@ -923,6 +941,16 @@ const success = {
         'input[name="appliedBefore"]',
     );
     const conditionalFields = document.getElementById("applied-before-fields");
+    const dobField = document.querySelector<HTMLInputElement>('input[name="dob"]');
+    const eligibleClassField =
+        document.getElementById("eligible-class") as HTMLInputElement;
+
+    dobField?.addEventListener("input", () => {
+        eligibleClassField.value = calculateEligibleClass(
+            dobField.value,
+            currentEligibilityYear(),
+        );
+    });
 
     // Restrict numeric fields to digits only
     const numericFields = document.querySelectorAll(

@@ -679,6 +679,11 @@ body {
 .db-form-group input:focus,
 .db-form-group textarea:focus,
 .db-form-group select:focus { border-color: var(--db-teal); }
+.db-form-group input[readonly] {
+  background: var(--db-row-hover);
+  color: var(--db-text-muted);
+  cursor: default;
+}
 .db-form-group textarea { resize: vertical; }
 
 .db-form-actions {

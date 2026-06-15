@@ -8,8 +8,9 @@ interface Props {
 }
 
 const CLASS_OPTIONS = [
-  "Playgroup", "Pre-Nursery", "Nursery", "KG",
+  "Play Group", "Pre-Nursery", "Nursery", "Prep",
   "I", "II", "III", "IV", "V", "VI", "VII", "VIII",
+  "Playgroup", "KG", "Outside eligible class range",
 ];
 
 const FIELD_DEFS: { key: string; label: string; wide?: boolean; options?: string[]; type?: string }[] = [

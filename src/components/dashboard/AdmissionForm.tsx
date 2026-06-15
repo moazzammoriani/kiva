@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { formatCnic, normalizeCnic } from "../../utils/cnic";
+import { calculateEligibleClass } from "../../utils/classEligibility";
 
 interface Props {
   token: string;
@@ -15,12 +16,14 @@ interface FieldDef {
   section: string;
   wide?: boolean;
   cnic?: boolean;
+  readonly?: boolean;
 }
 
 const FIELDS: FieldDef[] = [
   { key: "session", label: "Session", section: "Child Information" },
   { key: "child_name", label: "Child Name", section: "Child Information" },
   { key: "dob", label: "Date of Birth", type: "date", section: "Child Information" },
+  { key: "eligible_class", label: "Eligible Class", section: "Child Information", readonly: true },
   { key: "applied_before", label: "Applied Before", section: "Child Information" },
   { key: "previous_school", label: "Previous School", section: "Child Information" },
   { key: "previous_class", label: "Previous Class", section: "Child Information" },
@@ -76,6 +79,7 @@ function PrintValue({ value, isCheckbox }: { value: any; isCheckbox?: boolean })
 export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
   const [values, setValues] = useState<Record<string, any>>({});
   const [childName, setChildName] = useState("");
+  const [eligibilityYear, setEligibilityYear] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -97,13 +101,20 @@ export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
         }
         setValues(v);
         setChildName(data.child_name ?? "");
+        setEligibilityYear(data.eligibility_year ?? null);
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
   }, [id, token]);
 
   function setField(key: string, value: any) {
-    setValues((prev) => ({ ...prev, [key]: value }));
+    setValues((prev) => ({
+      ...prev,
+      [key]: value,
+      ...(key === "dob" && eligibilityYear
+        ? { eligible_class: calculateEligibleClass(value, eligibilityYear) }
+        : {}),
+    }));
   }
 
   async function handleSubmit(e: React.FormEvent) {
@@ -111,8 +122,9 @@ export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
     setSaving(true);
     setError("");
     try {
+      const { eligible_class: _eligibleClass, ...editableValues } = values;
       const payload = {
-        ...values,
+        ...editableValues,
         mother_cnic: normalizeCnic(values.mother_cnic),
         father_cnic: normalizeCnic(values.father_cnic),
       };
@@ -181,6 +193,7 @@ export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
                     <input
                       type={f.type ?? "text"}
                       value={values[f.key] ?? ""}
+                      readOnly={f.readonly}
                       onChange={(e) =>
                         setField(f.key, f.cnic ? formatCnic(e.target.value) : e.target.value)
                       }
