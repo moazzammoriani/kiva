@@ -1,0 +1,108 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import PageSection from "../components/PageSection.astro";
+import { richTextToHtml } from "../utils/richTextToHtml";
+
+const entries = await getCollection("admissionTerms");
+const data = entries[0]?.data;
+
+const heroSrc = data?.heroImage ?? "/images/admission-form/Banner_AdmissionForm.png";
+const heroAlt = data?.heroAlt ?? "Admission form banner for Kiva School";
+const sections = data?.sections ?? [];
+---
+
+<BaseLayout
+  pageTitle={data?.pageTitle ?? "Terms and Conditions"}
+  heroSrc={heroSrc}
+  heroAlt={heroAlt}
+>
+  <PageSection
+    title={data?.sectionTitle ?? "TERMS AND CONDITIONS"}
+    description={data?.sectionDescription ?? "Admission Form"}
+    headingLevel={2}
+    contentWidth="narrow"
+  >
+    <article class="terms-document">
+      {
+        sections.map((section) => (
+          <section class="terms-block">
+            <h3>{section.title}</h3>
+            <div class="terms-body" set:html={richTextToHtml(section.body)} />
+          </section>
+        ))
+      }
+    </article>
+  </PageSection>
+</BaseLayout>
+
+<style>
+  .terms-document {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    color: var(--color-text-primary);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    text-align: left;
+  }
+
+  .terms-block {
+    padding-bottom: 1.6rem;
+    border-bottom: 1px solid rgba(24, 91, 82, 0.18);
+  }
+
+  .terms-block:last-child {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .terms-block h3 {
+    margin: 0 0 0.85rem;
+    color: var(--color-teal);
+    font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+    font-weight: 900;
+  }
+
+  .terms-body :global(p) {
+    margin: 0 0 0.75rem;
+  }
+
+  .terms-body :global(ul),
+  .terms-body :global(ol) {
+    margin: 0;
+    padding-left: 1.35rem;
+  }
+
+  .terms-body :global(li) {
+    margin-bottom: 0.65rem;
+    padding-left: 0.25rem;
+  }
+
+  .terms-body :global(li)::marker {
+    color: var(--color-teal);
+    font-weight: 900;
+  }
+
+  .terms-body :global(a) {
+    color: var(--color-teal);
+    font-weight: 800;
+    text-decoration: underline;
+    text-underline-offset: 0.18em;
+  }
+
+  .terms-body :global(a:hover) {
+    color: var(--color-deep-teal);
+  }
+
+  @media (max-width: 640px) {
+    .terms-document {
+      font-size: 0.98rem;
+      line-height: 1.65;
+    }
+
+    .terms-block {
+      padding-bottom: 1.25rem;
+    }
+  }
+</style>

@@ -233,6 +233,27 @@ const admissionForm = defineCollection({
   }),
 });
 
+const admissionTerms = defineCollection({
+  loader: file("content/admission-terms/admission-terms.json", {
+    parser: (text) => [{ id: "admissionTerms", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    heroImage: z.string().optional(),
+    heroAlt: z.string().optional(),
+    pageTitle: z.string().optional(),
+    sectionTitle: z.string().optional(),
+    sectionDescription: z.string().optional(),
+    sections: z
+      .array(
+        z.object({
+          title: z.string().optional(),
+          body: z.any().optional(),
+        }),
+      )
+      .optional(),
+  }),
+});
+
 const kivaKampForm = defineCollection({
   loader: file("content/kiva-kamp-form/kiva-kamp-form.json", {
     parser: (text) => [{ id: "kivaKampForm", ...JSON.parse(text) }],
@@ -433,6 +454,7 @@ export const collections = {
   community,
   kivaKampForm,
   admissionForm,
+  admissionTerms,
   aboutPages,
   programmePages,
   admissionPages,

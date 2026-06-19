@@ -13,6 +13,7 @@ import { KivaSquarePagesCollection } from "./collections/kivaSquarePages";
 import { NavigationCollection } from "./collections/navigation";
 import { KivaKampFormCollection } from "./collections/kivaKampForm";
 import { AdmissionFormCollection } from "./collections/admissionForm";
+import { AdmissionTermsCollection } from "./collections/admissionTerms";
 import { KivaAuthProvider } from "./auth";
 import { PublishScreen } from "./PublishScreen";
 import navLabels from "../content/navigation/navigation.json";
@@ -67,6 +68,7 @@ export default defineConfig({
       KivaSquarePagesCollection(navLabels.kivaSquare?.[0]?.label),
       KivaKampFormCollection(),
       AdmissionFormCollection(navLabels.admissions?.[0]?.formLabel),
+      AdmissionTermsCollection(),
       NavigationCollection,
     ],
   },
