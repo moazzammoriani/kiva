@@ -84,8 +84,17 @@ function renderCvLink(value: string | null, _row: any, token: string) {
   );
 }
 
+function renderViewStatus(value: boolean) {
+  return (
+    <span className={`db-view-status ${value ? "viewed" : "new"}`}>
+      {value ? "Viewed" : "New"}
+    </span>
+  );
+}
+
 const CONTACT_COLUMNS: ColumnDef[] = [
   { key: "id", label: "#" },
+  { key: "viewed", label: "Viewed", render: renderViewStatus, sortable: false },
   { key: "name", label: "Name" },
   { key: "email", label: "Email" },
   { key: "subject", label: "Subject" },
@@ -96,6 +105,7 @@ const CONTACT_COLUMNS: ColumnDef[] = [
 
 const CAREER_COLUMNS: ColumnDef[] = [
   { key: "id", label: "#" },
+  { key: "viewed", label: "Viewed", render: renderViewStatus, sortable: false },
   { key: "name", label: "Name" },
   { key: "email", label: "Email" },
   { key: "phone", label: "Phone", sortable: false },
@@ -107,6 +117,7 @@ const CAREER_COLUMNS: ColumnDef[] = [
 
 const ADMISSION_COLUMNS: ColumnDef[] = [
   { key: "id", label: "#" },
+  { key: "viewed", label: "Viewed", render: renderViewStatus, sortable: false },
   { key: "session", label: "Session" },
   { key: "child_name", label: "Child Name" },
   { key: "dob", label: "DOB", sortable: false },
@@ -119,6 +130,7 @@ const ADMISSION_COLUMNS: ColumnDef[] = [
 
 const KIVA_KAMP_COLUMNS: ColumnDef[] = [
   { key: "id", label: "#" },
+  { key: "viewed", label: "Viewed", render: renderViewStatus, sortable: false },
   { key: "name", label: "Name" },
   { key: "child_class", label: "Class", sortable: false },
   { key: "age", label: "Age", sortable: false },

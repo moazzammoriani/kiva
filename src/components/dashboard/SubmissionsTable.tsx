@@ -234,7 +234,10 @@ export function SubmissionsTable({
                 {items.map((row) => (
                   <tr
                     key={row.id}
-                    className={onRowClick ? "clickable-row" : ""}
+                    className={[
+                      onRowClick ? "clickable-row" : "",
+                      row.viewed === false ? "db-row-unread" : "",
+                    ].filter(Boolean).join(" ")}
                     onClick={() => onRowClick?.(row)}
                   >
                     {showActions && (

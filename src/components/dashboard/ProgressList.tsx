@@ -10,6 +10,7 @@ interface Props {
 
 const COLUMNS = [
   { key: "submitted_at", label: "Submitted" },
+  { key: "viewed", label: "Viewed" },
   { key: "child_name", label: "Child Name" },
   { key: "class_name", label: "Class" },
   { key: "father_name", label: "Father" },
@@ -236,7 +237,10 @@ export function ProgressList({ token, onEdit }: Props) {
               </thead>
               <tbody>
                 {items.map((row) => (
-                  <tr key={row.admission_id}>
+                  <tr
+                    key={row.admission_id}
+                    className={row.viewed === false ? "db-row-unread" : ""}
+                  >
                     <td className="db-actions-cell">
                       <button
                         className="db-btn-action db-btn-action-edit"
@@ -253,8 +257,21 @@ export function ProgressList({ token, onEdit }: Props) {
                       </button>
                     </td>
                     {COLUMNS.map((col) => (
-                      <td key={col.key} title={row[col.key] || ""}>
-                        {formatCell(col.key, row[col.key]) || "\u2014"}
+                      <td
+                        key={col.key}
+                        title={
+                          col.key === "viewed"
+                            ? row.viewed ? "Viewed" : "New"
+                            : row[col.key] || ""
+                        }
+                      >
+                        {col.key === "viewed" ? (
+                          <span className={`db-view-status ${row.viewed ? "viewed" : "new"}`}>
+                            {row.viewed ? "Viewed" : "New"}
+                          </span>
+                        ) : (
+                          formatCell(col.key, row[col.key]) || "\u2014"
+                        )}
                       </td>
                     ))}
                   </tr>

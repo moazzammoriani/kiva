@@ -211,6 +211,41 @@ body {
 .db-table tr:nth-child(even) td { background: var(--db-row-alt); }
 .db-table tr:hover td { background: var(--db-row-hover); }
 
+.db-table tr.db-row-unread td {
+  background: #fff8d9;
+  font-weight: 600;
+}
+
+.db-table tr.db-row-unread td:first-child {
+  box-shadow: inset 3px 0 0 #d69e2e;
+}
+
+.db-table tr.db-row-unread:hover td {
+  background: #fff3bf;
+}
+
+.db-view-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  line-height: 1.2;
+  text-transform: uppercase;
+  letter-spacing: 0;
+}
+
+.db-view-status.new {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.db-view-status.viewed {
+  background: #e2e8f0;
+  color: #475569;
+}
+
 .db-table .clickable-row { cursor: pointer; }
 
 .db-cell-truncate {

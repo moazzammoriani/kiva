@@ -185,42 +185,39 @@ const success = {
                         <span>Previous class</span>
                     </label>
                 </div>
-                <fieldset class="form-fieldset">
-                    <legend>{prompts.progressReport}</legend>
-                    <label
-                        ><input type="radio" name="hasReport" value="yes" /> Yes,
-                        I have a progress report to share.</label
-                    >
-                    <label
-                        ><input type="radio" name="hasReport" value="no" /> No, a
-                        progress report is not applicable at this time.</label
-                    >
-                    <div
-                        class="file-upload-wrapper"
-                        id="progress-report-wrapper"
-                    >
-                        <label class="upload-button">
-                            <span>Upload progress report</span>
-                            <input
-                                type="file"
-                                name="progressReport"
-                                accept=".pdf,.doc,.docx,.jpg,.png"
-                            />
-                        </label>
-                        <div class="file-info" style="display: none;">
-                            <span class="file-name"></span>
-                            <button type="button" class="remove-file-button"
-                                >Remove</button
-                            >
-                        </div>
-                    </div>
-                </fieldset>
-
                 <label class="form-field form-field--textarea">
                     <textarea name="reason" rows={3} placeholder=" "></textarea>
                     <span>Reason for changing school</span>
                 </label>
             </div>
+
+            <fieldset class="form-fieldset">
+                <legend>{prompts.progressReport}</legend>
+                <label
+                    ><input type="radio" name="hasReport" value="yes" required />
+                    Yes, I have a progress report to share.</label
+                >
+                <label
+                    ><input type="radio" name="hasReport" value="no" /> No, a
+                    progress report is not applicable at this time.</label
+                >
+                <div class="file-upload-wrapper" id="progress-report-wrapper">
+                    <label class="upload-button">
+                        <span>Upload progress report</span>
+                        <input
+                            type="file"
+                            name="progressReport"
+                            accept=".pdf,.doc,.docx,.jpg,.png"
+                        />
+                    </label>
+                    <div class="file-info" style="display: none;">
+                        <span class="file-name"></span>
+                        <button type="button" class="remove-file-button"
+                            >Remove</button
+                        >
+                    </div>
+                </div>
+            </fieldset>
 
             <label class="form-field form-field--textarea">
                 <textarea name="medicalInfo" rows={3} placeholder=" "
@@ -488,6 +485,10 @@ const success = {
                 <label class="form-fieldset__statement">
                     <input type="checkbox" name="declaration" required />
                     <span>{declarationStatement}</span>
+                </label>
+                <label class="form-fieldset__statement">
+                    <input type="checkbox" name="termsAccepted" required />
+                    <span>I have read and agree to the Terms and Conditions.</span>
                 </label>
             </fieldset>
             <label class="form-field">
@@ -774,8 +775,12 @@ const success = {
         align-items: flex-start;
     }
 
-    .form-fieldset__statement {
+    .form-fieldset label.form-fieldset__statement {
         align-items: flex-start;
+    }
+
+    .form-fieldset__statement input[type="checkbox"] {
+        margin-top: 0.2em;
     }
 
     .form-fieldset__statement span {
@@ -1044,19 +1049,13 @@ const success = {
             return;
         }
 
-        // Validate hasReport selection if "applied before" section is visible
-        const appliedBefore = (
-            document.querySelector(
-                'input[name="appliedBefore"]:checked',
-            ) as HTMLInputElement
-        )?.value;
         const hasReportValue = (
             document.querySelector(
                 'input[name="hasReport"]:checked',
             ) as HTMLInputElement
         )?.value;
 
-        if (appliedBefore === "yes" && !hasReportValue) {
+        if (!hasReportValue) {
             alert("Please indicate whether you have a progress report.");
             return;
         }
