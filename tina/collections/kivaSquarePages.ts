@@ -8,9 +8,11 @@ const slugify = (title: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-export const KivaSquarePagesCollection = (groupLabel = "Kiva Square"): Collection => ({
+export const KivaSquarePagesCollection = (
+  groupLabel = "Kiva Square",
+): Collection => ({
   name: "kivaSquarePages",
-  label: `📁 ${groupLabel} Pages`,
+  label: `${groupLabel}: Pages`,
   path: "content/kiva-square-pages",
   format: "json",
   ui: {
@@ -19,13 +21,13 @@ export const KivaSquarePagesCollection = (groupLabel = "Kiva Square"): Collectio
       delete: true,
     },
     filename: {
-      slugify: () => crypto.randomUUID().split("-")[0],
+      slugify: (values) => slugify(String(values.title ?? "")),
     },
     beforeSubmit: async ({ values }) => {
       const slug = values.slug || slugify(String(values.title ?? ""));
       if (RESERVED_SLUGS.includes(slug)) {
         throw new Error(
-          `The slug "${slug}" is reserved by an existing page. Choose a different title.`
+          `The slug "${slug}" is reserved by an existing page. Choose a different title.`,
         );
       }
       return { ...values, slug };

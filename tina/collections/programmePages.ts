@@ -1,6 +1,10 @@
 import type { Collection } from "tinacms";
 
-const RESERVED_SLUGS = ["preschool-and-elementary", "middle-and-senior", "kiva-kamps"];
+const RESERVED_SLUGS = [
+  "preschool-and-elementary",
+  "middle-and-senior",
+  "kiva-kamps",
+];
 
 const slugify = (title: string) =>
   (title || "untitled")
@@ -8,9 +12,11 @@ const slugify = (title: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-export const ProgrammePagesCollection = (groupLabel = "Programmes"): Collection => ({
+export const ProgrammePagesCollection = (
+  groupLabel = "Programmes",
+): Collection => ({
   name: "programmePages",
-  label: `📁 ${groupLabel} Pages`,
+  label: `${groupLabel}: Custom Pages`,
   path: "content/programme-pages",
   format: "json",
   ui: {
@@ -19,13 +25,13 @@ export const ProgrammePagesCollection = (groupLabel = "Programmes"): Collection 
       delete: true,
     },
     filename: {
-      slugify: () => crypto.randomUUID().split("-")[0],
+      slugify: (values) => slugify(String(values.title ?? "")),
     },
     beforeSubmit: async ({ values }) => {
       const slug = values.slug || slugify(String(values.title ?? ""));
       if (RESERVED_SLUGS.includes(slug)) {
         throw new Error(
-          `The slug "${slug}" is reserved by an existing page. Choose a different title.`
+          `The slug "${slug}" is reserved by an existing page. Choose a different title.`,
         );
       }
       return { ...values, slug };

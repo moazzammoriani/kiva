@@ -8,9 +8,11 @@ const slugify = (title: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "");
 
-export const AdmissionPagesCollection = (groupLabel = "Admissions"): Collection => ({
+export const AdmissionPagesCollection = (
+  groupLabel = "Admissions",
+): Collection => ({
   name: "admissionPages",
-  label: `📁 ${groupLabel} Pages`,
+  label: `${groupLabel}: Custom Pages`,
   path: "content/admission-pages",
   format: "json",
   ui: {
@@ -19,13 +21,13 @@ export const AdmissionPagesCollection = (groupLabel = "Admissions"): Collection 
       delete: true,
     },
     filename: {
-      slugify: () => crypto.randomUUID().split("-")[0],
+      slugify: (values) => slugify(String(values.title ?? "")),
     },
     beforeSubmit: async ({ values }) => {
       const slug = values.slug || slugify(String(values.title ?? ""));
       if (RESERVED_SLUGS.includes(slug)) {
         throw new Error(
-          `The slug "${slug}" is reserved by an existing page. Choose a different title.`
+          `The slug "${slug}" is reserved by an existing page. Choose a different title.`,
         );
       }
       return { ...values, slug };

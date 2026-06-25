@@ -26,6 +26,18 @@ const branch =
   process.env.HEAD ||
   "main";
 
+const withGroup = (group: string, label?: string, fallback?: string) =>
+  `${group}: ${label || fallback}`;
+
+const aboutLabels = navLabels.aboutUs?.[0];
+const programmeLabels = navLabels.programmes?.[0];
+const admissionLabels = navLabels.admissions?.[0];
+const kivaSquareLabels = navLabels.kivaSquare?.[0];
+const aboutGroup = aboutLabels?.label || "About Us";
+const programmeGroup = programmeLabels?.label || "Programmes";
+const admissionGroup = admissionLabels?.label || "Admissions";
+const kivaSquareGroup = kivaSquareLabels?.label || "Kiva Square";
+
 export default defineConfig({
   branch,
 
@@ -56,21 +68,65 @@ export default defineConfig({
   },
   schema: {
     collections: [
-      HomeCollection(navLabels.homeLabel),
-      OurStoryCollection(navLabels.aboutUs?.[0]?.ourStoryLabel),
-      MissionCollection(navLabels.aboutUs?.[0]?.missionLabel),
-      TeamCollection(navLabels.aboutUs?.[0]?.teamLabel),
-      PreschoolCollection(navLabels.programmes?.[0]?.preschoolLabel),
-      MiddleAndSeniorCollection(navLabels.programmes?.[0]?.seniorLabel),
-      AdmissionProcessCollection(navLabels.admissions?.[0]?.processLabel),
-      CommunityCollection(navLabels.communityEnrichmentLabel),
-      AboutPagesCollection(navLabels.aboutUs?.[0]?.label),
-      ProgrammePagesCollection(navLabels.programmes?.[0]?.label),
-      AdmissionPagesCollection(navLabels.admissions?.[0]?.label),
-      KivaSquarePagesCollection(navLabels.kivaSquare?.[0]?.label),
-      KivaKampFormCollection(),
-      AdmissionFormCollection(navLabels.admissions?.[0]?.formLabel),
-      AdmissionTermsCollection(),
+      HomeCollection(withGroup("Main Pages", navLabels.homeLabel, "Home")),
+      CommunityCollection(
+        withGroup(
+          "Main Pages",
+          navLabels.communityEnrichmentLabel,
+          "Community Enrichment",
+        ),
+      ),
+
+      OurStoryCollection(
+        withGroup(aboutGroup, aboutLabels?.ourStoryLabel, "Our Story"),
+      ),
+      MissionCollection(
+        withGroup(
+          aboutGroup,
+          aboutLabels?.missionLabel,
+          "Mission, Vision & Values",
+        ),
+      ),
+      TeamCollection(
+        withGroup(aboutGroup, aboutLabels?.teamLabel, "Meet the Team"),
+      ),
+      AboutPagesCollection(aboutGroup),
+
+      PreschoolCollection(
+        withGroup(
+          programmeGroup,
+          programmeLabels?.preschoolLabel,
+          "Elementary & Junior School",
+        ),
+      ),
+      MiddleAndSeniorCollection(
+        withGroup(
+          programmeGroup,
+          programmeLabels?.seniorLabel,
+          "Senior School",
+        ),
+      ),
+      KivaKampFormCollection(
+        withGroup(programmeGroup, programmeLabels?.kampsLabel, "Kiva Kamps"),
+      ),
+      ProgrammePagesCollection(programmeGroup),
+
+      AdmissionProcessCollection(
+        withGroup(
+          admissionGroup,
+          admissionLabels?.processLabel,
+          "Admission Process",
+        ),
+      ),
+      AdmissionFormCollection(
+        withGroup(admissionGroup, admissionLabels?.formLabel, "Admission Form"),
+      ),
+      AdmissionTermsCollection(
+        withGroup(admissionGroup, "Terms and Conditions"),
+      ),
+      AdmissionPagesCollection(admissionGroup),
+
+      KivaSquarePagesCollection(kivaSquareGroup),
       NavigationCollection,
     ],
   },

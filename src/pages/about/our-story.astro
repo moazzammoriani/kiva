@@ -4,14 +4,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PageSection from "../../components/PageSection.astro";
 
 const fallbackHeroImage = "/images/our-story/our_story_banner.webp";
-const fallbackTimelineImage = "/images/our-story/our_story_timeline_mob.webp";
+const fallbackTimelineImage = "/images/our-story/our_story_timeline.webp";
+const fallbackMobileTimelineImage =
+  "/images/our-story/our_story_timeline_mob.webp";
 
 const storyEntries = await getCollection("ourStory");
 const story = storyEntries[0]?.data;
 
 const heroImage = story?.heroImage || fallbackHeroImage;
 const timelineImage = story?.timelineImage || fallbackTimelineImage;
-const timelineMobileImage = story?.timelineMobileImage || timelineImage;
+const timelineMobileImage =
+  story?.timelineMobileImage || fallbackMobileTimelineImage;
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage} heroAlt={story?.heroAlt ?? ""}>

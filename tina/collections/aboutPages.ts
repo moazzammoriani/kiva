@@ -10,7 +10,7 @@ const slugify = (title: string) =>
 
 export const AboutPagesCollection = (groupLabel = "About Us"): Collection => ({
   name: "aboutPages",
-  label: `📁 ${groupLabel} Pages`,
+  label: `${groupLabel}: Custom Pages`,
   path: "content/about-pages",
   format: "json",
   ui: {
@@ -19,13 +19,13 @@ export const AboutPagesCollection = (groupLabel = "About Us"): Collection => ({
       delete: true,
     },
     filename: {
-      slugify: () => crypto.randomUUID().split("-")[0],
+      slugify: (values) => slugify(String(values.title ?? "")),
     },
     beforeSubmit: async ({ values }) => {
       const slug = values.slug || slugify(String(values.title ?? ""));
       if (RESERVED_SLUGS.includes(slug)) {
         throw new Error(
-          `The slug "${slug}" is reserved by an existing page. Choose a different title.`
+          `The slug "${slug}" is reserved by an existing page. Choose a different title.`,
         );
       }
       return { ...values, slug };

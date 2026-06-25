@@ -16,6 +16,7 @@ export const OurStoryCollection = (label = "Our Story"): Collection => ({
       name: "heroImage",
       label: "Hero Banner Image",
       type: "image",
+      description: "Recommended upload size: 1440 x 464 px. Use WebP or PNG.",
     },
     {
       name: "heroAlt",
@@ -29,13 +30,15 @@ export const OurStoryCollection = (label = "Our Story"): Collection => ({
     },
     {
       name: "timelineImage",
-      label: "Timeline Image",
+      label: "Desktop Timeline Image",
       type: "image",
+      description: "Recommended upload size: 1440 x 2002 px. Use WebP or PNG.",
     },
     {
       name: "timelineMobileImage",
       label: "Mobile Timeline Image",
       type: "image",
+      description: "Recommended upload size: 1440 x 1988 px. Use WebP or PNG.",
     },
     {
       name: "timelineAlt",
