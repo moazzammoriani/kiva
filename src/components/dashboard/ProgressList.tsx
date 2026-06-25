@@ -5,6 +5,7 @@ import { ConfirmModal } from "./ConfirmModal";
 
 interface Props {
   token: string;
+  onView: (admissionId: number) => void;
   onEdit: (admissionId: number) => void;
 }
 
@@ -47,7 +48,7 @@ function formatCell(key: string, value: string | null): string {
   return truncate(value);
 }
 
-export function ProgressList({ token, onEdit }: Props) {
+export function ProgressList({ token, onView, onEdit }: Props) {
   const [items, setItems] = useState<any[]>([]);
   const [total, setTotal] = useState(0);
   const [pages, setPages] = useState(1);
@@ -239,9 +240,19 @@ export function ProgressList({ token, onEdit }: Props) {
                 {items.map((row) => (
                   <tr
                     key={row.admission_id}
-                    className={row.viewed === false ? "db-row-unread" : ""}
+                    className={[
+                      "clickable-row",
+                      row.viewed === false ? "db-row-unread" : "",
+                    ].filter(Boolean).join(" ")}
+                    onClick={() => onView(row.admission_id)}
                   >
-                    <td className="db-actions-cell">
+                    <td className="db-actions-cell" onClick={(e) => e.stopPropagation()}>
+                      <button
+                        className="db-btn-action db-btn-action-view"
+                        onClick={() => onView(row.admission_id)}
+                      >
+                        View
+                      </button>
                       <button
                         className="db-btn-action db-btn-action-edit"
                         onClick={() => onEdit(row.admission_id)}

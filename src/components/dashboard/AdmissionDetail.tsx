@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { formatCnic } from "../../utils/cnic";
+import { printPdf } from "../../utils/printPdf";
 
 interface Props {
   id: number;
@@ -68,15 +69,22 @@ export function AdmissionDetail({ id, token, onBack }: Props) {
   if (error) return <div className="db-empty">{error}</div>;
   if (!data) return null;
 
+  const pdfUrl = `/api/submissions/admissions/${id}/pdf?token=${encodeURIComponent(token)}`;
+
   return (
     <div>
       <div className="db-detail-toolbar">
         <button className="db-detail-back" onClick={onBack}>
           &larr; Back to list
         </button>
-        <button className="db-btn-print" onClick={() => window.print()}>
-          Print
-        </button>
+        <div className="db-detail-actions">
+          <a className="db-btn-print" href={pdfUrl}>
+            Export PDF
+          </a>
+          <button className="db-btn-print" onClick={() => printPdf(pdfUrl)}>
+            Print
+          </button>
+        </div>
       </div>
 
       <div className="db-print-header">
@@ -93,6 +101,8 @@ export function AdmissionDetail({ id, token, onBack }: Props) {
         <div className="db-detail-grid">
           <Field label="Child Name" value={data.child_name} />
           <Field label="Date of Birth" value={data.dob} />
+          <Field label="Age" value={data.current_age} />
+          <Field label="Age on July 1" value={data.age_on_july} />
           <Field label="Eligible Class" value={data.eligible_class} />
           <Field label="Session" value={data.session} />
           <Field label="Applied Before" value={data.applied_before} />

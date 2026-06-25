@@ -6,6 +6,7 @@ import { ContactDetail } from "./ContactDetail";
 import { CareerDetail } from "./CareerDetail";
 import { KivaKampDetail } from "./KivaKampDetail";
 import { ProgressList } from "./ProgressList";
+import { ProgressDetail } from "./ProgressDetail";
 import { ProgressForm } from "./ProgressForm";
 import { AdmissionForm } from "./AdmissionForm";
 import { ContactForm } from "./ContactForm";
@@ -255,6 +256,16 @@ export default function Dashboard() {
   }
 
   function renderProgressTab() {
+    if (routeMode === "detail" && detailId != null) {
+      return (
+        <ProgressDetail
+          token={token!}
+          admissionId={detailId}
+          onBack={handleBack}
+          onEdit={() => navigate(`/dashboard/progress/${detailId}/edit`)}
+        />
+      );
+    }
     if (routeMode === "edit" && detailId != null) {
       return (
         <ProgressForm
@@ -268,6 +279,7 @@ export default function Dashboard() {
     return (
       <ProgressList
         token={token!}
+        onView={(admissionId) => navigate(`/dashboard/progress/${admissionId}`)}
         onEdit={(admissionId) => navigate(`/dashboard/progress/${admissionId}/edit`)}
       />
     );

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { printPdf } from "../../utils/printPdf";
 
 interface Props {
   token: string;
@@ -7,13 +8,13 @@ interface Props {
   onSaved: () => void;
 }
 
-const CLASS_OPTIONS = [
+export const CLASS_OPTIONS = [
   "Play Group", "Pre-Nursery", "Nursery", "Prep",
   "I", "II", "III", "IV", "V", "VI", "VII", "VIII",
   "Playgroup", "KG", "Outside eligible class range",
 ];
 
-const FIELD_DEFS: { key: string; label: string; wide?: boolean; options?: string[]; type?: string }[] = [
+export const FIELD_DEFS: { key: string; label: string; wide?: boolean; options?: string[]; type?: string }[] = [
   { key: "child_name", label: "Child Name" },
   { key: "father_name", label: "Father Name" },
   { key: "father_phone", label: "Father Contact No" },
@@ -51,6 +52,8 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
   const [fields, setFields] = useState<Record<string, string>>({});
   const [childName, setChildName] = useState("");
   const [submittedAt, setSubmittedAt] = useState("");
+  const [currentAge, setCurrentAge] = useState("");
+  const [ageOnJuly, setAgeOnJuly] = useState("");
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -72,6 +75,8 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
         setFields(f);
         setChildName(data.child_name ?? "");
         setSubmittedAt(data.submitted_at ? new Date(data.submitted_at).toLocaleDateString() : "");
+        setCurrentAge(data.current_age ?? "");
+        setAgeOnJuly(data.age_on_july ?? "");
       })
       .catch((err) => setError(err.message))
       .finally(() => setLoading(false));
@@ -108,6 +113,8 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
 
   if (loading) return <div className="db-loading">Loading...</div>;
 
+  const pdfUrl = `/api/submissions/progress/${admissionId}/pdf?token=${encodeURIComponent(token)}`;
+
   return (
     <div>
       <div className="db-detail-toolbar">
@@ -117,9 +124,14 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
         <h2 className="db-detail-title" style={{ margin: 0 }}>
           Edit Progress — {childName}
         </h2>
-        <button className="db-btn-print" onClick={() => window.print()}>
-          Print
-        </button>
+        <div className="db-detail-actions">
+          <a className="db-btn-print" href={pdfUrl}>
+            Export PDF
+          </a>
+          <button className="db-btn-print" onClick={() => printPdf(pdfUrl)}>
+            Print
+          </button>
+        </div>
       </div>
 
       <div className="db-print-header">
@@ -127,13 +139,27 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
         <p>Admission Progress</p>
       </div>
 
-      {submittedAt && (
+      {(submittedAt || currentAge || ageOnJuly) && (
         <div className="db-detail-section" style={{ marginBottom: "1rem" }}>
           <div className="db-detail-grid">
-            <div className="db-detail-field">
-              <label>Admission Submitted</label>
-              <span>{submittedAt}</span>
-            </div>
+            {submittedAt && (
+              <div className="db-detail-field">
+                <label>Admission Submitted</label>
+                <span>{submittedAt}</span>
+              </div>
+            )}
+            {currentAge && (
+              <div className="db-detail-field">
+                <label>Age</label>
+                <span>{currentAge}</span>
+              </div>
+            )}
+            {ageOnJuly && (
+              <div className="db-detail-field">
+                <label>Age on July 1</label>
+                <span>{ageOnJuly}</span>
+              </div>
+            )}
           </div>
         </div>
       )}

@@ -476,7 +476,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 0.75rem;
   margin-bottom: 1rem;
+}
+
+.db-detail-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
 }
 
 .db-btn-print {
@@ -491,6 +499,7 @@ body {
   font-size: 0.8rem;
   font-weight: 600;
   color: var(--db-text);
+  text-decoration: none;
   cursor: pointer;
   transition: border-color 0.15s, background 0.15s;
 }
@@ -636,6 +645,12 @@ body {
   border: 1px solid var(--db-border);
   transition: background 0.15s, border-color 0.15s;
 }
+.db-btn-action-view {
+  background: var(--db-white);
+  color: var(--db-text);
+  border-color: var(--db-border);
+}
+.db-btn-action-view:hover { background: var(--db-row-hover); }
 .db-btn-action-edit {
   background: var(--db-white);
   color: var(--db-teal);
