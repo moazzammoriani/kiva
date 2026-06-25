@@ -5,6 +5,7 @@ import {
   cleanPhoneInputValue,
   validatePakistanMobile,
 } from "../../utils/phone";
+import { ELIGIBLE_CLASS_OPTIONS } from "../../utils/classEligibility";
 
 interface Props {
   token: string;
@@ -13,13 +14,16 @@ interface Props {
   onSaved: () => void;
 }
 
-export const CLASS_OPTIONS = [
-  "Play Group", "Pre-Nursery", "Nursery", "Prep",
-  "I", "II", "III", "IV", "V", "VI", "VII", "VIII",
-  "Playgroup", "KG", "Outside eligible class range",
-];
+export const CLASS_OPTIONS = [...ELIGIBLE_CLASS_OPTIONS];
 
-export const FIELD_DEFS: { key: string; label: string; wide?: boolean; options?: string[]; type?: string; phone?: boolean }[] = [
+export const FIELD_DEFS: {
+  key: string;
+  label: string;
+  wide?: boolean;
+  options?: string[];
+  type?: string;
+  phone?: boolean;
+}[] = [
   { key: "child_name", label: "Child Name" },
   { key: "father_name", label: "Father Name" },
   { key: "father_phone", label: "Father Contact No", phone: true },
@@ -27,17 +31,53 @@ export const FIELD_DEFS: { key: string; label: string; wide?: boolean; options?:
   { key: "mother_phone", label: "Mother Contact No", phone: true },
   { key: "date_of_facilitation", label: "Date of Facilitation", type: "date" },
   { key: "class_name", label: "Class", options: CLASS_OPTIONS },
-  { key: "form_status", label: "Form Status", options: ["YES", "NO", "PAAR", "OTHER"] },
-  { key: "affiliation", label: "Affiliation", options: ["AMI", "DAYCARE", "KIVA", "PAAR", "Other"] },
-  { key: "interview_applicable", label: "Interview Applicable", options: ["YES", "NO"] },
-  { key: "parent_status", label: "Parent Status", options: ["Reachable", "Not Reachable"] },
-  { key: "first_call_interview_assessment", label: "1st Call Interview Assessment", type: "date" },
-  { key: "second_call_interview_assessment", label: "2nd Call Interview Assessment", type: "date" },
-  { key: "acceptance", label: "Acceptance / No Acceptance", options: ["YES", "NO"] },
+  {
+    key: "form_status",
+    label: "Form Status",
+    options: ["YES", "NO", "PAAR", "OTHER"],
+  },
+  {
+    key: "affiliation",
+    label: "Affiliation",
+    options: ["AMI", "DAYCARE", "KIVA", "PAAR", "Other"],
+  },
+  {
+    key: "interview_applicable",
+    label: "Interview Applicable",
+    options: ["YES", "NO"],
+  },
+  {
+    key: "parent_status",
+    label: "Parent Status",
+    options: ["Reachable", "Not Reachable"],
+  },
+  {
+    key: "first_call_interview_assessment",
+    label: "1st Call Interview Assessment",
+    type: "date",
+  },
+  {
+    key: "second_call_interview_assessment",
+    label: "2nd Call Interview Assessment",
+    type: "date",
+  },
+  {
+    key: "acceptance",
+    label: "Acceptance / No Acceptance",
+    options: ["YES", "NO"],
+  },
   { key: "session", label: "Session" },
-  { key: "send_confirmation_date", label: "Send Confirmation Date", type: "date" },
+  {
+    key: "send_confirmation_date",
+    label: "Send Confirmation Date",
+    type: "date",
+  },
   { key: "due_date_for_payment", label: "Due Date for Payment", type: "date" },
-  { key: "status", label: "Status", options: ["ACCEPTED", "AWAITING", "DECLINE", "EXTENDED"] },
+  {
+    key: "status",
+    label: "Status",
+    options: ["ACCEPTED", "AWAITING", "DECLINE", "EXTENDED"],
+  },
   { key: "follow_up", label: "Follow Up", wide: true },
   { key: "follow_up_2", label: "Follow Up 2", wide: true },
   { key: "follow_up_3", label: "Follow Up 3", wide: true },
@@ -55,7 +95,9 @@ function PrintValue({ value }: { value: any }) {
 
 export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
   const [fields, setFields] = useState<Record<string, string>>({});
-  const [originalFields, setOriginalFields] = useState<Record<string, string>>({});
+  const [originalFields, setOriginalFields] = useState<Record<string, string>>(
+    {},
+  );
   const [childName, setChildName] = useState("");
   const [submittedAt, setSubmittedAt] = useState("");
   const [currentAge, setCurrentAge] = useState("");
@@ -81,7 +123,11 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
         setFields(f);
         setOriginalFields(f);
         setChildName(data.child_name ?? "");
-        setSubmittedAt(data.submitted_at ? new Date(data.submitted_at).toLocaleDateString() : "");
+        setSubmittedAt(
+          data.submitted_at
+            ? new Date(data.submitted_at).toLocaleDateString()
+            : "",
+        );
         setCurrentAge(data.current_age ?? "");
         setAgeOnJuly(data.age_on_july ?? "");
       })
@@ -156,7 +202,11 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
       </div>
 
       <div className="db-print-header">
-        <img src="/images/home/kiva-logo.png" alt="Kiva School" className="db-print-logo" />
+        <img
+          src="/images/home/kiva-logo.png"
+          alt="Kiva School"
+          className="db-print-logo"
+        />
         <p>Admission Progress</p>
       </div>
 
@@ -202,7 +252,9 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
                 >
                   <option value="">— Select —</option>
                   {def.options.map((opt) => (
-                    <option key={opt} value={opt}>{opt}</option>
+                    <option key={opt} value={opt}>
+                      {opt}
+                    </option>
                   ))}
                 </select>
               ) : def.wide ? (
@@ -213,12 +265,14 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
                 />
               ) : (
                 <input
-                  type={def.phone ? "tel" : def.type ?? "text"}
+                  type={def.phone ? "tel" : (def.type ?? "text")}
                   value={fields[def.key] ?? ""}
                   onChange={(e) =>
                     handleFieldChange(
                       def.key,
-                      def.phone ? cleanPhoneInputValue(e.target.value) : e.target.value,
+                      def.phone
+                        ? cleanPhoneInputValue(e.target.value)
+                        : e.target.value,
                     )
                   }
                   inputMode={def.phone ? "tel" : undefined}

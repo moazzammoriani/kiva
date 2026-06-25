@@ -12,6 +12,17 @@ const CLASS_AGE_RANGES = [
   ["V", 9.5, 10.5],
 ] as const;
 
+export const ELIGIBLE_CLASS_OPTIONS = [
+  ...CLASS_AGE_RANGES.map(([className]) => className),
+  OUTSIDE_ELIGIBLE_RANGE,
+];
+
+const CLASS_ONE_AND_ABOVE = new Set(["I", "II", "III", "IV", "V"]);
+
+export function isClassOneAndAbove(className: string): boolean {
+  return CLASS_ONE_AND_ABOVE.has(className);
+}
+
 export function currentEligibilityYear(): number {
   return Number(
     new Intl.DateTimeFormat("en", {
@@ -28,7 +39,11 @@ export function calculateEligibleClass(
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(dob);
   if (!match) return "";
 
-  const birthUtc = Date.UTC(Number(match[1]), Number(match[2]) - 1, Number(match[3]));
+  const birthUtc = Date.UTC(
+    Number(match[1]),
+    Number(match[2]) - 1,
+    Number(match[3]),
+  );
   const cutoffUtc = Date.UTC(eligibilityYear, 6, 1);
   const decimalAge = (cutoffUtc - birthUtc) / 86_400_000 / 365.2425;
 

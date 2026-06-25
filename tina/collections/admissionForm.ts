@@ -26,7 +26,7 @@ export const AdmissionFormCollection = (
       type: "string",
       list: true,
       description:
-        "Each entry becomes one option in the session dropdown (e.g. \"2025–2026\").",
+        "Each entry becomes one option in the session dropdown (e.g. \"2026–2027\").",
     },
     {
       name: "headings",
