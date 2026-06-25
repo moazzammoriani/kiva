@@ -5,6 +5,7 @@ import heroImage from "../../assets/Banner_AdmissionForm.webp";
 import PageSection from "../../components/PageSection.astro";
 import FormNotification from "../../components/FormNotification.astro";
 import { richTextToHtml } from "../../utils/richTextToHtml";
+import { PHONE_INPUT_PATTERN } from "../../utils/phone";
 
 const fallbackIntro =
   "<p>At the Kiva School we aim to provide an admission process that is smooth and stress-free for parents. To initiate the admission process, please fill out the form below. A member from our Admissions Office will be in touch with you soon to communicate next steps.</p>";
@@ -301,8 +302,9 @@ const success = {
                             name="motherPhone"
                             placeholder=" "
                             required
-                            inputmode="numeric"
-                            pattern="[0-9]+"
+                            inputmode="tel"
+                            pattern={PHONE_INPUT_PATTERN}
+                            data-phone-field="true"
                         />
                         <span>Cellphone number</span>
                     </label>
@@ -372,8 +374,9 @@ const success = {
                             name="fatherPhone"
                             placeholder=" "
                             required
-                            inputmode="numeric"
-                            pattern="[0-9]+"
+                            inputmode="tel"
+                            pattern={PHONE_INPUT_PATTERN}
+                            data-phone-field="true"
                         />
                         <span>Cellphone number</span>
                     </label>
@@ -413,6 +416,9 @@ const success = {
 
         <section class="form-panel">
             <h2 class="form-heading">{headings.emergency}</h2>
+            <p class="helper-text">
+                Please provide contact details which are separate from that of the mother and father.
+            </p>
             <div class="form-grid">
                 <label class="form-field">
                     <input
@@ -429,8 +435,9 @@ const success = {
                         name="emergencyPhone"
                         placeholder=" "
                         required
-                        inputmode="numeric"
-                        pattern="[0-9]+"
+                        inputmode="tel"
+                        pattern={PHONE_INPUT_PATTERN}
+                        data-phone-field="true"
                     />
                     <span>Cellphone number</span>
                 </label>
@@ -955,6 +962,11 @@ const success = {
         calculateEligibleClass,
         currentEligibilityYear,
     } from "../../utils/classEligibility";
+    import {
+        normalizePakistanMobile,
+        normalizePakistanMobileField,
+        setupPakistanMobileField,
+    } from "../../utils/phone";
 
     const form = document.getElementById("admission-form") as HTMLFormElement;
     const notification = document.getElementById("admission-success");
@@ -965,6 +977,57 @@ const success = {
     const dobField = document.querySelector<HTMLInputElement>('input[name="dob"]');
     const eligibleClassField =
         document.getElementById("eligible-class") as HTMLInputElement;
+    const motherNameField =
+        document.querySelector<HTMLInputElement>('input[name="motherName"]');
+    const fatherNameField =
+        document.querySelector<HTMLInputElement>('input[name="fatherName"]');
+    const emergencyNameField =
+        document.querySelector<HTMLInputElement>('input[name="emergencyName"]');
+    const motherPhoneField =
+        document.querySelector<HTMLInputElement>('input[name="motherPhone"]');
+    const fatherPhoneField =
+        document.querySelector<HTMLInputElement>('input[name="fatherPhone"]');
+    const emergencyPhoneField =
+        document.querySelector<HTMLInputElement>('input[name="emergencyPhone"]');
+    const emergencyContactMessage =
+        "Please provide an emergency contact that is different from the mother and father.";
+
+    function normalizeContactName(value: string | undefined) {
+        return (value ?? "").trim().toLowerCase().replace(/\s+/g, " ");
+    }
+
+    function validateEmergencyContact() {
+        emergencyNameField?.setCustomValidity("");
+        emergencyPhoneField?.setCustomValidity("");
+
+        const emergencyName = normalizeContactName(emergencyNameField?.value);
+        const parentNames = [
+            normalizeContactName(motherNameField?.value),
+            normalizeContactName(fatherNameField?.value),
+        ].filter(Boolean);
+
+        if (emergencyName && parentNames.includes(emergencyName)) {
+            emergencyNameField?.setCustomValidity(emergencyContactMessage);
+            emergencyNameField?.reportValidity();
+            emergencyNameField?.focus();
+            return false;
+        }
+
+        const emergencyPhone = normalizePakistanMobile(emergencyPhoneField?.value);
+        const parentPhones = [
+            normalizePakistanMobile(motherPhoneField?.value),
+            normalizePakistanMobile(fatherPhoneField?.value),
+        ].filter(Boolean);
+
+        if (emergencyPhone && parentPhones.includes(emergencyPhone)) {
+            emergencyPhoneField?.setCustomValidity(emergencyContactMessage);
+            emergencyPhoneField?.reportValidity();
+            emergencyPhoneField?.focus();
+            return false;
+        }
+
+        return true;
+    }
 
     dobField?.addEventListener("input", () => {
         eligibleClassField.value = calculateEligibleClass(
@@ -973,14 +1036,21 @@ const success = {
         );
     });
 
-    // Restrict numeric fields to digits only
-    const numericFields = document.querySelectorAll(
-        'input[name="motherPhone"], input[name="fatherPhone"], input[name="emergencyPhone"]',
+    const phoneFields = Array.from(
+        document.querySelectorAll<HTMLInputElement>('input[data-phone-field="true"]'),
     );
-    numericFields.forEach((field) => {
-        field.addEventListener("input", (e) => {
-            const target = e.target as HTMLInputElement;
-            target.value = target.value.replace(/[^0-9]/g, "");
+    phoneFields.forEach(setupPakistanMobileField);
+    [
+        motherNameField,
+        fatherNameField,
+        emergencyNameField,
+        motherPhoneField,
+        fatherPhoneField,
+        emergencyPhoneField,
+    ].forEach((field) => {
+        field?.addEventListener("input", () => {
+            emergencyNameField?.setCustomValidity("");
+            emergencyPhoneField?.setCustomValidity("");
         });
     });
 
@@ -1081,6 +1151,18 @@ const success = {
 
         if (hasReportValue === "yes" && progressReportFile === 0) {
             alert("Please upload your progress report.");
+            return;
+        }
+
+        for (const field of phoneFields) {
+            if (!normalizePakistanMobileField(field)) {
+                field.reportValidity();
+                field.focus();
+                return;
+            }
+        }
+
+        if (!validateEmergencyContact()) {
             return;
         }
 

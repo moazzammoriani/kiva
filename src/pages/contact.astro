@@ -7,6 +7,7 @@ import FormNotification from "../components/FormNotification.astro";
 import phone from "../assets/contact_phone_icon.webp";
 import location from "../assets/contact_location_icon.webp";
 import email from "../assets/contact_email_icon.webp";
+import { PHONE_INPUT_PATTERN } from "../utils/phone";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
@@ -28,7 +29,15 @@ import email from "../assets/contact_email_icon.webp";
                     <span>Subject</span>
                 </label>
                 <label class="form-field">
-                    <input type="tel" name="phone" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
+                    <input
+                        type="tel"
+                        name="phone"
+                        placeholder=" "
+                        required
+                        inputmode="tel"
+                        pattern={PHONE_INPUT_PATTERN}
+                        data-phone-field="true"
+                    />
                     <span>Cellphone Number</span>
                 </label>
             </div>
@@ -222,18 +231,29 @@ import email from "../assets/contact_email_icon.webp";
 </style>
 
 <script>
+    import {
+        normalizePakistanMobileField,
+        setupPakistanMobileField,
+    } from "../utils/phone";
+
     const form = document.getElementById('contact-form') as HTMLFormElement;
     const notification = document.getElementById('contact-success');
 
-    // Restrict phone field to digits only
-    const phoneField = document.querySelector('input[name="phone"]') as HTMLInputElement;
-    phoneField?.addEventListener('input', (e) => {
-        const target = e.target as HTMLInputElement;
-        target.value = target.value.replace(/[^0-9]/g, '');
-    });
+    const phoneFields = Array.from(
+        document.querySelectorAll<HTMLInputElement>('input[data-phone-field="true"]'),
+    );
+    phoneFields.forEach(setupPakistanMobileField);
 
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
+        for (const field of phoneFields) {
+            if (!normalizePakistanMobileField(field)) {
+                field.reportValidity();
+                field.focus();
+                return;
+            }
+        }
+
         const formData = new FormData(form);
         try {
             const response = await fetch('/api/contact', {

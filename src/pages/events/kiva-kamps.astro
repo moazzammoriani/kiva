@@ -6,6 +6,7 @@ import PageSection from "../../components/PageSection.astro";
 import FormNotification from "../../components/FormNotification.astro";
 import HeroSlideshow from "../../components/HeroSlideshow.astro";
 import { richTextToHtml } from "../../utils/richTextToHtml";
+import { PHONE_INPUT_PATTERN } from "../../utils/phone";
 
 const bannerSlidesDir = new URL("../../../public/images/kiva-kamps/form/", import.meta.url);
 
@@ -258,8 +259,9 @@ const successMessage =
                 name={field.key}
                 placeholder=" "
                 required={field.required}
-                inputmode={field.inputMode || undefined}
-                pattern={field.pattern || undefined}
+                inputmode={field.type === "tel" ? "tel" : field.inputMode || undefined}
+                pattern={field.type === "tel" ? PHONE_INPUT_PATTERN : field.pattern || undefined}
+                data-phone-field={field.type === "tel" ? "true" : undefined}
               />
               <span>{field.label}</span>
             </label>
@@ -552,21 +554,30 @@ const successMessage =
 </style>
 
 <script>
+  import {
+    normalizePakistanMobileField,
+    setupPakistanMobileField,
+  } from "../../utils/phone";
+
   const form = document.getElementById("kamp-form") as HTMLFormElement | null;
   const notification = document.getElementById("kamp-success");
 
-  const stripNonDigits = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    target.value = target.value.replace(/[^0-9]/g, "");
-  };
-
-  form
-    ?.querySelectorAll<HTMLInputElement>('input[type="tel"]')
-    .forEach((el) => el.addEventListener("input", stripNonDigits));
+  const phoneFields = Array.from(
+    form?.querySelectorAll<HTMLInputElement>('input[data-phone-field="true"]') ?? [],
+  );
+  phoneFields.forEach(setupPakistanMobileField);
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!form) return;
+    for (const field of phoneFields) {
+      if (!normalizePakistanMobileField(field)) {
+        field.reportValidity();
+        field.focus();
+        return;
+      }
+    }
+
     const formData = new FormData(form);
     try {
       const response = await fetch("/api/kiva-kamps", {

@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { printPdf } from "../../utils/printPdf";
+import {
+  PHONE_ERROR_MESSAGE,
+  cleanPhoneInputValue,
+  validatePakistanMobile,
+} from "../../utils/phone";
 
 interface Props {
   token: string;
@@ -14,12 +19,12 @@ export const CLASS_OPTIONS = [
   "Playgroup", "KG", "Outside eligible class range",
 ];
 
-export const FIELD_DEFS: { key: string; label: string; wide?: boolean; options?: string[]; type?: string }[] = [
+export const FIELD_DEFS: { key: string; label: string; wide?: boolean; options?: string[]; type?: string; phone?: boolean }[] = [
   { key: "child_name", label: "Child Name" },
   { key: "father_name", label: "Father Name" },
-  { key: "father_phone", label: "Father Contact No" },
+  { key: "father_phone", label: "Father Contact No", phone: true },
   { key: "mother_name", label: "Mother Name" },
-  { key: "mother_phone", label: "Mother Contact No" },
+  { key: "mother_phone", label: "Mother Contact No", phone: true },
   { key: "date_of_facilitation", label: "Date of Facilitation", type: "date" },
   { key: "class_name", label: "Class", options: CLASS_OPTIONS },
   { key: "form_status", label: "Form Status", options: ["YES", "NO", "PAAR", "OTHER"] },
@@ -50,6 +55,7 @@ function PrintValue({ value }: { value: any }) {
 
 export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
   const [fields, setFields] = useState<Record<string, string>>({});
+  const [originalFields, setOriginalFields] = useState<Record<string, string>>({});
   const [childName, setChildName] = useState("");
   const [submittedAt, setSubmittedAt] = useState("");
   const [currentAge, setCurrentAge] = useState("");
@@ -73,6 +79,7 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
           f[def.key] = data[def.key] ?? "";
         }
         setFields(f);
+        setOriginalFields(f);
         setChildName(data.child_name ?? "");
         setSubmittedAt(data.submitted_at ? new Date(data.submitted_at).toLocaleDateString() : "");
         setCurrentAge(data.current_age ?? "");
@@ -91,13 +98,27 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
     setSaving(true);
     setError("");
     try {
+      const payload = { ...fields };
+      for (const def of FIELD_DEFS.filter((field) => field.phone)) {
+        const current = fields[def.key] ?? "";
+        const original = originalFields[def.key] ?? "";
+        if (current !== original) {
+          const result = validatePakistanMobile(current);
+          if (!result.valid) {
+            setError(`${def.label}: ${PHONE_ERROR_MESSAGE}`);
+            return;
+          }
+          payload[def.key] = result.normalized;
+        }
+      }
+
       const res = await fetch(`/api/submissions/progress/${admissionId}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(fields),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -192,9 +213,15 @@ export function ProgressForm({ token, admissionId, onBack, onSaved }: Props) {
                 />
               ) : (
                 <input
-                  type={def.type ?? "text"}
+                  type={def.phone ? "tel" : def.type ?? "text"}
                   value={fields[def.key] ?? ""}
-                  onChange={(e) => handleFieldChange(def.key, e.target.value)}
+                  onChange={(e) =>
+                    handleFieldChange(
+                      def.key,
+                      def.phone ? cleanPhoneInputValue(e.target.value) : e.target.value,
+                    )
+                  }
+                  inputMode={def.phone ? "tel" : undefined}
                 />
               )}
               <PrintValue value={fields[def.key]} />

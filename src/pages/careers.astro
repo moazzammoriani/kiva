@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import heroImage from "../assets/Banner_Career.webp";
 import PageSection from "../components/PageSection.astro";
 import FormNotification from "../components/FormNotification.astro";
+import { PHONE_INPUT_PATTERN } from "../utils/phone";
 ---
 
 <BaseLayout pageTitle={null} heroSrc={heroImage.src}>
@@ -28,7 +29,15 @@ import FormNotification from "../components/FormNotification.astro";
                     <span>Email Address</span>
                 </label>
                 <label class="form-field">
-                    <input type="tel" name="phone" placeholder=" " required inputmode="numeric" pattern="[0-9]+" />
+                    <input
+                        type="tel"
+                        name="phone"
+                        placeholder=" "
+                        required
+                        inputmode="tel"
+                        pattern={PHONE_INPUT_PATTERN}
+                        data-phone-field="true"
+                    />
                     <span>Contact Number</span>
                 </label>
                 <label class="form-field">
@@ -248,15 +257,18 @@ import FormNotification from "../components/FormNotification.astro";
 </style>
 
 <script>
+    import {
+        normalizePakistanMobileField,
+        setupPakistanMobileField,
+    } from "../utils/phone";
+
     const form = document.getElementById('careers-form') as HTMLFormElement;
     const notification = document.getElementById('careers-success');
 
-    // Restrict phone field to digits only
-    const phoneField = document.querySelector('input[name="phone"]') as HTMLInputElement;
-    phoneField?.addEventListener('input', (e) => {
-        const target = e.target as HTMLInputElement;
-        target.value = target.value.replace(/[^0-9]/g, '');
-    });
+    const phoneFields = Array.from(
+        document.querySelectorAll<HTMLInputElement>('input[data-phone-field="true"]'),
+    );
+    phoneFields.forEach(setupPakistanMobileField);
 
     // File upload handling
     const fileInput = document.querySelector('input[name="cv"]') as HTMLInputElement;
@@ -291,6 +303,14 @@ import FormNotification from "../components/FormNotification.astro";
 
     form?.addEventListener('submit', async (e) => {
         e.preventDefault();
+
+        for (const field of phoneFields) {
+            if (!normalizePakistanMobileField(field)) {
+                field.reportValidity();
+                field.focus();
+                return;
+            }
+        }
 
         if (!fileInput?.files || fileInput.files.length === 0) {
             if (cvError) cvError.style.display = 'inline';

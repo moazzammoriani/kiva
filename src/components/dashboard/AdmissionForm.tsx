@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { formatCnic, normalizeCnic } from "../../utils/cnic";
 import { calculateEligibleClass } from "../../utils/classEligibility";
+import {
+  PHONE_ERROR_MESSAGE,
+  cleanPhoneInputValue,
+  normalizePakistanMobile,
+  validatePakistanMobile,
+} from "../../utils/phone";
 
 interface Props {
   token: string;
@@ -16,6 +22,8 @@ interface FieldDef {
   section: string;
   wide?: boolean;
   cnic?: boolean;
+  phone?: boolean;
+  phoneRequired?: boolean;
   readonly?: boolean;
 }
 
@@ -38,7 +46,7 @@ const FIELDS: FieldDef[] = [
   { key: "mother_education", label: "Education", section: "Mother's Details" },
   { key: "mother_organization", label: "Organization", section: "Mother's Details" },
   { key: "mother_email", label: "Email", section: "Mother's Details" },
-  { key: "mother_phone", label: "Phone", section: "Mother's Details" },
+  { key: "mother_phone", label: "Phone", section: "Mother's Details", phone: true, phoneRequired: true },
   { key: "mother_cnic", label: "CNIC", section: "Mother's Details", cnic: true },
 
   { key: "father_name", label: "Name", section: "Father's Details" },
@@ -46,7 +54,7 @@ const FIELDS: FieldDef[] = [
   { key: "father_education", label: "Education", section: "Father's Details" },
   { key: "father_organization", label: "Organization", section: "Father's Details" },
   { key: "father_email", label: "Email", section: "Father's Details" },
-  { key: "father_phone", label: "Phone", section: "Father's Details" },
+  { key: "father_phone", label: "Phone", section: "Father's Details", phone: true, phoneRequired: true },
   { key: "father_cnic", label: "CNIC", section: "Father's Details", cnic: true },
 
   { key: "sibling_name", label: "Name", section: "Sibling Information" },
@@ -54,7 +62,7 @@ const FIELDS: FieldDef[] = [
   { key: "sibling_school", label: "School", section: "Sibling Information" },
 
   { key: "emergency_name", label: "Name", section: "Emergency Contact" },
-  { key: "emergency_phone", label: "Phone", section: "Emergency Contact" },
+  { key: "emergency_phone", label: "Phone", section: "Emergency Contact", phone: true, phoneRequired: true },
 
   { key: "hear_about", label: "How Did You Hear About Us", section: "Additional" },
   { key: "signature", label: "Signature", section: "Additional" },
@@ -63,6 +71,49 @@ const FIELDS: FieldDef[] = [
 ];
 
 const SECTIONS = Array.from(new Set(FIELDS.map((f) => f.section)));
+const CONTACT_FIELD_KEYS = [
+  "mother_name",
+  "mother_phone",
+  "father_name",
+  "father_phone",
+  "emergency_name",
+  "emergency_phone",
+];
+const EMERGENCY_CONTACT_MESSAGE =
+  "Please provide an emergency contact that is different from the mother and father.";
+
+function normalizeContactName(value: unknown) {
+  return String(value ?? "").trim().toLowerCase().replace(/\s+/g, " ");
+}
+
+function contactFieldsChanged(
+  values: Record<string, any>,
+  originalValues: Record<string, any>,
+) {
+  return CONTACT_FIELD_KEYS.some(
+    (key) => String(values[key] ?? "") !== String(originalValues[key] ?? ""),
+  );
+}
+
+function emergencyContactIsDuplicate(values: Record<string, any>) {
+  const emergencyName = normalizeContactName(values.emergency_name);
+  const parentNames = [
+    normalizeContactName(values.mother_name),
+    normalizeContactName(values.father_name),
+  ].filter(Boolean);
+
+  if (emergencyName && parentNames.includes(emergencyName)) {
+    return true;
+  }
+
+  const emergencyPhone = normalizePakistanMobile(values.emergency_phone);
+  const parentPhones = [
+    normalizePakistanMobile(values.mother_phone),
+    normalizePakistanMobile(values.father_phone),
+  ].filter(Boolean);
+
+  return Boolean(emergencyPhone && parentPhones.includes(emergencyPhone));
+}
 
 function PrintValue({ value, isCheckbox }: { value: any; isCheckbox?: boolean }) {
   if (isCheckbox) {
@@ -78,6 +129,7 @@ function PrintValue({ value, isCheckbox }: { value: any; isCheckbox?: boolean })
 
 export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
   const [values, setValues] = useState<Record<string, any>>({});
+  const [originalValues, setOriginalValues] = useState<Record<string, any>>({});
   const [childName, setChildName] = useState("");
   const [eligibilityYear, setEligibilityYear] = useState<number | null>(null);
   const [loading, setLoading] = useState(true);
@@ -100,6 +152,7 @@ export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
           v[f.key] = f.cnic ? formatCnic(value) : value;
         }
         setValues(v);
+        setOriginalValues(v);
         setChildName(data.child_name ?? "");
         setEligibilityYear(data.eligibility_year ?? null);
       })
@@ -122,11 +175,35 @@ export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
     setSaving(true);
     setError("");
     try {
-      const { eligible_class: _eligibleClass, ...editableValues } = values;
+      const nextValues = { ...values };
+      for (const field of FIELDS.filter((f) => f.phone)) {
+        const current = values[field.key] ?? "";
+        const original = originalValues[field.key] ?? "";
+        if (current !== original) {
+          const result = validatePakistanMobile(current, {
+            required: field.phoneRequired,
+          });
+          if (!result.valid) {
+            setError(`${field.section} ${field.label}: ${PHONE_ERROR_MESSAGE}`);
+            return;
+          }
+          nextValues[field.key] = result.normalized;
+        }
+      }
+
+      if (
+        contactFieldsChanged(values, originalValues) &&
+        emergencyContactIsDuplicate(nextValues)
+      ) {
+        setError(EMERGENCY_CONTACT_MESSAGE);
+        return;
+      }
+
+      const { eligible_class: _eligibleClass, ...editableValues } = nextValues;
       const payload = {
         ...editableValues,
-        mother_cnic: normalizeCnic(values.mother_cnic),
-        father_cnic: normalizeCnic(values.father_cnic),
+        mother_cnic: normalizeCnic(nextValues.mother_cnic),
+        father_cnic: normalizeCnic(nextValues.father_cnic),
       };
       const res = await fetch(`/api/submissions/admissions/${id}`, {
         method: "PUT",
@@ -195,9 +272,16 @@ export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
                       value={values[f.key] ?? ""}
                       readOnly={f.readonly}
                       onChange={(e) =>
-                        setField(f.key, f.cnic ? formatCnic(e.target.value) : e.target.value)
+                        setField(
+                          f.key,
+                          f.cnic
+                            ? formatCnic(e.target.value)
+                            : f.phone
+                              ? cleanPhoneInputValue(e.target.value)
+                              : e.target.value,
+                        )
                       }
-                      inputMode={f.cnic ? "numeric" : undefined}
+                      inputMode={f.cnic ? "numeric" : f.phone ? "tel" : undefined}
                       maxLength={f.cnic ? 15 : undefined}
                       pattern={f.cnic ? "[0-9]{5}-[0-9]{7}-[0-9]" : undefined}
                     />

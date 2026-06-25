@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from "react";
+import {
+  PHONE_ERROR_MESSAGE,
+  cleanPhoneInputValue,
+  validatePakistanMobile,
+} from "../../utils/phone";
 
 interface Props {
   token: string;
@@ -12,12 +17,14 @@ interface FieldDef {
   label: string;
   type?: "text" | "email" | "textarea";
   wide?: boolean;
+  phone?: boolean;
+  phoneRequired?: boolean;
 }
 
 const FIELDS: FieldDef[] = [
   { key: "name", label: "Name" },
   { key: "email", label: "Email", type: "email" },
-  { key: "phone", label: "Phone" },
+  { key: "phone", label: "Phone", phone: true, phoneRequired: true },
   { key: "position", label: "Position" },
   { key: "cover_letter", label: "Cover Letter", type: "textarea", wide: true },
 ];
@@ -33,6 +40,7 @@ function PrintValue({ value }: { value: any }) {
 
 export function CareerForm({ token, id, onBack, onSaved }: Props) {
   const [values, setValues] = useState<Record<string, any>>({});
+  const [originalValues, setOriginalValues] = useState<Record<string, any>>({});
   const [name, setName] = useState("");
   const [cvUrl, setCvUrl] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -52,6 +60,7 @@ export function CareerForm({ token, id, onBack, onSaved }: Props) {
         const v: Record<string, any> = {};
         for (const f of FIELDS) v[f.key] = data[f.key] ?? "";
         setValues(v);
+        setOriginalValues(v);
         setName(data.name ?? "");
         setCvUrl(data.cv_url ?? null);
       })
@@ -68,13 +77,29 @@ export function CareerForm({ token, id, onBack, onSaved }: Props) {
     setSaving(true);
     setError("");
     try {
+      const payload = { ...values };
+      for (const field of FIELDS.filter((f) => f.phone)) {
+        const current = values[field.key] ?? "";
+        const original = originalValues[field.key] ?? "";
+        if (current !== original) {
+          const result = validatePakistanMobile(current, {
+            required: field.phoneRequired,
+          });
+          if (!result.valid) {
+            setError(`${field.label}: ${PHONE_ERROR_MESSAGE}`);
+            return;
+          }
+          payload[field.key] = result.normalized;
+        }
+      }
+
       const res = await fetch(`/api/submissions/careers/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${token}`,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(payload),
       });
       if (!res.ok) {
         const data = await res.json().catch(() => ({}));
@@ -128,9 +153,15 @@ export function CareerForm({ token, id, onBack, onSaved }: Props) {
                   />
                 ) : (
                   <input
-                    type={f.type ?? "text"}
+                    type={f.phone ? "tel" : f.type ?? "text"}
                     value={values[f.key] ?? ""}
-                    onChange={(e) => setField(f.key, e.target.value)}
+                    onChange={(e) =>
+                      setField(
+                        f.key,
+                        f.phone ? cleanPhoneInputValue(e.target.value) : e.target.value,
+                      )
+                    }
+                    inputMode={f.phone ? "tel" : undefined}
                   />
                 )}
                 <PrintValue value={values[f.key]} />
