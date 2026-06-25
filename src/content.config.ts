@@ -75,6 +75,20 @@ const team = defineCollection({
   }),
 });
 
+const ourStory = defineCollection({
+  loader: file("content/our-story/our-story.json", {
+    parser: (text) => [{ id: "ourStory", ...JSON.parse(text) }],
+  }),
+  schema: z.object({
+    heroImage: z.string().optional(),
+    heroAlt: z.string().optional(),
+    sectionTitle: z.string().optional(),
+    timelineImage: z.string().optional(),
+    timelineMobileImage: z.string().optional(),
+    timelineAlt: z.string().optional(),
+  }),
+});
+
 const preschool = defineCollection({
   loader: file("content/preschool/preschool.json", {
     parser: (text) => [{ id: "preschool", ...JSON.parse(text) }],
@@ -448,6 +462,7 @@ export const collections = {
   home,
   mission,
   team,
+  ourStory,
   preschool,
   middleAndSenior,
   admissionProcess,

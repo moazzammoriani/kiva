@@ -1,5 +1,6 @@
 import { defineConfig } from "tinacms";
 import { HomeCollection } from "./collections/home";
+import { OurStoryCollection } from "./collections/ourStory";
 import { MissionCollection } from "./collections/mission";
 import { TeamCollection } from "./collections/team";
 import { PreschoolCollection } from "./collections/preschool";
@@ -56,6 +57,7 @@ export default defineConfig({
   schema: {
     collections: [
       HomeCollection(navLabels.homeLabel),
+      OurStoryCollection(navLabels.aboutUs?.[0]?.ourStoryLabel),
       MissionCollection(navLabels.aboutUs?.[0]?.missionLabel),
       TeamCollection(navLabels.aboutUs?.[0]?.teamLabel),
       PreschoolCollection(navLabels.programmes?.[0]?.preschoolLabel),
