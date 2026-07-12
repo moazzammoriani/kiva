@@ -207,6 +207,15 @@ const success = {
         <label><input type="radio" name="specialNeeds" value="no" /> No</label>
         <p class="helper-text">{specialNeeds.helperText}</p>
       </fieldset>
+      <label class="form-field form-field--textarea">
+        <textarea
+          name="specialNeedsDetails"
+          id="special-needs-details"
+          rows={3}
+          placeholder=" "
+        ></textarea>
+        <span>Please describe your child's special educational needs</span>
+      </label>
     </section>
 
     <section class="form-panel">
@@ -235,6 +244,15 @@ const success = {
               required
             />
             <span>Educational qualification</span>
+          </label>
+          <label class="form-field">
+            <input
+              type="text"
+              name="motherInstitution"
+              placeholder=" "
+              required
+            />
+            <span>Institution attended</span>
           </label>
           <label class="form-field">
             <input
@@ -297,6 +315,15 @@ const success = {
               required
             />
             <span>Educational qualification</span>
+          </label>
+          <label class="form-field">
+            <input
+              type="text"
+              name="fatherInstitution"
+              placeholder=" "
+              required
+            />
+            <span>Institution attended</span>
           </label>
           <label class="form-field">
             <input
@@ -1041,9 +1068,35 @@ const success = {
   const specialNeedsModalClose = document.getElementById(
     "special-needs-modal-close",
   );
+  const specialNeedsInputs = document.querySelectorAll<HTMLInputElement>(
+    'input[name="specialNeeds"]',
+  );
+  const specialNeedsDetails =
+    document.querySelector<HTMLTextAreaElement>("#special-needs-details");
+  let specialNeedsModalShown = false;
 
   function closeSpecialNeedsModal() {
     specialNeedsModal?.setAttribute("hidden", "");
+  }
+
+  function getSpecialNeedsValue() {
+    return (
+      document.querySelector(
+        'input[name="specialNeeds"]:checked',
+      ) as HTMLInputElement
+    )?.value;
+  }
+
+  function updateSpecialNeedsDetailsRequirement() {
+    const requiresDetails = getSpecialNeedsValue() === "yes";
+    if (specialNeedsDetails) {
+      specialNeedsDetails.required = requiresDetails;
+      specialNeedsDetails.setAttribute(
+        "aria-required",
+        requiresDetails ? "true" : "false",
+      );
+    }
+    return requiresDetails;
   }
 
   specialNeedsModalClose?.addEventListener("click", closeSpecialNeedsModal);
@@ -1055,19 +1108,30 @@ const success = {
       closeSpecialNeedsModal();
     }
   });
+  specialNeedsInputs.forEach((input) => {
+    input.addEventListener("change", () => {
+      const requiresDetails = updateSpecialNeedsDetailsRequirement();
+      if (requiresDetails && !specialNeedsModalShown) {
+        specialNeedsModalShown = true;
+        specialNeedsModal?.removeAttribute("hidden");
+        specialNeedsModalClose?.focus();
+      }
+    });
+  });
+  updateSpecialNeedsDetailsRequirement();
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const specialNeedsValue = (
-      document.querySelector(
-        'input[name="specialNeeds"]:checked',
-      ) as HTMLInputElement
-    )?.value;
-
-    if (specialNeedsValue === "yes") {
-      specialNeedsModal?.removeAttribute("hidden");
-      specialNeedsModalClose?.focus();
+    const requiresSpecialNeedsDetails =
+      updateSpecialNeedsDetailsRequirement();
+    if (
+      requiresSpecialNeedsDetails &&
+      specialNeedsDetails &&
+      !specialNeedsDetails.value.trim()
+    ) {
+      specialNeedsDetails.reportValidity();
+      specialNeedsDetails.focus();
       return;
     }
 

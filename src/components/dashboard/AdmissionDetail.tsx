@@ -110,6 +110,10 @@ export function AdmissionDetail({ id, token, onBack }: Props) {
           <Field label="Previous Class" value={data.previous_class} />
           <Field label="Has Report" value={data.has_report} />
           <Field label="Special Needs" value={data.special_needs} />
+          <FieldFull
+            label="Special Needs Details"
+            value={data.special_needs_details}
+          />
           <FieldFull label="Address" value={data.address} />
           <FieldFull label="Medical Info" value={data.medical_info} />
           <FieldFull label="Reason for Changing School" value={data.reason} />
@@ -134,6 +138,7 @@ export function AdmissionDetail({ id, token, onBack }: Props) {
           <Field label="Name" value={data.mother_name} />
           <Field label="Profession" value={data.mother_profession} />
           <Field label="Education" value={data.mother_education} />
+          <Field label="Institution Attended" value={data.mother_institution} />
           <Field label="Organization" value={data.mother_organization} />
           <Field label="Email" value={data.mother_email} />
           <Field label="Phone" value={data.mother_phone} />
@@ -147,6 +152,7 @@ export function AdmissionDetail({ id, token, onBack }: Props) {
           <Field label="Name" value={data.father_name} />
           <Field label="Profession" value={data.father_profession} />
           <Field label="Education" value={data.father_education} />
+          <Field label="Institution Attended" value={data.father_institution} />
           <Field label="Organization" value={data.father_organization} />
           <Field label="Email" value={data.father_email} />
           <Field label="Phone" value={data.father_phone} />
