@@ -10,6 +10,7 @@ const CLASS_AGE_RANGES = [
   ["III", 7.5, 8.5],
   ["IV", 8.5, 9.5],
   ["V", 9.5, 10.5],
+  ["VI", 10.5, 11.5],
 ] as const;
 
 export const ELIGIBLE_CLASS_OPTIONS = [
@@ -17,7 +18,7 @@ export const ELIGIBLE_CLASS_OPTIONS = [
   OUTSIDE_ELIGIBLE_RANGE,
 ];
 
-const CLASS_ONE_AND_ABOVE = new Set(["I", "II", "III", "IV", "V"]);
+const CLASS_ONE_AND_ABOVE = new Set(["I", "II", "III", "IV", "V", "VI"]);
 
 export function isClassOneAndAbove(className: string): boolean {
   return CLASS_ONE_AND_ABOVE.has(className);

@@ -90,6 +90,8 @@ const CONTACT_FIELD_KEYS = [
 ];
 const EMERGENCY_CONTACT_MESSAGE =
   "Please provide an emergency contact that is different from the mother and father.";
+const SPECIAL_NEEDS_DETAILS_MESSAGE =
+  "Special educational needs details are required when Special Needs is Yes.";
 
 function normalizeContactName(value: unknown) {
   return String(value ?? "").trim().toLowerCase().replace(/\s+/g, " ");
@@ -205,6 +207,25 @@ export function AdmissionForm({ token, id, onBack, onSaved }: Props) {
         emergencyContactIsDuplicate(nextValues)
       ) {
         setError(EMERGENCY_CONTACT_MESSAGE);
+        return;
+      }
+
+      const specialNeedsChanged =
+        String(values.special_needs ?? "") !==
+          String(originalValues.special_needs ?? "") ||
+        String(values.special_needs_details ?? "") !==
+          String(originalValues.special_needs_details ?? "");
+      const specialNeedsIsYes =
+        String(values.special_needs ?? "").trim().toLowerCase() === "yes";
+      const specialNeedsDetailsMissing = !String(
+        values.special_needs_details ?? "",
+      ).trim();
+      if (
+        specialNeedsChanged &&
+        specialNeedsIsYes &&
+        specialNeedsDetailsMissing
+      ) {
+        setError(SPECIAL_NEEDS_DETAILS_MESSAGE);
         return;
       }
 
