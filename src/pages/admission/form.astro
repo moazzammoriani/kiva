@@ -489,6 +489,35 @@ const success = {
       </h3>
       <div class="modal-body" set:html={specialNeeds.modalBodyHtml} />
       <button type="button" class="modal-close" id="special-needs-modal-close"
+      >Close</button
+      >
+    </div>
+  </div>
+
+  <div
+    class="modal-overlay"
+    id="age-eligibility-modal"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="age-eligibility-modal-title"
+    hidden
+  >
+    <div class="modal-card">
+      <h3 id="age-eligibility-modal-title" class="modal-title">
+        Age outside admission range
+      </h3>
+      <div class="modal-body">
+        <p>
+          Please ensure your child’s age falls between 1.5 - 11.4 years, since
+          Kiva School goes from Playgroup till Grade 6. If your child is above
+          11.4 years, then please visit <a
+            href="https://www.amischool.edu.pk"
+            target="_blank"
+            rel="noopener noreferrer">www.amischool.edu.pk</a
+          > for admissions.
+        </p>
+      </div>
+      <button type="button" class="modal-close" id="age-eligibility-modal-close"
         >Close</button
       >
     </div>
@@ -910,6 +939,7 @@ const success = {
     calculateEligibleClass,
     currentEligibilityYear,
     isClassOneAndAbove,
+    OUTSIDE_ELIGIBLE_RANGE,
   } from "../../utils/classEligibility";
   import {
     normalizePakistanMobile,
@@ -924,6 +954,13 @@ const success = {
   const eligibleClassField = document.getElementById(
     "eligible-class",
   ) as HTMLInputElement;
+  const ageEligibilityModal = document.getElementById(
+    "age-eligibility-modal",
+  );
+  const ageEligibilityModalClose = document.getElementById(
+    "age-eligibility-modal-close",
+  );
+  let ageEligibilityModalShown = false;
   const previousSchoolField = document.querySelector<HTMLInputElement>(
     'input[name="previousSchool"]',
   );
@@ -997,6 +1034,15 @@ const success = {
       currentEligibilityYear(),
     );
     eligibleClassField.value = eligibleClass;
+
+    if (
+      eligibleClass === OUTSIDE_ELIGIBLE_RANGE &&
+      !ageEligibilityModalShown
+    ) {
+      ageEligibilityModalShown = true;
+      ageEligibilityModal?.removeAttribute("hidden");
+      ageEligibilityModalClose?.focus();
+    }
 
     const shouldRequireSchoolHistory = isClassOneAndAbove(eligibleClass);
     [previousSchoolField, previousClassField, schoolChangeReasonField].forEach(
@@ -1079,6 +1125,10 @@ const success = {
     specialNeedsModal?.setAttribute("hidden", "");
   }
 
+  function closeAgeEligibilityModal() {
+    ageEligibilityModal?.setAttribute("hidden", "");
+  }
+
   function getSpecialNeedsValue() {
     return (
       document.querySelector(
@@ -1100,12 +1150,24 @@ const success = {
   }
 
   specialNeedsModalClose?.addEventListener("click", closeSpecialNeedsModal);
+  ageEligibilityModalClose?.addEventListener(
+    "click",
+    closeAgeEligibilityModal,
+  );
   specialNeedsModal?.addEventListener("click", (e) => {
     if (e.target === specialNeedsModal) closeSpecialNeedsModal();
   });
+  ageEligibilityModal?.addEventListener("click", (e) => {
+    if (e.target === ageEligibilityModal) closeAgeEligibilityModal();
+  });
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !specialNeedsModal?.hasAttribute("hidden")) {
-      closeSpecialNeedsModal();
+    if (e.key === "Escape") {
+      if (!specialNeedsModal?.hasAttribute("hidden")) {
+        closeSpecialNeedsModal();
+      }
+      if (!ageEligibilityModal?.hasAttribute("hidden")) {
+        closeAgeEligibilityModal();
+      }
     }
   });
   specialNeedsInputs.forEach((input) => {
