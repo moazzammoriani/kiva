@@ -960,7 +960,6 @@ const success = {
   const ageEligibilityModalClose = document.getElementById(
     "age-eligibility-modal-close",
   );
-  let ageEligibilityModalShown = false;
   const previousSchoolField = document.querySelector<HTMLInputElement>(
     'input[name="previousSchool"]',
   );
@@ -1035,21 +1034,14 @@ const success = {
     );
     eligibleClassField.value = eligibleClass;
 
-    if (
-      eligibleClass === OUTSIDE_ELIGIBLE_RANGE &&
-      !ageEligibilityModalShown
-    ) {
-      ageEligibilityModalShown = true;
-      ageEligibilityModal?.removeAttribute("hidden");
-      ageEligibilityModalClose?.focus();
-    }
-
     const shouldRequireSchoolHistory = isClassOneAndAbove(eligibleClass);
     [previousSchoolField, previousClassField, schoolChangeReasonField].forEach(
       (field) => {
         if (field) field.required = shouldRequireSchoolHistory;
       },
     );
+
+    return eligibleClass;
   }
 
   dobField?.addEventListener("input", updateEligibleClassRequirements);
@@ -1184,6 +1176,12 @@ const success = {
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
+
+    if (updateEligibleClassRequirements() === OUTSIDE_ELIGIBLE_RANGE) {
+      ageEligibilityModal?.removeAttribute("hidden");
+      ageEligibilityModalClose?.focus();
+      return;
+    }
 
     const requiresSpecialNeedsDetails =
       updateSpecialNeedsDetailsRequirement();
