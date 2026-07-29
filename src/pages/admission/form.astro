@@ -1106,12 +1106,9 @@ const success = {
   const specialNeedsModalClose = document.getElementById(
     "special-needs-modal-close",
   );
-  const specialNeedsInputs = document.querySelectorAll<HTMLInputElement>(
-    'input[name="specialNeeds"]',
+  const submitButton = form?.querySelector<HTMLButtonElement>(
+    'button[type="submit"]',
   );
-  const specialNeedsDetails =
-    document.querySelector<HTMLTextAreaElement>("#special-needs-details");
-  let specialNeedsModalShown = false;
 
   function closeSpecialNeedsModal() {
     specialNeedsModal?.setAttribute("hidden", "");
@@ -1129,16 +1126,12 @@ const success = {
     )?.value;
   }
 
-  function updateSpecialNeedsDetailsRequirement() {
-    const requiresDetails = getSpecialNeedsValue() === "yes";
-    if (specialNeedsDetails) {
-      specialNeedsDetails.required = requiresDetails;
-      specialNeedsDetails.setAttribute(
-        "aria-required",
-        requiresDetails ? "true" : "false",
-      );
-    }
-    return requiresDetails;
+  function blockSpecialNeedsSubmission() {
+    if (getSpecialNeedsValue() !== "yes") return false;
+
+    specialNeedsModal?.removeAttribute("hidden");
+    specialNeedsModalClose?.focus();
+    return true;
   }
 
   specialNeedsModalClose?.addEventListener("click", closeSpecialNeedsModal);
@@ -1162,36 +1155,18 @@ const success = {
       }
     }
   });
-  specialNeedsInputs.forEach((input) => {
-    input.addEventListener("change", () => {
-      const requiresDetails = updateSpecialNeedsDetailsRequirement();
-      if (requiresDetails && !specialNeedsModalShown) {
-        specialNeedsModalShown = true;
-        specialNeedsModal?.removeAttribute("hidden");
-        specialNeedsModalClose?.focus();
-      }
-    });
+  submitButton?.addEventListener("click", (e) => {
+    if (blockSpecialNeedsSubmission()) e.preventDefault();
   });
-  updateSpecialNeedsDetailsRequirement();
 
   form?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
+    if (blockSpecialNeedsSubmission()) return;
+
     if (updateEligibleClassRequirements() === OUTSIDE_ELIGIBLE_RANGE) {
       ageEligibilityModal?.removeAttribute("hidden");
       ageEligibilityModalClose?.focus();
-      return;
-    }
-
-    const requiresSpecialNeedsDetails =
-      updateSpecialNeedsDetailsRequirement();
-    if (
-      requiresSpecialNeedsDetails &&
-      specialNeedsDetails &&
-      !specialNeedsDetails.value.trim()
-    ) {
-      specialNeedsDetails.reportValidity();
-      specialNeedsDetails.focus();
       return;
     }
 
