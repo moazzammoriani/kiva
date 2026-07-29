@@ -100,6 +100,110 @@ body {
   border-bottom-color: var(--db-teal);
 }
 
+/* ── Admission settings ───────────────────────────────── */
+
+.db-admission-setting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 1rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--db-border);
+  border-left: 4px solid #d97706;
+  border-radius: var(--db-radius);
+  background: var(--db-white);
+}
+
+.db-admission-setting.is-enabled {
+  border-left-color: var(--db-deep-teal);
+}
+
+.db-admission-setting-copy h2 {
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.db-admission-setting-status {
+  color: #a04f08;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.db-admission-setting.is-enabled .db-admission-setting-status {
+  color: var(--db-deep-teal);
+}
+
+.db-admission-setting-error {
+  margin-top: 0.2rem;
+  color: #b42318;
+  font-size: 0.8rem;
+}
+
+.db-switch {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+
+.db-switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.db-switch-track {
+  display: flex;
+  align-items: center;
+  width: 2.75rem;
+  height: 1.5rem;
+  padding: 0.1875rem;
+  border-radius: 1rem;
+  background: #94a3b8;
+  transition: background 0.15s;
+}
+
+.db-switch-thumb {
+  width: 1.125rem;
+  height: 1.125rem;
+  border-radius: 50%;
+  background: var(--db-white);
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.35);
+  transition: transform 0.15s;
+}
+
+.db-switch input:checked + .db-switch-track {
+  background: var(--db-deep-teal);
+}
+
+.db-switch input:checked + .db-switch-track .db-switch-thumb {
+  transform: translateX(1.25rem);
+}
+
+.db-switch input:focus-visible + .db-switch-track {
+  outline: 3px solid rgba(13, 178, 155, 0.3);
+  outline-offset: 2px;
+}
+
+.db-switch input:disabled + .db-switch-track {
+  cursor: wait;
+  opacity: 0.6;
+}
+
+.db-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
 /* ── Filters ───────────────────────────────────────────── */
 
 .db-filters {
@@ -520,6 +624,7 @@ body {
   /* Hide all UI chrome */
   .db-header,
   .db-tabs,
+  .db-admission-setting,
   .db-detail-back,
   .db-btn-print,
   .db-detail-toolbar,

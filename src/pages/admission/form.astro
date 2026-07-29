@@ -205,7 +205,9 @@ const success = {
           ><input type="radio" name="specialNeeds" value="yes" required /> Yes</label
         >
         <label><input type="radio" name="specialNeeds" value="no" /> No</label>
-        <p class="helper-text">{specialNeeds.helperText}</p>
+        <p class="helper-text" id="special-needs-helper">
+          {specialNeeds.helperText}
+        </p>
       </fieldset>
       <label class="form-field form-field--textarea">
         <textarea
@@ -1106,9 +1108,17 @@ const success = {
   const specialNeedsModalClose = document.getElementById(
     "special-needs-modal-close",
   );
+  const specialNeedsHelper = document.getElementById("special-needs-helper");
+  const specialNeedsDetails = document.querySelector<HTMLTextAreaElement>(
+    "#special-needs-details",
+  );
+  const specialNeedsInputs = document.querySelectorAll<HTMLInputElement>(
+    'input[name="specialNeeds"]',
+  );
   const submitButton = form?.querySelector<HTMLButtonElement>(
     'button[type="submit"]',
   );
+  let acceptingSpecialNeeds = false;
 
   function closeSpecialNeedsModal() {
     specialNeedsModal?.setAttribute("hidden", "");
@@ -1126,8 +1136,35 @@ const success = {
     )?.value;
   }
 
+  function updateSpecialNeedsPresentation() {
+    const requiresDetails =
+      acceptingSpecialNeeds && getSpecialNeedsValue() === "yes";
+    if (specialNeedsHelper) {
+      specialNeedsHelper.hidden = acceptingSpecialNeeds;
+    }
+    if (specialNeedsDetails) {
+      specialNeedsDetails.required = requiresDetails;
+      specialNeedsDetails.setAttribute(
+        "aria-required",
+        requiresDetails ? "true" : "false",
+      );
+    }
+  }
+
+  async function loadAdmissionSettings() {
+    try {
+      const response = await fetch("/api/admission/settings");
+      if (!response.ok) return;
+      const settings = await response.json();
+      acceptingSpecialNeeds = settings.accepting_special_needs === true;
+      updateSpecialNeedsPresentation();
+    } catch {
+      // Keep submissions closed if the operational setting cannot be loaded.
+    }
+  }
+
   function blockSpecialNeedsSubmission() {
-    if (getSpecialNeedsValue() !== "yes") return false;
+    if (getSpecialNeedsValue() !== "yes" || acceptingSpecialNeeds) return false;
 
     specialNeedsModal?.removeAttribute("hidden");
     specialNeedsModalClose?.focus();
@@ -1135,6 +1172,11 @@ const success = {
   }
 
   specialNeedsModalClose?.addEventListener("click", closeSpecialNeedsModal);
+  specialNeedsInputs.forEach((input) => {
+    input.addEventListener("change", updateSpecialNeedsPresentation);
+  });
+  updateSpecialNeedsPresentation();
+  loadAdmissionSettings();
   ageEligibilityModalClose?.addEventListener(
     "click",
     closeAgeEligibilityModal,
@@ -1212,6 +1254,10 @@ const success = {
       if (response.ok) {
         form.style.display = "none";
         if (notification) notification.style.display = "flex";
+      } else if (response.status === 409 && getSpecialNeedsValue() === "yes") {
+        acceptingSpecialNeeds = false;
+        updateSpecialNeedsPresentation();
+        blockSpecialNeedsSubmission();
       } else {
         alert("Something went wrong. Please try again.");
       }

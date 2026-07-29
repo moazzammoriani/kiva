@@ -11,6 +11,7 @@ import { ProgressForm } from "./ProgressForm";
 import { AdmissionForm } from "./AdmissionForm";
 import { ContactForm } from "./ContactForm";
 import { CareerForm } from "./CareerForm";
+import { AdmissionSettingsControl } from "./AdmissionSettingsControl";
 import "./dashboard.css";
 
 type Tab = "contacts" | "careers" | "admissions" | "kiva-kamps" | "progress";
@@ -348,22 +349,27 @@ export default function Dashboard() {
     };
     const supportsEdit = activeTab !== "kiva-kamps";
     return (
-      <SubmissionsTable
-        key={activeTab}
-        token={token!}
-        endpoint={`/api/submissions/${activeTab}`}
-        columns={columnsByTab[activeTab]}
-        onRowClick={handleRowClick}
-        exportFilename={`${activeTab}-export.csv`}
-        onEdit={
-          supportsEdit
-            ? (row) => navigate(`/dashboard/${activeTab}/${row.id}/edit`)
-            : undefined
-        }
-        deleteEndpoint={`/api/submissions/${activeTab}`}
-        deleteTitle={deleteTitleByTab[activeTab]}
-        deleteMessage={deleteMessageByTab[activeTab]}
-      />
+      <>
+        {activeTab === "admissions" && (
+          <AdmissionSettingsControl token={token!} />
+        )}
+        <SubmissionsTable
+          key={activeTab}
+          token={token!}
+          endpoint={`/api/submissions/${activeTab}`}
+          columns={columnsByTab[activeTab]}
+          onRowClick={handleRowClick}
+          exportFilename={`${activeTab}-export.csv`}
+          onEdit={
+            supportsEdit
+              ? (row) => navigate(`/dashboard/${activeTab}/${row.id}/edit`)
+              : undefined
+          }
+          deleteEndpoint={`/api/submissions/${activeTab}`}
+          deleteTitle={deleteTitleByTab[activeTab]}
+          deleteMessage={deleteMessageByTab[activeTab]}
+        />
+      </>
     );
   }
 
